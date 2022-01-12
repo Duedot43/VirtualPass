@@ -1,0 +1,2 @@
+have the user enter info put info in tmp file have assigner assign info to perminint info dir
+for each barcode have a unique ID and room number which is set on first run by the user 
