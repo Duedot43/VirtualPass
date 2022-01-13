@@ -15,10 +15,11 @@ if(!isset($_COOKIE[$cookie_name])) {
   } else {
     
     echo "Cookie '" . $cookie_name . "' is set!<br>";
-    echo "Value is: " . $_COOKIE[$cookie_name];
+    //echo "Value is: " . $_COOKIE[$cookie_name];
     $catin = exec("ls departed/ | grep " . $_COOKIE[$cookie_name]);
     $catout = exec("ls registered_phid/ | grep " . $_COOKIE[$cookie_name]);
-    echo " out ", $catout, " in ", $catin, " cookie ", $_COOKIE[$cookie_name];
+    echo ("Hall pass registerd");
+    //echo " out ", $catout, " in ", $catin, " cookie ", $_COOKIE[$cookie_name];
     //1 = departed
     if ($catout == $_COOKIE[$cookie_name]) {
       $fh = fopen('registered_phid/' . $_COOKIE[$cookie_name],'r');
