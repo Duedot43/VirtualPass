@@ -13,8 +13,19 @@ if(!isset($_COOKIE[$cookie_name])) {
     header("Location: /register.html");
     exit();
   } else {
+    
     echo "Cookie '" . $cookie_name . "' is set!<br>";
     echo "Value is: " . $_COOKIE[$cookie_name];
+    $catin = exec("cat departed | grep " . $_COOKIE[$cookie_name]);
+    //1 = departed
+    if ($catin == $_COOKIE[$cookie_name]) {
+      $dpt = "Departed";
+      exec("mv -v registered_phid/" . $_COOKIE[$cookie_name] . " departed/");
+    }
+    if (file_exists("departed/" . $_COOKIE[$cookie_name])) {
+      $dpt = "Arrived";
+      exec("mv -v departed/" . $_COOKIE[$cookie_name] . " registered_phid/");
+    }
     $date = exec("date");
     exec("echo '{$date}' >> log/inout.log");
     exec("echo . >> log/inout.log");
@@ -22,6 +33,9 @@ if(!isset($_COOKIE[$cookie_name])) {
     $cookid = fgets($fh); 
     echo($cookid);
     exec("echo '{$cookid}' >> log/inout.log");
+    $rid = exec("cat registerd_qrids/{$qrid}");
+    exec("echo '{$dpd}' '{&rid}' >> log/inout.log");
+    exec("echo . >> log/inout.log");
 
   }
 ?>
