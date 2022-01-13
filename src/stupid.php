@@ -19,7 +19,7 @@ if(!isset($_COOKIE[$cookie_name])) {
     $catin = exec("ls departed/ | grep " . $_COOKIE[$cookie_name]);
     $catout = exec("ls registered_phid/ | grep " . $_COOKIE[$cookie_name]);
     echo ("Hall pass registerd<br>");
-    echo ("Please rescan the QR code if this is your first time.");
+    echo ("Please rescan the QR code if this is your first time.<br>");
     //echo " out ", $catout, " in ", $catin, " cookie ", $_COOKIE[$cookie_name];
     //1 = departed
     if ($catout == $_COOKIE[$cookie_name]) {
@@ -35,6 +35,7 @@ if(!isset($_COOKIE[$cookie_name])) {
         exec("mv -v departed/" . $_COOKIE[$cookie_name] . " registered_phid/");
       }
     $date = exec("date");
+    echo("you have {$dpt}");
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
     exec("echo '{$date}' >> log/inout.log");
     //echo($cookid);
