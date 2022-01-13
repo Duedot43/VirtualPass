@@ -16,7 +16,7 @@ file_put_contents('qrid.txt', $qrid);
 <tr>
 <td width="78">THE number</td>
 <td width="6">:</td>
-<td width="294"><input name="myusername" type="text" id="myusername"></td>
+<td width="294"><input name="qrid" type="text" id="qrid"></td>
 </tr>
 <tr>
 </tr>
