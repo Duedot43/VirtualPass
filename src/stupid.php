@@ -1,8 +1,8 @@
 <?php
 $cookie_name = "phid";
-$qrid=$_POST['qrid'];
-exec("rm qrid.txt");
-exec("echo '{$qrid}' > qrid.txt");
+//$qrid=$_POST['qrid'];
+$fh = fopen('qrid.txt','r');
+$qrid = fgets($fh);
 $output = exec("tree -i --noreport registerd_qrids/ | grep -o {$qrid}");
 if($output != $qrid) {
     header("Location: /regqrid.html");
