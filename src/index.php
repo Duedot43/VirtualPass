@@ -3,7 +3,6 @@
 echo "ay so php is mean so could you type this number";
 echo "\ninto the text box to the right so";
 echo "\ni can put this dumb thing in a text file", $_GET['page'];
-file_put_contents('qrid.txt', $qrid);
 ?> 
 <table width="300" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
 <tr>
