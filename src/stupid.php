@@ -19,7 +19,7 @@ if(!isset($_COOKIE[$cookie_name])) {
     $catin = exec("ls departed/ | grep " . $_COOKIE[$cookie_name]);
     $catout = exec("ls registered_phid/ | grep " . $_COOKIE[$cookie_name]);
     echo ("Hall pass registerd<br>");
-    echo ("Please rescan the QR code if this is your first time.<br>");
+    //echo ("Please rescan the QR code if this is your first time.<br>");
     //echo " out ", $catout, " in ", $catin, " cookie ", $_COOKIE[$cookie_name];
     //1 = departed
     if ($catout == $_COOKIE[$cookie_name]) {
