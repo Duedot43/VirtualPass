@@ -33,13 +33,13 @@ if(!isset($_COOKIE[$cookie_name])) {
         exec("mv -v departed/" . $_COOKIE[$cookie_name] . " registered_phid/");
       }
     $date = exec("date");
+    exec("echo ///////////////////////////////////////////////// >> log/inout.log");
     exec("echo '{$date}' >> log/inout.log");
-    exec("echo . >> log/inout.log");
     //echo($cookid);
     exec("echo '{$cookid}' >> log/inout.log");
     $rid = exec("cat registerd_qrids/{$qrid}");
     exec("echo '{$dpt}' '{$rid}' >> log/inout.log");
-    exec("echo . >> log/inout.log");
+    exec("echo ///////////////////////////////////////////////// >> log/inout.log");
 
   }
 ?>
