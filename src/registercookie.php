@@ -8,5 +8,10 @@ $ranid = uniqid(rand());
 echo $ranid;
 setcookie($cookie_name, $ranid);
 exec("cd registered_phid/ && echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> {$ranid}");
+exec("echo '{$firstname} registered with phid {$ranid} >> log/inout.log");
+exec("echo ///////////////////////////////////////////////// >> log/inout.log");
+exec("echo '{$date}' >> log/inout.log");
+exec("echo '{$firstname} registered with phid {$ranid} >> log/inout.log");
+exec("echo ///////////////////////////////////////////////// >> log/inout.log");
 header("Location: /stupid.php");
 ?>
