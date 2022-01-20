@@ -56,3 +56,4 @@ if(!isset($_COOKIE[$cookie_name])) {
 ?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <input type="button" value="Arrive/Depart" onclick="location='stupid.php'" />
+<input type="button" value="Delete User Info" onclick="location='delusr.php'" />
