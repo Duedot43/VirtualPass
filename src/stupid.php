@@ -46,3 +46,4 @@ if(!isset($_COOKIE[$cookie_name])) {
 
   }
 ?>
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfCkQBD3Diyu3zQCnorIhkWLEHc4tdyzDKkV0jknGImBMyj0w/viewform?embedded=true" width="300" height="350" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
