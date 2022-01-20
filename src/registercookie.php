@@ -11,7 +11,7 @@ exec("cd registered_phid/ && echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem
 exec("echo '{$firstname} registered with phid {$ranid} >> log/inout.log");
 exec("echo ///////////////////////////////////////////////// >> log/inout.log");
 exec("echo '{$date}' >> log/inout.log");
-exec("echo '{$firstname} registered with phid {$ranid} >> log/inout.log");
+exec("echo '{$firstname} registered with phid {$ranid}' >> log/inout.log");
 exec("echo ///////////////////////////////////////////////// >> log/inout.log");
 header("Location: /stupid.php");
 ?>
