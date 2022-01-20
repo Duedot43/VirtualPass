@@ -22,18 +22,26 @@ if(!isset($_COOKIE[$cookie_name])) {
     //echo ("Please rescan the QR code if this is your first time.<br>");
     //echo " out ", $catout, " in ", $catin, " cookie ", $_COOKIE[$cookie_name];
     //1 = departed
+    $cook = ("0");
     if ($catout == $_COOKIE[$cookie_name]) {
       $fh = fopen('registered_phid/' . $_COOKIE[$cookie_name],'r');
       $cookid = fgets($fh); 
       $dpt = ("Departed");
+      $cook = ("1");
       exec("mv -v registered_phid/" . $_COOKIE[$cookie_name] . " departed/");
     }
-      else{
-        $fh = fopen('departed/' . $_COOKIE[$cookie_name],'r');
-        $cookid = fgets($fh); 
-        $dpt = ("Arrived");
-        exec("mv -v departed/" . $_COOKIE[$cookie_name] . " registered_phid/");
-      }
+    if ($catin == $_COOKIE[$cookie_name]) {
+      $fh = fopen('departed/' . $_COOKIE[$cookie_name],'r');
+      $cookid = fgets($fh); 
+      $dpt = ("Arrived");
+      $cook = ("1");
+      exec("mv -v departed/" . $_COOKIE[$cookie_name] . " registered_phid/");
+    }
+    if ($cook == "0") {
+      //cookie error re register cookie and delete the cookie
+      setcookie("phid", "", time() - 9999999999);
+      header("Location: /register.html");
+    }
     $date = exec("date");
     echo("you have {$dpt}");
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
@@ -46,4 +54,3 @@ if(!isset($_COOKIE[$cookie_name])) {
 
   }
 ?>
-<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfCkQBD3Diyu3zQCnorIhkWLEHc4tdyzDKkV0jknGImBMyj0w/viewform?embedded=true" width="300" height="350" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
