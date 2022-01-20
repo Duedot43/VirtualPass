@@ -43,7 +43,7 @@ if(!isset($_COOKIE[$cookie_name])) {
       header("Location: /register.html");
     }
     $date = exec("date");
-    echo("you have {$dpt}");
+    echo("you have {$dpt}<br>");
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
     exec("echo '{$date}' >> log/inout.log");
     //echo($cookid);
