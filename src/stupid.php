@@ -53,6 +53,7 @@ if(!isset($_COOKIE[$cookie_name])) {
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
 
   }
+//change Arrive/daparted button to show what it is going to do
 ?>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <input type="button" value="Arrive/Depart" onclick="location='stupid.php'" />
