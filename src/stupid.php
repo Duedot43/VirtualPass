@@ -43,6 +43,12 @@ if(!isset($_COOKIE[$cookie_name])) {
       header("Location: /register.html");
     }
     $date = exec("date");
+    if ($dpt == "Arrived"){
+      $dpt2 = ("Depart");
+    }
+    if ($dpt == "Departed"){
+      $dpt2 = ("Arrive");
+    }
     echo("you have {$dpt}<br>");
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
     exec("echo '{$date}' >> log/inout.log");
