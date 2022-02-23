@@ -9,21 +9,21 @@
     <tr>
     <td width="78">First Name</td>
     <td width="6">:</td>
-    <td width="294"><input name="firstname" type="text" id="firstname" style="padding: 5px; border: 3px solid red;"></td>
+    <td width="294"><input name="firstname" type="text" pattern="[a-zA-Z]+" id="firstname" style="padding: 5px; border: 3px solid red;" required></td>
     </tr>
     <tr>
     <td>Last Name</td>
     <td>:</td>
-    <td><input name="lastname" type="text" id="lastname" style="padding: 5px; border: 3px solid red;"></td>
+    <td><input name="lastname" type="text" id="lastname" pattern="[a-zA-Z]+" style="padding: 5px; border: 3px solid red;" required></td>
     </tr>
     <tr>
     <td>Student ID</td>
     <td>:</td>
-    <td><input name="stid" type="text" id="stid" style="padding: 5px; border: 3px solid red;"></td>
+    <td><input name="stid" type="number" id="stid" style="padding: 5px; border: 3px solid red;" required></td>
     </tr>
     <td>Student E-Mail</td>
     <td>:</td>
-    <td><input name="stem" type="text" id="stem" style="padding: 5px; border: 3px solid red;"></td>
+    <td><input name="stem" type="email" id="stem" style="padding: 5px; border: 3px solid red;" required></td>
     </tr>
     <tr>
     <td>&nbsp;</td>
