@@ -1,4 +1,3 @@
-
 <?php 
 if ($_GET['page'] == "") {
     echo("invalid URL");

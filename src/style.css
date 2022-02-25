@@ -1,11 +1,11 @@
-td {
-    font-family: "Zilla Slab", Arial, Helvetica, sans-serif;
+.box {
+    border: solid #ce9393 3px;
+    border-radius: 5px 5px;
+    padding: 5px;
 }
 
 body {
+    @import url('https://fonts.googleapis.com/css2?family=Zilla+Slab&display=swap');
+    font-family: "Zilla Slab", Arial, Helvetica, sans-serif;
     background-color: #dadada;
-    margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 8;
-}
-table {
-    background-color: #FFFFFF;
 }
