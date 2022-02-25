@@ -1,11 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab&display=swap');
 .box {
-    border: solid #ce9393 3px;
-    border-radius: 5px 5px;
+    border: solid #ce9393 3px; border-radius: 5px;
     padding: 5px;
+    width: 50%;
 }
-
 body {
-    @import url('https://fonts.googleapis.com/css2?family=Zilla+Slab&display=swap');
     font-family: "Zilla Slab", Arial, Helvetica, sans-serif;
     background-color: #dadada;
 }
+table {
+    background-color: white;
+    border-radius: 7px;
+}
+
