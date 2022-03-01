@@ -1,15 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Zilla+Slab&display=swap');
 .box {
-    border: solid #ce9393 3px; border-radius: 5px;
+    border: solid #70b8d4 3px; border-radius: 5px;
     padding: 5px;
-    width: 50%;
+    width: 100%;
 }
 body {
-    font-family: "Zilla Slab", Arial, Helvetica, sans-serif;
+    font-family: "Zilla Slab", Arial, Helvetica, sans-serif; color: #545d5eda;
     background-color: #dadada;
 }
 table {
+    margin: 0 auto;
+    max-width: 600px;
     background-color: white;
     border-radius: 7px;
+    box-shadow: 5px 5px rgb(82, 99, 102);
+    padding: 7px;
 }
 
+.text {
+    min-width: 77px;
+}
+.reg {
+    width: 100%; height: 40px;
+    font-family: "Zilla Slab"; font-size: 15px;
+    background-color: #70b8d4;
+    border: solid  #70b8d4; border-radius: 5px;
+    
+}
+input:hover {
+    border: solid blue; border-radius: 5px;
+}
