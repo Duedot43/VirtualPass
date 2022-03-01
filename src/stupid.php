@@ -14,11 +14,11 @@ if(!isset($_COOKIE[$cookie_name])) {
     exit();
   } else {
     
-    echo "Cookie '" . $cookie_name . "' is set!<br>";
+    //echo "Cookie '" . $cookie_name . "' is set!<br>";
     //echo "Value is: " . $_COOKIE[$cookie_name];
     $catin = exec("ls departed/ | grep " . $_COOKIE[$cookie_name]);
     $catout = exec("ls registered_phid/ | grep " . $_COOKIE[$cookie_name]);
-    echo ("Hall pass registerd<br>");
+    //echo ("Hall pass registerd<br>");
     //echo ("Please rescan the QR code if this is your first time.<br>");
     //echo " out ", $catout, " in ", $catin, " cookie ", $_COOKIE[$cookie_name];
     //1 = departed
@@ -49,7 +49,7 @@ if(!isset($_COOKIE[$cookie_name])) {
     if ($dpt == "Departed"){
       $dpt2 = ("Arrive");
     }
-    echo("you have {$dpt}<br>");
+    //echo("you have {$dpt}<br>");
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
     exec("echo '{$date}' >> log/inout.log");
     //echo($cookid);
@@ -59,8 +59,11 @@ if(!isset($_COOKIE[$cookie_name])) {
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
 
   }
-//change Arrive/daparted button to show what it is going to do
+//change Arrive/daparted button to show what it is going to do ,done
+//HOW TO APPLE USE THE CODE BELOW FOR HTML KEEP THE PHP THINGS THOSE ARE THE VARIABLES TO DISPLAY//
 ?>
+Hall pass registerd<br>
+you have <?php echo $dpt;?><br>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<input type="button" value="Arrive/Depart" onclick="location='stupid.php'" />
+<input type="button" value='<?php echo $dpt2;?>' onclick="location='stupid.php'" />
 <input type="button" value="Delete User Info" onclick="location='delusr.php'" />
