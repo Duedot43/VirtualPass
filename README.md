@@ -6,7 +6,7 @@ stored in the value of the cookie along with a folder with the uniquie ID's name
 Tested for GNU/Linux may work on MacOS, and a Windows version is in progress
 
 ############################################<br>
-#//////////////////////////////////////////#<br>
+#/ / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /#<br>
 #//THIS PROGRAM IS DESIGNED FOR GNU/LINUX//#<br>
-#//////////////////////////////////////////#<br>
+#/ / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / /#<br>
 ############################################<br>
