@@ -5,8 +5,8 @@ if the identifier cookie is not found in the clients browser the student will re
 stored in the value of the cookie along with a folder with the uniquie ID's name and info in a text file which is to be reported in the log file 
 Tested for GNU/Linux may work on MacOS, and a Windows version is in progress
 
-############################################
-#//////////////////////////////////////////#
-#//THIS PROGRAM IS DESIGNED FOR GNU/LINUX//#
-#//////////////////////////////////////////#
-############################################
+############################################<br>
+#//////////////////////////////////////////#<br>
+#//THIS PROGRAM IS DESIGNED FOR GNU/LINUX//#<br>
+#//////////////////////////////////////////#<br>
+############################################<br>
