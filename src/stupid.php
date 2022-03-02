@@ -66,4 +66,4 @@ Hall pass registerd<br>
 you have <?php echo $dpt;?><br>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <input type="button" value='<?php echo $dpt2;?>' onclick="location='stupid.php'" />
-<input type="button" value="Delete User Info" onclick="location='delusr.php'" />
+<input type="button" value="Delete User Info" onclick="location='delusrpmt.php'" />
