@@ -62,6 +62,9 @@ if(!isset($_COOKIE[$cookie_name])) {
 //change Arrive/daparted button to show what it is going to do ,done
 //HOW TO APPLE USE THE CODE BELOW FOR HTML KEEP THE PHP THINGS THOSE ARE THE VARIABLES TO DISPLAY//
 ?>
+<head>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
 Hall pass registerd<br>
 you have <?php echo $dpt;?><br>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
