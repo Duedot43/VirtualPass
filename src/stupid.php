@@ -1,16 +1,18 @@
 <?php
 $cookie_name = "phid";
 //$qrid=$_POST['qrid'];
-$fh = fopen('qrid.txt','r');
-$qrid = fgets($fh);
+//$fh = fopen('qrid.txt','r');
+//$qrid = fgets($fh);
+$qrid = $_GET['page'];
+echo $qrid;
 $output = exec("tree -i --noreport registerd_qrids/ | grep -o {$qrid}");
 if($output != $qrid) {
-    header("Location: /regqrid.html");
+    header("Location: /regqrid.php?page=" . $qrid);
     exit();
 } 
 if(!isset($_COOKIE[$cookie_name])) {
     echo "Cookie named '" . $cookie_name . "' is not set!";
-    header("Location: /register.html");
+    header("Location: /registercookie.php?page=" . $qrid);
     exit();
   } else {
     
