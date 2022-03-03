@@ -2,6 +2,7 @@
     <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Portal</title>
 <input type="button" value="View rooms registered" onclick="location='rmreg.php'" />
 <input type="button" value="View users registered" onclick="location='ureg.php'" />
 <input type="button" value="View logs" onclick="location='inoutlog.php'" />

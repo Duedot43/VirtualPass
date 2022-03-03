@@ -7,4 +7,5 @@ setcookie("phid", "", time() - 9999999999);
 <head>
     <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
+<title>Bye!</title>
 User removed.

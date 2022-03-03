@@ -54,3 +54,4 @@ if(!isset($_COOKIE[$cookie_name])) {
 //exec("echo ///////////////////////////////////////////////// >> log/inout.log");
 //header("Location: /stupid.php");
 ?>
+<title>Register Your User</title>

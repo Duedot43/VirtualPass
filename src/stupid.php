@@ -66,6 +66,7 @@ if(!isset($_COOKIE[$cookie_name])) {
     <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><?php echo $dpt;?></title>
 <tr>
 <td>
 <table width="100%" border="0" cellpadding="3" cellspacing="1">
