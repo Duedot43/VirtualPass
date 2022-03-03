@@ -15,7 +15,7 @@ if(isset($_GET['page'])) {
           $date = exec("date");
           if(!isset($_COOKIE[$cookie_name])) {
               setcookie($cookie_name, $ranid, time() + (86400 * 360));
-              exec("cd registered_phid/ && echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> '{$ranid}'");
+              exec("cd registered_phid/ && mkdir '{$ranid}' && cd '{$ranid}' && mkdir 'srvinfo' && mkdir 'huinfo' && echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> '{$ranid}'");
               exec("echo ///////////////////////////////////////////////// >> log/inout.log");
               exec("echo '{$date}' >> log/inout.log");
               exec("echo '{$firstname}' registered with phid '{$ranid}' >> log/inout.log");

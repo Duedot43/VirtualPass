@@ -26,14 +26,14 @@ if(!isset($_COOKIE[$cookie_name])) {
     //1 = departed
     $cook = ("0");
     if ($catout == $_COOKIE[$cookie_name]) {
-      $fh = fopen('registered_phid/' . $_COOKIE[$cookie_name],'r');
+      $fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . '/' . $_COOKIE[$cookie_name],'r');
       $cookid = fgets($fh); 
       $dpt = ("Departed");
       $cook = ("1");
       exec("mv -v registered_phid/" . $_COOKIE[$cookie_name] . " departed/");
     }
     if ($catin == $_COOKIE[$cookie_name]) {
-      $fh = fopen('departed/' . $_COOKIE[$cookie_name],'r');
+      $fh = fopen('departed/' . $_COOKIE[$cookie_name] . '/' . $_COOKIE[$cookie_name],'r');
       $cookid = fgets($fh); 
       $dpt = ("Arrived");
       $cook = ("1");
@@ -44,6 +44,7 @@ if(!isset($_COOKIE[$cookie_name])) {
       setcookie("phid", "", time() - 9999999999);
       header("Location: /registercookie.php?page=" . $qrid);
     }
+    exec("echo {$cook}");
     $date = exec("date");
     if ($dpt == "Arrived"){
       $dpt2 = ("Depart");
@@ -52,6 +53,23 @@ if(!isset($_COOKIE[$cookie_name])) {
       $dpt2 = ("Arrive");
     }
     //echo("you have {$dpt}<br>");
+    $dayofmonth = exec("date +'%d'");
+    $hour = exec("date +'%H'");
+    $minute = exec("date +'%M'");
+    $ariveis = exec("cd registered_phid/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_gon");
+    $ariveis1 = exec("cd departed/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_gon");
+    if ($ariveis != "hour_gon"){
+      exec("cd registered_phid/" . $_COOKIE[$cookie_name] . "/srvinfo && echo '{$dayofmonth}' >> 'dayofmonth_gon' && echo '{$hour}' >> 'hour_gon' && echo '{$minute}' >> 'minute_gon'");
+    }
+    if ($ariveis == "hour_gon"){
+      exec("cd registered_phid/" . $_COOKIE[$cookie_name] . "/srvinfo && echo '{$dayofmonth}' >> 'dayofmonth_arv' && echo '{$hour}' >> 'hour_arv' && echo '{$minute}' >> 'minute_arv'");
+    }
+    if ($ariveis1 != "hour_gon"){
+      exec("cd departed/" . $_COOKIE[$cookie_name] . "/srvinfo && echo '{$dayofmonth}' >> 'dayofmonth_gon' && echo '{$hour}' >> 'hour_gon' && echo '{$minute}' >> 'minute_gon'");
+    }
+    if ($ariveis1 == "hour_gon"){
+      exec("cd departed/" . $_COOKIE[$cookie_name] . "/srvinfo && echo '{$dayofmonth}' >> 'dayofmonth_arv' && echo '{$hour}' >> 'hour_arv' && echo '{$minute}' >> 'minute_arv'");
+    }
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
     exec("echo '{$date}' >> log/inout.log");
     //echo($cookid);

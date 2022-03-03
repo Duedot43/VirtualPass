@@ -1,5 +1,5 @@
 <?php
-exec("rm ../registerd_qrids/* && echo p > ../registerd_qrids/.placeholder");
+exec("rm -rf ../registerd_qrids/* && echo p > ../registerd_qrids/.placeholder");
 echo("Done!");
 
 ?>
