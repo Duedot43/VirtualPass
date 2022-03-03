@@ -4,7 +4,8 @@ if (isset($_POST['confirm'])) {
         header("Location:delusr.php");
     }
     else if ($_POST['confirm'] == 'No') {
-        header("Location:stupid.php");
+        $qrid = $_GET['page'];
+        header("Location:stupid.php?page=" . $qrid);
     } 
 }
 ?>

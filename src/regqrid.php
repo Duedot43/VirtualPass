@@ -12,7 +12,7 @@ if (isset($_POST['rnum'])) {
     exec("echo 'qrid {$qrid} registred to room {$rnum}' >> log/inout.log");
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
     exec("cd registerd_qrids/ && echo '{$rnum}' >> {$qrid}");
-    header("Location: /stupid.php");
+    header("Location: /stupid.php?page=" . $qrid);
     exit();
 }
 ?>

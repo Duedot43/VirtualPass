@@ -48,7 +48,7 @@ if(isset($_GET['page'])) {
               if ($cooki == "0") {
                 //cookie error re register cookie and delete the cookie
                 setcookie("phid", "", time() - 9999999999);
-                header("Location: /register.html");
+                header("Location: /registercookie.php?page=" . $qrid);
               }
           }
 //setcookie($cookie_name, $ranid, time() + (86400 * 360));
@@ -74,7 +74,7 @@ if(isset($_GET['page'])) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Register</title>
 <tr>
-    <form name="form" method="post" action="registercookie.php" method="get">
+    <form method="post">
         <td>
             <table width="100%" border="0" cellpadding="3" cellspacing="1">
                 <tr>

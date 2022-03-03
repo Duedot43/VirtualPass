@@ -4,7 +4,7 @@ $cookie_name = "phid";
 //$fh = fopen('qrid.txt','r');
 //$qrid = fgets($fh);
 $qrid = $_GET['page'];
-echo $qrid;
+//echo $qrid;
 $output = exec("tree -i --noreport registerd_qrids/ | grep -o {$qrid}");
 if($output != $qrid) {
     header("Location: /regqrid.php?page=" . $qrid);
@@ -42,7 +42,7 @@ if(!isset($_COOKIE[$cookie_name])) {
     if ($cook == "0") {
       //cookie error re register cookie and delete the cookie
       setcookie("phid", "", time() - 9999999999);
-      header("Location: /register.html");
+      header("Location: /registercookie.php?page=" . $qrid);
     }
     $date = exec("date");
     if ($dpt == "Arrived"){
@@ -78,10 +78,10 @@ if(!isset($_COOKIE[$cookie_name])) {
 <tr>
 <td width="0"></td>
 <td width="0"></td>
-<td width="294"><input class="reg" type="button" value='<?php echo $dpt2;?>' onclick="location='stupid.php'" /></td>
+<td width="294"><input class="reg" type="button" value='<?php echo $dpt2;?>' onclick="location='stupid.php?page=<?php echo $qrid;?>'" /></td>
 <td width="78"></td>
 <td width="80"></td>
-<td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location='delusrpmt.php'" style="border-color:red; color:white"/></td>
+<td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location='delusrpmt.php?page=<?php echo $qrid;?>'" style="border-color:red; color:white"/></td>
 <td width="0"></td>
 <td width="0"></td>
 </tr>
