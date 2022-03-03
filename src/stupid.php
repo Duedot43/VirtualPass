@@ -65,8 +65,30 @@ if(!isset($_COOKIE[$cookie_name])) {
 <head>
     <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
-Hall pass registerd<br>
-you have <?php echo $dpt;?><br>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<input type="button" value='<?php echo $dpt2;?>' onclick="location='stupid.php'" />
-<input type="button" value="Delete User Info" onclick="location='delusrpmt.php'" />
+<tr>
+<td>
+<table width="100%" border="0" cellpadding="3" cellspacing="1">
+<tr>
+<td colspan="3"><strong>Hall pass registerd<br>you have <?php echo $dpt;?><br></strong></td>
+</tr>
+<tr>
+<td width="0"></td>
+<td width="0"></td>
+<td width="294"><input class="reg" type="button" value='<?php echo $dpt2;?>' onclick="location='stupid.php'" /></td>
+<td width="78"></td>
+<td width="80"></td>
+<td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location='delusrpmt.php'" style="border-color:red; color:white"/></td>
+<td width="0"></td>
+<td width="0"></td>
+</tr>
+<tr>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
