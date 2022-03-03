@@ -1,10 +1,10 @@
 <?php
-$rnum=$_POST['rnum'];
 //$fh = fopen('qrid.txt','r');
 //$qrid = fgets($fh);
 $qrid = $_GET['page'];
 $date = exec("date");
 if (isset($_POST['rnum'])) {
+    $rnum=$_POST['rnum'];
     //echo("you have {$dpt}");
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
     exec("echo '{$date}' >> log/inout.log");
