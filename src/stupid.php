@@ -70,6 +70,33 @@ if(!isset($_COOKIE[$cookie_name])) {
     if ($ariveis1 == "hour_gon"){
       exec("cd departed/" . $_COOKIE[$cookie_name] . "/srvinfo && echo '{$dayofmonth}' >> 'dayofmonth_arv' && echo '{$hour}' >> 'hour_arv' && echo '{$minute}' >> 'minute_arv'");
     }
+    $ariveis_verify_reg_gon = exec("cd registered_phid/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_gon");
+    $ariveis_verify_reg_arv = exec("cd registered_phid/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_arv");
+    $ariveis_dep_reg_gon = exec("cd departed/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_gon");
+    $ariveis_dep_reg_arv = exec("cd departed/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_arv");
+    if ($ariveis_verify_reg_gon == "hour_gon"){
+      if ($ariveis_verify_reg_arv == "hour_arv"){
+        $fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo/dayofmonth_gon','r');
+        $dayofmonth_gon = fgets($fh);
+        $fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo/dayofmonth_arv','r');
+        $dayofmonth_arv = fgets($fh);
+        $fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo/hour_gon','r');
+        $hour_gon = fgets($fh);
+        $fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo/hour_arv','r');
+        $hour_arv = fgets($fh);
+        $fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo/minute_gon','r');
+        $minute_gon = fgets($fh);
+        $fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo/minute_arv','r');
+        $minute_arv = fgets($fh);
+        $fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . $_COOKIE[$cookie_name],'r');
+        $usrinfo = fgets($fh);
+        $days_gone = $dayofmonth_arv-$dayofmonth_gon;
+        $hours_gone = $hour_arv-$hour_gon;
+        $minutes_gone = $minute_arv-$minute_gon;
+        
+      }
+    }
+
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
     exec("echo '{$date}' >> log/inout.log");
     //echo($cookid);
