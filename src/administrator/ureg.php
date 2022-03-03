@@ -1,7 +1,7 @@
 <?php
 $rooms = exec("dir ../registered_phid/ && dir ../departed/");
 echo ("Users: {$rooms} <br>");
-$roomcont = exec("cat ../registered_phid/* && cat ../departed");
+$roomcont = exec("cat ../registered_phid/* && cat ../departed/*");
 echo ("Usrinfo: {$roomcont} <br>");
 ?>
 <head>
