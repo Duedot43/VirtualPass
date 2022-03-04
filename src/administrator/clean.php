@@ -2,6 +2,7 @@
 include("rmalllog.php");
 include("rmallrom.php");
 include("rmallusr.php");
+exec("rm student.html");
 echo("Done!");
 ?>
 <head>
