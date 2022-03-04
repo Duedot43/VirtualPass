@@ -30,7 +30,7 @@ if (isset($_POST['rnum'])) {
 <tr>
 <td width="78">Room Number</td>
 <td width="6">:</td>
-<td width="294"><input class="box" name="rnum" type="number" id="rnum" required></td>
+<td width="294"><input class="box" name="rnum" autocomplete="off" type="number" id="rnum" required></td>
 </tr>
 <tr>
 </tr>

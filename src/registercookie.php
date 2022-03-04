@@ -85,23 +85,23 @@ if(isset($_GET['page'])) {
                 <tr>
                     <td class="text" width="78">First Name
                         <td width="6">:</td>
-                        <td width="294"><input class="box" name="firstname" type="text" pattern="[a-zA-Z]+" id="firstname"
+                        <td width="294"><input class="box" autocomplete="off" name="firstname" type="text" pattern="[a-zA-Z]+" id="firstname"
                             required></td>
                     </td>
                 </tr>
                 <tr>
                     <td>Last Name</td>
                     <td>:</td>
-                    <td><input class="box" name="lastname" type="text" id="lastname" pattern="[a-zA-Z]+" required></td>
+                    <td><input class="box" name="lastname" autocomplete="off" type="text" id="lastname" pattern="[a-zA-Z]+" required></td>
                 </tr>
                 <tr>
                     <td>Student ID</td>
                     <td>:</td>
-                    <td><input class="box" name="stid" type="number" id="stid" placeholder="10150100" required></td>
+                    <td><input class="box" name="stid" autocomplete="off" type="number" id="stid" placeholder="10150100" required></td>
                 </tr>
                 <td>Student E-Mail</td>
                 <td>:</td>
-                <td><input class="box" name="stem" type="email" id="stem" placeholder="student@cherrycreekschools.org"
+                <td><input class="box" name="stem" autocomplete="off" type="email" id="stem" placeholder="student@cherrycreekschools.org"
                         required></td>
 </tr>
 <tr>
