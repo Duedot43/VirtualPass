@@ -1,4 +1,5 @@
 <?php
+//really delete the user
 $cookie_name = "phid";
 exec("rm -rf departed/" . $_COOKIE[$cookie_name]);
 exec("rm -rf registered_phid/" . $_COOKIE[$cookie_name]);

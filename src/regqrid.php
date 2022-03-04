@@ -3,6 +3,7 @@
 //$qrid = fgets($fh);
 $qrid = $_GET['page'];
 $date = exec("date");
+//fairly simple check if the user has entered the room number log it put it in the qrid folder and send it back to stupid
 if (isset($_POST['rnum'])) {
     $rnum=$_POST['rnum'];
     //echo("you have {$dpt}");
@@ -12,6 +13,7 @@ if (isset($_POST['rnum'])) {
     exec("echo 'qrid {$qrid} registred to room {$rnum}' >> log/inout.log");
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
     exec("cd registerd_qrids/ && echo '{$rnum}' >> {$qrid}");
+    //NOTE: Dont ask me why its called stupid.php im still learning PHP and that was not easy to write
     header("Location: /stupid.php?page=" . $qrid);
     exit();
 }

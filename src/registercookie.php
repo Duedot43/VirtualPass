@@ -1,19 +1,23 @@
 <?php
 $cookie_name = "phid";
+//check for all the variables from the html below
 if(isset($_GET['page'])) {
   if(isset($_POST['firstname'])) {
     if(isset($_POST['lastname'])) {
       if(isset($_POST['stid'])) {
         if(isset($_POST['stem'])) {
+          //set all the variables
           $qrid = $_GET['page'];
           $firstname=$_POST['firstname'];
           $lastname=$_POST['lastname'];
           $stid=$_POST['stid'];
           $stem=$_POST['stem'];
+          //get a unique id for the user
           $ranid = uniqid(rand());
           echo $ranid;
           $date = exec("date");
           if(!isset($_COOKIE[$cookie_name])) {
+            //set the cookie with their random id so i can identify them later
               setcookie($cookie_name, $ranid, time() + (86400 * 360));
               exec("cd registered_phid/ && mkdir '{$ranid}' && cd '{$ranid}' && mkdir 'srvinfo' && mkdir 'huinfo' && echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> '{$ranid}'");
               exec('cd administrator/ && echo "<"link href="/style.css" rel="stylesheet" type="text/css" "/>""<"input type="button" value="' . $firstname . '" onclick="location=\'/registered_phid/' . $ranid . '/huinfo/index.html\'" "/><br>" >> student.html');
@@ -21,10 +25,12 @@ if(isset($_GET['page'])) {
               exec("echo '{$date}' >> log/inout.log");
               exec("echo '{$firstname}' registered with phid '{$ranid}' >> log/inout.log");
               exec("echo ///////////////////////////////////////////////// >> log/inout.log");
+              //send it back to stupid
               header("Location: /stupid.php?page=" . $qrid);
               exit();
           }
               else {
+                ////////SAME CODE IN STUPID.PHP////////
               
               //echo "Cookie '" . $cookie_name . "' is set!<br>";
               //echo "Value is: " . $_COOKIE[$cookie_name];

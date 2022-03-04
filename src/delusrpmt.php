@@ -1,4 +1,5 @@
 <?php
+//simple prompt to see if the user would like to really delete their user
 if (isset($_POST['confirm'])) {
     if ($_POST['confirm'] == 'Yes') {
         header("Location:delusr.php");
