@@ -16,6 +16,7 @@ if (isset($_POST['rnum'])) {
     exit();
 }
 ?>
+<title>QR Code</title>
 <head>
     <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
