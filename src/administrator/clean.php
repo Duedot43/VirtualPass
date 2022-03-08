@@ -14,6 +14,7 @@ include("rmalllog.php");
 include("rmallrom.php");
 include("rmallusr.php");
 exec("rm student.php");
+exec("rm cookie/*");
 echo("Done!");
 ?>
 <head>
