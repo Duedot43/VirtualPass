@@ -4,4 +4,4 @@ Disallow: /departed
 Disallow: /registered_phid
 Disallow: /registerd_qrids
 Disallow: /log/inout.log
-Disallow: /administrator/cookie/*
+Disallow: /administrator/cookie/

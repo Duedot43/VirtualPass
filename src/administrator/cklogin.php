@@ -3,8 +3,10 @@ $cookie_namez = "admin";
 $raniddd = uniqid(rand()) . uniqid(rand()) . uniqid(rand()) . uniqid(rand()) . uniqid(rand()) . uniqid(rand());
 $uname = $_POST['uname'];
 $passwd = $_POST['passwd'];
-if ($uname == "admin"){
-    if ($passwd == "admin"){
+$unameck = exec("cat ../../auth/uname");
+$passwdck = exec("cat ../../auth/passwd");
+if ($uname == $unameck){
+    if ($passwd == $passwdck){
         setcookie($cookie_namez, $raniddd, time() + (30));
         exec("echo " . $raniddd . " >> cookie/" . $raniddd);
         //exec("mkdir cookie/" . $raniddd);
