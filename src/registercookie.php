@@ -20,7 +20,10 @@ if(isset($_GET['page'])) {
             //set the cookie with their random id so i can identify them later
               setcookie($cookie_name, $ranid, time() + (86400 * 360));
               exec("cd registered_phid/ && mkdir '{$ranid}' && cd '{$ranid}' && mkdir 'srvinfo' && mkdir 'huinfo' && echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> '{$ranid}'");
-              exec('cd administrator/ && echo "<"link href="/style.css" rel="stylesheet" type="text/css" "/>""<"input type="button" value="' . $firstname . '" onclick="location=\'/registered_phid/' . $ranid . '/huinfo/index.html\'" "/><br>" >> student.html');
+              if (!is_file("administrator/student.php")) {
+                exec("cp usr_pre_fls/index.php ./administrator/student.php");
+              }
+              exec('cd administrator/ && echo "<"link href="/style.css" rel="stylesheet" type="text/css" "/>""<"input type="button" value="' . $firstname . '" onclick="location=\'/registered_phid/' . $ranid . '/huinfo/index.html\'" "/><br>" >> student.php');
               exec("echo ///////////////////////////////////////////////// >> log/inout.log");
               exec("echo '{$date}' >> log/inout.log");
               exec("echo '{$firstname}' registered with phid '{$ranid}' >> log/inout.log");

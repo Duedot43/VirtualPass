@@ -13,7 +13,7 @@ else{
 include("rmalllog.php");
 include("rmallrom.php");
 include("rmallusr.php");
-exec("rm student.html");
+exec("rm student.php");
 echo("Done!");
 ?>
 <head>

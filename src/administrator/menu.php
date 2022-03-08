@@ -23,4 +23,4 @@ else{
 <input type="button" value="Remove all rooms" onclick="location='rmallrom.php'" />
 <input type="button" value="Remove all logs" onclick="location='rmalllog.php'" />
 <input type="button" value="Clean server" onclick="location='clean.php'" />
-<input type="button" value="View all user info" onclick="location='student.html'" />
+<input type="button" value="View all user info" onclick="location='student.php'" />
