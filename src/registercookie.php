@@ -21,8 +21,18 @@ if(isset($_GET['page'])) {
           $date = exec("date");
           if(!isset($_COOKIE[$cookie_name])) {
             //set the cookie with their random id so i can identify them later
+              $sendemail = exec("cat ../config/user_emails");
+              $money = "$";
               setcookie($cookie_name, $ranid, time() + (86400 * 360), "/", $domain, TRUE);
-              exec("cd registered_phid/ && mkdir '{$ranid}' && cd '{$ranid}' && mkdir 'srvinfo' && mkdir 'huinfo' && echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> '{$ranid}'");
+              exec("cd registered_phid/ && mkdir '{$ranid}' && cd '{$ranid}' && mkdir 'srvinfo' && mkdir 'huinfo' && mkdir 'email' && echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> '{$ranid}'");
+              if ($sendemail == "1"){
+                $myfile = fopen('registered_phid/' . $ranid . '/email/email.html', "w");
+
+                $txt = ('<head><link href="https://rawcdn.githack.com/Duedot43/VirtualPass/82889bcf8bd24b0df4b99b1a59bef0699f370474/src/style.css" rel="stylesheet" type="text/css" /></head><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>VirtualPass sign-up confirmation</title><tr><td><table width="100%" border="0" cellpadding="3" cellspacing="1"><tr><td colspan="3"><strong>Congrats ' . $firstname . 'your info has been set!<br>Choose any option below and it will redirect you to the VirtualPass website.<br></strong></td></tr><tr><td width="0"></td><td width="0"></td><td width="294"><input class="reg" type="button" value="Change user info" onclick="location=\'https://' . $domain . '/cgusr.php?user=' . $ranid . '\'" /></td><td width="78"></td><td width="80"></td><td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location=\'https://' . $domain . '/delusreml.php?user=' . $ranid . '\'" style="border-color:red; color:white"/></td><td width="0"></td><td width="0"></td></tr><tr></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr></table></td></tr></table>');
+                fwrite($myfile, $txt);
+                fclose($myfile);
+
+              }
               if (!is_file("administrator/student.php")) {
                 exec("cp usr_pre_fls/index.php ./administrator/student.php");
               }
