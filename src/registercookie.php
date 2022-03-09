@@ -1,6 +1,9 @@
 <?php
 $cookie_name = "phid";
 //check for all the variables from the html below
+$domain = $_SERVER['SERVER_NAME'];
+//$domain = "1b0e-8-6-112-61.ngrok.io";
+echo $domain;
 if(isset($_GET['page'])) {
   if(isset($_POST['firstname'])) {
     if(isset($_POST['lastname'])) {
@@ -18,7 +21,7 @@ if(isset($_GET['page'])) {
           $date = exec("date");
           if(!isset($_COOKIE[$cookie_name])) {
             //set the cookie with their random id so i can identify them later
-              setcookie($cookie_name, $ranid, time() + (86400 * 360));
+              setcookie($cookie_name, $ranid, time() + (86400 * 360), "/", $domain, TRUE);
               exec("cd registered_phid/ && mkdir '{$ranid}' && cd '{$ranid}' && mkdir 'srvinfo' && mkdir 'huinfo' && echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> '{$ranid}'");
               if (!is_file("administrator/student.php")) {
                 exec("cp usr_pre_fls/index.php ./administrator/student.php");
