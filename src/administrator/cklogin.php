@@ -7,6 +7,7 @@ $unameck = exec("cat ../../auth/uname");
 $passwdck = exec("cat ../../auth/passwd");
 if ($uname == $unameck){
     if ($passwd == $passwdck){
+        setcookie($cookie_namez, $raniddd, time() + (-30));
         setcookie($cookie_namez, $raniddd, time() + (30));
         exec("echo " . $raniddd . " >> cookie/" . $raniddd);
         //exec("mkdir cookie/" . $raniddd);

@@ -15,6 +15,7 @@ include("rmallrom.php");
 include("rmallusr.php");
 exec("rm student.php");
 exec("rm cookie/*");
+exec("echo p >>  cookie/.placeholder");
 echo("Done!");
 ?>
 <head>
