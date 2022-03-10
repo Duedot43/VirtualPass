@@ -3,7 +3,7 @@ $cookie_name = "phid";
 //check for all the variables from the html below
 $domain = $_SERVER['SERVER_NAME'];
 //$domain = "1b0e-8-6-112-61.ngrok.io";
-echo $domain;
+//echo $domain;
 if(isset($_GET['page'])) {
   if(isset($_POST['firstname'])) {
     if(isset($_POST['lastname'])) {

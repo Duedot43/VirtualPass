@@ -9,9 +9,10 @@ if(isset($_GET['user'])) {
             $lastname=$_POST['lastname'];
             $stid=$_POST['stid'];
             $stem=$_POST['stem'];
-            exec("rm registered_phid/" . $user . $user);
-            exec("echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> registered_phid/" . $user . $user);
+            exec("rm registered_phid/" . $user . "/" . $user);
+            exec("echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> registered_phid/" . $user ."/" . $user);
             echo ('<link href="style.css" rel="stylesheet" type="text/css" />Done!');
+            exit();
 
 
           }
