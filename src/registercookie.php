@@ -1,8 +1,8 @@
 <?php
 $cookie_name = "phid";
 //check for all the variables from the html below
-$domain = $_SERVER['SERVER_NAME'];
-//$domain = "1b0e-8-6-112-61.ngrok.io";
+//$domain = $_SERVER['SERVER_NAME'];
+$domain = "1b0e-8-6-112-61.ngrok.io";
 //echo $domain;
 if(isset($_GET['page'])) {
   if(isset($_POST['firstname'])) {
@@ -24,6 +24,9 @@ if(isset($_GET['page'])) {
               $sendemail = exec("cat ../config/user_emails");
               $money = "$";
               setcookie($cookie_name, $ranid, time() + (86400 * 360), "/", $domain, TRUE);
+              if(!isset($_COOKIE['phid'])) {
+                echo("Hmm something has gone wrong I cant set your cookie. Trying fallback method...");
+              }
               exec("cd registered_phid/ && mkdir '{$ranid}' && cd '{$ranid}' && mkdir 'srvinfo' && mkdir 'huinfo' && mkdir 'email' && echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> '{$ranid}'");
               if ($sendemail == "1"){
                 $myfile = fopen('registered_phid/' . $ranid . '/email/email.html', "w");
