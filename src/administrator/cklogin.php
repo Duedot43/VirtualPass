@@ -8,8 +8,8 @@ $unameck = exec("cat ../../auth/uname");
 $passwdck = exec("cat ../../auth/passwd");
 if ($uname == $unameck){
     if ($passwd == $passwdck){
-        setcookie($cookie_namez, $raniddd, time() - (30), "/", $domain, TRUE);
-        setcookie($cookie_namez, $raniddd, time() + (30), "/", $domain, TRUE);
+        setcookie($cookie_namez, $raniddd, time() - "30", "/", $domain, TRUE);
+        setcookie($cookie_namez, $raniddd, time() + "30", "/", $domain, TRUE);
         exec("echo " . $raniddd . " >> cookie/" . $raniddd);
         //exec("mkdir cookie/" . $raniddd);
         header("Location:menu.php");
