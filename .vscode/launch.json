@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Built-in web server",
+            "name": "User frontend",
             "type": "php",
             "request": "launch",
             "runtimeArgs": [
@@ -14,22 +14,37 @@
                 "-S",
                 "localhost:8080",
                 "-t",
-                "${fileDirname}"
+                "src"
             ],
             "program": "",
             "cwd": "${workspaceRoot}",
             "port": 9003,
             "serverReadyAction": {
                 "pattern": "Development Server \\(http://localhost:([0-9]+)\\) started",
-                "uriFormat": "http://localhost:%s?page=12",
+                "uriFormat": "http://localhost:%s/index.php?page=12",
                 "action": "openExternally"
             }
         },
         {
-            "name": "Listen for Xdebug",
+            "name": "Admin frontend",
             "type": "php",
             "request": "launch",
-            "port": 9003
+            "runtimeArgs": [
+                "-dxdebug.mode=debug",
+                "-dxdebug.start_with_request=yes",
+                "-S",
+                "localhost:8080",
+                "-t",
+                "src"
+            ],
+            "program": "",
+            "cwd": "${workspaceRoot}",
+            "port": 9003,
+            "serverReadyAction": {
+                "pattern": "Development Server \\(http://localhost:([0-9]+)\\) started",
+                "uriFormat": "http://localhost:%s/administrator",
+                "action": "openExternally"
+            }
         },
         {
             "name": "Launch currently open script",

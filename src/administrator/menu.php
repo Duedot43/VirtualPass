@@ -1,7 +1,7 @@
 <?php
 if (!isset($_COOKIE['admin'])){
     exec("rm cookie/*");
-    header("Location:index.html");
+    header("Location: /administrator/index.html");
     exit();
 }
 else{
@@ -10,7 +10,8 @@ else{
         header("Location:index.html");
     }
 }
-$sendemail = exec("cat ../../config/user_emails");
+$ini = parse_ini_file('../../config/config.ini');
+$sendemail = $ini['em_enable'];
 //exec($sendemail);
 if ($sendemail == "1"){
     $enable_email = "Disable Emails";
