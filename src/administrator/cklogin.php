@@ -9,7 +9,6 @@ $unameck = $ini['admin_uname'];
 $passwdck = $ini['admin_passwd'];
 if ($uname == $unameck){
     if ($passwd == $passwdck){
-        exec("please stop");
         setcookie($cookie_namez, $raniddd, time() - (30), "/", $domain, TRUE, TRUE);
         setcookie($cookie_namez, $raniddd, time() + (30), "/", $domain, TRUE, TRUE);
         exec("echo " . $raniddd . " >> cookie/" . $raniddd);

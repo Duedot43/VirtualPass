@@ -1,4 +1,19 @@
 <?php
+//nooooo this code is not stolen fron StackOverflow no never!
+function config_set($config_file, $section, $key, $value) {
+  $config_data = parse_ini_file($config_file, true);
+  $config_data[$section][$key] = $value;
+  $new_content = '';
+  foreach ($config_data as $section => $section_content) {
+      $section_content = array_map(function($value, $key) {
+          return "$key=$value";
+      }, array_values($section_content), array_keys($section_content));
+      $section_content = implode("\n", $section_content);
+      $new_content .= "[$section]\n$section_content\n";
+  }
+  file_put_contents($config_file, $new_content);
+}
+//nooooo this code is not stolen fron StackOverflow no never!
 $cookie_name = "phid";
 //check for all the variables from the html below
 $domain = $_SERVER['SERVER_NAME'];
@@ -29,14 +44,17 @@ if(isset($_GET['page'])) {
                 echo("Hmm something has gone wrong I cant set your cookie. Trying fallback method...");
               }
               $inifl = fopen("registered_phid/" . $ranid, "w");
-              $txt = ("[usrinfo]\nfirst_name=" . $firstname . "\nlast_name=" . $lastname . "\nstudent_id=" . $stid . "\nstudent_email=" . $stem . "\n[srvinfo]\n");
+              $tet = ("[usrinfo]\nfirst_name=" . $firstname . "\nlast_name=" . $lastname . "\nstudent_id=" . $stid . "\nstudent_email=" . $stem . "\nstudent_activity=Departed\n[srvinfo]\ndayofmonth_gon=\nhour_gon=\nminute_gon=\ndayofmonth_arv=\nhour_arv=\nminute_arv=\n[email]\nemail_html=\n[huinfo]\n");
+              fwrite($inifl, $tet);
+              fclose($inifl);
               //exec("cd registered_phid/ && mkdir '{$ranid}' && cd '{$ranid}' && mkdir 'srvinfo' && mkdir 'huinfo' && mkdir 'email' && echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> '{$ranid}'");
               if ($sendemail == "1"){
-                $myfile = fopen('registered_phid/' . $ranid . '/email/email.html', "w");
-                $txt = ("<head>\n<link href='https://rawcdn.githack.com/Duedot43/VirtualPass/82889bcf8bd24b0df4b99b1a59bef0699f370474/src/style.css' rel='stylesheet' type='text/css' />\n</head>\n<meta name='viewport' content='width=device-width, initial-scale=1.0'>\n<title>VirtualPass sign-up confirmation</title>\n<tr>\n<td>\n<table width='100%' border='0' cellpadding='3' cellspacing='1'>\n<tr>\n<td colspan='3'>\n<strong>Congrats " . $firstname . ", your info has been set!<br>Choose any option below and it will redirect you to the VirtualPass website.<br>\n</strong>\n</td>\n</tr>\n<tr>\n<td width='0'>\n</td>\n<td width='0'>\n</td>\n<td width='294'>\n<input class='reg' type='button' value='Change user info' onclick='location=\'https://" . $domain . "/cgusr.php?user=" . $ranid . "\'' />\n</td>\n<td width='78'>\n</td>\n<td width='80'>\n</td>\n<td width='294'>\n<input class='reg' type='button' value='Delete User Info' onclick='location=\'https://" . $domain . "/delusreml.php?user=" . $ranid . "\'' style='border-color:red; color:white'/>\n</td>\n<td width='0'>\n</td>\n<td width='0'>\n</td>\n</tr>\n<tr>\n</tr>\n<tr>\n<td>&nbsp;</td>\n<td>&nbsp;</td>\n</tr>\n</table>\n</td>\n</tr>\n</table>");
+                //$myfile = fopen('registered_phid/' . $ranid . '/email/email.html', "w");
+                $txt = ('<head><link href="https://rawcdn.githack.com/Duedot43/VirtualPass/82889bcf8bd24b0df4b99b1a59bef0699f370474/src/style.css" rel="stylesheet" type="text/css" /></head><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>VirtualPass sign-up confirmation</title><tr><td><table width="100%" border="0" cellpadding="3" cellspacing="1"><tr><td colspan="3"><strong>Congrats ' . $firstname . ', your info has been set!<br>Choose any option below and it will redirect you to the VirtualPass website.<br></strong></td></tr><tr><td width="0"></td><td width="0"></td><td width="294"><input class="reg" type="button" value="Change user info" onclick="location=\"https://' . $domain . '/cgusr.php?user=' . $ranid . '\"" /></td><td width="78"></td><td width="80"></td><td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location=\"https://' . $domain . '/delusreml.php?user=' . $ranid . '\"" style="border-color:red; color:white"/></td><td width="0"></td><td width="0"></td></tr><tr></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr></table></td></tr></table>');
+                config_set("registered_phid/" . $ranid, "email", "email_html", $txt);
                 //$txt = ('<head>\n<link href="https://rawcdn.githack.com/Duedot43/VirtualPass/82889bcf8bd24b0df4b99b1a59bef0699f370474/src/style.css" rel="stylesheet" type="text/css" /></head><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>VirtualPass sign-up confirmation</title><tr><td><table width="100%" border="0" cellpadding="3" cellspacing="1"><tr><td colspan="3"><strong>Congrats ' . $firstname . ', your info has been set!<br>Choose any option below and it will redirect you to the VirtualPass website.<br></strong></td></tr><tr><td width="0"></td><td width="0"></td><td width="294"><input class="reg" type="button" value="Change user info" onclick="location=\'https://' . $domain . '/cgusr.php?user=' . $ranid . '\'" /></td><td width="78"></td><td width="80"></td><td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location=\'https://' . $domain . '/delusreml.php?user=' . $ranid . '\'" style="border-color:red; color:white"/></td><td width="0"></td><td width="0"></td></tr><tr></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr></table></td></tr></table>');
-                fwrite($myfile, $txt);
-                fclose($myfile);
+                //fwrite($myfile, $txt);
+                //fclose($myfile);
 
               }
               if (!is_file("administrator/student.php")) {
