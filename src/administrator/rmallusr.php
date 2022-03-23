@@ -10,7 +10,7 @@ else{
         header("Location:index.html");
     }
 }
-exec("rm -rf ../departed/* && echo p > ../departed/.placeholder");
+//exec("rm -rf ../departed/* && echo p > ../departed/.placeholder");
 exec("rm -rf ../registered_phid/* && echo p > ../registered_phid/.placeholder");
 echo("Done!");
 

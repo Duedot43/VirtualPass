@@ -33,20 +33,22 @@ if(isset($_GET['page'])) {
           //get a unique id for the user
           $ranid = uniqid(rand());
           echo $ranid;
-          $date = exec("date");
+          $date = date(DATE_ATOM);
           if(!isset($_COOKIE[$cookie_name])) {
             //set the cookie with their random id so i can identify them later
             $ini = parse_ini_file('../config/config.ini');
             $sendemail = $ini['em_enable'];
               $money = "$";
               setcookie($cookie_name, $ranid, time() + (86400 * 360), "/", $domain, TRUE, TRUE);
-              if(!isset($_COOKIE['phid'])) {
+              exec("sleep.5s");
+              if(!isset($_COOKIE[$cookie_name])) {
                 echo("Hmm something has gone wrong I cant set your cookie. Trying fallback method...");
               }
               $inifl = fopen("registered_phid/" . $ranid, "w");
               $tet = ("[usrinfo]\nfirst_name=" . $firstname . "\nlast_name=" . $lastname . "\nstudent_id=" . $stid . "\nstudent_email=" . $stem . "\nstudent_activity=Arrived\n[srvinfo]\ndayofmonth_gon=\nhour_gon=\nminute_gon=\ndayofmonth_arv=\nhour_arv=\nminute_arv=\n[email]\nemail_html=\n[huinfo]\n");
               fwrite($inifl, $tet);
               fclose($inifl);
+              mkdir("human_info/" . $ranid);
               //exec("cd registered_phid/ && mkdir '{$ranid}' && cd '{$ranid}' && mkdir 'srvinfo' && mkdir 'huinfo' && mkdir 'email' && echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> '{$ranid}'");
               if ($sendemail == "1"){
                 //$myfile = fopen('registered_phid/' . $ranid . '/email/email.html', "w");
@@ -57,45 +59,58 @@ if(isset($_GET['page'])) {
                 //fclose($myfile);
 
               }
+              
               if (!is_file("administrator/student.php")) {
-                exec("cp usr_pre_fls/index.php ./administrator/student.php");
+                copy("usr_pre_fls/index.php", "administrator/student.php");
+                //exec("cp usr_pre_fls/index.php ./administrator/student.php");
               }
-              exec('cd administrator/ && echo "<"link href="/style.css" rel="stylesheet" type="text/css" "/>""<"input type="button" value="' . $firstname . '" onclick="location=\'/registered_phid/' . $ranid . '/huinfo/index.html\'" "/><br>" >> student.php');
+              $tat = '<link href="style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $firstname . '" onclick="location=\'human_info/' . $ranid . '/index.php\'" /></td>';
+              $student = file_put_contents('administrator/student.php', $tat.PHP_EOL , FILE_APPEND | LOCK_EX);
+              if ($ini['enable_insecure_general_logs'] == "1"){
+              //exec('cd administrator/ && echo "<"link href="/style.css" rel="stylesheet" type="text/css" "/>""<"input type="button" value="' . $firstname . '" onclick="location=\'/registered_phid/' . $ranid . '/huinfo/index.html\'" "/><br>" >> student.php');
               exec("echo ///////////////////////////////////////////////// >> log/inout.log");
               exec("echo '{$date}' >> log/inout.log");
               exec("echo '{$firstname}' registered with phid '{$ranid}' >> log/inout.log");
               exec("echo ///////////////////////////////////////////////// >> log/inout.log");
+              }
               //send it back to stupid
               header("Location: /stupid.php?page=" . $qrid);
               exit();
           }
-              else {
-                ////////SAME CODE IN STUPID.PHP////////
-              
-              //echo "Cookie '" . $cookie_name . "' is set!<br>";
-              //echo "Value is: " . $_COOKIE[$cookie_name];
-              $catine = exec("ls departed/ | grep " . $_COOKIE[$cookie_name]);
-              $catoutee = exec("ls registered_phid/ | grep " . $_COOKIE[$cookie_name]);
-              //echo ("Hall pass registerd<br>");
-              //echo ("Please rescan the QR code if this is your first time.<br>");
-              //echo " out ", $catout, " in ", $catin, " cookie ", $_COOKIE[$cookie_name];
-              //1 = departed
-              $cook = ("0");
-              if ($catoutee == $_COOKIE[$cookie_name]) {
-                //user already registered redirect
-                header("Location: /stupid.php?page=" . $qrid);
-                $cooki = ("1");
-              }
-              if ($catine == $_COOKIE[$cookie_name]) {
-                //user already registered redirect
-                header("Location: /stupid.php?page=" . $qrid);
-                $cooki = ("1");
-              }
-              if ($cooki == "0") {
-                //cookie error re register cookie and delete the cookie
-                setcookie("phid", "", time() - 9999999999);
-                header("Location: /registercookie.php?page=" . $qrid);
-              }
+          else {
+    
+            //echo "Cookie '" . $cookie_name . "' is set!<br>";
+            //echo "Value is: " . $_COOKIE[$cookie_name];
+            //look for the user in the files and find out if they are departed or not
+            //$catin = exec("ls departed/ | grep " . $_COOKIE[$cookie_name]);
+            //$catout = exec("ls registered_phid/ | grep " . $_COOKIE[$cookie_name]);
+            //echo ("Hall pass registerd<br>");
+            //echo ("Please rescan the QR code if this is your first time.<br>");
+            //echo " out ", $catout, " in ", $catin, " cookie ", $_COOKIE[$cookie_name];
+            //1 = departed
+            $cook = ("0");
+            if (file_exists("registered_phid/" . $_COOKIE[$cookie_name])) {
+              header("Location: /stupid.php?page=" . $qrid);
+              $cook = ("1");
+              //exec("mv -v registered_phid/" . $_COOKIE[$cookie_name] . " departed/");
+            }
+            //if the top if statment has triggered this one will not beacuse $catout is outdated at this point
+            //if the user is found in departed the below if triggers
+            //if ($catin == $_COOKIE[$cookie_name]) {
+            //  $fh = fopen('departed/' . $_COOKIE[$cookie_name] . '/' . $_COOKIE[$cookie_name],'r');
+            //  $cookid = fgets($fh); 
+              //read the file and mark them as arrived
+            //  $dpt = ("Arrived");
+            //  $cook = ("1");
+            //  exec("mv -v departed/" . $_COOKIE[$cookie_name] . " registered_phid/");
+              //move them to the arrived folder
+           // }
+            //checking if the cookie is registered but they are not in the files
+            if ($cook == "0") {
+              //cookie error re register cookie and delete the cookie
+              setcookie("phid", "", time() - 9999999999);
+              header("Location: /registercookie.php?page=" . $qrid);
+            }
           }
 //setcookie($cookie_name, $ranid, time() + (86400 * 360));
 //exec("cd registered_phid/ && echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> {$ranid}");
