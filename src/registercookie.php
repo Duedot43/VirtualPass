@@ -16,8 +16,14 @@ function config_set($config_file, $section, $key, $value) {
 //nooooo this code is not stolen fron StackOverflow no never!
 $cookie_name = "phid";
 //check for all the variables from the html below
-$domain = $_SERVER['SERVER_NAME'];
-//$domain = "1b0e-8-6-112-61.ngrok.io";
+$ini = parse_ini_file('../config/config.ini');
+if ($ini['overide_automatic_domain_name'] == "1"){
+  $domain = $ini['domain_name'];
+}
+if ($ini['overide_automatic_domain_name'] != "1"){
+  $domain = $_SERVER['SERVER_NAME'];
+}
+//"1b0e-8-6-112-61.ngrok.io";
 //echo $domain;
 if(isset($_GET['page'])) {
   if(isset($_POST['firstname'])) {

@@ -15,6 +15,8 @@ function config_set($config_file, $section, $key, $value) {
 }
 //nooooo this code is not stolen fron StackOverflow no never!
 $cookie_name = "phid";
+$ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
+$cookid = $ini['first_name'] . " " . $ini['last_name'] . " " . $ini['student_id'] . " " . $ini['student_email'];
 //$qrid=$_POST['qrid'];
 //$fh = fopen('qrid.txt','r');
 //$qrid = fgets($fh);
@@ -140,7 +142,7 @@ if(!isset($_COOKIE[$cookie_name])) {
         $minutes_gone = $minute_arv-$minute_gon;
         //^^^^ see how long they were gone ^^^^
         $a = getdate();
-        $current_date = date(DATE_ATOM);
+        $current_date = date("Y") . "-" . date("n") . "-" . date("d");
         $current_hour = $a['hours'];
         $rid31 = fopen("registerd_qrids/" . $qrid, "r");
         $rid12 = fread($rid31, "30");
@@ -165,7 +167,7 @@ if(!isset($_COOKIE[$cookie_name])) {
         
         //$ckroomhtml = exec("cd registered_phid/" . $cookieodd . "/huinfo/" . $current_date . "/ && ls ./" . $rid1);
         //check if the room exiests if it does do not add it to the HTML file and do not make the DIR
-        if (!is_dir("human_info/" . $_COOKIE[$cookie_name] . "/huinfo/" . $current_date . "/" . $rid1)){
+        if (!is_dir("human_info/" . $_COOKIE[$cookie_name] . "/" . $current_date . "/" . $rid1)){
           //if so make the dir and add it to the HTML file
           mkdir("human_info/" . $_COOKIE[$cookie_name] . "/" . $current_date . "/" . $rid1);
           $current_date_html = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $rid1 . '" onclick="location=\'/human_info/' . $_COOKIE[$cookie_name] . '/' . $current_date . '/' . $rid1 . '/index.html\'" /></td>';

@@ -16,7 +16,7 @@ if (isset($_POST['rnum'])) {
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
     }
     $room = fopen("registerd_qrids/" . $qrid, "w");
-    fwrite($room, $qrid);
+    fwrite($room, $rnum);
     //exec("cd registerd_qrids/ && echo '{$rnum}' >> {$qrid}");
     //NOTE: Dont ask me why its called stupid.php im still learning PHP and that was not easy to write
     header("Location: /stupid.php?page=" . $qrid);
