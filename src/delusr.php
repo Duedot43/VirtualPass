@@ -2,7 +2,7 @@
 //really delete the user
 $cookie_name = "phid";
 if(isset($_COOKIE[$cookie_name])){
-    if (is_file("registered_phid/" . $_COOKIE[$cookie_name])){
+    if (file_exists("registered_phid/" . $_COOKIE[$cookie_name])){
         //exec("rm -rf departed/" . $_COOKIE[$cookie_name]);
         exec(" rm registered_phid/" . $_COOKIE[$cookie_name]);
         setcookie("phid", "", time() - 9999999999);
