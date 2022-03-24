@@ -16,6 +16,7 @@ include("rmallusr.php");
 exec("rm student.php");
 exec("rm cookie/*");
 exec("rm -rf ../human_info/*");
+exec("echo p >>  ../human_info/.placeholder");
 exec("echo p >>  cookie/.placeholder");
 echo("Done!");
 ?>

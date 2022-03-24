@@ -64,7 +64,7 @@ if(isset($_GET['page'])) {
                 copy("usr_pre_fls/index.php", "administrator/student.php");
                 //exec("cp usr_pre_fls/index.php ./administrator/student.php");
               }
-              $tat = '<link href="style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $firstname . '" onclick="location=\'human_info/' . $ranid . '/index.php\'" /></td>';
+              $tat = '<link href="style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $firstname . '" onclick="location=\'/human_info/' . $ranid . '/index.html\'" /></td>';
               $student = file_put_contents('administrator/student.php', $tat.PHP_EOL , FILE_APPEND | LOCK_EX);
               if ($ini['enable_insecure_general_logs'] == "1"){
               //exec('cd administrator/ && echo "<"link href="/style.css" rel="stylesheet" type="text/css" "/>""<"input type="button" value="' . $firstname . '" onclick="location=\'/registered_phid/' . $ranid . '/huinfo/index.html\'" "/><br>" >> student.php');

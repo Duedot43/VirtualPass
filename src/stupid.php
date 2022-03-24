@@ -154,7 +154,7 @@ if(!isset($_COOKIE[$cookie_name])) {
           mkdir("human_info/" . $_COOKIE[$cookie_name] . "/" . $current_date);
           //exec("mkdir registered_phid/" . $_COOKIE[$cookie_name] . "/huinfo/" . $current_date . "/");
           //make a button for the current day for the admin log
-          $main_html = '<link href="style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $current_date . '" onclick="location=\'human_info/' . $_COOKIE[$cookie_name] . '/' . $current_date . '/index.html\'" /></td>';
+          $main_html = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $current_date . '" onclick="location=\'/human_info/' . $_COOKIE[$cookie_name] . '/' . $current_date . '/index.html\'" /></td>';
           $student = file_put_contents('human_info/' . $_COOKIE[$cookie_name] . '/index.html', $main_html.PHP_EOL , FILE_APPEND | LOCK_EX);
           //exec('cd registered_phid/' . $_COOKIE[$cookie_name] . '/huinfo/ && echo <link href="/style.css" rel="stylesheet" type="text/css" /><input type="button" value=\'Date:' . $current_date . '\' onclick="location=\'/registered_phid/' . $_COOKIE[$cookie_name] . '/huinfo/' . $current_date . '/index.html\'" "/><br>" >> index.html');
         }
@@ -166,20 +166,32 @@ if(!isset($_COOKIE[$cookie_name])) {
         //check if the room exiests if it does do not add it to the HTML file and do not make the DIR
         if (!is_dir("human_info/" . $_COOKIE[$cookie_name] . "/huinfo/" . $current_date . "/" . $rid1)){
           //if so make the dir and add it to the HTML file
-          mkdir("human_info/" . $_COOKIE[$cookie_name] . "/huinfo/" . $current_date . "/" . $rid1);
-          $current_date_html = '<link href="style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $rid1 . '" onclick="location=\'human_info/' . $_COOKIE[$cookie_name] . '/' . $current_date . '/' . $rid1 . '/index.html\'" /></td>';
+          mkdir("human_info/" . $_COOKIE[$cookie_name] . "/" . $current_date . "/" . $rid1);
+          $current_date_html = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $rid1 . '" onclick="location=\'human_info/' . $_COOKIE[$cookie_name] . '/' . $current_date . '/' . $rid1 . '/index.html\'" /></td>';
           $student = file_put_contents('human_info/' . $_COOKIE[$cookie_name] . '/' . $current_date . '/index.html', $current_date_html.PHP_EOL , FILE_APPEND | LOCK_EX);
         }
         //i always need to add the hour to the html file this is assuming people dont go to the restroom every .2 seconds 
         //And im too lazy to add another thing above and convert the backend lol
-        exec('cd registered_phid/' . $_COOKIE[$cookie_name] . '/huinfo/' . $current_date . '/' . $rid1 . '/ && echo "<"link href="/style.css" rel="stylesheet" type="text/css" "/>""<"input type="button" value="Hour:' . $current_hour . '" onclick="location=\'/registered_phid/' . $_COOKIE[$cookie_name] . '/huinfo/' . $current_date . '/' . $rid1 . '/' . $current_hour . '.html\'" "/><br>" >> index.html');
-        exec("cd registered_phid/" . $_COOKIE[$cookie_name] . "/huinfo/" . $current_date . "/" . $rid1 . "/ && echo '<'link href='/style.css' rel='stylesheet' type='text/css' '/>''" . $usrinfo . "' was out for '" . $days_gone . "' days '" . $hours_gone . "' hours and '" . $minutes_gone . "' minutes.'<br>'Student left classroom '" . $rid1 . "' at '" . $hour_gon . "':'" . $minute_gon . "' and arrived at '" . $hour_arv . "':'" . $minute_arv . "<br>' >> '" . $current_hour . "'.html");
+        $guide_to_info_page = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="Hour: ' . $current_hour . '" onclick="location=\'human_info/' . $_COOKIE[$cookie_name] . '/' . $current_date . '/' . $rid1 . '/' . $current_hour . '.html\'" /></td>';
+        $student = file_put_contents('human_info/' . $_COOKIE[$cookie_name] . '/' . $current_date . '/' . $rid1 . '/index.html', $guide_to_info_page.PHP_EOL , FILE_APPEND | LOCK_EX);
+        //exec('cd registered_phid/' . $_COOKIE[$cookie_name] . '/huinfo/' . $current_date . '/' . $rid1 . '/ && echo "<"link href="/style.css" rel="stylesheet" type="text/css" "/>""<"input type="button" value="Hour:' . $current_hour . '" onclick="location=\'/registered_phid/' . $_COOKIE[$cookie_name] . '/huinfo/' . $current_date . '/' . $rid1 . '/' . $current_hour . '.html\'" "/><br>" >> index.html');
+        $info_page = '<link href="/style.css" rel="stylesheet" type="text/css" />' . $usrinfo . ' was out for ' . $days_gone . ' days ' . $hours_gone . ' hours and ' . $minutes_gone . ' minutes.<br>Student left classroom ' . $rid1 . ' at ' . $hour_gon . ':' . $minute_gon . ' and arrived at ' . $hour_arv . ':' . $minute_arv . '<br>';
+        $student = file_put_contents("human_info/" . $_COOKIE[$cookie_name] . "/" . $current_date . "/" . $rid1 . "/" . $current_date . ".html", $info_page.PHP_EOL , FILE_APPEND | LOCK_EX);
+        //exec("cd registered_phid/" . $_COOKIE[$cookie_name] . "/huinfo/" . $current_date . "/" . $rid1 . "/ && echo '<'link href='/style.css' rel='stylesheet' type='text/css' '/>''" . $usrinfo . "' was out for '" . $days_gone . "' days '" . $hours_gone . "' hours and '" . $minutes_gone . "' minutes.'<br>'Student left classroom '" . $rid1 . "' at '" . $hour_gon . "':'" . $minute_gon . "' and arrived at '" . $hour_arv . "':'" . $minute_arv . "<br>' >> '" . $current_hour . "'.html");
         //destroy all the variables for good mesure
-        exec('cd registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo && rm ./*');
+        //exec('cd registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo && rm ./*');
+        config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "dayofmonth_gon", "");
+        config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "hour_gon", "");
+        config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "minute_gon", "");
+        config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "dayofmonth_arv", "");
+        config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "hour_arv", "");
+        config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "minute_arv", "");
         session_destroy();
       }
     }
-//record it in the blob log 
+//record it in the blob log haha that rymes
+$ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
+if ($ini['enable_insecure_general_logs'] == "1"){
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
     exec("echo '{$date}' >> log/inout.log");
     //echo($cookid);
@@ -187,6 +199,7 @@ if(!isset($_COOKIE[$cookie_name])) {
     $rid = exec("cat registerd_qrids/{$qrid}");
     exec("echo '{$dpt}' '{$rid}' >> log/inout.log");
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
+}
 
   }
 //change Arrive/daparted button to show what it is going to do ,done
