@@ -15,8 +15,6 @@ function config_set($config_file, $section, $key, $value) {
 }
 //nooooo this code is not stolen fron StackOverflow no never!
 $cookie_name = "phid";
-$ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
-$cookid = $ini['first_name'] . " " . $ini['last_name'] . " " . $ini['student_id'] . " " . $ini['student_email'];
 //$qrid=$_POST['qrid'];
 //$fh = fopen('qrid.txt','r');
 //$qrid = fgets($fh);
@@ -122,6 +120,8 @@ if(!isset($_COOKIE[$cookie_name])) {
     $ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
     if ($ini['hour_gon'] != ""){
       if ($ini['hour_arv'] != ""){
+        $ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
+        $cookid = $ini['first_name'] . " " . $ini['last_name'] . " " . $ini['student_id'] . " " . $ini['student_email'];
         //$fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo/dayofmonth_gon','r');
         $dayofmonth_gon = $ini['dayofmonth_gon'];
         //$fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo/dayofmonth_arv','r');
