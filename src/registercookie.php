@@ -46,20 +46,23 @@ if(isset($_GET['page'])) {
             $sendemail = $ini['em_enable'];
               $money = "$";
               setcookie($cookie_name, $ranid, time() + (86400 * 360), "/", $domain, TRUE, TRUE);
-              exec("sleep.5s");
-              if(!isset($_COOKIE[$cookie_name])) {
-                echo("Hmm something has gone wrong I cant set your cookie. Trying fallback method...");
-              }
+              //exec("sleep.5s");
+              //if(!isset($_COOKIE[$cookie_name])) {
+                //echo("Hmm something has gone wrong I cant set your cookie. Trying fallback method...");
+              //}
               $inifl = fopen("registered_phid/" . $ranid, "w");
-              $tet = ("[usrinfo]\nfirst_name=" . $firstname . "\nlast_name=" . $lastname . "\nstudent_id=" . $stid . "\nstudent_email=" . $stem . "\nstudent_activity=Arrived\n[srvinfo]\ndayofmonth_gon=\nhour_gon=\nminute_gon=\ndayofmonth_arv=\nhour_arv=\nminute_arv=\n[email]\nemail_html=\n[huinfo]\n");
+              $tet = ("[usrinfo]\nfirst_name=" . $firstname . "\nlast_name=" . $lastname . "\nstudent_id=" . $stid . "\nstudent_email=" . $stem . "\nstudent_activity=Arrived\n[srvinfo]\ndayofmonth_gon=\nhour_gon=\nminute_gon=\ndayofmonth_arv=\nhour_arv=\nminute_arv=\n[email]\nemail_html=");
               fwrite($inifl, $tet);
               fclose($inifl);
               mkdir("human_info/" . $ranid);
               //exec("cd registered_phid/ && mkdir '{$ranid}' && cd '{$ranid}' && mkdir 'srvinfo' && mkdir 'huinfo' && mkdir 'email' && echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> '{$ranid}'");
               if ($sendemail == "1"){
                 //$myfile = fopen('registered_phid/' . $ranid . '/email/email.html', "w");
-                $txt = ('<head><link href="https://rawcdn.githack.com/Duedot43/VirtualPass/82889bcf8bd24b0df4b99b1a59bef0699f370474/src/style.css" rel="stylesheet" type="text/css" /></head><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>VirtualPass sign-up confirmation</title><tr><td><table width="100%" border="0" cellpadding="3" cellspacing="1"><tr><td colspan="3"><strong>Congrats ' . $firstname . ', your info has been set!<br>Choose any option below and it will redirect you to the VirtualPass website.<br></strong></td></tr><tr><td width="0"></td><td width="0"></td><td width="294"><input class="reg" type="button" value="Change user info" onclick="location=\"https://' . $domain . '/cgusr.php?user=' . $ranid . '\"" /></td><td width="78"></td><td width="80"></td><td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location=\"https://' . $domain . '/delusreml.php?user=' . $ranid . '\"" style="border-color:red; color:white"/></td><td width="0"></td><td width="0"></td></tr><tr></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr></table></td></tr></table>');
-                config_set("registered_phid/" . $ranid, "email", "email_html", $txt);
+                $txt = ('<head><link href="https://rawcdn.githack.com/Duedot43/VirtualPass/82889bcf8bd24b0df4b99b1a59bef0699f370474/src/style.css" rel="stylesheet" type="text/css" /></head><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>VirtualPass sign-up confirmation</title><tr><td><table width="100%" border="0" cellpadding="3" cellspacing="1"><tr><td colspan="3"><strong>Congrats ' . $firstname . ', your info has been set!<br>Choose any option below and it will redirect you to the VirtualPass website.<br></strong></td></tr><tr><td width="0"></td><td width="0"></td><td width="294"><input class="reg" type="button" value="Change user info" onclick="location=\'https://' . $domain . '/cgusr.php?user=' . $ranid . '\'" /></td><td width="78"></td><td width="80"></td><td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location=\'https://' . $domain . '/delusreml.php?user=' . $ranid . '\'" style="border-color:red; color:white"/></td><td width="0"></td><td width="0"></td></tr><tr></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr></table></td></tr></table>');
+                $inifl = fopen("human_info/" . $ranid . "email.html", "w");
+                fwrite($inifl, $txt);
+                fclose($inifl);
+                //config_set("registered_phid/" . $ranid, "email", "email_html", $txt);
                 //$txt = ('<head>\n<link href="https://rawcdn.githack.com/Duedot43/VirtualPass/82889bcf8bd24b0df4b99b1a59bef0699f370474/src/style.css" rel="stylesheet" type="text/css" /></head><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>VirtualPass sign-up confirmation</title><tr><td><table width="100%" border="0" cellpadding="3" cellspacing="1"><tr><td colspan="3"><strong>Congrats ' . $firstname . ', your info has been set!<br>Choose any option below and it will redirect you to the VirtualPass website.<br></strong></td></tr><tr><td width="0"></td><td width="0"></td><td width="294"><input class="reg" type="button" value="Change user info" onclick="location=\'https://' . $domain . '/cgusr.php?user=' . $ranid . '\'" /></td><td width="78"></td><td width="80"></td><td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location=\'https://' . $domain . '/delusreml.php?user=' . $ranid . '\'" style="border-color:red; color:white"/></td><td width="0"></td><td width="0"></td></tr><tr></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr></table></td></tr></table>');
                 //fwrite($myfile, $txt);
                 //fclose($myfile);
@@ -80,10 +83,11 @@ if(isset($_GET['page'])) {
               exec("echo ///////////////////////////////////////////////// >> log/inout.log");
               }
               //send it back to stupid
+
               header("Location: /stupid.php?page=" . $qrid);
               exit();
           }
-          else {
+          if(isset($_COOKIE[$cookie_name])) {
     
             //echo "Cookie '" . $cookie_name . "' is set!<br>";
             //echo "Value is: " . $_COOKIE[$cookie_name];
@@ -95,7 +99,7 @@ if(isset($_GET['page'])) {
             //echo " out ", $catout, " in ", $catin, " cookie ", $_COOKIE[$cookie_name];
             //1 = departed
             $cook = ("0");
-            if (file_exists("registered_phid/" . $_COOKIE[$cookie_name])) {
+            if (file_exists("registered_phid/" . $ranid)) {
               header("Location: /stupid.php?page=" . $qrid);
               $cook = ("1");
               //exec("mv -v registered_phid/" . $_COOKIE[$cookie_name] . " departed/");
