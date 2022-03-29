@@ -16,12 +16,12 @@ function config_set($config_file, $section, $key, $value) {
 //nooooo this code is not stolen fron StackOverflow no never!
 if (!isset($_COOKIE['admin'])){
     exec("rm cookie/*");
-    header("Location:index.html");
+    header("Location: /administrator/index.html");
     exit();
 }
 else{
-    $outputz = exec("tree -i --noreport cookie | grep -o " . $_COOKIE['admin']);
-    if ($outputz != $_COOKIE['admin']){
+    //$outputz = exec("tree -i --noreport cookie | grep -o " . $_COOKIE['admin']);
+    if (!file_exists("cookie/" . $_COOKIE['admin'])){
         header("Location:index.html");
     }
 }

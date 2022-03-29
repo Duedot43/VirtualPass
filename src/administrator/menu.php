@@ -5,8 +5,8 @@ if (!isset($_COOKIE['admin'])){
     exit();
 }
 else{
-    $outputz = exec("tree -i --noreport cookie | grep -o " . $_COOKIE['admin']);
-    if ($outputz != $_COOKIE['admin']){
+    //$outputz = exec("tree -i --noreport cookie | grep -o " . $_COOKIE['admin']);
+    if (!file_exists("cookie/" . $_COOKIE['admin'])){
         header("Location:index.html");
     }
 }
