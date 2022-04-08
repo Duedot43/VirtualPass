@@ -77,6 +77,7 @@ if(!isset($_COOKIE[$cookie_name])) {
       //cookie error re register cookie and delete the cookie
       setcookie("phid", "", time() - 9999999999);
       header("Location: /registercookie.php?page=" . $qrid);
+      exit();
     }
     //exec("echo {$cook}");
     //$dpt2 is for the webpage title and the button
