@@ -1,7 +1,7 @@
 <?php
 if (!isset($_COOKIE['admin'])){
     exec("rm cookie/*");
-    header("Location: /administrator/index.html");
+    header("Location: /administrator/");
     exit();
 }
 else{
