@@ -73,7 +73,7 @@ if(!isset($_COOKIE[$cookie_name])) {
       //move them to the arrived folder
    // }
     //checking if the cookie is registered but they are not in the files
-    if ($cook == "0") {
+    if (!file_exists("registered_phid/" . $_COOKIE[$cookie_name])) {
       //cookie error re register cookie and delete the cookie
       setcookie("phid", "", time() - 9999999999);
       header("Location: /registercookie.php?page=" . $qrid);
