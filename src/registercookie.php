@@ -119,7 +119,7 @@ if(isset($_GET['page'])) {
             if ($cook == "0") {
               //cookie error re register cookie and delete the cookie
               setcookie("phid", "", time() - 9999999999);
-              header("Location: /registercookie.php?page=" . $qrid);
+              header("Location: /stupid.php?page=" . $qrid);
             }
           }
 //setcookie($cookie_name, $ranid, time() + (86400 * 360));
