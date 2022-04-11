@@ -1,6 +1,7 @@
 <?php 
-if ($_GET['page'] == "") {
-    echo("invalid URL");
+if (!isset($_GET['page'])) {
+    echo("invalid URL. Redirecting...");
+    header("Location: https://github.com/Duedot43/VirtualPass/blob/master/example.link");
     exit();
 }
 //echo "TYPE THIS NUMBER IN THE BOX >>> ", $_GET['page'];
