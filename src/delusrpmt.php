@@ -21,7 +21,7 @@ if (isset($_POST['confirm'])) {
 <td>
 <table width="100%" border="0" cellpadding="3" cellspacing="1">
 <tr>
-<td colspan="5"><strong>Are you sure you want to delete your user?</strong></td>
+<td colspan="80"><strong>Are you sure you want to delete your user?</strong></td>
 </tr>
 <tr>
 <td width="0"></td>
