@@ -222,7 +222,7 @@ if ($inithing['enable_insecure_general_logs'] == "1"){
 <td>
 <table width="100%" border="0" cellpadding="3" cellspacing="1">
 <tr>
-<td colspan="80"><strong>Hall pass registerd<br>you have <?php echo $dpt;?><br></strong></td>
+<td colspan="80"><strong>Hall pass registered<br>you have <?php echo $dpt;?><br></strong></td>
 </tr>
 <tr>
 <td width="0"></td>
@@ -230,39 +230,13 @@ if ($inithing['enable_insecure_general_logs'] == "1"){
 <td width="294"><input class="reg" type="button" id="return" value='<?php echo $dpt2;?>' onclick="location='stupid.php?page=<?php echo $qrid;?>'" /></td>
 <script>
 document.getElementById("return").disabled = true;
-document.querySelector('#return').value = '30';
-setTimeout(() => { document.querySelector('#return').value = '29'; }, 1000);
-setTimeout(() => { document.querySelector('#return').value = '28'; }, 2000);
-setTimeout(() => { document.querySelector('#return').value = '27'; }, 3000);
-setTimeout(() => { document.querySelector('#return').value = '26'; }, 4000);
-setTimeout(() => { document.querySelector('#return').value = '25'; }, 5000);
-setTimeout(() => { document.querySelector('#return').value = '24'; }, 6000);
-setTimeout(() => { document.querySelector('#return').value = '23'; }, 7000);
-setTimeout(() => { document.querySelector('#return').value = '22'; }, 8000);
-setTimeout(() => { document.querySelector('#return').value = '21'; }, 9000);
-setTimeout(() => { document.querySelector('#return').value = '20'; }, 10000);
-setTimeout(() => { document.querySelector('#return').value = '19'; }, 11000);
-setTimeout(() => { document.querySelector('#return').value = '18'; }, 12000);
-setTimeout(() => { document.querySelector('#return').value = '17'; }, 13000);
-setTimeout(() => { document.querySelector('#return').value = '16'; }, 14000);
-setTimeout(() => { document.querySelector('#return').value = '15'; }, 15000);
-setTimeout(() => { document.querySelector('#return').value = '14'; }, 16000);
-setTimeout(() => { document.querySelector('#return').value = '13'; }, 17000);
-setTimeout(() => { document.querySelector('#return').value = '12'; }, 18000);
-setTimeout(() => { document.querySelector('#return').value = '11'; }, 19000);
-setTimeout(() => { document.querySelector('#return').value = '10'; }, 20000);
-setTimeout(() => { document.querySelector('#return').value = '9'; }, 21000);
-setTimeout(() => { document.querySelector('#return').value = '8'; }, 22000);
-setTimeout(() => { document.querySelector('#return').value = '7'; }, 23000);
-setTimeout(() => { document.querySelector('#return').value = '6'; }, 24000);
-setTimeout(() => { document.querySelector('#return').value = '5'; }, 25000);
-setTimeout(() => { document.querySelector('#return').value = '4'; }, 26000);
-setTimeout(() => { document.querySelector('#return').value = '3'; }, 27000);
-setTimeout(() => { document.querySelector('#return').value = '2'; }, 28000);
-setTimeout(() => { document.querySelector('#return').value = '1'; }, 29000);
-setTimeout(() => { document.querySelector('#return').value = '0'; }, 30000);
-setTimeout(() => {  document.getElementById("return").disabled = false; }, 30000);
-setTimeout(() => { document.querySelector('#return').value = '<?php echo $dpt2;?>'; }, 30000);
+document.querySelector('#return').value = '5';
+setTimeout(() => { document.querySelector('#return').value = '4'; }, 1000);
+setTimeout(() => { document.querySelector('#return').value = '3'; }, 2000);
+setTimeout(() => { document.querySelector('#return').value = '2'; }, 3000);
+setTimeout(() => { document.querySelector('#return').value = '1'; }, 4000);
+setTimeout(() => {  document.getElementById("return").disabled = false; }, 5000);
+setTimeout(() => { document.querySelector('#return').value = '<?php echo $dpt2;?>'; }, 5000);
 </script>
 <td width="78"></td>
 <td width="80"></td>
