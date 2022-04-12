@@ -1,3 +1,3 @@
-Backend: @Duedot43
-CSS, HTML and frontend: @howtoapple
-Logo: @EnderGamerCubed
+Backend: @Duedot43<br>
+CSS, HTML and frontend: @howtoapple<br>
+Logo: @EnderGamerCubed<br>
