@@ -1,6 +1,14 @@
 <?php
 //$fh = fopen('qrid.txt','r');
 //$qrid = fgets($fh);
+function check_string($num){
+    if (!filter_var($num, FILTER_VALIDATE_INT) === false) {
+        echo("Valid");
+    } else {
+        echo("Invalid");
+        exit();
+    }
+}
 $qrid = $_GET['page'];
 $date = exec("date");
 //fairly simple check if the user has entered the room number log it put it in the qrid folder and send it back to stupid
@@ -15,7 +23,9 @@ if (isset($_POST['rnum'])) {
     exec("echo 'qrid {$qrid} registred to room {$rnum}' >> log/inout.log");
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
     }
+    check_string($qrid);
     $room = fopen("registerd_qrids/" . $qrid, "w");
+    check_string($rnum);
     fwrite($room, $rnum);
     //exec("cd registerd_qrids/ && echo '{$rnum}' >> {$qrid}");
     //NOTE: Dont ask me why its called stupid.php im still learning PHP and that was not easy to write

@@ -14,6 +14,24 @@ function config_set($config_file, $section, $key, $value) {
   file_put_contents($config_file, $new_content);
 }
 //nooooo this code is not stolen fron StackOverflow no never!
+function check_qrid($num){
+  if (!filter_var($num, FILTER_VALIDATE_INT) === false) {
+      echo("Valid");
+  } else {
+      echo("Invalid");
+      echo($num);
+      exit();
+  }
+}
+function check_phid($pid){
+  if (is_numeric($pid)){
+  }
+  else{
+    echo("Invalid!");
+    echo($pid);
+    exit();
+  }
+}
 $cookie_name = "phid";
 //$qrid=$_POST['qrid'];
 //$fh = fopen('qrid.txt','r');
@@ -35,7 +53,7 @@ if(!isset($_COOKIE[$cookie_name])) {
     header("Location: /registercookie.php?page=" . $qrid);
     exit();
   } else {
-    
+    check_phid($_COOKIE[$cookie_name]);
     //echo "Cookie '" . $cookie_name . "' is set!<br>";
     //echo "Value is: " . $_COOKIE[$cookie_name];
     //look for the user in the files and find out if they are departed or not
@@ -52,8 +70,10 @@ if(!isset($_COOKIE[$cookie_name])) {
       //$cookid = fgets($fh); 
       //$dpt = ($ini['']);
       if ($fh['student_activity'] == "Arrived"){
+        
         config_set('registered_phid/' . $_COOKIE[$cookie_name], "usrinfo", "student_activity", "Departed");
       } else{
+        
         config_set('registered_phid/' . $_COOKIE[$cookie_name], "usrinfo", "student_activity", "Arrived");
       }
       $fh = parse_ini_file('registered_phid/' . $_COOKIE[$cookie_name]);
@@ -75,7 +95,7 @@ if(!isset($_COOKIE[$cookie_name])) {
     //checking if the cookie is registered but they are not in the files
     if ($cook == "0") {
       //cookie error re register cookie and delete the cookie
-      setcookie("phid", "", time() - 9999999999);
+      setcookie($cookie_name, "", time() - (86400 * 360), "/", $domain, TRUE, TRUE);
       header("Location: /registercookie.php?page=" . $qrid);
     }
     //exec("echo {$cook}");
@@ -98,13 +118,21 @@ if(!isset($_COOKIE[$cookie_name])) {
     //$ariveis1 = exec("cd departed/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_gon");
     $ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
     if ($ini['hour_gon'] == ""){
+      
       config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "dayofmonth_gon", $dayofmonth);
+      
       config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "hour_gon", $hour);
+      
       config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "minute_gon", $minute);
+      
     } else{
+      
       config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "dayofmonth_arv", $dayofmonth);
+      
       config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "hour_arv", $hour);
+      
       config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "minute_arv", $minute);
+      
     }
     //if ($ariveis1 != "hour_gon"){
       //exec("cd departed/" . $_COOKIE[$cookie_name] . "/srvinfo && echo '{$dayofmonth}' >> 'dayofmonth_gon' && echo '{$hour}' >> 'hour_gon' && echo '{$minute}' >> 'minute_gon'");
@@ -117,9 +145,11 @@ if(!isset($_COOKIE[$cookie_name])) {
     //$ariveis_verify_reg_arv = exec("cd registered_phid/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_arv");
     //$ariveis_dep_reg_gon = exec("cd departed/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_gon");
     //$ariveis_dep_reg_arv = exec("cd departed/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_arv");
+    
     $ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
     if ($ini['hour_gon'] != ""){
       if ($ini['hour_arv'] != ""){
+        
         $ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
         $cookid = $ini['first_name'] . " " . $ini['last_name'] . " " . $ini['student_id'] . " " . $ini['student_email'];
         //$fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo/dayofmonth_gon','r');
@@ -154,6 +184,7 @@ if(!isset($_COOKIE[$cookie_name])) {
         //check if current date exiests if it does dont make a DIR and dont add it to the html file
         $ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
         if (!is_dir("human_info/" . $cookieodd . "/" . $current_date)){
+          
           mkdir("human_info/" . $_COOKIE[$cookie_name] . "/" . $current_date);
           //exec("mkdir registered_phid/" . $_COOKIE[$cookie_name] . "/huinfo/" . $current_date . "/");
           //make a button for the current day for the admin log

@@ -14,6 +14,14 @@ function config_set($config_file, $section, $key, $value) {
   file_put_contents($config_file, $new_content);
 }
 //nooooo this code is not stolen fron StackOverflow no never!
+function check_string($num){
+  if (!filter_var($num, FILTER_VALIDATE_INT) === false) {
+      echo("Valid");
+  } else {
+      echo("Invalid");
+      exit();
+  }
+}
 $cookie_name = "phid";
 //check for all the variables from the html below
 $ini = parse_ini_file('../config/config.ini');
@@ -32,12 +40,13 @@ if(isset($_GET['page'])) {
         if(isset($_POST['stem'])) {
           //set all the variables
           $qrid = $_GET['page'];
+          check_string($qrid);
           $firstname=$_POST['firstname'];
           $lastname=$_POST['lastname'];
           $stid=$_POST['stid'];
           $stem=$_POST['stem'];
           //get a unique id for the user
-          $ranid = uniqid(rand());
+          $ranid = rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand();
           echo $ranid;
           $date = date(DATE_ATOM);
           if(!isset($_COOKIE[$cookie_name])) {
@@ -118,7 +127,7 @@ if(isset($_GET['page'])) {
             //checking if the cookie is registered but they are not in the files
             if ($cook == "0") {
               //cookie error re register cookie and delete the cookie
-              setcookie("phid", "", time() - 9999999999);
+              setcookie($cookie_name, $ranid, time() - (86400 * 360), "/", $domain, TRUE, TRUE);
               header("Location: /stupid.php?page=" . $qrid);
             }
           }

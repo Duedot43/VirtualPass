@@ -4,7 +4,8 @@ $cookie_name = "phid";
 if(isset($_COOKIE[$cookie_name])){
     if (file_exists("registered_phid/" . $_COOKIE[$cookie_name])){
         //exec("rm -rf departed/" . $_COOKIE[$cookie_name]);
-        exec(" rm registered_phid/" . $_COOKIE[$cookie_name]);
+        unlink("registered_phid/" . $_COOKIE[$cookie_name]);
+        //exec("rm registered_phid/" . $_COOKIE[$cookie_name]);
         setcookie("phid", "", time() - 9999999999);
     }else{
         echo("Internal server error your file is not here! please try again...");
