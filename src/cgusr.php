@@ -1,4 +1,19 @@
 <?php
+//nooooo this code is not stolen fron StackOverflow no never!
+function config_set($config_file, $section, $key, $value) {
+    $config_data = parse_ini_file($config_file, true);
+    $config_data[$section][$key] = $value;
+    $new_content = '';
+    foreach ($config_data as $section => $section_content) {
+        $section_content = array_map(function($value, $key) {
+            return "$key=$value";
+        }, array_values($section_content), array_keys($section_content));
+        $section_content = implode("\n", $section_content);
+        $new_content .= "[$section]\n$section_content\n";
+    }
+    file_put_contents($config_file, $new_content);
+  }
+  //nooooo this code is not stolen fron StackOverflow no never!
 if(isset($_GET['user'])) {
     if(isset($_POST['firstname'])) {
       if(isset($_POST['lastname'])) {
@@ -9,8 +24,12 @@ if(isset($_GET['user'])) {
             $lastname=$_POST['lastname'];
             $stid=$_POST['stid'];
             $stem=$_POST['stem'];
-            exec("rm registered_phid/" . $user . "/" . $user);
-            exec("echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> registered_phid/" . $user ."/" . $user);
+            //exec("rm registered_phid/" . $user . "/" . $user);
+            //exec("echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> registered_phid/" . $user ."/" . $user);
+            config_set("registered_phid/" . $user, "usr_info", "first_name", $firstname);
+            config_set("registered_phid/" . $user, "usr_info", "last_name", $lastname);
+            config_set("registered_phid/" . $user, "usr_info", "student_id", $stid);
+            config_set("registered_phid/" . $user, "usr_info", "student_email", $stem);
             echo ('<link href="style.css" rel="stylesheet" type="text/css" />Done!');
             exit();
 
