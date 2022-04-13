@@ -1,4 +1,13 @@
 <?php
+function check_phid($pid){
+    if (is_numeric($pid)){
+    }
+    else{
+      echo("Invalid!");
+      echo($pid);
+      exit();
+    }
+  }
 if (!isset($_COOKIE['admin'])){
     exec("rm cookie/*");
     header("Location: /administrator/index.html");
@@ -10,16 +19,10 @@ else{
         exit();
     }
 }
-$inifl = fopen("cookie/" . $_COOKIE['admin'], "r");
-$id = fread($inifl, "200");
-fclose($inifl, );
-if ($id != $_COOKIE['admin']){
-    header("Location:index.html");
-    exit();
-}
-include("rmalllog.php");
-include("rmallrom.php");
-include("rmallusr.php");
+check_phid($_COOKIE['admin']);
+exec("rm ../log/* && echo p > ../log/.placeholder");
+exec("rm -rf ../registerd_qrids/* && echo p > ../registerd_qrids/.placeholder");
+exec("rm -rf ../registered_phid/* && echo p > ../registered_phid/.placeholder");
 exec("rm student.php");
 exec("rm cookie/*");
 exec("rm -rf ../human_info/*");

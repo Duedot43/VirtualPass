@@ -1,4 +1,13 @@
 <?php
+function check_phid($pid){
+    if (is_numeric($pid)){
+    }
+    else{
+      echo("Invalid!");
+      echo($pid);
+      exit();
+    }
+  }
 if (!isset($_COOKIE['admin'])){
     exec("rm cookie/*");
     header("Location: /administrator/index.html");
@@ -10,13 +19,7 @@ else{
         exit();
     }
 }
-$inifl = fopen("cookie/" . $_COOKIE['admin'], "r");
-$id = fread($inifl, "200");
-fclose($inifl, );
-if ($id != $_COOKIE['admin']){
-    header("Location:index.html");
-    exit();
-}
+check_phid($_COOKIE['admin']);
 //If you want to try to fix this feture go ahead i dont have the server hardware network or the money to pay for a cool domain name
 $remote_release = file_get_contents("https://85c5-8-48-134-44.ngrok.io/latest");
 $remote_merge_info = file_get_contents("https://85c5-8-48-134-44.ngrok.io/release_folder/merge-info");

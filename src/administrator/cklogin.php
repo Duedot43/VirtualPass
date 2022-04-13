@@ -7,7 +7,7 @@ if ($ini['overide_automatic_domain_name'] != "1"){
   $domain = $_SERVER['SERVER_NAME'];
 }
 $cookie_namez = "admin";
-$raniddd = uniqid(rand()) . uniqid(rand()) . uniqid(rand()) . uniqid(rand()) . uniqid(rand()) . uniqid(rand());
+$raniddd = rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand();
 $uname = $_POST['uname'];
 $passwd = $_POST['passwd'];
 $ini = parse_ini_file('../../config/config.ini');
@@ -17,7 +17,7 @@ if ($uname == $unameck){
     if ($passwd == $passwdck){
         setcookie($cookie_namez, $raniddd, time() - (30), "/", $domain, TRUE, TRUE);
         setcookie($cookie_namez, $raniddd, time() + (30), "/", $domain, TRUE, TRUE);
-        exec("echo " . $raniddd . " >> cookie/" . $raniddd);
+        exec("echo -n " . $raniddd . " >> cookie/" . $raniddd);
         //exec("mkdir cookie/" . $raniddd);
         header("Location: /administrator/menu.php");
     } else{

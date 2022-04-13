@@ -14,6 +14,15 @@ function config_set($config_file, $section, $key, $value) {
     file_put_contents($config_file, $new_content);
 }
 //nooooo this code is not stolen fron StackOverflow no never!
+function check_phid($pid){
+    if (is_numeric($pid)){
+    }
+    else{
+      echo("Invalid!");
+      echo($pid);
+      exit();
+    }
+  }
 if (!isset($_COOKIE['admin'])){
     exec("rm cookie/*");
     header("Location: /administrator/index.html");
@@ -25,13 +34,7 @@ else{
         exit();
     }
 }
-$inifl = fopen("cookie/" . $_COOKIE['admin'], "r");
-$id = fread($inifl, "200");
-fclose($inifl, );
-if ($id != $_COOKIE['admin']){
-    header("Location:index.html");
-    exit();
-}
+check_phid($_COOKIE['admin']);
 $ini = parse_ini_file('../../config/config.ini');
 $sendemail = $ini['em_enable'];
 if ($sendemail == "1"){

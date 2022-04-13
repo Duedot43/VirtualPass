@@ -1,4 +1,13 @@
 <?php
+function check_phid($pid){
+    if (is_numeric($pid)){
+    }
+    else{
+      echo("Invalid!");
+      echo($pid);
+      exit();
+    }
+  }
 if (!isset($_COOKIE['admin'])){
     exec("rm cookie/*");
     header("Location: /administrator/index.html");
@@ -10,13 +19,7 @@ else{
         exit();
     }
 }
-$inifl = fopen("cookie/" . $_COOKIE['admin'], "r");
-$id = fread($inifl, "200");
-fclose($inifl, );
-if ($id != $_COOKIE['admin']){
-    header("Location:index.html");
-    exit();
-}
+check_phid($_COOKIE['admin']);
 //exec("rm -rf ../departed/* && echo p > ../departed/.placeholder");
 exec("rm -rf ../registered_phid/* && echo p > ../registered_phid/.placeholder");
 echo("Done!");

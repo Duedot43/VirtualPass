@@ -1,15 +1,25 @@
 <?php
+function check_phid($pid){
+    if (is_numeric($pid)){
+    }
+    else{
+      echo("Invalid!");
+      echo($pid);
+      exit();
+    }
+  }
 if (!isset($_COOKIE['admin'])){
     exec("rm cookie/*");
     header("Location: /administrator/index.html");
     exit();
 }
 else{
-    $outputz = exec("tree -i --noreport cookie | grep -o " . $_COOKIE['admin']);
     if (!file_exists("cookie/" . $_COOKIE['admin'])){
         header("Location:index.html");
+        exit();
     }
 }
+check_phid($_COOKIE['admin']);
 $rooms = exec("dir ../registered_phid/ && dir ../departed/");
 echo ("Users: {$rooms} <br>");
 $roomcont = exec("cat ../registered_phid/* && cat ../departed/*");
