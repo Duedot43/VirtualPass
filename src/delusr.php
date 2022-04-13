@@ -1,7 +1,17 @@
 <?php
 //really delete the user
+function check_phid($pid){
+    if (is_numeric($pid)){
+    }
+    else{
+      echo("Invalid!");
+      echo($pid);
+      exit();
+    }
+  }
 $cookie_name = "phid";
 if(isset($_COOKIE[$cookie_name])){
+    check_phid($_COOKIE[$cookie_name]);
     if (file_exists("registered_phid/" . $_COOKIE[$cookie_name])){
         //exec("rm -rf departed/" . $_COOKIE[$cookie_name]);
         unlink("registered_phid/" . $_COOKIE[$cookie_name]);
