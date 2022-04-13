@@ -18,7 +18,15 @@ function check_string($num){
   if (!filter_var($num, FILTER_VALIDATE_INT) === false) {
       echo("Valid");
   } else {
-      echo("Invalid");
+      echo("Invalid not a number");
+      exit();
+  }
+}
+function check_name($num){
+  if (ctype_alpha($num)) {
+      echo("Valid");
+  } else {
+      echo("Invalid name");
       exit();
   }
 }

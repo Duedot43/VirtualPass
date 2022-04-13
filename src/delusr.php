@@ -5,7 +5,7 @@ function check_phid($pid){
     }
     else{
       echo("Invalid!");
-      echo($pid);
+      
       exit();
     }
   }

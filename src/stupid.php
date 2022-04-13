@@ -18,8 +18,8 @@ function check_qrid($num){
   if (!filter_var($num, FILTER_VALIDATE_INT) === false) {
       echo("Valid");
   } else {
-      echo("Invalid");
-      echo($num);
+      echo("Invalid not an intiger");
+      
       exit();
   }
 }
@@ -28,7 +28,7 @@ function check_phid($pid){
   }
   else{
     echo("Invalid!");
-    echo($pid);
+    
     exit();
   }
 }

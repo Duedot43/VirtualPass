@@ -3,8 +3,8 @@ function check_phid($pid){
     if (is_numeric($pid)){
     }
     else{
-      echo("Invalid!");
-      echo($pid);
+      echo("Invalid! not numeric");
+      
       exit();
     }
   }

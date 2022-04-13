@@ -4,7 +4,7 @@ function check_qrid($num){
         echo("Valid");
     } else {
         echo("Invalid");
-        echo($num);
+        
         exit();
     }
   }
