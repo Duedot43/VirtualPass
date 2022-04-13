@@ -1,14 +1,28 @@
 <?php
 if (!isset($_COOKIE['admin'])){
     exec("rm cookie/*");
-    header("Location:index.html");;
+    header("Location: /administrator/index.html");
     exit();
 }
 else{
-    $outputz = exec("tree -i --noreport cookie | grep -o " . $_COOKIE['admin']);
-    if ($outputz != $_COOKIE['admin']){
+    if (!file_exists("cookie/" . $_COOKIE['admin'])){
+        $inifl = fopen("cookie/" . $_COOKIE['admin'], "r");
+        $id = fread($inifl);
+        fclose($inifl);
+        if ($id != $_COOKIE['admin']){
+            header("Location:index.html");
+            exit();
+        }
         header("Location:index.html");
+        exit();
     }
+}
+$inifl = fopen("cookie/" . $_COOKIE['admin'], "r");
+$id = fread($inifl, "200");
+fclose($inifl, );
+if ($id != $_COOKIE['admin']){
+    header("Location:index.html");
+    exit();
 }
 $rooms = exec("dir ../registerd_qrids/");
 echo ("rooms: {$rooms} <br>");

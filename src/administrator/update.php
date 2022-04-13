@@ -5,10 +5,24 @@ if (!isset($_COOKIE['admin'])){
     exit();
 }
 else{
-    //$outputz = exec("tree -i --noreport cookie | grep -o " . $_COOKIE['admin']);
     if (!file_exists("cookie/" . $_COOKIE['admin'])){
+        $inifl = fopen("cookie/" . $_COOKIE['admin'], "r");
+        $id = fread($inifl);
+        fclose($inifl);
+        if ($id != $_COOKIE['admin']){
+            header("Location:index.html");
+            exit();
+        }
         header("Location:index.html");
+        exit();
     }
+}
+$inifl = fopen("cookie/" . $_COOKIE['admin'], "r");
+$id = fread($inifl, "200");
+fclose($inifl, );
+if ($id != $_COOKIE['admin']){
+    header("Location:index.html");
+    exit();
 }
 //If you want to try to fix this feture go ahead i dont have the server hardware network or the money to pay for a cool domain name
 $remote_release = file_get_contents("https://85c5-8-48-134-44.ngrok.io/latest");

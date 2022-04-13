@@ -1,14 +1,28 @@
 <?php
 if (!isset($_COOKIE['admin'])){
     exec("rm cookie/*");
-    header("Location: /administrator/");
+    header("Location: /administrator/index.html");
     exit();
 }
 else{
-    //$outputz = exec("tree -i --noreport cookie | grep -o " . $_COOKIE['admin']);
     if (!file_exists("cookie/" . $_COOKIE['admin'])){
+        $inifl = fopen("cookie/" . $_COOKIE['admin'], "r");
+        $id = fread($inifl);
+        fclose($inifl);
+        if ($id != $_COOKIE['admin']){
+            header("Location:index.html");
+            exit();
+        }
         header("Location:index.html");
+        exit();
     }
+}
+$inifl = fopen("cookie/" . $_COOKIE['admin'], "r");
+$id = fread($inifl, "200");
+fclose($inifl, );
+if ($id != $_COOKIE['admin']){
+    header("Location:index.html");
+    exit();
 }
 $ini = parse_ini_file('../../config/config.ini');
 $sendemail = $ini['em_enable'];

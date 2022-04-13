@@ -5,10 +5,24 @@ if (!isset($_COOKIE['admin'])){
     exit();
 }
 else{
-    $outputz = exec("tree -i --noreport cookie | grep -o " . $_COOKIE['admin']);
     if (!file_exists("cookie/" . $_COOKIE['admin'])){
+        $inifl = fopen("cookie/" . $_COOKIE['admin'], "r");
+        $id = fread($inifl);
+        fclose($inifl);
+        if ($id != $_COOKIE['admin']){
+            header("Location:index.html");
+            exit();
+        }
         header("Location:index.html");
+        exit();
     }
+}
+$inifl = fopen("cookie/" . $_COOKIE['admin'], "r");
+$id = fread($inifl, "200");
+fclose($inifl, );
+if ($id != $_COOKIE['admin']){
+    header("Location:index.html");
+    exit();
 }
 exec("rm -rf ../registerd_qrids/* && echo p > ../registerd_qrids/.placeholder");
 echo("Done!");
