@@ -6,13 +6,6 @@ if (!isset($_COOKIE['admin'])){
 }
 else{
     if (!file_exists("cookie/" . $_COOKIE['admin'])){
-        $inifl = fopen("cookie/" . $_COOKIE['admin'], "r");
-        $id = fread($inifl);
-        fclose($inifl);
-        if ($id != $_COOKIE['admin']){
-            header("Location:index.html");
-            exit();
-        }
         header("Location:index.html");
         exit();
     }
