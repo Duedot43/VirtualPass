@@ -32,6 +32,13 @@ function check_phid($pid){
     exit();
   }
 }
+$ini = parse_ini_file('../config/config.ini');
+if ($ini['overide_automatic_domain_name'] == "1"){
+  $domain = $ini['domain_name'];
+}
+if ($ini['overide_automatic_domain_name'] != "1"){
+  $domain = $_SERVER['SERVER_NAME'];
+}
 $cookie_name = "phid";
 //$qrid=$_POST['qrid'];
 //$fh = fopen('qrid.txt','r');
@@ -84,6 +91,7 @@ if(!isset($_COOKIE[$cookie_name])) {
     if (!file_exists("registered_phid/" . $_COOKIE[$cookie_name])){
       setcookie($cookie_name, "", time() - (86400 * 360), "/", $domain, TRUE, TRUE);
       header("Location: /registercookie.php?page=" . $qrid);
+      exit();
     }
     //if the top if statment has triggered this one will not beacuse $catout is outdated at this point
     //if the user is found in departed the below if triggers
