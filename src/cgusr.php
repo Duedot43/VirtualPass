@@ -13,6 +13,15 @@ function config_set($config_file, $section, $key, $value) {
     }
     file_put_contents($config_file, $new_content);
   }
+  function check_phid($pid){
+    if (is_numeric($pid)){
+    }
+    else{
+      echo("Invalid phid cookie!");
+      
+      exit();
+    }
+  }
   //nooooo this code is not stolen fron StackOverflow no never!
 if(isset($_GET['user'])) {
     if(isset($_POST['firstname'])) {
@@ -24,6 +33,7 @@ if(isset($_GET['user'])) {
             $lastname=$_POST['lastname'];
             $stid=$_POST['stid'];
             $stem=$_POST['stem'];
+            check_phid($user);
             //exec("rm registered_phid/" . $user . "/" . $user);
             //exec("echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> registered_phid/" . $user ."/" . $user);
             config_set("registered_phid/" . $user, "usr_info", "first_name", $firstname);
