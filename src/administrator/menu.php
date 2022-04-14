@@ -55,3 +55,4 @@ if ($remote_release != $merge['release']){
 <input class="reg" type="button" value="Clean server" onclick="location='clean.php'" />
 <input class="reg" type="button" value="View all user info" onclick="location='student.php'" />
 <input class="reg" type="button" value="<?php echo $enable_email?>" onclick="location='email.php'" />
+<input class="reg" type="button" value="Make a room QR Code" onclick="location='/mk_room/index.php'" />

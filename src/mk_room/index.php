@@ -26,6 +26,7 @@ $page_val = $value+1;
 $url = "https://" . $domain . "/index.php?page=" . $page_val;
 echo("Right click the QR code and download it it is current set to qrid " . $page_val . "<br>")
 ?>
+<title>Make a room!</title>
 <?php echo $url; ?>
 <!-- (A) LOAD QRCODEJS LIBRARY -->
 <!-- https://cdnjs.com/libraries/qrcodejs -->
