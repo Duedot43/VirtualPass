@@ -81,6 +81,10 @@ if(!isset($_COOKIE[$cookie_name])) {
       $cook = ("1");
       //exec("mv -v registered_phid/" . $_COOKIE[$cookie_name] . " departed/");
     }
+    if (!file_exists("registered_phid/" . $_COOKIE[$cookie_name])){
+      setcookie($cookie_name, "", time() - (86400 * 360), "/", $domain, TRUE, TRUE);
+      header("Location: /registercookie.php?page=" . $qrid);
+    }
     //if the top if statment has triggered this one will not beacuse $catout is outdated at this point
     //if the user is found in departed the below if triggers
     //if ($catin == $_COOKIE[$cookie_name]) {
