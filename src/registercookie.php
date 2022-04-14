@@ -46,6 +46,10 @@ if(isset($_GET['page'])) {
     if(isset($_POST['lastname'])) {
       if(isset($_POST['stid'])) {
         if(isset($_POST['stem'])) {
+          if (isset($_COOKIE['phid'])){
+          setcookie($cookie_name, "", time() - (86400 * 360), "/", $domain, TRUE, TRUE);
+          unlink("registered_phid/" . $_COOKIE['phid']);
+          }
           //set all the variables
           $qrid = $_GET['page'];
           check_string($qrid);
