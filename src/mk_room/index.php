@@ -16,7 +16,7 @@ if ($handle) {
 }
  
 closedir($handle);
-if ($arrFiles[1] == "."){
+if ($arrFiles[2] == ".."){
     $page_val = 1;
 }
 else{
