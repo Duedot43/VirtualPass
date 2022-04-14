@@ -271,7 +271,7 @@ setTimeout(() => { document.querySelector('#return').value = '<?php echo $dpt2;?
 </script>
 <td width="78"></td>
 <td width="80"></td>
-<td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location='delusrpmt.php?page=<?php echo $qrid;?>'" style="border-color:red; color:white"/></td>
+<td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location='delusrpmt.php?page=<?php echo $qrid;?>'" style="border-color:97042F; color:white"/></td>
 <td width="0"></td>
 <td width="0"></td>
 </tr>
