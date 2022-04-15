@@ -33,6 +33,18 @@ $qrid = $_GET['page'];
 $date = exec("date");
 //fairly simple check if the user has entered the room number log it put it in the qrid folder and send it back to stupid
 if (isset($_POST['rnum'])) {
+  echo($_POST['rnum']);
+  if ($_POST['rnum'] == ""){
+    if (!file_exists("../registerd_qrids/" . $qrid)){
+      //exec("cd registerd_qrids/ && echo '{$rnum}' >> {$qrid}");
+      //NOTE: Dont ask me why its called stupid.php im still learning PHP and that was not easy to write
+      header("Location: /mk_room/ck_qrid.php?page=" . $qrid);
+      exit();
+      } else{
+          echo("QRID already set please try again");
+          exit();
+      }
+    }
     $rnum=$_POST['rnum'];
     //echo("you have {$dpt}");
     $inithing = parse_ini_file("../../config/config.ini");
@@ -68,12 +80,12 @@ if (isset($_POST['rnum'])) {
 <td>
 <table width="100%" border="0" cellpadding="3" cellspacing="1">
 <tr>
-<td colspan="3"><strong>Please enter the room you would like this QR code to be in.</strong></td>
+<td colspan="3"><strong>Please enter the room you would like this QR code to be in.<br>Enter nothing if you dont want to manualy set the room and trust the students to set it correctly</strong></td>
 </tr>
 <tr>
 <td width="78">Room Number</td>
 <td width="6">:</td>
-<td width="294"><input class="box" name="rnum" autocomplete="off" type="number" id="rnum" required></td>
+<td width="294"><input class="box" name="rnum" autocomplete="off" type="number" id="rnum"></td>
 </tr>
 <tr>
 </tr>
