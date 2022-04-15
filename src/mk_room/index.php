@@ -43,7 +43,8 @@ echo($arrFiles[1] . "<br>");
 echo($arrFiles[2] . "<br>");
 echo($arrFiles[3] . "<br>");
 echo($arrFiles[4] . "<br>");
-if (!is_integer($value)){
+echo($value . "<br>");
+if ($value = ".placeholder"){
     $page_val = 1;
 }
 else{
