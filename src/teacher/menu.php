@@ -44,7 +44,7 @@ if ($remote_release != $merge['release']){
     <link href="/style.css" rel="stylesheet" type="text/css" />
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Portal</title>
+<title>Teacher portal</title>
 <!DOCTYPE html>
 <input class="reg" type="button" value="Look for your room" onclick="location='/teacher/search.html'" />
 <input class="reg" type="button" value="Make your rooms QR code" onclick="location='/teacher/mk_room/index.php'" />
