@@ -28,7 +28,7 @@ exec("rm cookie/*");
 exec("rm -rf ../human_info/*");
 exec("echo p >>  ../human_info/.placeholder");
 exec("echo p >>  cookie/.placeholder");
-exec("rm ../human_info/teacher_portal/* && echo p > ../human_info/teacher_portal/.placeholder");
+exec("mkdir ../human_info/teacher_portal/ && echo p > ../human_info/teacher_portal/.placeholder");
 echo("Done!");
 ?>
 <head>
