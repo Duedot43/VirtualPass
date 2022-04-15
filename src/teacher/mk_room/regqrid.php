@@ -1,25 +1,25 @@
 <?php
 function check_phid($pid){
-    if (is_numeric($pid)){
-    }
-    else{
-        echo("Invalid! not numeric");
-      
-      exit();
-    }
-  }
-  if (!isset($_COOKIE['admin'])){
-    exec("rm ../administrator/cookie/*");
-    header("Location: /administrator/index.html");
-    exit();
+  if (is_numeric($pid)){
   }
   else{
-    if (!file_exists("../administrator/cookie/" . $_COOKIE['admin'])){
-        header("Location:/administrator/index.html");
-        exit();
-    }
+      echo("Invalid! not numeric");
+    
+    exit();
   }
-  check_phid($_COOKIE['admin']);
+}
+if (!isset($_COOKIE['teacher'])){
+  exec("rm cookie/*");
+  header("Location: /teacher/index.html");
+  exit();
+}
+else{
+  if (!file_exists("cookie/" . $_COOKIE['teacher'])){
+      header("Location:index.html");
+      exit();
+  }
+}
+check_phid($_COOKIE['teacher']);
 //$fh = fopen('qrid.txt','r');
 //$qrid = fgets($fh);
 function check_string($pid){
@@ -37,7 +37,7 @@ $date = exec("date");
 if (isset($_POST['rnum'])) {
   echo($_POST['rnum']);
   if ($_POST['rnum'] == ""){
-    if (!file_exists("../registerd_qrids/" . $qrid)){
+    if (!file_exists("..././registerd_qrids/" . $qrid)){
       //exec("cd registerd_qrids/ && echo '{$rnum}' >> {$qrid}");
       //NOTE: Dont ask me why its called stupid.php im still learning PHP and that was not easy to write
       header("Location: /mk_room/ck_qrid.php?page=" . $qrid);
@@ -47,9 +47,14 @@ if (isset($_POST['rnum'])) {
           exit();
       }
     }
+    if (!file_exists("../../teacher/student.php")){
+      copy("../../usr_pre_fls/index_teacher.php", "../../teacher/student.php");
+    }
     $rnum=$_POST['rnum'];
+    $student_teacher = ('<?php if ($_GET["room"] == ' . $rnum . '){header("Location: /human_info/teacher_portal/' . $qrid . '.php");}?>');
+  $student = file_put_contents('../../teacher/student.php/', $student_teacher.PHP_EOL , FILE_APPEND | LOCK_EX);
     //echo("you have {$dpt}");
-    $inithing = parse_ini_file("../../config/config.ini");
+    $inithing = parse_ini_file("../../../config/config.ini");
     if ($inithing['enable_insecure_general_logs'] == "1"){
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
     exec("echo '{$date}' >> log/inout.log");

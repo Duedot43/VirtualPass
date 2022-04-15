@@ -8,19 +8,19 @@ function check_phid($pid){
     exit();
   }
 }
-if (!isset($_COOKIE['admin'])){
-  exec("rm ../administrator/cookie/*");
-  header("Location: /administrator/index.html");
+if (!isset($_COOKIE['teacher'])){
+  exec("rm cookie/*");
+  header("Location: /teacher/index.html");
   exit();
 }
 else{
-  if (!file_exists("../administrator/cookie/" . $_COOKIE['admin'])){
-      header("Location:/administrator/index.html");
+  if (!file_exists("cookie/" . $_COOKIE['teacher'])){
+      header("Location:index.html");
       exit();
   }
 }
-check_phid($_COOKIE['admin']);
-$ini = parse_ini_file('../../config/config.ini');
+check_phid($_COOKIE['teacher']);
+$ini = parse_ini_file('../../../config/config.ini');
 if ($ini['overide_automatic_domain_name'] == "1"){
   $domain = $ini['domain_name'];
 }

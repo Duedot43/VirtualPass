@@ -8,18 +8,18 @@ function check_phid($pid){
       exit();
     }
   }
-if (!isset($_COOKIE['admin'])){
+  if (!isset($_COOKIE['teacher'])){
     exec("rm cookie/*");
-    header("Location: /administrator/index.html");
+    header("Location: /teacher/index.html");
     exit();
-}
-else{
-    if (!file_exists("cookie/" . $_COOKIE['admin'])){
+  }
+  else{
+    if (!file_exists("cookie/" . $_COOKIE['teacher'])){
         header("Location:index.html");
         exit();
     }
-}
-check_phid($_COOKIE['admin']);
+  }
+  check_phid($_COOKIE['teacher']);
 $ini = parse_ini_file('../../config/config.ini');
 $sendemail = $ini['em_enable'];
 //exec($sendemail);
@@ -41,18 +41,9 @@ if ($remote_release != $merge['release']){
 }
 ?>
 <head>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="/style.css" rel="stylesheet" type="text/css" />
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Portal</title>
 <!DOCTYPE html>
-<input class="reg" type="button" value="View rooms registered" onclick="location='rmreg.php'" />
-<input class="reg" type="button" value="View users registered" onclick="location='ureg.php'" />
-<input class="reg" type="button" value="View logs" onclick="location='inoutlog.php'" />
-<input class="reg" type="button" value="Remove all users" onclick="location='rmallusr.php'" />
-<input class="reg" type="button" value="Remove all rooms" onclick="location='rmallrom.php'" />
-<input class="reg" type="button" value="Remove all logs" onclick="location='rmalllog.php'" />
-<input class="reg" type="button" value="Clean server" onclick="location='clean.php'" />
-<input class="reg" type="button" value="View all user info" onclick="location='student.php'" />
-<input class="reg" type="button" value="<?php echo $enable_email?>" onclick="location='email.php'" />
-<input class="reg" type="button" value="Make a room QR Code" onclick="location='/mk_room/index.php'" />
+<input class="reg" type="button" value="View rooms registered" onclick="location='/teacher/student.php'" />

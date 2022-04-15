@@ -8,9 +8,9 @@ function check_phid($pid){
       exit();
     }
   }
-if (!isset($_COOKIE['admin'])){
+if (!isset($_COOKIE['teacher'])){
     exec("rm cookie/*");
-    header("Location: /administrator/index.html");
+    header("Location: /teacher/index.html");
     exit();
 }
 else{
@@ -19,5 +19,5 @@ else{
         exit();
     }
 }
-check_phid($_COOKIE['admin']);
+check_phid($_COOKIE['teacher']);
 ?>
