@@ -1,4 +1,25 @@
 <?php
+function check_phid($pid){
+  if (is_numeric($pid)){
+  }
+  else{
+      echo("Invalid! not numeric");
+    
+    exit();
+  }
+}
+if (!isset($_COOKIE['admin'])){
+  exec("rm ../administrator/cookie/*");
+  header("Location: /administrator/index.html");
+  exit();
+}
+else{
+  if (!file_exists("../administrator/cookie/" . $_COOKIE['admin'])){
+      header("Location:/administrator/index.html");
+      exit();
+  }
+}
+check_phid($_COOKIE['admin']);
 $ini = parse_ini_file('../../config/config.ini');
 if ($ini['overide_automatic_domain_name'] == "1"){
   $domain = $ini['domain_name'];
@@ -16,13 +37,7 @@ if ($handle) {
 }
  
 closedir($handle);
-if ($arrFiles[2] == ".."){
-    $page_val = 1;
-}
-else{
-$value = max($arrFiles);
-$page_val = $value+1;
-}
+$page_val = $_GET['page'];
 $url = "https://" . $domain . "/index.php?page=" . $page_val;
 echo("Right click the QR code and download it it is current set to qrid " . $page_val . "<br>")
 ?>

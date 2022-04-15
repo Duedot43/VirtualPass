@@ -1,9 +1,29 @@
 <?php
+function check_phid($pid){
+    if (is_numeric($pid)){
+    }
+    else{
+        echo("Invalid! not numeric");
+      
+      exit();
+    }
+  }
+  if (!isset($_COOKIE['admin'])){
+    exec("rm ../administrator/cookie/*");
+    header("Location: /administrator/index.html");
+    exit();
+  }
+  else{
+    if (!file_exists("../administrator/cookie/" . $_COOKIE['admin'])){
+        header("Location:/administrator/index.html");
+        exit();
+    }
+  }
+  check_phid($_COOKIE['admin']);
 //$fh = fopen('qrid.txt','r');
 //$qrid = fgets($fh);
 function check_string($num){
     if (!filter_var($num, FILTER_VALIDATE_INT) === false) {
-        echo("Valid");
     } else {
         echo("Invalid");
         exit();
@@ -24,18 +44,23 @@ if (isset($_POST['rnum'])) {
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
     }
     check_string($qrid);
-    $room = fopen("registerd_qrids/" . $qrid, "w");
+    if (!file_exists("../registerd_qrids/" . $qrid)){
+    $room = fopen("../registerd_qrids/" . $qrid, "w");
     check_string($rnum);
     fwrite($room, $rnum);
     //exec("cd registerd_qrids/ && echo '{$rnum}' >> {$qrid}");
     //NOTE: Dont ask me why its called stupid.php im still learning PHP and that was not easy to write
-    header("Location: /mk_room/ck_qrid.php");
+    header("Location: /mk_room/ck_qrid.php?page=" . $qrid);
     exit();
+    } else{
+        echo("QRID already set please try again");
+        exit();
+    }
 }
 ?>
 <title>QR Code</title>
 <head>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="/style.css" rel="stylesheet" type="text/css" />
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <tr>
