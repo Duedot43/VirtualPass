@@ -37,7 +37,7 @@ $date = exec("date");
 if (isset($_POST['rnum'])) {
   echo($_POST['rnum']);
   if ($_POST['rnum'] == ""){
-    if (!file_exists("..././registerd_qrids/" . $qrid)){
+    if (!file_exists("../../../registerd_qrids/" . $qrid)){
       //exec("cd registerd_qrids/ && echo '{$rnum}' >> {$qrid}");
       //NOTE: Dont ask me why its called stupid.php im still learning PHP and that was not easy to write
       header("Location: /mk_room/ck_qrid.php?page=" . $qrid);
