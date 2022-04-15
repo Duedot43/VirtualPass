@@ -45,6 +45,6 @@ if ($value != ".placeholder"){
 $page_val = $value+1;
 }
 $url = "https://" . $domain . "/index.php?page=" . $page_val;
-//header("Location: /mk_room/regqrid.php?page=" . $page_val);
+header("Location: /mk_room/regqrid.php?page=" . $page_val);
 ?>
 <title>Make a room!</title>
