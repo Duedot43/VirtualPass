@@ -256,6 +256,7 @@ if ($inithing['enable_insecure_general_logs'] == "1"){
 //All how to apples code that i have no idea how it works but hey it looks good
 //HOW TO APPLE USE THE CODE BELOW FOR HTML KEEP THE PHP THINGS THOSE ARE THE VARIABLES TO DISPLAY//
 ?>
+<!DOCTYPE html>
 <head>
     <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
