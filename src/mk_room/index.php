@@ -27,24 +27,8 @@ if ($ini['overide_automatic_domain_name'] == "1"){
 if ($ini['overide_automatic_domain_name'] != "1"){
   $domain = $_SERVER['SERVER_NAME'];
 }
-$arrFiles = array();
-$handle = opendir('../registerd_qrids');
- 
-if ($handle) {
-    while (($entry = readdir($handle)) !== FALSE) {
-        $arrFiles[] = $entry;
-    }
-}
- 
-closedir($handle);
-$value = max($arrFiles);
-if ($value == ".placeholder"){
-    $page_val = 1;
-}
-if ($value != ".placeholder"){
-$page_val = $value+1;
-}
-$url = "https://" . $domain . "/index.php?page=" . $page_val;
+$page_val = rand();
+$url = "https://" . $domain . "/stupid.php?page=" . $page_val;
 header("Location: /mk_room/regqrid.php?page=" . $page_val);
 ?>
 <title>Make a room!</title>

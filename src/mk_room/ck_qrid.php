@@ -27,18 +27,8 @@ if ($ini['overide_automatic_domain_name'] == "1"){
 if ($ini['overide_automatic_domain_name'] != "1"){
   $domain = $_SERVER['SERVER_NAME'];
 }
-$arrFiles = array();
-$handle = opendir('../registerd_qrids');
- 
-if ($handle) {
-    while (($entry = readdir($handle)) !== FALSE) {
-        $arrFiles[] = $entry;
-    }
-}
- 
-closedir($handle);
 $page_val = $_GET['page'];
-$url = "https://" . $domain . "/index.php?page=" . $page_val;
+$url = "https://" . $domain . "/stupid.php?page=" . $page_val;
 echo("Right click the QR code and download it it is current set to qrid " . $page_val . "<br>")
 ?>
 <title>Make a room!</title>
@@ -46,7 +36,7 @@ echo("Right click the QR code and download it it is current set to qrid " . $pag
 <!-- (A) LOAD QRCODEJS LIBRARY -->
 <!-- https://cdnjs.com/libraries/qrcodejs -->
 <!-- https://github.com/davidshimjs/qrcodejs -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="/mk_room/qrcode.min.js"></script>
 
 <!-- (B) GENERATE QR CODE HERE -->
 <div id="qrcode"></div>

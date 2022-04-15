@@ -22,12 +22,14 @@ function check_phid($pid){
   check_phid($_COOKIE['admin']);
 //$fh = fopen('qrid.txt','r');
 //$qrid = fgets($fh);
-function check_string($num){
-    if (!filter_var($num, FILTER_VALIDATE_INT) === false) {
-    } else {
-        echo("Invalid");
-        exit();
-    }
+function check_string($pid){
+  if (is_numeric($pid)){
+  }
+  else{
+    echo("Invalid phid cookie!");
+    
+    exit();
+  }
 }
 $qrid = $_GET['page'];
 $date = exec("date");

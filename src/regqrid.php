@@ -1,15 +1,16 @@
 <?php
 //$fh = fopen('qrid.txt','r');
 //$qrid = fgets($fh);
-function check_string($num){
-    if (!filter_var($num, FILTER_VALIDATE_INT) === false) {
-        echo("Valid");
-    } else {
-        echo("Invalid");
-        exit();
+function check_string($pid){
+    if (is_numeric($pid)){
     }
-}
-$qrid = $_GET['page'];
+    else{
+      echo("Invalid phid cookie!");
+      
+      exit();
+    }
+  }
+$qrid = rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand();
 $date = exec("date");
 //fairly simple check if the user has entered the room number log it put it in the qrid folder and send it back to stupid
 if (isset($_POST['rnum'])) {
