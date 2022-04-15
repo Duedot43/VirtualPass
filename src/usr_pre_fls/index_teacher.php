@@ -14,8 +14,8 @@ if (!isset($_COOKIE['teacher'])){
     exit();
 }
 else{
-    if (!file_exists("cookie/" . $_COOKIE['admin'])){
-        header("Location:index.html");
+    if (!file_exists("cookie/" . $_COOKIE['teacher'])){
+        header("Location:/teacher/index.html");
         exit();
     }
 }

@@ -9,13 +9,13 @@ function check_phid($pid){
   }
 }
 if (!isset($_COOKIE['teacher'])){
-  exec("rm cookie/*");
+  exec("rm ../cookie/*");
   header("Location: /teacher/index.html");
   exit();
 }
 else{
-  if (!file_exists("cookie/" . $_COOKIE['teacher'])){
-      header("Location:index.html");
+  if (!file_exists("../cookie/" . $_COOKIE['teacher'])){
+      header("Location:/teacher/index.html");
       exit();
   }
 }
@@ -29,6 +29,6 @@ if ($ini['overide_automatic_domain_name'] != "1"){
 }
 $page_val = rand();
 $url = "https://" . $domain . "/stupid.php?page=" . $page_val;
-header("Location: /mk_room/regqrid.php?page=" . $page_val);
+header("Location: /teacher/mk_room/regqrid.php?page=" . $page_val);
 ?>
 <title>Make a room!</title>

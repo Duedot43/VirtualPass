@@ -9,13 +9,13 @@ function check_phid($pid){
   }
 }
 if (!isset($_COOKIE['teacher'])){
-  exec("rm cookie/*");
+  exec("rm ../cookie/*");
   header("Location: /teacher/index.html");
   exit();
 }
 else{
-  if (!file_exists("cookie/" . $_COOKIE['teacher'])){
-      header("Location:index.html");
+  if (!file_exists("../cookie/" . $_COOKIE['teacher'])){
+      header("Location:/teacher/index.html");
       exit();
   }
 }

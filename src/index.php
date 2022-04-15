@@ -13,15 +13,11 @@
 <td colspan="3"><strong>If you are a student you are in the wrong place!</strong></td>
 </tr>
 <tr>
-<td width="0"></td>
-<td width="0"></td>
-<td width="294"><input class="reg" type="button" value="Teacher portal" onclick="location='/teacher/'" /></td>
+<td width=device-width><input class="reg" type="button" value="Teacher portal" onclick="location='/teacher/'" /></td>
 </tr>
 <tr>
 </tr>
 <tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
 </tr>
 </table>
 </td>
