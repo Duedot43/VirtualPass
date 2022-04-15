@@ -24,6 +24,21 @@ $value = max($arrFiles);
 $page_val = $value+1;
 }
 $url = "https://" . $domain . "/index.php?page=" . $page_val;
-header("Location: /mk_room/regqrid.php?page=" . $page_val);
+echo("Right click the QR code and download it it is current set to qrid " . $page_val . "<br>")
 ?>
 <title>Make a room!</title>
+<?php echo $url; ?>
+<!-- (A) LOAD QRCODEJS LIBRARY -->
+<!-- https://cdnjs.com/libraries/qrcodejs -->
+<!-- https://github.com/davidshimjs/qrcodejs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<!-- (B) GENERATE QR CODE HERE -->
+<div id="qrcode"></div>
+
+<!-- (C) CREATE QR CODE ON PAGE LOAD -->
+<script>
+window.addEventListener("load", () => {
+  var qrc = new QRCode(document.getElementById("qrcode"), "<?php echo $url; ?>");
+});
+</script>
