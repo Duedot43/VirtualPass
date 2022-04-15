@@ -14,12 +14,13 @@ function config_set($config_file, $section, $key, $value) {
   file_put_contents($config_file, $new_content);
 }
 //nooooo this code is not stolen fron StackOverflow no never!
-function check_string($num){
-  if (!filter_var($num, FILTER_VALIDATE_INT) === false) {
-      echo("Valid");
-  } else {
-      echo("Invalid not a number");
-      exit();
+function check_string($pid){
+  if (is_numeric($pid)){
+  }
+  else{
+      echo("Invalid! not numeric");
+    
+    exit();
   }
 }
 function check_name($num){
