@@ -37,14 +37,19 @@ if ($handle) {
 }
  
 closedir($handle);
-if ($arrFiles[2] == ".placeholder"){
+$value = max($arrFiles);
+echo($arrFiles[0] . "<br>");
+echo($arrFiles[1] . "<br>");
+echo($arrFiles[2] . "<br>");
+echo($arrFiles[3] . "<br>");
+echo($arrFiles[4] . "<br>");
+if (!is_integer($value)){
     $page_val = 1;
 }
 else{
-$value = max($arrFiles);
 $page_val = $value+1;
 }
 $url = "https://" . $domain . "/index.php?page=" . $page_val;
-header("Location: /mk_room/regqrid.php?page=" . $page_val);
+//header("Location: /mk_room/regqrid.php?page=" . $page_val);
 ?>
 <title>Make a room!</title>
