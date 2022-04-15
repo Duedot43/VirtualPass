@@ -158,7 +158,7 @@ if(isset($_GET['page'])) {
   }
 }
 ?>
-<!DOCTYPE html>
+
 <title>Register Your User</title>
 <head>
     <link href="style.css" rel="stylesheet" type="text/css" />
