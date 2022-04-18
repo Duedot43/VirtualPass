@@ -29,7 +29,7 @@ if ($ini['overide_automatic_domain_name'] != "1"){
 }
 $page_val = $_GET['page'];
 $url = "https://" . $domain . "/stupid.php?page=" . $page_val;
-echo("Right click the QR code and download it it is current set to qrid " . $page_val . "<br>")
+echo("Please click the download QR code button to download the QR code " . $page_val . "<br>")
 ?>
 <title>Make a room!</title>
 <?php echo $url; ?>
@@ -40,14 +40,15 @@ echo("Right click the QR code and download it it is current set to qrid " . $pag
 
 <!-- (B) GENERATE QR CODE HERE -->
 <div id="qrcode"></div>
-
+<a href="" id="dbth" download="<?php echo "room_" . $page_val?>" >Download QR code</a>
 <!-- (C) CREATE QR CODE ON PAGE LOAD -->
 <script>
 window.addEventListener("load", () => {
   var qrc = new QRCode(document.getElementById("qrcode"), "<?php echo $url; ?>");
   const div = document.createElement('div');
   new QRCode(div, "<?php echo $url;?>");
-  const src = div.children[0].toDataURL("image/png");
+  var thing = div.children[0].toDataURL("image/png");
+  document.querySelector('#dbth').href = thing;
   //console.info('src', src);
 });
 </script>
