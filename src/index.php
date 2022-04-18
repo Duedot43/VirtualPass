@@ -9,7 +9,7 @@ if ($ini['overide_automatic_domain_name'] != "1"){
 ?>
 </head>
 <!-- HTML Meta Tags -->
-<title>iuhsdoifgyusoiuyfgaouygbfousygdfoiyasdgtfoaihyusdgfoiuyag</title>
+<title>VirtualPass</title>
 <meta name="description" content="The utility that lets you set up your users with a virtual hall pass for administrators to help keep track of where your emplyees are.">
 
 <!-- Facebook Meta Tags -->
