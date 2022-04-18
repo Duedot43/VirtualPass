@@ -94,6 +94,9 @@ if(isset($_GET['page'])) {
               }
               $tat = '<link href="style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $firstname . '" onclick="location=\'/human_info/' . $ranid . '/index.html\'" /></td>';
               $student = file_put_contents('administrator/student.php', $tat.PHP_EOL , FILE_APPEND | LOCK_EX);
+              if (!is_file("human_info/teacher_portal/" . $qrid . ".php")){
+                copy("usr_pre_fls/index_teacher_other.php", "human_info/teacher_portal/" . $qrid . ".php");
+              }
               $tat = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $firstname . ' ' . $lastname . ' <?php $ini = parse_ini_file("../../registered_phid/' . $ranid . '"); echo($ini["student_activity"]);?>" onclick="location=\'/human_info/' . $ranid . '/index.html\'" /></td>';
               $student = file_put_contents('human_info/teacher_portal/' . $qrid . '.php', $tat.PHP_EOL , FILE_APPEND | LOCK_EX);
               if ($ini['enable_insecure_general_logs'] == "1"){

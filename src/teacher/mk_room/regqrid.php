@@ -32,6 +32,7 @@ function check_string($pid){
   }
 }
 $qrid = $_GET['page'];
+//get rid of this
 $date = exec("date");
 //fairly simple check if the user has entered the room number log it put it in the qrid folder and send it back to stupid
 if (isset($_POST['rnum'])) {
