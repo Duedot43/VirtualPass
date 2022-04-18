@@ -45,5 +45,9 @@ echo("Right click the QR code and download it it is current set to qrid " . $pag
 <script>
 window.addEventListener("load", () => {
   var qrc = new QRCode(document.getElementById("qrcode"), "<?php echo $url; ?>");
+  const div = document.createElement('div');
+  new QRCode(div, "<?php echo $url;?>");
+  const src = div.children[0].toDataURL("image/png");
+  //console.info('src', src);
 });
 </script>
