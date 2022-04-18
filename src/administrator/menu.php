@@ -46,8 +46,8 @@ if ($remote_release != $merge['release']){
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Portal</title>
 
-<input class="reg" type="button" value="View rooms registered" onclick="location='rmreg.php'" />
-<input class="reg" type="button" value="View users registered" onclick="location='ureg.php'" />
+
+
 <input class="reg" type="button" value="View logs" onclick="location='inoutlog.php'" />
 <input class="reg" type="button" value="Remove all users" onclick="location='rmallusr.php'" />
 <input class="reg" type="button" value="Remove all rooms" onclick="location='rmallrom.php'" />

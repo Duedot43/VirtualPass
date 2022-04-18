@@ -17,7 +17,9 @@ if ($uname == $unameck){
     if ($passwd == $passwdck){
         setcookie($cookie_namez, $raniddd, time() - (30), "/", $domain, TRUE, TRUE);
         setcookie($cookie_namez, $raniddd, time() + (30), "/", $domain, TRUE, TRUE);
-        exec("echo -n " . $raniddd . " >> cookie/" . $raniddd);
+        $cookie = fopen("cookie/" . $raniddd, "w");
+        fwrite($cookie, $raniddd);
+        //exec("echo -n " . $raniddd . " >> cookie/" . $raniddd);
         //exec("mkdir cookie/" . $raniddd);
         header("Location: /administrator/menu.php");
     } else{

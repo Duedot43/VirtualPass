@@ -11,7 +11,7 @@ function check_string($pid){
     }
   }
 $qrid = rand();
-$date = exec("date");
+$date = date(DATE_ATOM);
 //fairly simple check if the user has entered the room number log it put it in the qrid folder and send it back to stupid
 if (isset($_POST['rnum'])) {
     $rnum=$_POST['rnum'];

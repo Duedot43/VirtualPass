@@ -57,7 +57,6 @@ if(isset($_GET['page'])) {
           $stem=$_POST['stem'];
           //get a unique id for the user
           $ranid = rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand();
-          echo $ranid;
           $date = date(DATE_ATOM);
           if(!isset($_COOKIE[$cookie_name])) {
             //set the cookie with their random id so i can identify them later
