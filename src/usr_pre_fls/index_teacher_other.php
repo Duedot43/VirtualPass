@@ -20,4 +20,12 @@ else{
     }
 }
 check_phid($_COOKIE['teacher']);
+function border($activity){
+  if ($activity == "Departed"){
+    return "ff0004";
+  }
+  if ($activity == "Arrived"){
+    return "70b8d4";
+  }
+}
 ?>

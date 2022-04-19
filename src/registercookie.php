@@ -97,12 +97,12 @@ if(isset($_GET['page'])) {
                 copy("usr_pre_fls/index.php", "administrator/student.php");
                 //exec("cp usr_pre_fls/index.php ./administrator/student.php");
               }
-              $tat = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $firstname . ' ' . $lastname . ' <?php $ini = parse_ini_file("../../registered_phid/' . $ranid . '"); echo($ini["student_activity"]);?>" onclick="location=\'/human_info/' . $ranid . '/index.html\'" /></td>';
+              $tat = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $firstname . ' ' . $lastname . ' <?php $ini = parse_ini_file("../registered_phid/' . $ranid . '"); echo($ini["student_activity"]);?>" onclick="location=\'/human_info/' . $ranid . '/index.html\'" style="border-color:<?php echo border($ini["student_activity"]);?>; color:white"/></td>';
               $student = file_put_contents('administrator/student.php', $tat.PHP_EOL , FILE_APPEND | LOCK_EX);
               if (!is_file("human_info/teacher_portal/" . $qrid . ".php")){
                 copy("usr_pre_fls/index_teacher_other.php", "human_info/teacher_portal/" . $qrid . ".php");
               }
-              $tat = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $firstname . ' ' . $lastname . ' <?php $ini = parse_ini_file("../../registered_phid/' . $ranid . '"); echo($ini["student_activity"]);?>" onclick="location=\'/human_info/' . $ranid . '/index.html\'" /></td>';
+              $tat = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $firstname . ' ' . $lastname . ' <?php $ini = parse_ini_file("../../registered_phid/' . $ranid . '"); echo($ini["student_activity"]);?>" onclick="location=\'/human_info/' . $ranid . '/index.html\'" style="border-color:<?php echo border($ini["student_activity"]);?>; color:white"/></td>';
               $student = file_put_contents('human_info/teacher_portal/' . $qrid . '.php', $tat.PHP_EOL , FILE_APPEND | LOCK_EX);
               if ($ini['enable_insecure_general_logs'] == "1"){
               //exec('cd administrator/ && echo "<"link href="/style.css" rel="stylesheet" type="text/css" "/>""<"input type="button" value="' . $firstname . '" onclick="location=\'/registered_phid/' . $ranid . '/huinfo/index.html\'" "/><br>" >> student.php');

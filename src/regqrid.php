@@ -34,9 +34,6 @@ if (isset($_POST['rnum'])) {
     $room = fopen("registerd_qrids/" . $qrid, "w");
     check_string($rnum);
     fwrite($room, $rnum);
-    if (!file_exists("human_info/teacher_portal/" . $qrid . ".php")){
-    file_put_contents("human_info/teacher_portal/" . $qrid . ".php", " ");
-  }
   if (!file_exists("teacher/student.php")){
     copy("usr_pre_fls/index_teacher.php", "teacher/student.php");
   }
