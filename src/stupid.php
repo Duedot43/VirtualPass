@@ -195,6 +195,7 @@ if(!isset($_COOKIE[$cookie_name])) {
         $rid31 = fopen("registerd_qrids/" . $qrid, "r");
         $rid12 = fread($rid31, "30");
         $rid1 = str_replace(PHP_EOL, '', $rid12);
+        fclose($rid31);
         //get the room ID
         session_start();
         $cookieodd = $_COOKIE[$cookie_name];
