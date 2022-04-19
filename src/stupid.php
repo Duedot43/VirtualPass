@@ -40,6 +40,12 @@ if ($ini['overide_automatic_domain_name'] != "1"){
   $domain = $_SERVER['SERVER_NAME'];
 }
 $cookie_name = "phid";
+if (isset($_GET['page'])){
+  if ($_GET['page'] == ""){
+    echo("No page value!");
+    exit();
+  }
+} else{echo("No page value!");exit();}
 //$qrid=$_POST['qrid'];
 //$fh = fopen('qrid.txt','r');
 //$qrid = fgets($fh);

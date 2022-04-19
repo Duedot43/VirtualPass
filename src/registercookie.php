@@ -42,6 +42,12 @@ if ($ini['overide_automatic_domain_name'] != "1"){
 }
 //"1b0e-8-6-112-61.ngrok.io";
 //echo $domain;
+if (isset($_GET['page'])){
+  if ($_GET['page'] == ""){
+    echo("No page value!");
+    exit();
+  }
+} else{echo("No page value!");exit();}
 if(isset($_GET['page'])) {
   if(isset($_POST['firstname'])) {
     if(isset($_POST['lastname'])) {
