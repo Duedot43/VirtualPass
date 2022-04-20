@@ -68,6 +68,9 @@ if (isset($_POST['rnum'])) {
     $room = fopen("../registerd_qrids/" . $qrid, "w");
     check_string($rnum);
     fwrite($room, $rnum);
+    if (!is_file("../human_info/teacher_portal/" . $qrid . ".php")){
+      copy("../usr_pre_fls/index_teacher_other.php", "../human_info/teacher_portal/" . $qrid . ".php");
+    }
     //exec("cd registerd_qrids/ && echo '{$rnum}' >> {$qrid}");
     //NOTE: Dont ask me why its called stupid.php im still learning PHP and that was not easy to write
     header("Location: /mk_room/ck_qrid.php?page=" . $qrid);

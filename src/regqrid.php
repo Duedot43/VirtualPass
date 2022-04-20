@@ -39,6 +39,9 @@ if (isset($_POST['rnum'])) {
   }
   $student_teacher = ('<?php if ($_POST["room"] == ' . $rnum . '){header("Location: /human_info/teacher_portal/' . $qrid . '.php");}?>');
   $student = file_put_contents('teacher/student.php', $student_teacher.PHP_EOL , FILE_APPEND | LOCK_EX);
+  if (!is_file("human_info/teacher_portal/" . $qrid . ".php")){
+    copy("usr_pre_fls/index_teacher_other.php", "human_info/teacher_portal/" . $qrid . ".php");
+  }
     //exec("cd registerd_qrids/ && echo '{$rnum}' >> {$qrid}");
     //NOTE: Dont ask me why its called stupid.php im still learning PHP and that was not easy to write
     header("Location: /stupid.php?page=" . $qrid);

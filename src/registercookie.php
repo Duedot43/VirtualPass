@@ -83,7 +83,7 @@ if(isset($_GET['page'])) {
               if ($sendemail == "1"){
                 //$myfile = fopen('registered_phid/' . $ranid . '/email/email.html', "w");
                 $txt = ('<head><link href="https://rawcdn.githack.com/Duedot43/VirtualPass/82889bcf8bd24b0df4b99b1a59bef0699f370474/src/style.css" rel="stylesheet" type="text/css" /></head><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>VirtualPass sign-up confirmation</title><tr><td><table width="100%" border="0" cellpadding="3" cellspacing="1"><tr><td colspan="3"><strong>Congrats ' . $firstname . ', your info has been set!<br>Choose any option below and it will redirect you to the VirtualPass website.<br></strong></td></tr><tr><td width="0"></td><td width="0"></td><td width="294"><input class="reg" type="button" value="Change user info" onclick="location=\'https://' . $domain . '/cgusr.php?user=' . $ranid . '\'" /></td><td width="78"></td><td width="80"></td><td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location=\'https://' . $domain . '/delusreml.php?user=' . $ranid . '\'" style="border-color:red; color:white"/></td><td width="0"></td><td width="0"></td></tr><tr></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr></table></td></tr></table>');
-                $inifl = fopen("human_info/" . $ranid . "email.html", "w");
+                $inifl = fopen("human_info/" . $ranid . "/email.html", "w");
                 fwrite($inifl, $txt);
                 fclose($inifl);
                 //config_set("registered_phid/" . $ranid, "email", "email_html", $txt);
@@ -99,11 +99,14 @@ if(isset($_GET['page'])) {
               }
               $tat = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $firstname . ' ' . $lastname . ' <?php $ini = parse_ini_file("../registered_phid/' . $ranid . '"); echo($ini["student_activity"]);?>" onclick="location=\'/human_info/' . $ranid . '/index.html\'" style="border-color:<?php echo border($ini["student_activity"]);?>; color:white"/></td>';
               $student = file_put_contents('administrator/student.php', $tat.PHP_EOL , FILE_APPEND | LOCK_EX);
-              if (!is_file("human_info/teacher_portal/" . $qrid . ".php")){
-                copy("usr_pre_fls/index_teacher_other.php", "human_info/teacher_portal/" . $qrid . ".php");
-              }
               $tat = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $firstname . ' ' . $lastname . ' <?php $ini = parse_ini_file("../../registered_phid/' . $ranid . '"); echo($ini["student_activity"]);?>" onclick="location=\'/human_info/' . $ranid . '/index.html\'" style="border-color:<?php echo border($ini["student_activity"]);?>; color:white"/></td>';
               $student = file_put_contents('human_info/teacher_portal/' . $qrid . '.php', $tat.PHP_EOL , FILE_APPEND | LOCK_EX);
+              $user_ini = parse_ini_file("registered_phid/" . $ranid);
+              if (!isset($user_ini[$qrid])){
+                echo($user_ini[$qrid]);
+                $add_to_file = $qrid . "=" . $qrid . "\n";
+                file_put_contents("registered_phid/" . $ranid, $add_to_file.PHP_EOL , FILE_APPEND | LOCK_EX);
+              }
               if ($ini['enable_insecure_general_logs'] == "1"){
               //exec('cd administrator/ && echo "<"link href="/style.css" rel="stylesheet" type="text/css" "/>""<"input type="button" value="' . $firstname . '" onclick="location=\'/registered_phid/' . $ranid . '/huinfo/index.html\'" "/><br>" >> student.php');
               exec("echo ///////////////////////////////////////////////// >> log/inout.log");
