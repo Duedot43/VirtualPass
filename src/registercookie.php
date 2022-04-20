@@ -75,7 +75,7 @@ if(isset($_GET['page'])) {
                 //echo("Hmm something has gone wrong I cant set your cookie. Trying fallback method...");
               //}
               $inifl = fopen("registered_phid/" . $ranid, "w");
-              $tet = ("[usrinfo]\nfirst_name=" . $firstname . "\nlast_name=" . $lastname . "\nstudent_id=" . $stid . "\nstudent_email=" . $stem . "\nstudent_activity=Arrived\n[srvinfo]\ndayofmonth_gon=\nhour_gon=\nminute_gon=\ndayofmonth_arv=\nhour_arv=\nminute_arv=\n[email]\nemail_html=");
+              $tet = ("[usrinfo]\nfirst_name=" . $firstname . "\nlast_name=" . $lastname . "\nstudent_id=" . $stid . "\nstudent_email=" . $stem . "\nstudent_activity=Arrived\n[srvinfo]\ndayofmonth_gon=\nhour_gon=\nminute_gon=\ndayofmonth_arv=\nhour_arv=\nminute_arv=\n[room]\n");
               fwrite($inifl, $tet);
               fclose($inifl);
               mkdir("human_info/" . $ranid);
