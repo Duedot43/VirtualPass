@@ -31,6 +31,7 @@ function check_string($pid){
     exit();
   }
 }
+include "../../usr_pre_fls/mk_mass.php";
 $qrid = $_GET['page'];
 //get rid of this
 $date = date(DATE_ATOM);
@@ -67,6 +68,7 @@ if (isset($_POST['rnum'])) {
     if (!file_exists("../../registerd_qrids/" . $qrid)){
     $room = fopen("../../registerd_qrids/" . $qrid, "w");
     check_string($rnum);
+    room($qrid, "../../../mass.json");
     fwrite($room, $rnum);
     if (!is_file("../../human_info/teacher_portal/" . $qrid . ".php")){
       copy("../../usr_pre_fls/index_teacher_other.php", "../../human_info/teacher_portal/" . $qrid . ".php");

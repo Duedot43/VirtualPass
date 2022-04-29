@@ -10,6 +10,7 @@ function check_string($pid){
       exit();
     }
   }
+  
 $qrid = $_GET['page'];
 $date = date(DATE_ATOM);
 //fairly simple check if the user has entered the room number log it put it in the qrid folder and send it back to stupid
@@ -19,6 +20,7 @@ if (isset($_GET['page'])){
     exit();
   }
 } else{echo("No page value!");exit();}
+include "usr_pre_fls/mk_mass.php";
 if (isset($_POST['rnum'])) {
     $rnum=$_POST['rnum'];
     //echo("you have {$dpt}");
@@ -34,6 +36,7 @@ if (isset($_POST['rnum'])) {
     $room = fopen("registerd_qrids/" . $qrid, "w");
     check_string($rnum);
     fwrite($room, $rnum);
+    room($qrid, "../mass.json");
   if (!file_exists("teacher/student.php")){
     copy("usr_pre_fls/index_teacher.php", "teacher/student.php");
   }

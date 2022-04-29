@@ -32,6 +32,7 @@ function check_name($num){
   }
 }
 $cookie_name = "phid";
+include "usr_pre_fls/mk_mass.php";
 //check for all the variables from the html below
 $ini = parse_ini_file('../config/config.ini');
 if ($ini['overide_automatic_domain_name'] == "1"){
@@ -74,6 +75,7 @@ if(isset($_GET['page'])) {
               //if(!isset($_COOKIE[$cookie_name])) {
                 //echo("Hmm something has gone wrong I cant set your cookie. Trying fallback method...");
               //}
+                user($ranid, "../mass.json");
               $inifl = fopen("registered_phid/" . $ranid, "w");
               $tet = ("[usrinfo]\nfirst_name=" . $firstname . "\nlast_name=" . $lastname . "\nstudent_id=" . $stid . "\nstudent_email=" . $stem . "\nstudent_activity=Arrived\n[srvinfo]\ndayofmonth_gon=\nhour_gon=\nminute_gon=\ndayofmonth_arv=\nhour_arv=\nminute_arv=\n[room]\n");
               fwrite($inifl, $tet);
