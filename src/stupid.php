@@ -144,6 +144,7 @@ if(!isset($_COOKIE[$cookie_name])) {
     //$ariveis = exec("cd registered_phid/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_gon");
     //$ariveis1 = exec("cd departed/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_gon");
     $ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
+    // change this to see when the user has departed/arrived
     if ($ini['hour_gon'] == ""){
       
       config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "dayofmonth_gon", $dayofmonth);
