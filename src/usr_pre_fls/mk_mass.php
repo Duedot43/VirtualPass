@@ -3,10 +3,8 @@ function room($id, $file_location){
     if (!file_exists($file_location)){
         $main_file_array = array(
             "room" => array(
-                 "placeholder" => "placeholder"
             ),
             "user" => array(
-                "placeholder" => "placeholder"
             )
         );
     } else{
@@ -20,10 +18,8 @@ function user($id, $file_location){
     if (!file_exists($file_location)){
         $main_file_array = array(
             "room" => array(
-                 "placeholder" => "placeholder"
             ),
             "user" => array(
-                "placeholder" => "placeholder"
             )
         );
     } else{
