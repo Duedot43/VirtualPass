@@ -95,6 +95,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['a
                     $user_ini = parse_ini_file("../registered_phid/" . $_GET['who'], true);
                     $output[$_GET['who']] = $user_ini;
                     echo json_encode($output);
+                    exit();
                 } else{
                     //send an error not acceptable 
                     err();
