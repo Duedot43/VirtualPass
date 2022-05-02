@@ -31,6 +31,7 @@ exec("echo p >>  cookie/.placeholder");
 exec("mkdir ../human_info/teacher_portal/ && echo p > ../human_info/teacher_portal/.placeholder");
 exec("rm ../teacher/student.php");
 exec("rm ../teacher/cookie/* && echo p > ../teacher/cookie/.placeholder");
+exec("rm ../../mass.json");
 echo("Done!");
 ?>
 <head>
