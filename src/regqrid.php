@@ -40,8 +40,6 @@ if (isset($_POST['rnum'])) {
   if (!file_exists("teacher/student.php")){
     copy("usr_pre_fls/index_teacher.php", "teacher/student.php");
   }
-  $student_teacher = ('<?php if ($_POST["room"] == ' . $rnum . '){header("Location: /human_info/teacher_portal/' . $qrid . '.php");}?>');
-  $student = file_put_contents('teacher/student.php', $student_teacher.PHP_EOL , FILE_APPEND | LOCK_EX);
   if (!is_file("human_info/teacher_portal/" . $qrid . ".php")){
     copy("usr_pre_fls/index_teacher_other.php", "human_info/teacher_portal/" . $qrid . ".php");
   }

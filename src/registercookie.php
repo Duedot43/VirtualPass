@@ -95,14 +95,10 @@ if(isset($_GET['page'])) {
 
               }
               
-              if (!is_file("administrator/student.php")) {
-                copy("usr_pre_fls/index.php", "administrator/student.php");
-                //exec("cp usr_pre_fls/index.php ./administrator/student.php");
-              }
-              $tat = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $firstname . ' ' . $lastname . ' <?php $ini = parse_ini_file("../registered_phid/' . $ranid . '"); echo($ini["student_activity"]);?>" onclick="location=\'/human_info/' . $ranid . '/index.html\'" style="border-color:<?php echo border($ini["student_activity"]);?>; color:white"/></td>';
-              $student = file_put_contents('administrator/student.php', $tat.PHP_EOL , FILE_APPEND | LOCK_EX);
-              $tat = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $firstname . ' ' . $lastname . ' <?php $ini = parse_ini_file("../../registered_phid/' . $ranid . '"); echo($ini["student_activity"]);?>" onclick="location=\'/human_info/' . $ranid . '/index.html\'" style="border-color:<?php echo border($ini["student_activity"]);?>; color:white"/></td>';
-              $student = file_put_contents('human_info/teacher_portal/' . $qrid . '.php', $tat.PHP_EOL , FILE_APPEND | LOCK_EX);
+              //if (!is_file("administrator/student.php")) {
+              //  copy("usr_pre_fls/index.php", "administrator/student.php");
+              //  //exec("cp usr_pre_fls/index.php ./administrator/student.php");
+              //}
               $user_ini = parse_ini_file("registered_phid/" . $ranid);
               if (!isset($user_ini[$qrid])){
                 echo($user_ini[$qrid]);

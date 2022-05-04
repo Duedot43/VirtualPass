@@ -53,8 +53,6 @@ if (isset($_POST['rnum'])) {
       copy("../../usr_pre_fls/index_teacher.php", "../../teacher/student.php");
     }
     $rnum=$_POST['rnum'];
-    $student_teacher = ('<?php if ($_POST["room"] == ' . $rnum . '){header("Location: /human_info/teacher_portal/' . $qrid . '.php");}?>');
-  $student = file_put_contents('../../teacher/student.php', $student_teacher.PHP_EOL , FILE_APPEND | LOCK_EX);
     //echo("you have {$dpt}");
     $inithing = parse_ini_file("../../../config/config.ini");
     if ($inithing['enable_insecure_general_logs'] == "1"){
