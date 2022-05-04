@@ -20,11 +20,11 @@ else{
     }
 }
 check_phid($_COOKIE['teacher']);
-$room_submition = $_POST["room"];
+$room_sub = $_POST["room"];
 $mass_json = json_decode(file_get_contents("../../mass.json"), true);
 foreach ($mass_json['room'] as $room_id){
   $real_room = file_get_contents("../registerd_qrids/" . $room_id);
-  if ($room_submision == $real_room){
+  if ($room_sub == $real_room){
     header("Location: /human_info/teacher_portal/" . $room_id . ".php");
     exit();
   }
