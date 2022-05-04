@@ -27,7 +27,6 @@ exec("rm cookie/*");
 exec("rm -rf ../human_info/*");
 exec("echo p >>  ../human_info/.placeholder");
 exec("echo p >>  cookie/.placeholder");
-exec("mkdir ../human_info/teacher_portal/ && echo p > ../human_info/teacher_portal/.placeholder");
 exec("rm ../teacher/cookie/* && echo p > ../teacher/cookie/.placeholder");
 exec("rm ../../mass.json");
 echo("Done!");
