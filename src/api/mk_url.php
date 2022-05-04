@@ -8,6 +8,8 @@ function err(){
 }
 if (!isset($_GET['format'])){
     err();
+    $output = array("success"=>0, "reason"=>"format_missing");
+    echo json_encode($output);
     exit();
 }
 $config = parse_ini_file("../../config/config.ini");
@@ -32,10 +34,14 @@ if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['a
         }
     } else{
         fail();
+        $output = array("success"=>0, "reason"=>"auth_fail");
+        echo json_encode($output);
         exit();
     }
 } else{
     fail();
+    $output = array("success"=>0, "reason"=>"auth_fail");
+        echo json_encode($output);
     exit();
 }
 ?>

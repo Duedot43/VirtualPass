@@ -6,19 +6,19 @@ function fail(){
 function err(){
     header('HTTP/1.0 406 Not Acceptable');
 }
-if (!isset($_GET['id']) or !isset($_GET['number']) or !isset($_GET['overide']) or!is_numeric($_GET['id']) or !is_numeric($_GET['number']) ){
+if (!isset($_GET['id']) or !isset($_GET['number']) or !isset($_GET['override']) or!is_numeric($_GET['id']) or !is_numeric($_GET['number']) ){
     err();
     $output = array("success"=>0, "reason"=>"invalid_options");
     echo json_encode($output);
     exit();
 }
-if (!file_exists("../../mass.json") and $_GET['overide'] == 0){
+if (!file_exists("../../mass.json") and $_GET['override'] == 0){
     err();
     $output = array("success"=>0, "reason"=>"no_mass");
     echo json_encode($output);
     exit();
 }
-if ($_GET['overide'] == 0){
+if ($_GET['override'] == 0){
     $main_json = json_decode(file_get_contents("../../mass.json"), true);
     foreach ($main_json['room'] as $json_room){
         if ($json_room == $_GET['id']){
