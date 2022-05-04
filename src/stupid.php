@@ -111,8 +111,6 @@ if(!isset($_COOKIE[$cookie_name])) {
         echo($user_ini[$qrid]);
         $add_to_file = $qrid . "=" . $qrid . "\n";
         file_put_contents("registered_phid/" . $_COOKIE[$cookie_name], $add_to_file.PHP_EOL , FILE_APPEND | LOCK_EX);
-        $tat = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $user_ini['first_name'] . ' ' . $user_ini['last_name'] . ' <?php $ini = parse_ini_file("../../registered_phid/' . $_COOKIE[$cookie_name] . '"); echo($ini["student_activity"]);?>" onclick="location=\'/human_info/' . $_COOKIE[$cookie_name] . '/index.html\'" style="border-color:<?php echo border($ini["student_activity"]);?>; color:white"/></td>';
-        $student = file_put_contents('human_info/teacher_portal/' . $qrid . '.php', $tat.PHP_EOL , FILE_APPEND | LOCK_EX);
       }
     //  $dpt = ("Arrived");
     //  $cook = ("1");
