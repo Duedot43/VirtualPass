@@ -27,8 +27,8 @@ function config_set($config_file, $section, $key, $value) {
 //if something does not want to be set it can be set to None required values are [who, what]
 //format = <ip>/api/index.php?who=[all, <user_num>, room, config]&item=[user, room]&what=[all, <room_id>, departed, arrived, time_out]&set=[<any value in config.ini>,<any value in a user ini>]
 $config = parse_ini_file("../../config/config.ini");
-if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['admin_uname']){
-    if (isset($_SERVER['PHP_AUTH_PW']) and $_SERVER['PHP_AUTH_PW'] == $config['admin_passwd']){
+if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['api_uname']){
+    if (isset($_SERVER['PHP_AUTH_PW']) and $_SERVER['PHP_AUTH_PW'] == $config['api_passwd']){
         $main_json = json_decode(file_get_contents("../../mass.json"), true);
         //Who to get the info from
         if ($_GET['who'] == "all"){
