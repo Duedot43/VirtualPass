@@ -8,7 +8,7 @@ function err(){
 }
 if (!isset($_GET['fname']) or !isset($_GET['lname']) or !isset($_GET['id']) or !isset($_GET['email']) or !ctype_alpha($_GET['fname']) or !ctype_alpha($_GET['lname']) or !is_numeric($_GET['id']) or !filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)){
     err();
-    $output = array("success"=>0, "reason"=>"info_invalid", "help_url"=>"");
+    $output = array("success"=>0, "reason"=>"info_invalid", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/API#info-invalid");
     echo json_encode($output);
     exit();
 }
@@ -22,7 +22,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['a
         fwrite($inifl, $tet);
         fclose($inifl);
         user($ranid, "../../mass.json");
-        $output = array("user_id"=>$ranid, "success"=>1);
+        $output = array("user_id"=>$ranid, "success"=>1, "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/API#info-invalid");
         echo json_encode($output);
         exit();
     } else{
