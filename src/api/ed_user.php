@@ -38,7 +38,7 @@ function ck_variable($usr_sec, $usr_var){
     }
     return false;
 }
-function ck_value($usr_sec, $usr_var, $user_val){
+function ck_value($user_sec, $user_var, $user_val){
     //check user info variables
     if ($user_sec == "usrinfo"){
         if ($user_var == "first_name" and ctype_alpha($user_val)){
@@ -89,8 +89,10 @@ if (!in_array($_GET['user'], $main_json['user'], true)){
 $config = parse_ini_file("../../config/config.ini");
 if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['api_uname']){
     if (isset($_SERVER['PHP_AUTH_PW']) and $_SERVER['PHP_AUTH_PW'] == $config['api_passwd']){
-
-
+        config_set("../registered_phid/" . $_GET['user'], $_GET['section'] , $_GET['variable'], $_GET['value']);
+        $output = json_encode(array("success"=>1, "reason"=>"", "help_url"=>""));
+        echo $output;
+        exit();
     } else{
         fail();
         $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"");
