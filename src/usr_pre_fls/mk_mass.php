@@ -5,6 +5,8 @@ function room($id, $file_location){
             "room" => array(
             ),
             "user" => array(
+            ),
+            "removed" => array(
             )
         );
     } else{
@@ -13,6 +15,7 @@ function room($id, $file_location){
     array_push($main_file_array['room'], $id);
     $json_out = fopen($file_location, "w");
     fwrite($json_out, json_encode($main_file_array));
+    fclose($json_out);
 }
 function user($id, $file_location){
     if (!file_exists($file_location)){
@@ -20,6 +23,8 @@ function user($id, $file_location){
             "room" => array(
             ),
             "user" => array(
+            ),
+            "removed" => array(
             )
         );
     } else{
@@ -28,5 +33,6 @@ function user($id, $file_location){
     array_push($main_file_array['user'], $id);
     $json_out = fopen($file_location, "w");
     fwrite($json_out, json_encode($main_file_array));
+    fclose($json_out);
 }
 ?>

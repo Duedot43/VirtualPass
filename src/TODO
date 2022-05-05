@@ -3,3 +3,5 @@ Make an API for deleting rooms/users
 Redo  deluser.php to really remove users
 make a demp python file for VirtualPass-Applets to show off the API's functionality
 Update docs for mkurl to include the success variable in the output
+Make docs for rm_user.php
+Add a removed archived users
