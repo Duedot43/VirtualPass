@@ -68,6 +68,22 @@
             }
         },
         {
+            "name": "API Backend",
+            "type": "php",
+            "request": "launch",
+            "runtimeArgs": [
+                "-dxdebug.mode=debug",
+                "-dxdebug.start_with_request=yes",
+                "-S",
+                "localhost:8080",
+                "-t",
+                "src"
+            ],
+            "program": "",
+            "cwd": "${workspaceRoot}",
+            "port": 9003,
+        },
+        {
             "name": "Launch currently open script",
             "type": "php",
             "request": "launch",

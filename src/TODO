@@ -3,6 +3,7 @@ Make an API for deleting rooms/users DONE!
 Redo  deluser.php to really remove users DONE!
 docs for mk_user.phpDONE! rm_user.phpDONE! rm_room.php DONE!
 Make edeting users API.
+Add help URL's
 Update docs for mkurl to include the success variable in the output
 Make docs for rm_user.php, rm_room.php
 Add a removed archived users

@@ -27,11 +27,47 @@ function ck_section($usr_sec){
     }
 }
 function ck_variable($usr_sec, $usr_var){
-    if ($usr_sec == "usrinfo" and $usr_var == "first_name" or $user_var == "last_name" or $user_var == ""){
+    if ($usr_sec == "usrinfo" and $usr_var == "first_name" or $user_var == "last_name" or $user_var == "student_id" or $user_var == "student_email" or $user_var == "student_activity"){
         return true;
     }
+    if ($user_sec == "srvinfo" and $usr_var == "dayofmonth_gon" or $user_var == "hour_gon" or $user_var == "minute_gon" or $usr_var == "dayofmonth_arv" or $user_var == "hour_arv" or $user_var == "minute_arv"){
+        return true;
+    }
+    if ($user_sec == "room" and is_numeric($user_var)){
+        return true;
+    }
+    return false;
 }
-if (!isset($_GET['user']) or !isset($_GET['section']) or !isset($_GET['variable']) or !isset($_GET['value'])  or !is_numeric($_GET['user'] or !ck_section($_GET['section']))){
+function ck_value($usr_sec, $usr_var, $user_val){
+    //check user info variables
+    if ($user_sec == "usrinfo"){
+        if ($user_var == "first_name" and ctype_alpha($user_val)){
+            return true;
+        }
+        if ($user_var == "last_name" and ctype_alpha($user_val)){
+            return true;
+        }
+        if ($user_var == "student_id" and is_numeric($user_val)){
+            return true;
+        }
+        if ($user_var == "student_email" and filter_var($user_val, FILTER_VALIDATE_EMAIL)){
+            return true;
+        }
+    }
+    //Check server info variables
+    if ($user_sec == "srvinfo"){
+        if (is_numeric($user_val)){
+            return true;
+        }
+    }
+    //Check room variables
+    if ($user_sec == "room"){
+        if ($user_var == $user_val){
+            return true;
+        }
+    }
+}
+if (!isset($_GET['user']) or !isset($_GET['section']) or !isset($_GET['variable']) or !isset($_GET['value'])  or !is_numeric($_GET['user']) or !ck_section($_GET['section']) or !ck_variable($_GET['section'], $_GET['variable']) or !ck_value($_GET['section'], $_GET['variable'], $_GET['value'])){
     err();
     $output = array("success"=>0, "reason"=>"invalid_option", "help_url"=>"");
     echo json_encode($output);
