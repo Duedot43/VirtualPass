@@ -6,9 +6,9 @@ function fail(){
 function err(){
     header('HTTP/1.0 406 Not Acceptable');
 }
-if (!isset($_GET['user']) or !is_numeric($_GET['user'])){
+if (!isset($_GET['room']) or !is_numeric($_GET['room'])){
     err();
-    $output = array("success"=>0, "reason"=>"invalid_user", "help_url"=>"");
+    $output = array("success"=>0, "reason"=>"invalid_room", "help_url"=>"");
     echo json_encode($output);
     exit();
 }
@@ -19,20 +19,18 @@ if (!file_exists("../../mass.json")){
     exit();
 }
 $main_json = json_decode(file_get_contents("../../mass.json"), true);
-if (!in_array($_GET['user'], $main_json['user'], true)){
+if (!in_array($_GET['room'], $main_json['room'], true)){
     err();
-    $output = array("success"=>0, "reason"=>"no_user", "help_url"=>"");
+    $output = array("success"=>0, "reason"=>"no_room", "help_url"=>"");
     echo json_encode($output);
     exit();
 }
 $config = parse_ini_file("../../config/config.ini");
 if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['api_uname']){
     if (isset($_SERVER['PHP_AUTH_PW']) and $_SERVER['PHP_AUTH_PW'] == $config['api_passwd']){
-        copy("../registered_phid/" . $_GET['user'], "../human_info/" . $_GET['user'] . "/archived_ini");
-        unlink("../registered_phid/" . $_GET['user']);
+        unlink("../registerd_qrids/" . $_GET['room']);
         $main_json = json_decode(file_get_contents("../../mass.json"), true);
-        $main_json['user'] = \array_diff($main_json['user'], [$_GET['user']]);
-        array_push($main_json['removed'], $_GET['user']);
+        $main_json['room'] = \array_diff($main_json['room'], [$_GET['room']]);
         $json_out = fopen("../../mass.json", "w");
         fwrite($json_out, json_encode($main_json));
         fclose($json_out);
