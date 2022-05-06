@@ -6,5 +6,5 @@ Make edeting users API. DONE!
 Add help URL's DONE!
 Update docs for mkurl to include the success variable in the output DONE!
 Make docs for get_rooom, get_user, get_departed
-Add a removed archived users and get all users+info get one users info and departed
+Add a removed archived users and get all users+info get one users info and departed DONE!
 make a demp python file for VirtualPass-Applets to show off the API's functionality
