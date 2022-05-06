@@ -33,16 +33,20 @@ if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['a
         if (is_numeric($_GET['who'])){
             $output = array("success"=>1);
             $user_ini = parse_ini_file("../registered_phid/" . $_GET['who'], true);
-            $output[$_GET['who']] = $user_ini;
-            echo json_encode($user_ini);
-            exit();
+            if ($user_ini['usrinfo']['student_activity'] == "Departed"){
+                $output[$_GET['who']] = $user_ini;
+                echo json_encode($user_ini);
+                exit();
+            }
         }
         if ($_GET['who'] == "all"){
             $mass_json = json_decode(file_get_contents("../../mass.json"), true);
             $output = array("success"=>1);
             foreach ($mass_json['user'] as $user_id){
                 $user_ini = parse_ini_file("../registered_phid/" . $user_id, true);
-                $output[$user_id] = $user_ini;
+                if ($user_ini['usrinfo']['student_activity'] == "Departed"){
+                    $output[$user_id] = $user_ini;
+                }
             }
             echo json_encode($output);
             exit();

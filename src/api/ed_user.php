@@ -53,18 +53,24 @@ function ck_value($user_sec, $user_var, $user_val){
         if ($user_var == "student_email" and filter_var($user_val, FILTER_VALIDATE_EMAIL)){
             return true;
         }
+        if ($user_var == "student_activity" and $user_val == "Departed" or $user_val == "Arrived"){
+            return true;
+        }
+        return false;
     }
     //Check server info variables
     if ($user_sec == "srvinfo"){
         if (is_numeric($user_val)){
             return true;
         }
+        return false;
     }
     //Check room variables
     if ($user_sec == "room"){
         if ($user_var == $user_val){
             return true;
         }
+        return false;
     }
 }
 if (!isset($_GET['user']) or !isset($_GET['section']) or !isset($_GET['variable']) or !isset($_GET['value'])  or !is_numeric($_GET['user']) or !ck_section($_GET['section']) or !ck_variable($_GET['section'], $_GET['variable']) or !ck_value($_GET['section'], $_GET['variable'], $_GET['value'])){
