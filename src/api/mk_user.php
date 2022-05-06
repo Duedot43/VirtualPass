@@ -8,7 +8,7 @@ function err(){
 }
 if (!isset($_GET['fname']) or !isset($_GET['lname']) or !isset($_GET['id']) or !isset($_GET['email']) or !ctype_alpha($_GET['fname']) or !ctype_alpha($_GET['lname']) or !is_numeric($_GET['id']) or !filter_var($_GET['email'], FILTER_VALIDATE_EMAIL)){
     err();
-    $output = array("success"=>0, "reason"=>"info_invalid", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/API#info-invalid");
+    $output = array("success"=>0, "reason"=>"info_invalid", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#info-invalid");
     echo json_encode($output);
     exit();
 }
@@ -22,18 +22,18 @@ if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['a
         fwrite($inifl, $tet);
         fclose($inifl);
         user($ranid, "../../mass.json");
-        $output = array("user_id"=>$ranid, "success"=>1, "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/API#info-invalid");
+        $output = array("user_id"=>$ranid, "success"=>1, "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#add-user-api");
         echo json_encode($output);
         exit();
     } else{
         fail();
-        $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/API#authentication-failed-2");
+        $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#authentication-failed-2");
         echo json_encode($output);
         exit();
     }
 } else{
     fail();
-    $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/API#authentication-failed-2");
+    $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#authentication-failed-2");
     echo json_encode($output);
     exit();
 }

@@ -8,20 +8,20 @@ function err(){
 }
 if (!isset($_GET['user']) or !is_numeric($_GET['user'])){
     err();
-    $output = array("success"=>0, "reason"=>"invalid_user", "help_url"=>"");
+    $output = array("success"=>0, "reason"=>"invalid_user", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Remove#invalid-user");
     echo json_encode($output);
     exit();
 }
 if (!file_exists("../../mass.json")){
     err();
-    $output = array("success"=>0, "reason"=>"no_mass", "help_url"=>"");
+    $output = array("success"=>0, "reason"=>"no_mass", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Remove#no-mass");
     echo json_encode($output);
     exit();
 }
 $main_json = json_decode(file_get_contents("../../mass.json"), true);
 if (!in_array($_GET['user'], $main_json['user'], true)){
     err();
-    $output = array("success"=>0, "reason"=>"no_user", "help_url"=>"");
+    $output = array("success"=>0, "reason"=>"no_user", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Remove#no-user");
     echo json_encode($output);
     exit();
 }
@@ -36,17 +36,17 @@ if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['a
         $json_out = fopen("../../mass.json", "w");
         fwrite($json_out, json_encode($main_json));
         fclose($json_out);
-        $output = array("success"=>1, "reason"=>"", "help_url"=>"");
+        $output = array("success"=>1, "reason"=>"", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Remove#remove-user-api");
         echo json_encode($output);
     } else{
         fail();
-        $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"");
+        $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Remove#authentication-failed");
         echo json_encode($output);
         exit();
     }
 } else{
     fail();
-    $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"");
+    $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Remove#authentication-failed");
     echo json_encode($output);
     exit();
 }
