@@ -8,7 +8,7 @@ function err(){
 }
 if (!isset($_GET['format'])){
     err();
-    $output = array("success"=>0, "reason"=>"format_missing", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/API#format-missing");
+    $output = array("success"=>0, "reason"=>"format_missing", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#format-missing");
     echo json_encode($output);
     exit();
 }
@@ -34,13 +34,13 @@ if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['a
         }
     } else{
         fail();
-        $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/API#authentication-failed");
+        $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#authentication-failed");
         echo json_encode($output);
         exit();
     }
 } else{
     fail();
-    $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/API#authentication-failed");
+    $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#authentication-failed");
     echo json_encode($output);
     exit();
 }

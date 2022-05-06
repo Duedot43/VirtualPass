@@ -8,13 +8,13 @@ function err(){
 }
 if (!isset($_GET['id']) or !isset($_GET['number']) or !isset($_GET['override']) or!is_numeric($_GET['id']) or !is_numeric($_GET['number']) ){
     err();
-    $output = array("success"=>0, "reason"=>"invalid_options", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/API#invalid-options");
+    $output = array("success"=>0, "reason"=>"invalid_options", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#invalid-options");
     echo json_encode($output);
     exit();
 }
 if (!file_exists("../../mass.json") and $_GET['override'] == 0){
     err();
-    $output = array("success"=>0, "reason"=>"no_mass", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/API#no-mass");
+    $output = array("success"=>0, "reason"=>"no_mass", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#no-mass");
     echo json_encode($output);
     exit();
 }
@@ -23,7 +23,7 @@ if ($_GET['override'] == 0){
     foreach ($main_json['room'] as $json_room){
         if ($json_room == $_GET['id']){
             err();
-            $output = array("success"=>0, "reason"=>"room_exists", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/API#room-exists");
+            $output = array("success"=>0, "reason"=>"room_exists", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#room-exists");
             echo json_encode($output);
             exit();
         }
@@ -37,17 +37,17 @@ if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['a
         fwrite($room, $_GET['number']);
         room($_GET['id'], "../../mass.json");
         fclose($room);
-        $output = array("success"=>1, "reason"=>"", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/API#room-exists");
+        $output = array("success"=>1, "reason"=>"", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#add-room-api");
         echo json_encode($output);
     } else{
         fail();
-        $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/API#authentication-failed-1");
+        $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#authentication-failed-1");
         echo json_encode($output);
         exit();
     }
 } else{
     fail();
-    $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/API#authentication-failed-1");
+    $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#authentication-failed-1");
     echo json_encode($output);
     exit();
 }

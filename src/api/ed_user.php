@@ -69,20 +69,20 @@ function ck_value($user_sec, $user_var, $user_val){
 }
 if (!isset($_GET['user']) or !isset($_GET['section']) or !isset($_GET['variable']) or !isset($_GET['value'])  or !is_numeric($_GET['user']) or !ck_section($_GET['section']) or !ck_variable($_GET['section'], $_GET['variable']) or !ck_value($_GET['section'], $_GET['variable'], $_GET['value'])){
     err();
-    $output = array("success"=>0, "reason"=>"invalid_option", "help_url"=>"");
+    $output = array("success"=>0, "reason"=>"invalid_option", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Edit#invalid-option");
     echo json_encode($output);
     exit();
 }
 if (!file_exists("../../mass.json")){
     err();
-    $output = array("success"=>0, "reason"=>"no_mass", "help_url"=>"");
+    $output = array("success"=>0, "reason"=>"no_mass", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Edit#no-mass");
     echo json_encode($output);
     exit();
 }
 $main_json = json_decode(file_get_contents("../../mass.json"), true);
 if (!in_array($_GET['user'], $main_json['user'], true)){
     err();
-    $output = array("success"=>0, "reason"=>"no_user", "help_url"=>"");
+    $output = array("success"=>0, "reason"=>"no_user", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Edit#no-user");
     echo json_encode($output);
     exit();
 }
@@ -90,18 +90,18 @@ $config = parse_ini_file("../../config/config.ini");
 if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['api_uname']){
     if (isset($_SERVER['PHP_AUTH_PW']) and $_SERVER['PHP_AUTH_PW'] == $config['api_passwd']){
         config_set("../registered_phid/" . $_GET['user'], $_GET['section'] , $_GET['variable'], $_GET['value']);
-        $output = json_encode(array("success"=>1, "reason"=>"", "help_url"=>""));
+        $output = json_encode(array("success"=>1, "reason"=>"", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Edit#editing-users-api"));
         echo $output;
         exit();
     } else{
         fail();
-        $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"");
+        $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Edit#authentication-failed");
         echo json_encode($output);
         exit();
     }
 } else{
     fail();
-    $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"");
+    $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Edit#authentication-failed");
     echo json_encode($output);
     exit();
 }
