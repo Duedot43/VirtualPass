@@ -18,7 +18,7 @@ if (!file_exists("../../mass.json")){
     echo json_encode($output);
     exit();
 }
-$main_json = file_get_contents("../../mass.json");
+$main_json = json_decode(file_get_contents("../../mass.json"), true);
 if (is_numeric($_GET['who'])){
     if (!in_array($_GET['who'], $main_json['user'], true)){
         err();
