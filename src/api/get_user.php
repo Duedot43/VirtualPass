@@ -6,7 +6,7 @@ function fail(){
 function err(){
     header('HTTP/1.0 406 Not Acceptable');
 }
-if (!isset($_GET['who'])){
+if (!isset($_GET['who']) or $_GET['who'] != "all" and !is_numeric($_GET['who'])){
     err();
     $output = array("success"=>0, "reason"=>"no_who", "help_url"=>"");
     echo json_encode($output);
