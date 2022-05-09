@@ -16,3 +16,5 @@ stupid.php?page=092547&activity=Arrived
 Reload...
 nothing should change the student is still arrived
 Button... stupid.php?page=092547&activity=Departed
+
+Fox clean so it removed any installed plugins and resets the plugin.json file
