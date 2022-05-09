@@ -101,7 +101,6 @@ if(isset($_GET['page'])) {
               //}
               $user_ini = parse_ini_file("registered_phid/" . $ranid);
               if (!isset($user_ini[$qrid])){
-                echo($user_ini[$qrid]);
                 $add_to_file = $qrid . "=" . $qrid . "\n";
                 file_put_contents("registered_phid/" . $ranid, $add_to_file.PHP_EOL , FILE_APPEND | LOCK_EX);
               }
