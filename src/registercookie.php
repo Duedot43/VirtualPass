@@ -1,19 +1,4 @@
 <?php
-//nooooo this code is not stolen fron StackOverflow no never!
-function config_set($config_file, $section, $key, $value) {
-  $config_data = parse_ini_file($config_file, true);
-  $config_data[$section][$key] = $value;
-  $new_content = '';
-  foreach ($config_data as $section => $section_content) {
-      $section_content = array_map(function($value, $key) {
-          return "$key=$value";
-      }, array_values($section_content), array_keys($section_content));
-      $section_content = implode("\n", $section_content);
-      $new_content .= "[$section]\n$section_content\n";
-  }
-  file_put_contents($config_file, $new_content);
-}
-//nooooo this code is not stolen fron StackOverflow no never!
 function check_string($pid){
   if (is_numeric($pid)){
   }
@@ -101,7 +86,6 @@ if(isset($_GET['page'])) {
               //}
               $user_ini = parse_ini_file("registered_phid/" . $ranid);
               if (!isset($user_ini[$qrid])){
-                echo($user_ini[$qrid]);
                 $add_to_file = $qrid . "=" . $qrid . "\n";
                 file_put_contents("registered_phid/" . $ranid, $add_to_file.PHP_EOL , FILE_APPEND | LOCK_EX);
               }

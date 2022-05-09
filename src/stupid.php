@@ -56,14 +56,15 @@ $qrid = $_GET['page'];
 //$output = exec("tree -i --noreport registerd_qrids/ | grep -o {$qrid}");
 if(!file_exists("registerd_qrids/" . $qrid)) {
   //if it is not found make it with regqrid and pass page on
-    header("Location: /regqrid.php?page=" . $qrid);
+    include "regqrid.php";
+    //header("Location: /regqrid.php?page=" . $qrid);
     exit();
 } 
 //check is the cookie is set or not
 if(!isset($_COOKIE[$cookie_name])) {
   //if its not register it along with the cookie
-    echo "Cookie named '" . $cookie_name . "' is not set!";
-    header("Location: /registercookie.php?page=" . $qrid);
+    //header("Location: /registercookie.php?page=" . $qrid);
+include "registercookie.php";
     exit();
   } else {
     check_phid($_COOKIE[$cookie_name]);
@@ -96,7 +97,8 @@ if(!isset($_COOKIE[$cookie_name])) {
     }
     if (!file_exists("registered_phid/" . $_COOKIE[$cookie_name])){
       setcookie($cookie_name, "", time() - (86400 * 360), "/", $domain, TRUE, TRUE);
-      header("Location: /registercookie.php?page=" . $qrid);
+      //header("Location: /registercookie.php?page=" . $qrid);
+include "registercookie.php";
       exit();
     }
     //if the top if statment has triggered this one will not beacuse $catout is outdated at this point
@@ -120,7 +122,8 @@ if(!isset($_COOKIE[$cookie_name])) {
     if ($cook == "0") {
       //cookie error re register cookie and delete the cookie
       setcookie($cookie_name, "", time() - (86400 * 360), "/", $domain, TRUE, TRUE);
-      header("Location: /registercookie.php?page=" . $qrid);
+      //header("Location: /registercookie.php?page=" . $qrid);
+include "registercookie.php";
     }
     //exec("echo {$cook}");
     //$dpt2 is for the webpage title and the button
