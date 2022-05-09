@@ -25,25 +25,36 @@ $plugin_index = json_decode(file_get_contents("https://raw.githubusercontent.com
 $selected_plugin = $plugin_index['plugins'][$plugin_id];
 $installed_json = json_decode(file_get_contents("../../usr_pre_fls/plugins.json"), true);
 if ($installed_json[$plugin_id] == 1){
-    //uninstall the plugin
-    $plugin_file = fopen("../../.." . $selected_plugin['location'], "w");
-    fwrite($plugin_file, file_get_contents($selected_plugin['orig_url']));
-    fclose($plugin_file);
-    $installed_json[$plugin_id] = 0;
-    $plugin_index_file = fopen("../../usr_pre_fls/plugins.json", "w");
-    fwrite($plugin_index_file, json_encode($installed_json));
-    fclose($plugin_index_file);
-    echo "Plugin uninstalled!";
+    for ($x = 0; $x <= $selected_plugin['changed']; $x++){
+        //uninstall the plugin
+        $plugin_file = fopen("../../.." . $selected_plugin['location'][$x], "w");
+        fwrite($plugin_file, file_get_contents($selected_plugin['orig_url'][$x]));
+        fclose($plugin_file);
+        $installed_json[$plugin_id] = 0;
+        $plugin_index_file = fopen("../../usr_pre_fls/plugins.json", "w");
+        fwrite($plugin_index_file, json_encode($installed_json));
+        fclose($plugin_index_file);
+        echo "Plugin uninstalled!";
+    }
 } else{
-    //install the plugin
-    $plugin_file = fopen("../../.." . $selected_plugin['location'], "w");
-    fwrite($plugin_file, file_get_contents($selected_plugin['clone_url']));
-    fclose($plugin_file);
-    $installed_json[$plugin_id] = 1;
-    $plugin_index_file = fopen("../../usr_pre_fls/plugins.json", "w");
-    fwrite($plugin_index_file, json_encode($installed_json));
-    fclose($plugin_index_file);
-    echo "Plugin installed!";
+    if ($selected_plugin['setup'] != "None" and $_GET['setup'] == 0){
+        $setup_file = fopen("./setup.php", "w");
+        fwrite($setup_file, file_get_contents($selected_plugin['setup']));
+        fclose($setup_file);
+        header("Location: /administrator/plugin_manager/setup.php?plugin=" . $plugin_id);
+        exit();
+    }
+    for ($x = 0; $x <= $selected_plugin['changed']; $x++){
+        //install the plugin
+        $plugin_file = fopen("../../.." . $selected_plugin['location'][$x], "w");
+        fwrite($plugin_file, file_get_contents($selected_plugin['clone_url'][$x]));
+        fclose($plugin_file);
+        $installed_json[$plugin_id] = 1;
+        $plugin_index_file = fopen("../../usr_pre_fls/plugins.json", "w");
+        fwrite($plugin_index_file, json_encode($installed_json));
+        fclose($plugin_index_file);
+        echo "Plugin installed!";
+    }
 }
-
+unset($plugin_index); unset($selected_plugin);
 ?>
