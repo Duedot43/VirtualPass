@@ -108,7 +108,6 @@ if(!isset($_COOKIE[$cookie_name])) {
 
       $user_ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
       if (!isset($user_ini[$qrid])){
-        echo($user_ini[$qrid]);
         $add_to_file = $qrid . "=" . $qrid . "\n";
         file_put_contents("registered_phid/" . $_COOKIE[$cookie_name], $add_to_file.PHP_EOL , FILE_APPEND | LOCK_EX);
       }
