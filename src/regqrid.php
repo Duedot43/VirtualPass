@@ -12,6 +12,7 @@ function check_string($pid){
   }
   
 $qrid = $_GET['page'];
+check_string($qrid);
 $date = date(DATE_ATOM);
 //fairly simple check if the user has entered the room number log it put it in the qrid folder and send it back to stupid
 if (isset($_GET['page'])){
@@ -32,7 +33,6 @@ if (isset($_POST['rnum'])) {
     exec("echo 'qrid {$qrid} registred to room {$rnum}' >> log/inout.log");
     exec("echo ///////////////////////////////////////////////// >> log/inout.log");
     }
-    check_string($qrid);
     $room = fopen("registerd_qrids/" . $qrid, "w");
     check_string($rnum);
     fwrite($room, $rnum);
