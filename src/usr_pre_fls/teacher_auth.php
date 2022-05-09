@@ -4,9 +4,9 @@ function auth($uname, $passwd){
     $unameck = $ini['teacher_uname'];
     $passwdck = $ini['teacher_passwd'];
     if ($uname == $unameck and $passwd == $passwdck){
-        return true;
+        return 1;
     } else{
-        return false;
+        return "Invalid username or password";
     }
 }
 ?>

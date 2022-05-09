@@ -11,7 +11,8 @@ $raniddd = rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand()
 $uname = $_POST['uname'];
 $passwd = $_POST['passwd'];
 include "../usr_pre_fls/teacher_auth.php";
-if (auth($uname, $passwd) == true){
+$authen = auth($uname, $passwd);
+if ($authen == 1){
   setcookie($cookie_namez, $raniddd, time() - (200), "/", $domain, TRUE, TRUE);
   setcookie($cookie_namez, $raniddd, time() + (200), "/", $domain, TRUE, TRUE);
   $cookie = fopen("cookie/" . $raniddd, "w");
@@ -20,7 +21,7 @@ if (auth($uname, $passwd) == true){
   //exec("mkdir cookie/" . $raniddd);
   header("Location: /teacher/menu.php");
 } else{
-    echo('<link href="style.css" rel="stylesheet" type="text/css" />Invalid!');
+    echo($authen);
 }
 
 
