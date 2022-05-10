@@ -27,21 +27,34 @@ $installed_json = json_decode(file_get_contents("../../usr_pre_fls/plugins.json"
 if ($installed_json[$plugin_id] == 1){
     for ($x = 0; $x <= $selected_plugin['changed']; $x++){
         //uninstall the plugin
-        $plugin_file = fopen("../../.." . $selected_plugin['location'][$x], "w");
-        fwrite($plugin_file, file_get_contents($selected_plugin['orig_url'][$x]));
-        fclose($plugin_file);
-        $installed_json[$plugin_id] = 0;
-        $plugin_index_file = fopen("../../usr_pre_fls/plugins.json", "w");
-        fwrite($plugin_index_file, json_encode($installed_json));
-        fclose($plugin_index_file);
-        echo "Plugin uninstalled!";
+        if ($selected_plugin['orig_url']['0'] != "None"){
+            $plugin_file = fopen("../../.." . $selected_plugin['location'][$x], "w");
+            fwrite($plugin_file, file_get_contents($selected_plugin['orig_url'][$x]));
+            fclose($plugin_file);
+        }
     }
+    for ($a = 0; $a <= $selected_plugin['to_remove_file']; $a++){
+        if ($selected_plugin['remove_file'][$a] != "None"){
+            unlink("../../.." . $selected_plugin['remove_file'][$a]);
+        }
+    }
+    for ($a = 0; $a <= $selected_plugin['to_remove_dir']; $a++){
+        if ($selected_plugin['remove_dir'][$a] != "None"){
+            rmdir("../../.." . $selected_plugin['remove_dir'][$a]);
+        }
+    }
+    $installed_json[$plugin_id] = 0;
+    $plugin_index_file = fopen("../../usr_pre_fls/plugins.json", "w");
+    fwrite($plugin_index_file, json_encode($installed_json));
+    fclose($plugin_index_file);
+    echo "Plugin uninstalled!";
 } else{
     if ($selected_plugin['setup'] != "None" and $_GET['setup'] == 0){
-        $setup_file = fopen("./setup.php", "w");
+        mkdir("./tmp");
+        $setup_file = fopen("./tmp/setup.php", "w");
         fwrite($setup_file, file_get_contents($selected_plugin['setup']));
         fclose($setup_file);
-        header("Location: /administrator/plugin_manager/setup.php?plugin=" . $plugin_id);
+        header("Location: /administrator/plugin_manager/tmp/setup.php?plugin=" . $plugin_id);
         exit();
     }
     for ($x = 0; $x <= $selected_plugin['changed']; $x++){
