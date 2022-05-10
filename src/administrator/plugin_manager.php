@@ -24,6 +24,7 @@ $plugin_index = json_decode(file_get_contents("https://raw.githubusercontent.com
 foreach ($plugin_index['plugins'] as $plugin_key){
     echo '<input class="reg" type="button" value="' . $plugin_key['html_name'] . '" onclick="location=\'/administrator/plugin_manager/disp_plugin.php?plugin=' . $plugin_key['name'] . '\'" />';
 }
+unset($plugin_index);
 ?>
 <head>
     <link href="style.css" rel="stylesheet" type="text/css" />
