@@ -15,8 +15,8 @@ $unameck = $ini['admin_uname'];
 $passwdck = $ini['admin_passwd'];
 if ($uname == $unameck){
     if ($passwd == $passwdck){
-        setcookie($cookie_namez, $raniddd, time() - (30), "/", $domain, TRUE, TRUE);
-        setcookie($cookie_namez, $raniddd, time() + (30), "/", $domain, TRUE, TRUE);
+        setcookie($cookie_namez, $raniddd, time() - (1200), "/", $domain, TRUE, TRUE);
+        setcookie($cookie_namez, $raniddd, time() + (1200), "/", $domain, TRUE, TRUE);
         $cookie = fopen("cookie/" . $raniddd, "w");
         fwrite($cookie, $raniddd);
         fclose($cookie);
