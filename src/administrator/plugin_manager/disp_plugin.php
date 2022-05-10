@@ -47,7 +47,7 @@ if ($installed_json[$plugin_id] == 0){
 <td width="294"><input class="reg" type="button" id="return" value='<?php echo $install;?>' onclick="location='use_plugin.php?plugin=<?php echo $plugin_id;?>&setup=0'" /></td>
 <td width="78"></td>
 <td width="80"></td>
-<td width="294"><input class="reg" type="button" value="View code" onclick="location='<?php echo $selected_plugin['clone_url']?>'"/></td>
+<td width="294"><input class="reg" type="button" value="View code" onclick="location='<?php echo $selected_plugin['clone_url']['0']?>'"/></td>
 <td width="0"></td>
 <td width="0"></td>
 </tr>
