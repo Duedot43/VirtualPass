@@ -24,7 +24,7 @@ $plugin_id = $_GET['plugin'];
 $plugin_index = json_decode(file_get_contents("https://raw.githubusercontent.com/Duedot43/VirtualPass-Applets/master/index.json"), true);
 $selected_plugin = $plugin_index['plugins'][$plugin_id];
 $installed_json = json_decode(file_get_contents("../../usr_pre_fls/plugins.json"), true);
-if ($installed_json[$plugin_id] == 0){
+if (!isset($installed_json[$plugin_id]) or $installed_json[$plugin_id] == 0){
   $install = "Install";
 } else{
   $install = "Uninstall";
