@@ -24,7 +24,7 @@ $plugin_id = $_GET['plugin'];
 $plugin_index = json_decode(file_get_contents("https://raw.githubusercontent.com/Duedot43/VirtualPass-Applets/master/index.json"), true);
 $selected_plugin = $plugin_index['plugins'][$plugin_id];
 $installed_json = json_decode(file_get_contents("../../usr_pre_fls/plugins.json"), true);
-$version_json = json_decode(file_get_contents("../../../version_info"), true);
+$version_json = json_decode(file_get_contents("../../../version-info"), true);
 if ($installed_json[$plugin_id] == 1){
     for ($x = 0; $x <= $selected_plugin['changed']; $x++){
         //uninstall the plugin
@@ -65,6 +65,7 @@ if ($installed_json[$plugin_id] == 1){
     }
     if (!in_array($version_json['current_version'], $selected_plugin['valid_ver'], true)){
         echo "This plugin is not compatiable with your version of VirtualPass";
+        exit();
     }
     for ($x = 0; $x <= $selected_plugin['changed']; $x++){
         //install the plugin
