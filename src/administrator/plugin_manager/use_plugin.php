@@ -56,6 +56,11 @@ if ($installed_json[$plugin_id] == 1){
         fclose($setup_file);
         header("Location: /administrator/plugin_manager/tmp/setup.php?plugin=" . $plugin_id);
         exit();
+    } else{
+        if (is_dir("./tmp")){
+            unlink("./tmp/setup.php");
+            rmdir("./tmp");
+        }
     }
     for ($x = 0; $x <= $selected_plugin['changed']; $x++){
         //install the plugin
