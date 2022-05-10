@@ -29,7 +29,6 @@ if ($installed_json[$plugin_id] == 0){
 } else{
   $install = "Uninstall";
 }
-unset($plugin_index); unset($selected_plugin);
 ?>
 <head>
     <link href="/style.css" rel="stylesheet" type="text/css" />
