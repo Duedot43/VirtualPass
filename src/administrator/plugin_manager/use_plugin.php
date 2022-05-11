@@ -25,6 +25,9 @@ $plugin_index = json_decode(file_get_contents("https://raw.githubusercontent.com
 $selected_plugin = $plugin_index['plugins'][$plugin_id];
 $installed_json = json_decode(file_get_contents("../../usr_pre_fls/plugins.json"), true);
 $version_json = json_decode(file_get_contents("../../../version-info"), true);
+if (!isset($installed_json[$plugin_id])){
+    $installed_json[$plugin_id] = 0;
+}
 if ($installed_json[$plugin_id] == 1){
     for ($x = 0; $x <= $selected_plugin['changed']; $x++){
         //uninstall the plugin
