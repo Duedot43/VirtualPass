@@ -50,6 +50,10 @@ if ($installed_json[$plugin_id] == 1){
     fclose($plugin_index_file);
     echo "Plugin uninstalled!";
 } else{
+    if (!in_array($version_json['current_version'], $selected_plugin['valid_ver'], true)){
+        echo "This plugin is not compatiable with your version of VirtualPass";
+        exit();
+    }
     if ($selected_plugin['setup'] != "None" and $_GET['setup'] == 0){
         mkdir("./tmp");
         $setup_file = fopen("./tmp/setup.php", "w");
@@ -62,10 +66,6 @@ if ($installed_json[$plugin_id] == 1){
             unlink("./tmp/setup.php");
             rmdir("./tmp");
         }
-    }
-    if (!in_array($version_json['current_version'], $selected_plugin['valid_ver'], true)){
-        echo "This plugin is not compatiable with your version of VirtualPass";
-        exit();
     }
     for ($x = 0; $x <= $selected_plugin['changed']; $x++){
         //install the plugin
