@@ -27,13 +27,13 @@ function ck_section($usr_sec){
     }
 }
 function ck_variable($usr_sec, $usr_var){
-    if ($usr_sec == "usrinfo" and $usr_var == "first_name" or $user_var == "last_name" or $user_var == "student_id" or $user_var == "student_email" or $user_var == "student_activity"){
+    if ($usr_sec == "usrinfo" and $usr_var == "first_name" or $usr_var == "last_name" or $usr_var == "student_id" or $usr_var == "student_email" or $usr_var == "student_activity"){
         return true;
     }
-    if ($user_sec == "srvinfo" and $usr_var == "dayofmonth_gon" or $user_var == "hour_gon" or $user_var == "minute_gon" or $usr_var == "dayofmonth_arv" or $user_var == "hour_arv" or $user_var == "minute_arv"){
+    if ($usr_sec == "srvinfo" and $usr_var == "dayofmonth_gon" or $usr_var == "hour_gon" or $usr_var == "minute_gon" or $usr_var == "dayofmonth_arv" or $usr_var == "hour_arv" or $usr_var == "minute_arv"){
         return true;
     }
-    if ($user_sec == "room" and is_numeric($user_var)){
+    if ($usr_sec == "room" and is_numeric($usr_var)){
         return true;
     }
     return false;
