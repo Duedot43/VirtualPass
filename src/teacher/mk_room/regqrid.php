@@ -59,7 +59,6 @@ $qrid = $_GET['page'];
 $date = date(DATE_ATOM);
 //fairly simple check if the user has entered the room number log it put it in the qrid folder and send it back to stupid
 if (isset($_POST['rnum'])) {
-  echo($_POST['rnum']);
   if ($_POST['rnum'] == ""){
     if (!file_exists("../../registerd_qrids/" . $qrid)){
       //NOTE: Dont ask me why its called stupid.php im still learning PHP and that was not easy to write
