@@ -46,14 +46,8 @@ if (isset($_GET['page'])){
     exit();
   }
 } else{echo("No page value!");exit();}
-//$qrid=$_POST['qrid'];
-//$fh = fopen('qrid.txt','r');
-//$qrid = fgets($fh);
 //get the page value in the link and pass it on
 $qrid = $_GET['page'];
-//echo $qrid;
-//look for the qrid in the files
-//$output = exec("tree -i --noreport registerd_qrids/ | grep -o {$qrid}");
 if(!file_exists("registerd_qrids/" . $qrid)) {
   //if it is not found make it with regqrid and pass page on
     header("Location: /regqrid.php?page=" . $qrid);
@@ -67,21 +61,11 @@ if(!isset($_COOKIE[$cookie_name])) {
     exit();
   } else {
     check_phid($_COOKIE[$cookie_name]);
-    //echo "Cookie '" . $cookie_name . "' is set!<br>";
-    //echo "Value is: " . $_COOKIE[$cookie_name];
-    //look for the user in the files and find out if they are departed or not
-    //$catin = exec("ls departed/ | grep " . $_COOKIE[$cookie_name]);
-    //$catout = exec("ls registered_phid/ | grep " . $_COOKIE[$cookie_name]);
-    //echo ("Hall pass registerd<br>");
-    //echo ("Please rescan the QR code if this is your first time.<br>");
-    //echo " out ", $catout, " in ", $catin, " cookie ", $_COOKIE[$cookie_name];
-    //1 = departed
     $cook = ("0");
     if (file_exists("registered_phid/" . $_COOKIE[$cookie_name])) {
       //the user is not departed do read the file and move them to the departed folder
       $fh = parse_ini_file('registered_phid/' . $_COOKIE[$cookie_name]);
-      //$cookid = fgets($fh); 
-      //$dpt = ($ini['']);
+
       if ($fh['student_activity'] == "Arrived"){
         
         config_set('registered_phid/' . $_COOKIE[$cookie_name], "usrinfo", "student_activity", "Departed");
@@ -92,18 +76,12 @@ if(!isset($_COOKIE[$cookie_name])) {
       $fh = parse_ini_file('registered_phid/' . $_COOKIE[$cookie_name]);
       $dpt = ($fh['student_activity']);
       $cook = ("1");
-      //exec("mv -v registered_phid/" . $_COOKIE[$cookie_name] . " departed/");
     }
     if (!file_exists("registered_phid/" . $_COOKIE[$cookie_name])){
       setcookie($cookie_name, "", time() - (86400 * 360), "/", $domain, TRUE, TRUE);
       header("Location: /registercookie.php?page=" . $qrid);
       exit();
     }
-    //if the top if statment has triggered this one will not beacuse $catout is outdated at this point
-    //if the user is found in departed the below if triggers
-    //if ($catin == $_COOKIE[$cookie_name]) {
-    //  $fh = fopen('departed/' . $_COOKIE[$cookie_name] . '/' . $_COOKIE[$cookie_name],'r');
-    //  $cookid = fgets($fh); 
       //read the file and mark them as arrived
 
       $user_ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
@@ -111,19 +89,13 @@ if(!isset($_COOKIE[$cookie_name])) {
         $add_to_file = $qrid . "=" . $qrid . "\n";
         file_put_contents("registered_phid/" . $_COOKIE[$cookie_name], $add_to_file.PHP_EOL , FILE_APPEND | LOCK_EX);
       }
-    //  $dpt = ("Arrived");
-    //  $cook = ("1");
-    //  exec("mv -v departed/" . $_COOKIE[$cookie_name] . " registered_phid/")
-      //move them to the arrived folder
-   // }
     //checking if the cookie is registered but they are not in the files
     if ($cook == "0") {
       //cookie error re register cookie and delete the cookie
       setcookie($cookie_name, "", time() - (86400 * 360), "/", $domain, TRUE, TRUE);
       header("Location: /registercookie.php?page=" . $qrid);
     }
-    //exec("echo {$cook}");
-    //$dpt2 is for the webpage title and the button
+
     $date = date(DATE_ATOM);
     if ($dpt == "Arrived"){
       $dpt2 = ("Depart");
@@ -131,15 +103,11 @@ if(!isset($_COOKIE[$cookie_name])) {
     if ($dpt == "Departed"){
       $dpt2 = ("Arrive");
     }
-    //echo("you have {$dpt}<br>");
-    //get the current time and date and set the variables
     $a = getdate();
     $dayofmonth = $a['mday'];
     $hour = $a['hours'];
     $minute = $a['minutes'];
     //check if hour_gon exiests to check the user time later
-    //$ariveis = exec("cd registered_phid/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_gon");
-    //$ariveis1 = exec("cd departed/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_gon");
     $ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
     // change this to see when the user has departed/arrived
     if ($ini['hour_gon'] == ""){
@@ -159,17 +127,6 @@ if(!isset($_COOKIE[$cookie_name])) {
       config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "minute_arv", $minute);
       
     }
-    //if ($ariveis1 != "hour_gon"){
-      //exec("cd departed/" . $_COOKIE[$cookie_name] . "/srvinfo && echo '{$dayofmonth}' >> 'dayofmonth_gon' && echo '{$hour}' >> 'hour_gon' && echo '{$minute}' >> 'minute_gon'");
-    //}
-    //if ($ariveis1 == "hour_gon"){
-      //exec("cd departed/" . $_COOKIE[$cookie_name] . "/srvinfo && echo '{$dayofmonth}' >> 'dayofmonth_arv' && echo '{$hour}' >> 'hour_arv' && echo '{$minute}' >> 'minute_arv'");
-    //}
-    //check if hour_gon and hour_arrive exiest
-    //$ariveis_verify_reg_gon = exec("cd registered_phid/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_gon");
-    //$ariveis_verify_reg_arv = exec("cd registered_phid/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_arv");
-    //$ariveis_dep_reg_gon = exec("cd departed/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_gon");
-    //$ariveis_dep_reg_arv = exec("cd departed/" . $_COOKIE[$cookie_name] . "/srvinfo && ls hour_arv");
     
     $ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
     if ($ini['hour_gon'] != ""){
@@ -177,19 +134,12 @@ if(!isset($_COOKIE[$cookie_name])) {
         
         $ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
         $cookid = $ini['first_name'] . " " . $ini['last_name'] . " " . $ini['student_id'] . " " . $ini['student_email'];
-        //$fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo/dayofmonth_gon','r');
         $dayofmonth_gon = $ini['dayofmonth_gon'];
-        //$fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo/dayofmonth_arv','r');
         $dayofmonth_arv = $ini['dayofmonth_arv'];
-        //$fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo/hour_gon','r');
         $hour_gon = $ini['hour_gon'];
-        //$fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo/hour_arv','r');
         $hour_arv = $ini['hour_arv'];
-        //$fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo/minute_gon','r');
         $minute_gon = $ini['minute_gon'];
-        //$fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo/minute_arv','r');
         $minute_arv = $ini['minute_arv'];
-        //$fh = fopen('registered_phid/' . $_COOKIE[$cookie_name] . "/" . $_COOKIE[$cookie_name],'r');
         $usrinfo = $ini['first_name'] . " " . $ini['last_name'] . " " . $ini['student_id'] . " " . $ini['student_email'];
         //get all the time
         $days_gone = $dayofmonth_arv-$dayofmonth_gon;
@@ -206,23 +156,18 @@ if(!isset($_COOKIE[$cookie_name])) {
         //get the room ID
         session_start();
         $cookieodd = $_COOKIE[$cookie_name];
-        //$ckdatehtml = exec("cd registered_phid/" . $cookieodd . "/huinfo/ && ls ./" . $current_date);
         //check if current date exiests if it does dont make a DIR and dont add it to the html file
         $ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
         if (!is_dir("human_info/" . $cookieodd . "/" . $current_date)){
           
           mkdir("human_info/" . $_COOKIE[$cookie_name] . "/" . $current_date);
-          //exec("mkdir registered_phid/" . $_COOKIE[$cookie_name] . "/huinfo/" . $current_date . "/");
           //make a button for the current day for the admin log
           $main_html = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $current_date . '" onclick="location=\'/human_info/' . $_COOKIE[$cookie_name] . '/' . $current_date . '/index.html\'" /></td>';
           $student = file_put_contents('human_info/' . $_COOKIE[$cookie_name] . '/index.html', $main_html.PHP_EOL , FILE_APPEND | LOCK_EX);
-          //exec('cd registered_phid/' . $_COOKIE[$cookie_name] . '/huinfo/ && echo <link href="/style.css" rel="stylesheet" type="text/css" /><input type="button" value=\'Date:' . $current_date . '\' onclick="location=\'/registered_phid/' . $_COOKIE[$cookie_name] . '/huinfo/' . $current_date . '/index.html\'" "/><br>" >> index.html');
         }
         
         
-        //exec("cd registered_phid/" . $_COOKIE[$cookie_name] . "/huinfo/" . $current_date . "/" . $rid1 . "/");
         
-        //$ckroomhtml = exec("cd registered_phid/" . $cookieodd . "/huinfo/" . $current_date . "/ && ls ./" . $rid1);
         //check if the room exiests if it does do not add it to the HTML file and do not make the DIR
         if (!is_dir("human_info/" . $_COOKIE[$cookie_name] . "/" . $current_date . "/" . $rid1)){
           //if so make the dir and add it to the HTML file
@@ -234,16 +179,12 @@ if(!isset($_COOKIE[$cookie_name])) {
         //OH MY GOD WHY DO PEOPLE DO TO THE BATHROOM EVERY .5 SECONDS AHHHH
         //And im too lazy to add another thing above and convert the backend lol NOOOOOO
         if (!is_file("human_info/" . $_COOKIE[$cookie_name] . "/" . $current_date . "/" . $rid1 . "/" . $current_hour . ".html")){
-          //exec($current_hour . ".html does exiest");
         $guide_to_info_page = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="Hour: ' . $current_hour . '" onclick="location=\'/human_info/' . $_COOKIE[$cookie_name] . '/' . $current_date . '/' . $rid1 . '/' . $current_hour . '.html\'" /></td>';
         $student = file_put_contents('human_info/' . $_COOKIE[$cookie_name] . '/' . $current_date . '/' . $rid1 . '/index.html', $guide_to_info_page.PHP_EOL , FILE_APPEND | LOCK_EX);
       }
-        //exec('cd registered_phid/' . $_COOKIE[$cookie_name] . '/huinfo/' . $current_date . '/' . $rid1 . '/ && echo "<"link href="/style.css" rel="stylesheet" type="text/css" "/>""<"input type="button" value="Hour:' . $current_hour . '" onclick="location=\'/registered_phid/' . $_COOKIE[$cookie_name] . '/huinfo/' . $current_date . '/' . $rid1 . '/' . $current_hour . '.html\'" "/><br>" >> index.html');
         $info_page = '<link href="/style.css" rel="stylesheet" type="text/css" />' . $usrinfo . ' was out for ' . $days_gone . ' days ' . $hours_gone . ' hours and ' . $minutes_gone . ' minutes.<br>Student left classroom ' . $rid1 . ' at ' . $hour_gon . ':' . $minute_gon . ' and arrived at ' . $hour_arv . ':' . $minute_arv . '<br>';
         $student = file_put_contents("human_info/" . $_COOKIE[$cookie_name] . "/" . $current_date . "/" . $rid1 . "/" . $current_hour . ".html", $info_page.PHP_EOL , FILE_APPEND | LOCK_EX);
-        //exec("cd registered_phid/" . $_COOKIE[$cookie_name] . "/huinfo/" . $current_date . "/" . $rid1 . "/ && echo '<'link href='/style.css' rel='stylesheet' type='text/css' '/>''" . $usrinfo . "' was out for '" . $days_gone . "' days '" . $hours_gone . "' hours and '" . $minutes_gone . "' minutes.'<br>'Student left classroom '" . $rid1 . "' at '" . $hour_gon . "':'" . $minute_gon . "' and arrived at '" . $hour_arv . "':'" . $minute_arv . "<br>' >> '" . $current_hour . "'.html");
         //destroy all the variables for good mesure
-        //exec('cd registered_phid/' . $_COOKIE[$cookie_name] . '/srvinfo && rm ./*');
         config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "dayofmonth_gon", "");
         config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "hour_gon", "");
         config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "minute_gon", "");
@@ -255,15 +196,6 @@ if(!isset($_COOKIE[$cookie_name])) {
     }
 //record it in the blob log haha that rymes
 $inithing = parse_ini_file("../config/config.ini");
-if ($inithing['enable_insecure_general_logs'] == "1"){
-    exec("echo ///////////////////////////////////////////////// >> log/inout.log");
-    exec("echo '{$date}' >> log/inout.log");
-    //echo($cookid);
-    exec("echo '{$cookid}' >> log/inout.log");
-    $rid = exec("cat registerd_qrids/{$qrid}");
-    exec("echo '{$dpt}' '{$rid}' >> log/inout.log");
-    exec("echo ///////////////////////////////////////////////// >> log/inout.log");
-}
 
   }
 //change Arrive/daparted button to show what it is going to do ,done

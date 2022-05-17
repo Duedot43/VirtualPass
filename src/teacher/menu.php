@@ -22,7 +22,6 @@ function check_phid($pid){
   check_phid($_COOKIE['teacher']);
 $ini = parse_ini_file('../../config/config.ini');
 $sendemail = $ini['em_enable'];
-//exec($sendemail);
 if ($sendemail == "1"){
     $enable_email = "Disable Emails";
 }

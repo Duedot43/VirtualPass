@@ -20,7 +20,6 @@ else{
     }
 }
 check_phid($_COOKIE['admin']);
-//exec("rm -rf ../departed/* && echo p > ../departed/.placeholder");
 exec("rm -rf ../registered_phid/* && echo p > ../registered_phid/.placeholder");
 echo("Done!");
 

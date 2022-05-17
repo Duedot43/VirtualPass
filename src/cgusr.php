@@ -34,8 +34,6 @@ if(isset($_GET['user'])) {
             $stid=$_POST['stid'];
             $stem=$_POST['stem'];
             check_phid($user);
-            //exec("rm registered_phid/" . $user . "/" . $user);
-            //exec("echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> registered_phid/" . $user ."/" . $user);
             config_set("registered_phid/" . $user, "usr_info", "first_name", $firstname);
             config_set("registered_phid/" . $user, "usr_info", "last_name", $lastname);
             config_set("registered_phid/" . $user, "usr_info", "student_id", $stid);

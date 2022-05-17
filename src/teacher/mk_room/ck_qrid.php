@@ -49,6 +49,5 @@ window.addEventListener("load", () => {
   new QRCode(div, "<?php echo $url;?>");
   var thing = div.children[0].toDataURL("image/png");
   document.querySelector('#dbth').href = thing;
-  //console.info('src', src);
 });
 </script>

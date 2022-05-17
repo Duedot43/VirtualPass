@@ -17,8 +17,6 @@ if ($authen == 1){
   setcookie($cookie_namez, $raniddd, time() + (200), "/", $domain, TRUE, TRUE);
   $cookie = fopen("cookie/" . $raniddd, "w");
   fwrite($cookie, $raniddd);
-  //exec("echo -n " . $raniddd . " >> cookie/" . $raniddd);
-  //exec("mkdir cookie/" . $raniddd);
   header("Location: /teacher/menu.php");
 } else{
     echo($authen);

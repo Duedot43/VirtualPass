@@ -41,8 +41,6 @@ if ($ini['overide_automatic_domain_name'] == "1"){
 if ($ini['overide_automatic_domain_name'] != "1"){
   $domain = $_SERVER['SERVER_NAME'];
 }
-//"1b0e-8-6-112-61.ngrok.io";
-//echo $domain;
 if (isset($_GET['page'])){
   if ($_GET['page'] == ""){
     echo("No page value!");
@@ -71,19 +69,13 @@ if(isset($_GET['page'])) {
             $sendemail = $ini['em_enable'];
               $money = "$";
               setcookie($cookie_name, $ranid, time() + (86400 * 360), "/", $domain, TRUE, TRUE);
-              //exec("sleep.5s");
-              //if(!isset($_COOKIE[$cookie_name])) {
-                //echo("Hmm something has gone wrong I cant set your cookie. Trying fallback method...");
-              //}
                 user($ranid, "../mass.json");
               $inifl = fopen("registered_phid/" . $ranid, "w");
               $tet = ("[usrinfo]\nfirst_name=" . $firstname . "\nlast_name=" . $lastname . "\nstudent_id=" . $stid . "\nstudent_email=" . $stem . "\nstudent_activity=Arrived\n[srvinfo]\ndayofmonth_gon=\nhour_gon=\nminute_gon=\ndayofmonth_arv=\nhour_arv=\nminute_arv=\n[room]\n");
               fwrite($inifl, $tet);
               fclose($inifl);
               mkdir("human_info/" . $ranid);
-              //exec("cd registered_phid/ && mkdir '{$ranid}' && cd '{$ranid}' && mkdir 'srvinfo' && mkdir 'huinfo' && mkdir 'email' && echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> '{$ranid}'");
               if ($sendemail == "1"){
-                //$myfile = fopen('registered_phid/' . $ranid . '/email/email.html', "w");
                 $txt = ('<head><link href="https://rawcdn.githack.com/Duedot43/VirtualPass/82889bcf8bd24b0df4b99b1a59bef0699f370474/src/style.css" rel="stylesheet" type="text/css" /></head><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>VirtualPass sign-up confirmation</title><tr><td><table width="100%" border="0" cellpadding="3" cellspacing="1"><tr><td colspan="3"><strong>Congrats ' . $firstname . ', your info has been set!<br>Choose any option below and it will redirect you to the VirtualPass website.<br></strong></td></tr><tr><td width="0"></td><td width="0"></td><td width="294"><input class="reg" type="button" value="Change user info" onclick="location=\'https://' . $domain . '/cgusr.php?user=' . $ranid . '\'" /></td><td width="78"></td><td width="80"></td><td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location=\'https://' . $domain . '/delusreml.php?user=' . $ranid . '\'" style="border-color:red; color:white"/></td><td width="0"></td><td width="0"></td></tr><tr></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr></table></td></tr></table>');
                 $inifl = fopen("human_info/" . $ranid . "/email.html", "w");
                 fwrite($inifl, $txt);
@@ -93,28 +85,13 @@ if(isset($_GET['page'])) {
                   include "usr_pre_fls/email.php";
                   send($mail_json['email_email'], $mail_json['email_passwd'], $stem, $mail_json['email_username'], "human_info/" . $ranid . "/email.html", $mail_json['server'], $mail_json['server_port']);
                 }
-                //config_set("registered_phid/" . $ranid, "email", "email_html", $txt);
-                //$txt = ('<head>\n<link href="https://rawcdn.githack.com/Duedot43/VirtualPass/82889bcf8bd24b0df4b99b1a59bef0699f370474/src/style.css" rel="stylesheet" type="text/css" /></head><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>VirtualPass sign-up confirmation</title><tr><td><table width="100%" border="0" cellpadding="3" cellspacing="1"><tr><td colspan="3"><strong>Congrats ' . $firstname . ', your info has been set!<br>Choose any option below and it will redirect you to the VirtualPass website.<br></strong></td></tr><tr><td width="0"></td><td width="0"></td><td width="294"><input class="reg" type="button" value="Change user info" onclick="location=\'https://' . $domain . '/cgusr.php?user=' . $ranid . '\'" /></td><td width="78"></td><td width="80"></td><td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location=\'https://' . $domain . '/delusreml.php?user=' . $ranid . '\'" style="border-color:red; color:white"/></td><td width="0"></td><td width="0"></td></tr><tr></tr><tr><td>&nbsp;</td><td>&nbsp;</td></tr></table></td></tr></table>');
-                //fwrite($myfile, $txt);
-                //fclose($myfile);
 
               }
               
-              //if (!is_file("administrator/student.php")) {
-              //  copy("usr_pre_fls/index.php", "administrator/student.php");
-              //  //exec("cp usr_pre_fls/index.php ./administrator/student.php");
-              //}
               $user_ini = parse_ini_file("registered_phid/" . $ranid);
               if (!isset($user_ini[$qrid])){
                 $add_to_file = $qrid . "=" . $qrid . "\n";
                 file_put_contents("registered_phid/" . $ranid, $add_to_file.PHP_EOL , FILE_APPEND | LOCK_EX);
-              }
-              if ($ini['enable_insecure_general_logs'] == "1"){
-              //exec('cd administrator/ && echo "<"link href="/style.css" rel="stylesheet" type="text/css" "/>""<"input type="button" value="' . $firstname . '" onclick="location=\'/registered_phid/' . $ranid . '/huinfo/index.html\'" "/><br>" >> student.php');
-              exec("echo ///////////////////////////////////////////////// >> log/inout.log");
-              exec("echo '{$date}' >> log/inout.log");
-              exec("echo '{$firstname}' registered with phid '{$ranid}' >> log/inout.log");
-              exec("echo ///////////////////////////////////////////////// >> log/inout.log");
               }
               //send it back to stupid
 
@@ -123,32 +100,13 @@ if(isset($_GET['page'])) {
           }
           if(isset($_COOKIE[$cookie_name])) {
     
-            //echo "Cookie '" . $cookie_name . "' is set!<br>";
-            //echo "Value is: " . $_COOKIE[$cookie_name];
-            //look for the user in the files and find out if they are departed or not
-            //$catin = exec("ls departed/ | grep " . $_COOKIE[$cookie_name]);
-            //$catout = exec("ls registered_phid/ | grep " . $_COOKIE[$cookie_name]);
-            //echo ("Hall pass registerd<br>");
-            //echo ("Please rescan the QR code if this is your first time.<br>");
-            //echo " out ", $catout, " in ", $catin, " cookie ", $_COOKIE[$cookie_name];
-            //1 = departed
             $cook = ("0");
             if (file_exists("registered_phid/" . $ranid)) {
               header("Location: /stupid.php?page=" . $qrid);
               $cook = ("1");
-              //exec("mv -v registered_phid/" . $_COOKIE[$cookie_name] . " departed/");
             }
             //if the top if statment has triggered this one will not beacuse $catout is outdated at this point
             //if the user is found in departed the below if triggers
-            //if ($catin == $_COOKIE[$cookie_name]) {
-            //  $fh = fopen('departed/' . $_COOKIE[$cookie_name] . '/' . $_COOKIE[$cookie_name],'r');
-            //  $cookid = fgets($fh); 
-              //read the file and mark them as arrived
-            //  $dpt = ("Arrived");
-            //  $cook = ("1");
-            //  exec("mv -v departed/" . $_COOKIE[$cookie_name] . " registered_phid/");
-              //move them to the arrived folder
-           // }
             //checking if the cookie is registered but they are not in the files
             if ($cook == "0") {
               //cookie error re register cookie and delete the cookie
@@ -156,14 +114,6 @@ if(isset($_GET['page'])) {
               header("Location: /stupid.php?page=" . $qrid);
             }
           }
-//setcookie($cookie_name, $ranid, time() + (86400 * 360));
-//exec("cd registered_phid/ && echo '{$firstname}' '{$lastname}' '{$stid}' '{$stem}' >> {$ranid}");
-//exec("echo '{$firstname} registered with phid {$ranid} >> log/inout.log");
-//exec("echo ///////////////////////////////////////////////// >> log/inout.log");
-//exec("echo '{$date}' >> log/inout.log");
-//exec("echo '{$firstname} registered with phid {$ranid}' >> log/inout.log");
-//exec("echo ///////////////////////////////////////////////// >> log/inout.log");
-//header("Location: /stupid.php");
 
         }
       }

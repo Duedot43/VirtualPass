@@ -20,8 +20,6 @@ if ($uname == $unameck){
         $cookie = fopen("cookie/" . $raniddd, "w");
         fwrite($cookie, $raniddd);
         fclose($cookie);
-        //exec("echo -n " . $raniddd . " >> cookie/" . $raniddd);
-        //exec("mkdir cookie/" . $raniddd);
         header("Location: /administrator/menu.php");
     } else{
         echo('<link href="style.css" rel="stylesheet" type="text/css" />Invalid!');

@@ -20,8 +20,7 @@ else{
   }
 }
 check_phid($_COOKIE['teacher']);
-//$fh = fopen('qrid.txt','r');
-//$qrid = fgets($fh);
+
 function check_string($pid){
   if (is_numeric($pid)){
   }
@@ -40,7 +39,6 @@ if (isset($_POST['rnum'])) {
   echo($_POST['rnum']);
   if ($_POST['rnum'] == ""){
     if (!file_exists("../../registerd_qrids/" . $qrid)){
-      //exec("cd registerd_qrids/ && echo '{$rnum}' >> {$qrid}");
       //NOTE: Dont ask me why its called stupid.php im still learning PHP and that was not easy to write
       header("Location: /teacher/mk_room/ck_qrid.php?page=" . $qrid);
       exit();
@@ -50,22 +48,13 @@ if (isset($_POST['rnum'])) {
       }
     }
     $rnum=$_POST['rnum'];
-    //echo("you have {$dpt}");
     $inithing = parse_ini_file("../../../config/config.ini");
-    if ($inithing['enable_insecure_general_logs'] == "1"){
-    exec("echo ///////////////////////////////////////////////// >> log/inout.log");
-    exec("echo '{$date}' >> log/inout.log");
-    //echo($cookid);
-    exec("echo 'qrid {$qrid} registred to room {$rnum}' >> log/inout.log");
-    exec("echo ///////////////////////////////////////////////// >> log/inout.log");
-    }
     check_string($qrid);
     if (!file_exists("../../registerd_qrids/" . $qrid)){
     $room = fopen("../../registerd_qrids/" . $qrid, "w");
     check_string($rnum);
     room($qrid, "../../../mass.json");
     fwrite($room, $rnum);
-    //exec("cd registerd_qrids/ && echo '{$rnum}' >> {$qrid}");
     //NOTE: Dont ask me why its called stupid.php im still learning PHP and that was not easy to write
     header("Location: /teacher/mk_room/ck_qrid.php?page=" . $qrid);
     exit();
