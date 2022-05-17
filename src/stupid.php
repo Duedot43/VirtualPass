@@ -80,7 +80,6 @@ if(!file_exists("registerd_qrids/" . $qrid)) {
 //check is the cookie is set or not
 if(!isset($_COOKIE[$cookie_name])) {
   //if its not register it along with the cookie
-    echo "Cookie named '" . $cookie_name . "' is not set!";
     header("Location: /registercookie.php?page=" . $qrid);
     exit();
   } else {
