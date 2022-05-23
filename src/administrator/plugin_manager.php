@@ -50,5 +50,5 @@ foreach ($plugin_index['plugins'] as $plugin_key){
 unset($plugin_index);
 ?>
 <head>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="/style.css" rel="stylesheet" type="text/css" />
 </head>

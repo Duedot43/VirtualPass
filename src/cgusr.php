@@ -61,7 +61,7 @@ if(isset($_GET['user'])) {
             config_set("registered_phid/" . $user, "usr_info", "last_name", $lastname);
             config_set("registered_phid/" . $user, "usr_info", "student_id", $stid);
             config_set("registered_phid/" . $user, "usr_info", "student_email", $stem);
-            echo ('<link href="style.css" rel="stylesheet" type="text/css" />Done!');
+            echo ('<link href="/style.css" rel="stylesheet" type="text/css" />Done!');
             exit();
 
 
@@ -73,7 +73,7 @@ if(isset($_GET['user'])) {
 ?>
 <title>Change your user</title>
 <head>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="/style.css" rel="stylesheet" type="text/css" />
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Register</title>

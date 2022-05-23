@@ -236,7 +236,7 @@ $inithing = parse_ini_file("../config/config.ini");
 //HOW TO APPLE USE THE CODE BELOW FOR HTML KEEP THE PHP THINGS THOSE ARE THE VARIABLES TO DISPLAY//
 ?>
 <head>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="/style.css" rel="stylesheet" type="text/css" />
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?php echo $dpt;?></title>

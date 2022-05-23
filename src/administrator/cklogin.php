@@ -45,10 +45,10 @@ if ($uname == $unameck){
         fclose($cookie);
         header("Location: /administrator/menu.php");
     } else{
-        echo('<link href="style.css" rel="stylesheet" type="text/css" />Invalid!');
+        echo('<link href="/style.css" rel="stylesheet" type="text/css" />Invalid!');
     }
 } else{
-    echo('<link href="style.css" rel="stylesheet" type="text/css" />Invalid!');
+    echo('<link href="/style.css" rel="stylesheet" type="text/css" />Invalid!');
 }
 
 

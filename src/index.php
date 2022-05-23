@@ -54,7 +54,7 @@ if ($ini['overide_automatic_domain_name'] != "1"){
       
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="/style.css" rel="stylesheet" type="text/css" />
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <tr>

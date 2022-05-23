@@ -54,7 +54,7 @@ if(isset($_COOKIE[$cookie_name])){
 
 ?>
 <head>
-    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link href="/style.css" rel="stylesheet" type="text/css" />
 </head>
 <title>Bye!</title>
 User removed.

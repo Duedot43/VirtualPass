@@ -62,13 +62,13 @@ $ini = parse_ini_file('../../config/config.ini');
 $sendemail = $ini['em_enable'];
 if ($sendemail == "1"){
     config_set("../../config/config.ini", "email_function", "em_enable", "0");
-    echo('<link href="style.css" rel="stylesheet" type="text/css" /> Done! User emails disabled<br>');
+    echo('<link href="/style.css" rel="stylesheet" type="text/css" /> Done! User emails disabled<br>');
 }
 if ($sendemail == "0"){
     config_set("../../config/config.ini", "email_function", "em_enable", "1");
-    echo('<link href="style.css" rel="stylesheet" type="text/css" /> Done! User emails are now enabled<br>you can find them in the users folder under the emails direcory<br> !WARNING! THIS IS A BETA FETURE<br>');
+    echo('<link href="/style.css" rel="stylesheet" type="text/css" /> Done! User emails are now enabled<br>you can find them in the users folder under the emails direcory<br> !WARNING! THIS IS A BETA FETURE<br>');
 }
 
 ?>
-<link href="style.css" rel="stylesheet" type="text/css" />
+<link href="/style.css" rel="stylesheet" type="text/css" />
 <input type="button" value="Back to Main Menu" onclick="location='menu.php'" />
