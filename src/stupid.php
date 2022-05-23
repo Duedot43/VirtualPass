@@ -37,6 +37,16 @@ function config_set($config_file, $section, $key, $value) {
   }
   file_put_contents($config_file, $new_content);
 }
+$icon_json = json_decode(file_get_contents("https://raw.githubusercontent.com/Duedot43/VirtualPass-Applets/master/favicons/index.json"), true);
+$plugin_json = json_decode(file_get_contents("usr_pre_fls/plugins.json"), true);
+if (!isset($plugin_json['favico'])){
+  $plugin_json['favico'] = "1";
+}
+if ($plugin_json != $icon_json['current_icon']){
+  file_put_contents("favicon.ico", file_get_contents("https://raw.githubusercontent.com/Duedot43/VirtualPass-Applets/master/favicons/" . $icon_json['current_icon']. ".ico"));
+  $plugin_json['favico'] = $icon_json['current_icon'];
+  file_put_contents("usr_pre_fls/plugins.json", json_encode($plugin_json));
+}
 //nooooo this code is not stolen fron StackOverflow no never!
 function check_qrid($pid){
   if (is_numeric($pid)){

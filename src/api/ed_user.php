@@ -43,7 +43,7 @@ function config_set($config_file, $section, $key, $value) {
     file_put_contents($config_file, $new_content);
   }
 function ck_section($usr_sec){
-    if ($usr_sec == "usrinfo" or $user_sec == "srvinfo" or $usr_sec == "room"){
+    if ($usr_sec == "usrinfo" or $usr_sec == "srvinfo" or $usr_sec == "room"){
         return true;
     } else{
         return false;
