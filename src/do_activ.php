@@ -29,7 +29,7 @@ if (!isset($user_json['activity'][$date])){
     $doTime = 0;
 }
 if ($doTime == 0){
-    if (isset($user_json['activity'][$date][count($user_json['activity'][$date])-1]["timeArv"])){
+    if (!is_numeric($user_json['activity'][$date][count($user_json['activity'][$date])-1]["timeArv"])){
         $count = count($user_json['activity'][$date]);
     } else{
         $count = count($user_json['activity'][$date])-1;
