@@ -4,7 +4,7 @@ include "usr_pre_fls/checks.php";
 
 function snapshot(){
     if (file_exists("../mass.json")){
-        $mass = json_decode(file_get_contents("../mass.json"));
+        $mass = json_decode(file_get_contents("../mass.json"), true);
         $usersDep = 0;
         $usersArv = 0;
         foreach ($mass['user'] as $user){
@@ -22,7 +22,7 @@ function snapshot(){
         }
     }
     $time = time();
-    $mass[time()] = array(
+    $mass['history'][time()] = array(
         "out"=>$usersDep,
         "in"=>$usersArv
     );

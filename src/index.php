@@ -26,7 +26,7 @@ include "usr_pre_fls/mk_mass.php";
 include "usr_pre_fls/checks.php";
 
 if (count($_GET) == 0){
-  include "real_index.php";
+  header("Location: /real_index.php");
   exit();
 }
 ck_page();
@@ -87,6 +87,14 @@ if ($user_json['student_activ'] == 1){
 </head>
 <!-- HTML Meta Tags -->
 <title>VirtualPass</title>
+
+<!-- Meta Tags Generated via https://www.opengraph.xyz -->
+<title>VirtualPass Insites</title>
+<link href="/style.css" rel="stylesheet" type="text/css" />
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
+<script src="/usr_pre_fls/anychart-base.min.js"></script>
+<script src="/usr_pre_fls/chart.js"> </script>
+<script var mass=<?php echo file_get_contents("../mass.json"); ?>> </script>
 <meta name="description" content="The utility that lets you set up your users with a virtual hall pass for administrators to help keep track of where your emplyees are.">
 
 <!-- Facebook Meta Tags -->
@@ -103,9 +111,6 @@ if ($user_json['student_activ'] == 1){
 <meta name="twitter:title" content="VirtualPass">
 <meta name="twitter:description" content="The utility that lets you set up your users with a virtual hall pass for administrators to help keep track of where your emplyees are.">
 <meta name="twitter:image" content="https://<?php echo $domain;?>/Images/preview.png">
-
-<!-- Meta Tags Generated via https://www.opengraph.xyz -->
-      
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
     <link href="/style.css" rel="stylesheet" type="text/css" />
