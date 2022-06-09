@@ -22,6 +22,8 @@ if (!isset($user_json['activity'][$date])){
     $doTime = 1;
     $time1 = time();
     $time2 = "";
+} else{
+    $dotime = 0;
 }
 if ($user_json['student_activ'] == 0 and $doTime == 0){
     $time1 = $user_json['activity'][$date][count($user_json['activity'][$date])-1]["timeDep"];
