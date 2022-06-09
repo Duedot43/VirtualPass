@@ -63,6 +63,10 @@ if (!isset($_COOKIE['phid']) or !file_exists("registered_phid/" . $_COOKIE['phid
 
 $user_json = json_decode(file_get_contents("registered_phid/" . $_COOKIE['phid']), true);
 
+if (!isset($user_json['room'][$_GET['room']])){
+  array_push($user_json['room'], $_GET['room']);
+  write_json($user_json, "registered_phid/" . $_COOKIE['phid']);
+}
 
 if ($user_json['student_activ'] == 0){
   $dpt = "departed";

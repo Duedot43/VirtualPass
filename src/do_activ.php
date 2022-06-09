@@ -19,7 +19,7 @@ if ($user_json['student_activ'] == 0){
 }
 
 
-$date = date("d") . "/" . date("m") . "/" . date("y");
+$date = date("d") . "." . date("m") . "." . date("y");
 if ($user_json['activity']['cnum'][1] == 1){
     $time1 = time();
     $time2 = "";
