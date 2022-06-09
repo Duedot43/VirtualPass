@@ -46,7 +46,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['a
         $domain = $_SERVER['SERVER_NAME'];
         }
         $page_val = rand();
-        $url = "https://" . $domain . "/stupid.php?page=" . $page_val;  
+        $url = "https://" . $domain . "/index.php?room=" . $page_val . "&page=main";  
         if ($_GET['format'] == "json"){  
             $output = array("raw_url"=>$url, "room_id"=>$page_val, "domain"=>$domain, "success"=>1);
             echo json_encode($output);

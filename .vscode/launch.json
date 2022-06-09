@@ -21,7 +21,7 @@
             "port": 9003,
             "serverReadyAction": {
                 "pattern": "Development Server \\(http://localhost:([0-9]+)\\) started",
-                "uriFormat": "http://localhost:%s/stupid.php?page=721650438",
+                "uriFormat": "http://localhost:%s/index.php?room=721650438",
                 "action": "openExternally"
             }
         },

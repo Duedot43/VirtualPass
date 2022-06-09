@@ -29,10 +29,12 @@ if ($ini['overide_automatic_domain_name'] == "1"){
 if ($ini['overide_automatic_domain_name'] != "1"){
   $domain = $_SERVER['SERVER_NAME'];
 }
+
+
 ?>
 </head>
 <!-- HTML Meta Tags -->
-<title>VirtualPass</title>
+<title><?php echo $title; //TODO ?></title>
 <meta name="description" content="The utility that lets you set up your users with a virtual hall pass for administrators to help keep track of where your emplyees are.">
 
 <!-- Facebook Meta Tags -->

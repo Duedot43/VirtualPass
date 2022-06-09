@@ -32,15 +32,15 @@ function check_phid($pid){
       exit();
     }
   }
-$cookie_name = "phid";
-if(isset($_COOKIE[$cookie_name])){
-    check_phid($_COOKIE[$cookie_name]);
-    if (file_exists("registered_phid/" . $_COOKIE[$cookie_name])){
-        copy("registered_phid/" . $_COOKIE[$cookie_name], "human_info/" . $_COOKIE[$cookie_name] . "/archived_ini");
-        unlink("registered_phid/" . $_COOKIE[$cookie_name]);
+
+if(isset($_COOKIE['phid'])){
+    check_phid($_COOKIE['phid']);
+    if (file_exists("registered_phid/" . $_COOKIE['phid'])){
+        copy("registered_phid/" . $_COOKIE['phid'], "human_info/" . $_COOKIE['phid'] . "/archived_ini");
+        unlink("registered_phid/" . $_COOKIE['phid']);
         $main_json = json_decode(file_get_contents("../mass.json"), true);
-        $main_json['user'] = \array_diff($main_json['user'], [$_COOKIE[$cookie_name]]);
-        array_push($main_json['removed'], $_COOKIE[$cookie_name]);
+        $main_json['user'] = \array_diff($main_json['user'], [$_COOKIE['phid']]);
+        array_push($main_json['removed'], $_COOKIE['phid']);
         $json_out = fopen("../mass.json", "w");
         fwrite($json_out, json_encode($main_json));
         fclose($json_out);

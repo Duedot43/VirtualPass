@@ -54,15 +54,15 @@ function check_string($pid){
   }
 }
 include "../usr_pre_fls/mk_mass.php";
-$qrid = $_GET['page'];
+$qrid = $_GET['room'];
 $date = date(DATE_ATOM);
 //fairly simple check if the user has entered the room number log it put it in the qrid folder and send it back to stupid
 if (isset($_POST['rnum'])) {
   echo($_POST['rnum']);
   if ($_POST['rnum'] == ""){
     if (!file_exists("../registerd_qrids/" . $qrid)){
-      //NOTE: Dont ask me why its called stupid.php im still learning PHP and that was not easy to write
-      header("Location: /mk_room/ck_qrid.php?page=" . $qrid);
+      //NOTE: Dont ask me why its called index.php im still learning PHP and that was not easy to write
+      header("Location: /mk_room/ck_qrid.php?room=" . $qrid . "&page=main");
       exit();
       } else{
           echo("QRID already set please try again");
@@ -79,8 +79,8 @@ if (isset($_POST['rnum'])) {
     room($qrid, "../../mass.json");
     fwrite($room, $rnum);
 
-    //NOTE: Dont ask me why its called stupid.php im still learning PHP and that was not easy to write
-    header("Location: /mk_room/ck_qrid.php?page=" . $qrid);
+    //NOTE: Dont ask me why its called index.php im still learning PHP and that was not easy to write
+    header("Location: /mk_room/ck_qrid.php?room=" . $qrid . "&page=main");
     exit();
     } else{
         echo("QRID already set please try again");

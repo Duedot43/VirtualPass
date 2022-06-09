@@ -73,60 +73,60 @@ if ($ini['overide_automatic_domain_name'] == "1"){
 if ($ini['overide_automatic_domain_name'] != "1"){
   $domain = $_SERVER['SERVER_NAME'];
 }
-$cookie_name = "phid";
-if (isset($_GET['page'])){
-  if ($_GET['page'] == ""){
+
+if (isset($_GET['room'])){
+  if ($_GET['room'] == ""){
     echo("No page value!");
     exit();
   }
 } else{echo("No page value!");exit();}
 //get the page value in the link and pass it on
-$qrid = $_GET['page'];
+$qrid = $_GET['room'];
 if(!file_exists("registerd_qrids/" . $qrid)) {
   //if it is not found make it with regqrid and pass page on
-    header("Location: /regqrid.php?page=" . $qrid);
+    header("Location: /regqrid.php?room=" . $qrid);
     exit();
 } 
 //check is the cookie is set or not
-if(!isset($_COOKIE[$cookie_name])) {
+if(!isset($_COOKIE['phid'])) {
   //if its not register it along with the cookie
-    header("Location: /registercookie.php?page=" . $qrid);
+    header("Location: /registercookie.php?room=" . $qrid);
     exit();
   } else {
-    check_phid($_COOKIE[$cookie_name]);
+    check_phid($_COOKIE['phid']);
     $cook = ("0");
-    if (file_exists("registered_phid/" . $_COOKIE[$cookie_name])) {
+    if (file_exists("registered_phid/" . $_COOKIE['phid'])) {
       //the user is not departed do read the file and move them to the departed folder
-      $fh = parse_ini_file('registered_phid/' . $_COOKIE[$cookie_name]);
+      $fh = parse_ini_file('registered_phid/' . $_COOKIE['phid']);
 
       if ($fh['student_activity'] == "Arrived"){
         
-        config_set('registered_phid/' . $_COOKIE[$cookie_name], "usrinfo", "student_activity", "Departed");
+        config_set('registered_phid/' . $_COOKIE['phid'], "usrinfo", "student_activity", "Departed");
       } else{
         
-        config_set('registered_phid/' . $_COOKIE[$cookie_name], "usrinfo", "student_activity", "Arrived");
+        config_set('registered_phid/' . $_COOKIE['phid'], "usrinfo", "student_activity", "Arrived");
       }
-      $fh = parse_ini_file('registered_phid/' . $_COOKIE[$cookie_name]);
+      $fh = parse_ini_file('registered_phid/' . $_COOKIE['phid']);
       $dpt = ($fh['student_activity']);
       $cook = ("1");
     }
-    if (!file_exists("registered_phid/" . $_COOKIE[$cookie_name])){
-      setcookie($cookie_name, "", time() - (86400 * 360), "/", $domain, TRUE, TRUE);
-      header("Location: /registercookie.php?page=" . $qrid);
+    if (!file_exists("registered_phid/" . $_COOKIE['phid'])){
+      setcookie("phid", "", time() - (86400 * 360), "/", $domain, TRUE, TRUE);
+      header("Location: /registercookie.php?room=" . $qrid);
       exit();
     }
       //read the file and mark them as arrived
 
-      $user_ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
+      $user_ini = parse_ini_file("registered_phid/" . $_COOKIE['phid']);
       if (!isset($user_ini[$qrid])){
         $add_to_file = $qrid . "=" . $qrid . "\n";
-        file_put_contents("registered_phid/" . $_COOKIE[$cookie_name], $add_to_file.PHP_EOL , FILE_APPEND | LOCK_EX);
+        file_put_contents("registered_phid/" . $_COOKIE['phid'], $add_to_file.PHP_EOL , FILE_APPEND | LOCK_EX);
       }
     //checking if the cookie is registered but they are not in the files
     if ($cook == "0") {
       //cookie error re register cookie and delete the cookie
-      setcookie($cookie_name, "", time() - (86400 * 360), "/", $domain, TRUE, TRUE);
-      header("Location: /registercookie.php?page=" . $qrid);
+      setcookie("phid", "", time() - (86400 * 360), "/", $domain, TRUE, TRUE);
+      header("Location: /registercookie.php?room=" . $qrid);
     }
 
     $date = date(DATE_ATOM);
@@ -141,31 +141,31 @@ if(!isset($_COOKIE[$cookie_name])) {
     $hour = $a['hours'];
     $minute = $a['minutes'];
     //check if hour_gon exiests to check the user time later
-    $ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
+    $ini = parse_ini_file("registered_phid/" . $_COOKIE['phid']);
     // change this to see when the user has departed/arrived
     if ($ini['hour_gon'] == ""){
       
-      config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "dayofmonth_gon", $dayofmonth);
+      config_set('registered_phid/' . $_COOKIE['phid'], "srvinfo", "dayofmonth_gon", $dayofmonth);
       
-      config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "hour_gon", $hour);
+      config_set('registered_phid/' . $_COOKIE['phid'], "srvinfo", "hour_gon", $hour);
       
-      config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "minute_gon", $minute);
+      config_set('registered_phid/' . $_COOKIE['phid'], "srvinfo", "minute_gon", $minute);
       
     } else{
       
-      config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "dayofmonth_arv", $dayofmonth);
+      config_set('registered_phid/' . $_COOKIE['phid'], "srvinfo", "dayofmonth_arv", $dayofmonth);
       
-      config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "hour_arv", $hour);
+      config_set('registered_phid/' . $_COOKIE['phid'], "srvinfo", "hour_arv", $hour);
       
-      config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "minute_arv", $minute);
+      config_set('registered_phid/' . $_COOKIE['phid'], "srvinfo", "minute_arv", $minute);
       
     }
     
-    $ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
+    $ini = parse_ini_file("registered_phid/" . $_COOKIE['phid']);
     if ($ini['hour_gon'] != ""){
       if ($ini['hour_arv'] != ""){
         
-        $ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
+        $ini = parse_ini_file("registered_phid/" . $_COOKIE['phid']);
         $cookid = $ini['first_name'] . " " . $ini['last_name'] . " " . $ini['student_id'] . " " . $ini['student_email'];
         $dayofmonth_gon = $ini['dayofmonth_gon'];
         $dayofmonth_arv = $ini['dayofmonth_arv'];
@@ -188,42 +188,42 @@ if(!isset($_COOKIE[$cookie_name])) {
         fclose($rid31);
         //get the room ID
         session_start();
-        $cookieodd = $_COOKIE[$cookie_name];
+        $cookieodd = $_COOKIE['phid'];
         //check if current date exiests if it does dont make a DIR and dont add it to the html file
-        $ini = parse_ini_file("registered_phid/" . $_COOKIE[$cookie_name]);
+        $ini = parse_ini_file("registered_phid/" . $_COOKIE['phid']);
         if (!is_dir("human_info/" . $cookieodd . "/" . $current_date)){
           
-          mkdir("human_info/" . $_COOKIE[$cookie_name] . "/" . $current_date);
+          mkdir("human_info/" . $_COOKIE['phid'] . "/" . $current_date);
           //make a button for the current day for the admin log
-          $main_html = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $current_date . '" onclick="location=\'/human_info/' . $_COOKIE[$cookie_name] . '/' . $current_date . '/index.html\'" /></td>';
-          $student = file_put_contents('human_info/' . $_COOKIE[$cookie_name] . '/index.html', $main_html.PHP_EOL , FILE_APPEND | LOCK_EX);
+          $main_html = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $current_date . '" onclick="location=\'/human_info/' . $_COOKIE['phid'] . '/' . $current_date . '/index.html\'" /></td>';
+          $student = file_put_contents('human_info/' . $_COOKIE['phid'] . '/index.html', $main_html.PHP_EOL , FILE_APPEND | LOCK_EX);
         }
         
         
         
         //check if the room exiests if it does do not add it to the HTML file and do not make the DIR
-        if (!is_dir("human_info/" . $_COOKIE[$cookie_name] . "/" . $current_date . "/" . $rid1)){
+        if (!is_dir("human_info/" . $_COOKIE['phid'] . "/" . $current_date . "/" . $rid1)){
           //if so make the dir and add it to the HTML file
-          mkdir("human_info/" . $_COOKIE[$cookie_name] . "/" . $current_date . "/" . $rid1);
-          $current_date_html = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $rid1 . '" onclick="location=\'/human_info/' . $_COOKIE[$cookie_name] . '/' . $current_date . '/' . $rid1 . '/index.html\'" /></td>';
-          $student = file_put_contents('human_info/' . $_COOKIE[$cookie_name] . '/' . $current_date . '/index.html', $current_date_html.PHP_EOL , FILE_APPEND | LOCK_EX);
+          mkdir("human_info/" . $_COOKIE['phid'] . "/" . $current_date . "/" . $rid1);
+          $current_date_html = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="' . $rid1 . '" onclick="location=\'/human_info/' . $_COOKIE['phid'] . '/' . $current_date . '/' . $rid1 . '/index.html\'" /></td>';
+          $student = file_put_contents('human_info/' . $_COOKIE['phid'] . '/' . $current_date . '/index.html', $current_date_html.PHP_EOL , FILE_APPEND | LOCK_EX);
         }
         //i always need to add the hour to the html file this is assuming people dont go to the restroom every .2 seconds 
         //OH MY GOD WHY DO PEOPLE DO TO THE BATHROOM EVERY .5 SECONDS AHHHH
         //And im too lazy to add another thing above and convert the backend lol NOOOOOO
-        if (!is_file("human_info/" . $_COOKIE[$cookie_name] . "/" . $current_date . "/" . $rid1 . "/" . $current_hour . ".html")){
-        $guide_to_info_page = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="Hour: ' . $current_hour . '" onclick="location=\'/human_info/' . $_COOKIE[$cookie_name] . '/' . $current_date . '/' . $rid1 . '/' . $current_hour . '.html\'" /></td>';
-        $student = file_put_contents('human_info/' . $_COOKIE[$cookie_name] . '/' . $current_date . '/' . $rid1 . '/index.html', $guide_to_info_page.PHP_EOL , FILE_APPEND | LOCK_EX);
+        if (!is_file("human_info/" . $_COOKIE['phid'] . "/" . $current_date . "/" . $rid1 . "/" . $current_hour . ".html")){
+        $guide_to_info_page = '<link href="/style.css" rel="stylesheet" type="text/css" /><input class="reg" type="button" value="Hour: ' . $current_hour . '" onclick="location=\'/human_info/' . $_COOKIE['phid'] . '/' . $current_date . '/' . $rid1 . '/' . $current_hour . '.html\'" /></td>';
+        $student = file_put_contents('human_info/' . $_COOKIE['phid'] . '/' . $current_date . '/' . $rid1 . '/index.html', $guide_to_info_page.PHP_EOL , FILE_APPEND | LOCK_EX);
       }
         $info_page = '<link href="/style.css" rel="stylesheet" type="text/css" />' . $usrinfo . ' was out for ' . $days_gone . ' days ' . $hours_gone . ' hours and ' . $minutes_gone . ' minutes.<br>Student left classroom ' . $rid1 . ' at ' . $hour_gon . ':' . $minute_gon . ' and arrived at ' . $hour_arv . ':' . $minute_arv . '<br>';
-        $student = file_put_contents("human_info/" . $_COOKIE[$cookie_name] . "/" . $current_date . "/" . $rid1 . "/" . $current_hour . ".html", $info_page.PHP_EOL , FILE_APPEND | LOCK_EX);
+        $student = file_put_contents("human_info/" . $_COOKIE['phid'] . "/" . $current_date . "/" . $rid1 . "/" . $current_hour . ".html", $info_page.PHP_EOL , FILE_APPEND | LOCK_EX);
         //destroy all the variables for good mesure
-        config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "dayofmonth_gon", "");
-        config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "hour_gon", "");
-        config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "minute_gon", "");
-        config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "dayofmonth_arv", "");
-        config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "hour_arv", "");
-        config_set('registered_phid/' . $_COOKIE[$cookie_name], "srvinfo", "minute_arv", "");
+        config_set('registered_phid/' . $_COOKIE['phid'], "srvinfo", "dayofmonth_gon", "");
+        config_set('registered_phid/' . $_COOKIE['phid'], "srvinfo", "hour_gon", "");
+        config_set('registered_phid/' . $_COOKIE['phid'], "srvinfo", "minute_gon", "");
+        config_set('registered_phid/' . $_COOKIE['phid'], "srvinfo", "dayofmonth_arv", "");
+        config_set('registered_phid/' . $_COOKIE['phid'], "srvinfo", "hour_arv", "");
+        config_set('registered_phid/' . $_COOKIE['phid'], "srvinfo", "minute_arv", "");
         session_destroy();
       }
     }
@@ -249,7 +249,7 @@ $inithing = parse_ini_file("../config/config.ini");
 <tr>
 <td width="0"></td>
 <td width="0"></td>
-<td width="294"><input class="reg" type="button" id="return" value='<?php echo $dpt2;?>' onclick="location='stupid.php?page=<?php echo $qrid;?>'" /></td>
+<td width="294"><input class="reg" type="button" id="return" value='<?php echo $dpt2;?>' onclick="location='index.php?room=<?php echo $qrid;?>'" /></td>
 <script>
 document.getElementById("return").disabled = true;
 document.querySelector('#return').value = '5';
@@ -262,7 +262,7 @@ setTimeout(() => { document.querySelector('#return').value = '<?php echo $dpt2;?
 </script>
 <td width="78"></td>
 <td width="80"></td>
-<td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location='delusrpmt.php?page=<?php echo $qrid;?>'" style="border-color:97042F; color:white"/></td>
+<td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location='delusrpmt.php?room=<?php echo $qrid;?>'" style="border-color:97042F; color:white"/></td>
 <td width="0"></td>
 <td width="0"></td>
 </tr>

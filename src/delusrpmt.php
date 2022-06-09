@@ -28,8 +28,8 @@ if (isset($_POST['confirm'])) {
         header("Location:delusr.php");
     }
     else if ($_POST['confirm'] == 'No') {
-        $qrid = $_GET['page'];
-        header("Location:stupid.php?page=" . $qrid);
+        $qrid = $_GET['room'];
+        header("Location:index.php?room=" . $qrid . "&page=main");
     } 
 }
 ?>
