@@ -59,7 +59,7 @@ if (!isset($_COOKIE['phid']) or !file_exists("registered_phid/" . $_COOKIE['phid
 }
 
 
-$user_json = json_decode("registered_phid/" . $_COOKIE['phid'], true);
+$user_json = json_decode(file_get_contents("registered_phid/" . $_COOKIE['phid']), true);
 
 
 if ($user_json['student_activ'] == 0){
