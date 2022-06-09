@@ -46,7 +46,9 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
     "rooms"=>array(
       $_GET['room']
     ),
-    "activity"=>array()
+    "activity"=>array(
+      "cnum"=>array(0,1)
+    )
   );
   setcookie("phid", $ranid, time() + (86400 * 360), "/", $domain, TRUE, TRUE);
   user($ranid, "../mass.json");

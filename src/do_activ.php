@@ -20,32 +20,19 @@ if ($user_json['student_activ'] == 0){
 
 
 $date = date("d") . "/" . date("m") . "/" . date("y");
-$time = time();
-if (!isset($user_json['activity'][$date])){
-    $doTime = 1;
-    $time1 = time();
-    $time2 = "";
+if ($user_json['activity']['cnum'][0] = $user_json['activity']['cnum'][1] == 1){
+    $time1 == time();
+    $time2 == "";
+    $user_json['activity']['cnum'][0] = $user_json['activity']['cnum'][1] = 2;
 } else{
-    $doTime = 0;
-}
-if ($doTime == 0){
-    if (!is_numeric($user_json['activity'][$date][count($user_json['activity'][$date])-1]["timeArv"])){
-        $count = count($user_json['activity'][$date]);
-    } else{
-        $count = count($user_json['activity'][$date])-1;
-    }
-} else{
-    $count = 0;
-}
-if ($user_json['student_activ'] == 0 and $doTime == 0){
-    $time1 = $user_json['activity'][$date][$count]["timeDep"];
-    $time2 = time();
-} elseif ($user_json['student_activ'] == 1 and $doTime == 0){
-    $time1 = time();
-    $time2 = $user_json['activity'][$date][$count]["timeDep"];
+    $time1 == $user_json['activity'][$date][$user_json['activity']['cnum'][0]]['timeDep'];
+    $time2 == time();
+    $user_json['activity']['cnum'][0] = $user_json['activity']['cnum'][1] = 1;
+    $user_json['activity']['cnum'][0] = $user_json['activity']['cnum'][0] = $user_json['activity']['cnum'][0] = $user_json['activity']['cnum'][1] + 1;
 }
 if (!isset($user_json['activity'][$date])){
     $user_json['activity'] =  array(
+        "cnum"=>array(0, 2),
         $date=>array(
             0=>array(
                 "room"=>$_GET['room'],
@@ -58,7 +45,7 @@ if (!isset($user_json['activity'][$date])){
     header("Location: index.php?room=" . $_GET['room'] . "&page=main");
     exit();
 } else{
-    $user_json['activity'][$date][$count] = array(
+    $user_json['activity'][$date][$user_json['activity']['cnum'][0]] = array(
         "room"=>$_GET['room'],
         "timeDep"=>$time1,
         "timeArv"=>$time2
