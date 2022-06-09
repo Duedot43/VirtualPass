@@ -41,8 +41,19 @@ if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['a
     if (isset($_SERVER['PHP_AUTH_PW']) and $_SERVER['PHP_AUTH_PW'] == $config['api_passwd']){
         $ranid = rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand();
         $inifl = fopen("../registered_phid/" . $ranid, "w");
-        $tet = ("[usrinfo]\nfirst_name=" . $_GET['fname'] . "\nlast_name=" . $_GET['lname'] . "\nstudent_id=" . $_GET['id'] . "\nstudent_email=" . $_GET['email'] . "\nstudent_activity=Arrived\n[srvinfo]\ndayofmonth_gon=\nhour_gon=\nminute_gon=\ndayofmonth_arv=\nhour_arv=\nminute_arv=\n[room]\n");
-        fwrite($inifl, $tet);
+        $tet = array(
+            "fname"=>strtolower($_GET['fname']),
+            "lname"=>strtolower($_GET['lname']),
+            "email"=>$_GET['email'],
+            "id"=>$_GET['id'],
+            "student_activ"=>1, //0 for departed 1 for arrived just to make it easer on me
+            "rooms"=>array(
+            ),
+            "activity"=>array(
+              "cnum"=>array(0,1)
+            )
+          );
+        fwrite($inifl, json_encode($tet));
         fclose($inifl);
         user($ranid, "../../mass.json");
         $output = array("user_id"=>$ranid, "success"=>1, "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#add-user-api");

@@ -55,7 +55,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['a
     if (isset($_SERVER['PHP_AUTH_PW']) and $_SERVER['PHP_AUTH_PW'] == $config['api_passwd']){
         if (is_numeric($_GET['who'])){
             $output = array("success"=>1);
-            $user_ini = parse_ini_file("../registered_phid/" . $_GET['who'], true);
+            $user_ini = json_decode("../registered_phid/" . $_GET['who'], true);
             $output[$_GET['who']] = $user_ini;
             echo json_encode($user_ini);
             exit();
@@ -64,7 +64,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['a
             $mass_json = json_decode(file_get_contents("../../mass.json"), true);
             $output = array("success"=>1);
             foreach ($mass_json['user'] as $user_id){
-                $user_ini = parse_ini_file("../registered_phid/" . $user_id, true);
+                $user_ini = json_decode("../registered_phid/" . $user_id, true);
                 $output[$user_id] = $user_ini;
             }
             echo json_encode($output);

@@ -1,46 +1,4 @@
-IN ORDER PLEASE!!
-Verify ingegrity of regqrid.php
 
-redo registercookie.php to accomidate for the new JSON user file
-
-USER JSON FILE NOTES{
-    have all the user info in a single array for semi easy decompilation of user stuff
-    insted of human_info include info for ins/outs in this format:
-    {
-        "06/08/2022":{
-            0:{
-                "roomId":"932876",
-                "timeIn":"06:16:54",
-                "timeOut":"06:19:19"
-            }
-        }
-    }
-
-}
-index.php NOTES{
-    SEPRATE INTO 2 FILES ONE FOR DISPLAYING AND ONE FOR DOING!!
-
-}
 
 CHANGE THE API!!!
-
-
-FULL STUDENT.JSON:
-{
-    "fname":"syntax", NOTE THE LOWERCASE
-    "lname":"duedot",
-    "email:"syntax@duedot.com",
-    "id":"2347895",
-    "rooms":[
-        "932876"
-    ],
-    "activity:"{
-        "06/08/2022":{
-            0:{
-                "roomId":"932876",
-                "timeIn":"06:16:54",
-                "timeOut":"06:19:19"
-            }
-        }
-    }
-}
+REDO RM USER.PHP AND EDUSER.PHP
