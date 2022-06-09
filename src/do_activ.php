@@ -4,7 +4,10 @@ include "usr_pre_fls/checks.php";
 
 ck_page();
 check_string($_GET['room'], "INVALID ROOM VALUE NOT NUMERIC");
-
+if (!isset($_COOKIE['phid'])){
+    echo "YOU CANNOT BE HERE WITHOUT A COOKIE!";
+    exit();
+}
 
 $user_json = json_decode(file_get_contents("registered_phid/" . $_COOKIE['phid']), true);
 
