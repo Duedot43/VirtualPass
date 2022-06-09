@@ -28,7 +28,7 @@ if (!isset($user_json['activity'][$date])){
 } else{
     $doTime = 0;
 }
-if ($dotime == 0){
+if ($doTime == 0){
     if (isset($user_json['activity'][$date][count($user_json['activity'][$date])-1]["timeArv"])){
         $count = count($user_json['activity'][$date]);
     } else{
