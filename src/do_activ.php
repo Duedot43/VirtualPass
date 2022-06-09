@@ -18,10 +18,15 @@ if ($user_json['student_activ'] == 0){
 
 $date = date("d") . "/" . date("m") . "/" . date("y");
 $time = time();
-if ($user_json['student_activ'] == 0){
+if (!isset($user_json['activity'][$date])){
+    $doTime = 1;
+    $time1 = time();
+    $time2 = "";
+}
+if ($user_json['student_activ'] == 0 and $doTime == 0){
     $time1 = $user_json['activity'][$date][count($user_json['activity'][$date])-1]["timeDep"];
     $time2 = time();
-} else{
+} elseif ($user_json['student_activ'] == 1 and $doTime == 0){
     $time1 = time();
     $time2 = $user_json['activity'][$date][count($user_json['activity'][$date])-1]["timeDep"];
 }

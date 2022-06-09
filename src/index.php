@@ -113,7 +113,7 @@ if ($user_json['student_activ'] == 1){
 <tr>
 <td width="0"></td>
 <td width="0"></td>
-<td width="294"><input class="reg" type="button" id="return" value='<?php echo $dpt2;?>' onclick="location='do_activ.php?room='" /></td>
+<td width="294"><input class="reg" type="button" id="return" value='<?php echo $dpt2;?>' onclick="location='do_activ.php?room=<?php echo $_GET['room']; ?>'" /></td>
 <script>
 document.getElementById("return").disabled = true;
 document.querySelector('#return').value = '5';
