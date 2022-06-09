@@ -20,19 +20,19 @@ if ($user_json['student_activ'] == 0){
 
 
 $date = date("d") . "/" . date("m") . "/" . date("y");
-if ($user_json['activity']['cnum'][0] = $user_json['activity']['cnum'][1] == 1){
+if ($user_json['activity']['cnum'][1] == 1){
     $time1 = time();
     $time2 = "";
-    $user_json['activity']['cnum'][0] = $user_json['activity']['cnum'][1] = 2;
+    $user_json['activity']['cnum'][1] = $user_json['activity']['cnum'][1] = 2;
 } else{
     $time1 = $user_json['activity'][$date][$user_json['activity']['cnum'][0]]['timeDep'];
     $time2 = time();
-    $user_json['activity']['cnum'][0] = $user_json['activity']['cnum'][1] = 1;
-    $user_json['activity']['cnum'][0] = $user_json['activity']['cnum'][0] = $user_json['activity']['cnum'][0] = $user_json['activity']['cnum'][1] + 1;
+    $user_json['activity']['cnum'][1] = $user_json['activity']['cnum'][1] = 1;
+    $user_json['activity']['cnum'][0] = $user_json['activity']['cnum'][0] + 1;
 }
 if (!isset($user_json['activity'][$date])){
     $user_json['activity'] =  array(
-        "cnum"=>array(0, 2),
+        "cnum"=>$user_json['activity']['cnum'],
         $date=>array(
             0=>array(
                 "room"=>$_GET['room'],
