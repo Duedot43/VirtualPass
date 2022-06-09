@@ -36,7 +36,7 @@ if ($ini['overide_automatic_domain_name'] != "1"){
 ck_page();
 if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['stid']) and isset($_POST['stem']) and filter_var($_POST['stem'], FILTER_VALIDATE_EMAIL)){
   $ranid = rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand();
-  check_string($_GET['room']);
+  check_string($_GET['room'], "Invalid room value");
   $user_arr = array(
     "fname"=>strtolower($_POST['firstname']),
     "lname"=>strtolower($_POST['lastname']),
@@ -50,8 +50,11 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
   );
   setcookie("phid", $ranid, time() + (86400 * 360), "/", $domain, TRUE, TRUE);
   user($ranid, "../mass.json");
+  file_put_contents("registered_phid/" . $ranid, json_encode($user_arr));
   header("Location: /index.php?room=" . $_GET['room'] . "&page=main");
   exit();
+} else{
+  echo "please enter valid info";
 }
 ?>
 

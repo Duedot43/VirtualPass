@@ -45,8 +45,15 @@ if ($ini['overide_automatic_domain_name'] == "1"){
 if ($ini['overide_automatic_domain_name'] != "1"){
   $domain = $_SERVER['SERVER_NAME'];
 }
+
+
 if (!file_exists("registerd_qrids/" . $_GET['room'])){
   header("Location: /regqrid.php?room=" . $_GET['room'] . "&page=main");
+  exit();
+}
+
+if (!isset($_COOKIE['phid']) or !file_exists("registered_phid/" . $_COOKIE['phid'])){
+  header("Location: /registercookie.php?room=" . $_GET['room'] . "&page=main");
   exit();
 }
 
@@ -82,7 +89,7 @@ if (!file_exists("registerd_qrids/" . $_GET['room'])){
 <td>
 <table width="100%" border="0" cellpadding="3" cellspacing="1">
 <tr>
-<td colspan="80"><strong>Hall pass registered<br>you have <br></strong></td>
+<td colspan="80"><strong>Hall pass registered<br>you have <?php echo $dpt;?><br></strong></td>
 </tr>
 <tr>
 <td width="0"></td>
