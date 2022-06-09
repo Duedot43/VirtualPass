@@ -52,11 +52,28 @@ if (!file_exists("registerd_qrids/" . $_GET['room'])){
   exit();
 }
 
+
 if (!isset($_COOKIE['phid']) or !file_exists("registered_phid/" . $_COOKIE['phid'])){
   header("Location: /registercookie.php?room=" . $_GET['room'] . "&page=main");
   exit();
 }
 
+
+$user_json = json_decode("registered_phid/" . $_COOKIE['phid'], true);
+
+
+if ($user_json['student_activ'] == 0){
+  $dpt = "departed";
+} else{
+  $dpt = "arrived";
+}
+
+
+if ($user_json['student_activ'] == 1){
+  $dpt2 = "departed";
+} else{
+  $dpt2 = "arrived";
+}
 ?>
 </head>
 <!-- HTML Meta Tags -->
@@ -94,7 +111,7 @@ if (!isset($_COOKIE['phid']) or !file_exists("registered_phid/" . $_COOKIE['phid
 <tr>
 <td width="0"></td>
 <td width="0"></td>
-<td width="294"><input class="reg" type="button" id="return" value='<?php echo $dpt2;?>' onclick="location='index.php?room='" /></td>
+<td width="294"><input class="reg" type="button" id="return" value='<?php echo $dpt2;?>' onclick="location='do_activ.php?room='" /></td>
 <script>
 document.getElementById("return").disabled = true;
 document.querySelector('#return').value = '5';

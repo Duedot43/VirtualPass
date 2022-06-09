@@ -53,8 +53,8 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
   file_put_contents("registered_phid/" . $ranid, json_encode($user_arr));
   header("Location: /index.php?room=" . $_GET['room'] . "&page=main");
   exit();
-} else{
-  echo "please enter valid info";
+} elseif (isset($_POST['stem']) and !filter_var($_POST['stem'], FILTER_VALIDATE_EMAIL)){
+  echo "please enter valid email";
 }
 ?>
 
