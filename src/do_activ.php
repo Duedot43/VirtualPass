@@ -2,8 +2,35 @@
 include "usr_pre_fls/checks.php";
 
 
+function snapshot(){
+    if (file_exists("../mass.json")){
+        $mass = json_decode(file_get_contents("../mass.json"));
+        $usersDep = 0;
+        $usersArv = 0;
+        foreach ($mass['user'] as $user){
+            $user_arr = json_decode(file_get_contents("registered_phid/" . $user), true);
+            if ($user_arr['student_activ'] == 0){
+                $usersDep = $usersDep+1;
+            }
+        }
+
+        foreach ($mass['user'] as $user){
+            $user_arr = json_decode(file_get_contents("registered_phid/" . $user), true);
+            if ($user_arr['student_activ'] == 1){
+                $usersArv = $usersArv+1;
+            }
+        }
+    }
+    $time = time();
+    $mass[time()] = array(
+        "out"=>$usersDep,
+        "in"=>$usersArv
+    );
+    write_json($mass, "../mass.json");
+}
 ck_page();
 check_string($_GET['room'], "INVALID ROOM VALUE NOT NUMERIC");
+snapshot();
 if (!isset($_COOKIE['phid']) or !file_exists("registered_phid/" . $_COOKIE['phid'])){
     echo "YOU CANNOT BE HERE WITHOUT A COOKIE!";
     exit();

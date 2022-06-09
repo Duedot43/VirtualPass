@@ -19,8 +19,46 @@
 //users departed with a line graph over the day by the hour
 //rooms used with a bar graph by the hour
 //if there is anything you would like to add feel free and dont worry about the data collection i will get those for you.
+if (file_exists("../mass.json")){
+    $mass_json = json_decode(file_get_contents("../mass.json"), true);
+}
+$usersReg = count($mass_json['user']);
+$roomsReg = count($mass_json['room']);
+$usersDep = 0;
+$usersArv = 0;
+foreach ($mass_json['user'] as $user){
+    $user_arr = json_decode(file_get_contents("registered_phid/" . $user), true);
+    if ($user_arr['student_activ'] == 0){
+        $usersDep = $usersDep+1;
+    }
+}
+
+foreach ($mass_json['user'] as $user){
+    $user_arr = json_decode(file_get_contents("registered_phid/" . $user), true);
+    if ($user_arr['student_activ'] == 1){
+        $usersArv = $usersArv+1;
+    }
+}
 ?>
+
+<!DOCTYPE html>
+<html>
+    
 <head>
+    <title>Hello World!</title>
     <link href="/style.css" rel="stylesheet" type="text/css" />
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<body>
+
+
+    <div>
+        <div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -30,6 +30,8 @@ function room($id, $file_location){
             "user" => array(
             ),
             "removed" => array(
+            ),
+            "history"=>array(
             )
         );
     } else{
@@ -48,6 +50,8 @@ function user($id, $file_location){
             "user" => array(
             ),
             "removed" => array(
+            ),
+            "history"=>array(
             )
         );
     } else{

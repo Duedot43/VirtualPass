@@ -66,7 +66,7 @@ if (!isset($_COOKIE['phid']) or !file_exists("registered_phid/" . $_COOKIE['phid
 
 $user_json = json_decode(file_get_contents("registered_phid/" . $_COOKIE['phid']), true);
 
-if (!isset($user_json['rooms'][$_GET['room']])){
+if (!in_array($_GET['room'], $user_json['rooms'])){
   array_push($user_json['rooms'], $_GET['room']);
   write_json($user_json, "registered_phid/" . $_COOKIE['phid']);
 }
