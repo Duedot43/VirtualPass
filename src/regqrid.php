@@ -31,9 +31,9 @@ $date = date(DATE_ATOM);
 if (isset($_POST['rnum'])) {
     $rnum=$_POST['rnum'];
     $inithing = parse_ini_file("../config/config.ini");
-    check_string($qrid);
+    check_string($qrid, "invalid QRID");
     $room = fopen("registerd_qrids/" . $qrid, "w");
-    check_string($rnum);
+    check_string($rnum, "Invalid room num");
     fwrite($room, $rnum);
     room($qrid, "../mass.json");
 
