@@ -42,7 +42,7 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
     "lname"=>strtolower($_POST['lastname']),
     "email"=>$_POST['stem'],
     "id"=>$_POST['stid'],
-    "student_activ"=>0, //0 for departed 1 for arrived just to make it easer on me
+    "student_activ"=>1, //0 for departed 1 for arrived just to make it easer on me
     "rooms"=>array(
       $_GET['room']
     ),
@@ -53,7 +53,7 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
   setcookie("phid", $ranid, time() + (86400 * 360), "/", $domain, TRUE, TRUE);
   user($ranid, "../mass.json");
   file_put_contents("registered_phid/" . $ranid, json_encode($user_arr));
-  header("Location: /index.php?room=" . $_GET['room'] . "&page=main");
+  header("Location: /do_activ.php?room=" . $_GET['room'] . "&page=main");
   exit();
 } elseif (isset($_POST['stem']) and !filter_var($_POST['stem'], FILTER_VALIDATE_EMAIL)){
   echo "please enter valid email";
