@@ -12,11 +12,15 @@ function ck_page(){
     }
 }
 function check_name($num){
-if (ctype_alpha($num)) {
-    echo("Valid");
-} else {
-    echo("Invalid name");
-    exit();
+    if (ctype_alpha($num)) {
+        echo("Valid");
+    } else {
+        echo("Invalid name");
+        exit();
+    }
 }
+function write_json($arr, $location){
+    $json_encoded = json_encode($arr);
+    file_put_contents($location, $json_encoded);
 }
 ?> 

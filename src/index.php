@@ -24,6 +24,8 @@ SOFTWARE.
 */
 include "usr_pre_fls/mk_mass.php";
 include "usr_pre_fls/checks.php";
+
+
 ck_page();
 check_string($_GET['room'], "INVALID ROOM VALUE NOT NUMERIC");
 //update the icon!
@@ -70,9 +72,9 @@ if ($user_json['student_activ'] == 0){
 
 
 if ($user_json['student_activ'] == 1){
-  $dpt2 = "departed";
+  $dpt2 = "Depart";
 } else{
-  $dpt2 = "arrived";
+  $dpt2 = "Arrive";
 }
 ?>
 </head>
