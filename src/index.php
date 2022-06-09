@@ -25,7 +25,10 @@ SOFTWARE.
 include "usr_pre_fls/mk_mass.php";
 include "usr_pre_fls/checks.php";
 
-
+if (count($_GET) == 0){
+  include "real_index.php";
+  exit();
+}
 ck_page();
 check_string($_GET['room'], "INVALID ROOM VALUE NOT NUMERIC");
 //update the icon!

@@ -60,12 +60,8 @@ if ($sendemail == "0"){
 
 
 
-<input class="reg" type="button" value="Remove all users" onclick="location='rmallusr.php'" />
-<input class="reg" type="button" value="Remove all rooms" onclick="location='rmallrom.php'" />
-<input class="reg" type="button" value="Remove all logs" onclick="location='rmalllog.php'" />
 <input class="reg" type="button" value="Clean server" onclick="location='clean.php'" />
 <input class="reg" type="button" value="View all user info" onclick="location='student.php'" />
-<input class="reg" type="button" value="<?php echo $enable_email?>" onclick="location='email.php'" />
 <input class="reg" type="button" value="Make a room QR Code" onclick="location='/mk_room/index.php'" />
 <input class="reg" type="button" value="Check memory usage" onclick="location='mem_usage.php'" />
 <input class="reg" type="button" value="Plugin manager" onclick="location='plugin_manager.php'" />
