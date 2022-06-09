@@ -22,6 +22,22 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
+include "usr_pre_fls/mk_mass.php";
+include "usr_pre_fls/checks.php";
+ck_page();
+check_string($_GET['room'], "INVALID ROOM VALUE NOT NUMERIC");
+//update the icon!
+$icon_json = json_decode(file_get_contents("https://raw.githubusercontent.com/Duedot43/VirtualPass-Applets/master/favicons/index.json"), true);
+$plugin_json = json_decode(file_get_contents("usr_pre_fls/plugins.json"), true);
+if (!isset($plugin_json['favico'])){
+  $plugin_json['favico'] = "1";
+}
+if ($plugin_json != $icon_json['current_icon']){
+  file_put_contents("favicon.ico", file_get_contents("https://raw.githubusercontent.com/Duedot43/VirtualPass-Applets/master/favicons/" . $icon_json['current_icon']. ".ico"));
+  $plugin_json['favico'] = $icon_json['current_icon'];
+  file_put_contents("usr_pre_fls/plugins.json", json_encode($plugin_json));
+}
+
 $ini = parse_ini_file('../config/config.ini');
 if ($ini['overide_automatic_domain_name'] == "1"){
   $domain = $ini['domain_name'];
@@ -29,12 +45,15 @@ if ($ini['overide_automatic_domain_name'] == "1"){
 if ($ini['overide_automatic_domain_name'] != "1"){
   $domain = $_SERVER['SERVER_NAME'];
 }
-
+if (!file_exists("registerd_qrids/" . $_GET['room'])){
+  header("Location: /regqrid.php?room=" . $_GET['room'] . "&page=main");
+  exit();
+}
 
 ?>
 </head>
 <!-- HTML Meta Tags -->
-<title><?php echo $title; //TODO ?></title>
+<title>VirtualPass?></title>
 <meta name="description" content="The utility that lets you set up your users with a virtual hall pass for administrators to help keep track of where your emplyees are.">
 
 <!-- Facebook Meta Tags -->
@@ -60,21 +79,38 @@ if ($ini['overide_automatic_domain_name'] != "1"){
 </head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <tr>
-<form name="form" method="post" action="regqrid.php" method="get">
 <td>
 <table width="100%" border="0" cellpadding="3" cellspacing="1">
 <tr>
-<td colspan="3"><strong>If you are a student you are in the wrong place!</strong></td>
+<td colspan="80"><strong>Hall pass registered<br>you have <br></strong></td>
 </tr>
 <tr>
-<td width=device-width><input class="reg" type="button" value="Teacher portal" onclick="location='/teacher/'" /></td>
+<td width="0"></td>
+<td width="0"></td>
+<td width="294"><input class="reg" type="button" id="return" value='<?php echo $dpt2;?>' onclick="location='index.php?room='" /></td>
+<script>
+document.getElementById("return").disabled = true;
+document.querySelector('#return').value = '5';
+setTimeout(() => { document.querySelector('#return').value = '4'; }, 1000);
+setTimeout(() => { document.querySelector('#return').value = '3'; }, 2000);
+setTimeout(() => { document.querySelector('#return').value = '2'; }, 3000);
+setTimeout(() => { document.querySelector('#return').value = '1'; }, 4000);
+setTimeout(() => {  document.getElementById("return").disabled = false; }, 5000);
+setTimeout(() => { document.querySelector('#return').value = '<?php echo $dpt2;?>'; }, 5000);
+</script>
+<td width="78"></td>
+<td width="80"></td>
+<td width="294"><input class="reg" type="button" value="Delete User Info" onclick="location='delusrpmt.php?room='" style="border-color:97042F; color:white"/></td>
+<td width="0"></td>
+<td width="0"></td>
 </tr>
 <tr>
 </tr>
 <tr>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
 </tr>
 </table>
 </td>
-</form>
 </tr>
 </table>

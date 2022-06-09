@@ -6,7 +6,7 @@ function check_string($pid, $response){
     }
 }
 function ck_page(){
-    if (!isset($_GET['room']) or !isset($_GET['page'])){
+    if (!isset($_GET['room'])){
         echo "Room value not set";
         exit();
     }
