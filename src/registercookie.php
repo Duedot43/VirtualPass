@@ -49,6 +49,9 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
     "activity"=>array()
   );
   setcookie("phid", $ranid, time() + (86400 * 360), "/", $domain, TRUE, TRUE);
+  user($ranid, "../mass.json");
+  header("Location: /index.php?room=" . $_GET['room'] . "&page=main");
+  exit();
 }
 ?>
 
