@@ -28,7 +28,6 @@ if ($user_json['activity']['cnum'][1] == 1){
     $time1 = $user_json['activity'][$date][$user_json['activity']['cnum'][0]]['timeDep'];
     $time2 = time();
     $user_json['activity']['cnum'][1] = $user_json['activity']['cnum'][1] = 1;
-    $user_json['activity']['cnum'][0] = $user_json['activity']['cnum'][0] + 1;
 }
 if (!isset($user_json['activity'][$date])){
     $user_json['activity'] =  array(
@@ -50,6 +49,7 @@ if (!isset($user_json['activity'][$date])){
         "timeDep"=>$time1,
         "timeArv"=>$time2
     );
+    $user_json['activity']['cnum'][0] = $user_json['activity']['cnum'][0] + 1;
     write_json($user_json, "registered_phid/" . $_COOKIE['phid']);
     header("Location: index.php?room=" . $_GET['room'] . "&page=main");
     exit();
