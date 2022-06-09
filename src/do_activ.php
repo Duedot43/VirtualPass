@@ -33,6 +33,7 @@ if (!isset($user_json['activity'][$date])){
     $user_json['activity'] =  array(
         "cnum"=>$user_json['activity']['cnum'],
         $date=>array(
+            "date"=>$date,
             0=>array(
                 "room"=>$_GET['room'],
                 "timeDep"=>$time1,
