@@ -79,7 +79,7 @@ if ($user_json['student_activ'] == 1){
 ?>
 </head>
 <!-- HTML Meta Tags -->
-<title>VirtualPass?></title>
+<title>VirtualPass</title>
 <meta name="description" content="The utility that lets you set up your users with a virtual hall pass for administrators to help keep track of where your emplyees are.">
 
 <!-- Facebook Meta Tags -->
