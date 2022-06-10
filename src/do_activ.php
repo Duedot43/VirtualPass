@@ -4,7 +4,7 @@ include "usr_pre_fls/checks.php";
 
 function snapshot(){
     if (file_exists("../mass.json")){
-        $mass = json_decode(file_get_contents("../mass.json"), true);
+        $mass = array();
         $usersDep = 0;
         $usersArv = 0;
         foreach ($mass['user'] as $user){
@@ -26,7 +26,7 @@ function snapshot(){
         "out"=>$usersDep,
         "in"=>$usersArv
     );
-    write_json($mass, "../mass.json");
+    write_json($mass, "history.json");
 }
 ck_page();
 check_string($_GET['room'], "INVALID ROOM VALUE NOT NUMERIC");
