@@ -20,7 +20,7 @@ function check_name($num){
     }
 }
 function write_json($arr, $location){
-    $json_encoded = json_encode($arr, JSON_PRETTY_PRINT);
+    $json_encoded = json_encode($arr);
     file_put_contents($location, $json_encoded);
 }
 ?> 
