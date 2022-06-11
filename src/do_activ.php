@@ -22,9 +22,12 @@ function snapshot(){
         }
     }
     $time = time();
-    $history['history'][time()] = array(
+    $history['history'][$time] = array(
         "out"=>$usersDep,
-        "in"=>$usersArv
+        "in"=>$usersArv,
+        "userReg"=>count($mass['user']),
+        "roomReg"=>count($mass['room']),
+        "time"=>$time
     );
     write_json($history, "history.json");
 }
