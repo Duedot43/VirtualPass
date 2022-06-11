@@ -49,7 +49,7 @@ if (file_exists("../mass.json")){
 <title>Hello World!</title>
     <link href="/style.css" rel="stylesheet" type="text/css" />
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <script type="application/json" src="history.json"></script>
+    <script type="application/json" src="his.json"></script>
     <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js"></script>
 
 </head>

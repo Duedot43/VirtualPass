@@ -1,9 +1,5 @@
 anychart.onDocumentReady(function () {
   
-  var history_data = JSON.parse(history);
-
-  console.log(history);
-
   var dataSet = anychart.data.set(getData());
 
   var seriesData = dataSet.mapAs({ x: 0, value: 1 });

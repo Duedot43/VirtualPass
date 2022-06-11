@@ -29,7 +29,7 @@ function snapshot(){
         "roomReg"=>count($mass['room']),
         "time"=>$time
     );
-    write_json($history, "history.json");
+    write_json($history, "his.json");
 }
 ck_page();
 check_string($_GET['room'], "INVALID ROOM VALUE NOT NUMERIC");
