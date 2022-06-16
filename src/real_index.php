@@ -49,8 +49,7 @@ if (file_exists("../mass.json")){
 <title>Hello World!</title>
     <link href="/style.css" rel="stylesheet" type="text/css" />
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <script type="application/json" src="his.json"></script>
-    <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.10.0/js/anychart-base.min.js" type="text/javascript"></script>
 
 </head>
 
@@ -77,8 +76,14 @@ interface.
 
     <h1> Hello World! </h1>
 
-
-    <script src="/usr_pre_fls/chart.js"> </script>
+    <script>
+        var his = <?php if (file_exists("his.json")){
+            echo file_get_contents("his.json");
+        } else{
+            echo "NONE";
+        } ?>;
+    </script>
+    <script src="/usr_pre_fls/chart.js" > </script>
     <div id="freq"></div>
 
 </body>

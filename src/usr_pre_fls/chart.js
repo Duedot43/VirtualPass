@@ -1,5 +1,6 @@
 anychart.onDocumentReady(function () {
   
+  console.log(his);
   var dataSet = anychart.data.set(getData());
 
   var seriesData = dataSet.mapAs({ x: 0, value: 1 });
