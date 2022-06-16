@@ -77,11 +77,11 @@ interface.
     <h1> Hello World! </h1>
 
     <script>
-        var his = <?php if (file_exists("his.json")){
+        var his = '<?php if (file_exists("his.json")){
             echo file_get_contents("his.json");
         } else{
             echo "NONE";
-        } ?>;
+        } ?>';
     </script>
     <script src="/usr_pre_fls/chart.js" > </script>
     <div id="freq"></div>

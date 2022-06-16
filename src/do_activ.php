@@ -22,6 +22,9 @@ function snapshot(){
         }
     }
     $time = time();
+    if (file_exists("his.json")){
+        $history = json_decode(file_get_contents("his.json"), true);
+    }
     $history['history'][$time] = array(
         "out"=>$usersDep,
         "in"=>$usersArv,

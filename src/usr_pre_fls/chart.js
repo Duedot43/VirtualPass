@@ -1,7 +1,10 @@
 anychart.onDocumentReady(function () {
-  
-  console.log(his);
-  var dataSet = anychart.data.set(getData());
+  if (his != "NONE"){
+    var history_data = JSON.parse(his);
+  } else{
+    var history_data = "DATA_UNAVALABLE";
+  }
+  var dataSet = anychart.data.set(getData(history_data));
 
   var seriesData = dataSet.mapAs({ x: 0, value: 1 });
 
@@ -37,7 +40,12 @@ anychart.onDocumentReady(function () {
 
 
 //script to process data.
-function getData() {
+function getData(history_data) {
+  output = [];
+  console.log(history_data['history']);
+  for(his_arr in history_data){
+    console.log("NICE!")
+  }
     return [
 
       ['1/2/22', 1.0],
