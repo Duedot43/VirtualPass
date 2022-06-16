@@ -23,9 +23,9 @@ function snapshot(){
             }
         }
         $time = time();
-        if (file_exists("his.json")){
-            $history = json_decode(file_get_contents("his.json"), true);
-            foreach($history as $history_arr){
+        if (file_exists("../his.json")){
+            $history = json_decode(file_get_contents("../his.json"), true);
+            foreach($history['history'] as $history_arr){
                 $last = $history_arr['time'];
             }
         }
