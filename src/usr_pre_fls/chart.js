@@ -20,8 +20,8 @@ anychart.onDocumentReady(function () {
   }}
   );
 
-  chart.title('John Doe');
-  chart.yAxis().title('Frequency of leaves');
+  chart.title('History of students registered');
+  chart.yAxis().title('Students');
   var lineChart = chart.line(seriesData);
   chart.container('freq');
   chart.draw();
@@ -41,23 +41,12 @@ anychart.onDocumentReady(function () {
 
 //script to process data.
 function getData(history_data) {
-  output = [];
+  var output = [];
   console.log(history_data['history']);
-  for(his_arr in history_data){
-    console.log("NICE!")
+  for (let x in history_data['history']){
+    console.log(x);
+    var date = new Date(x*1000);
+    output.push([date, history_data['history'][x]['userReg']]);
   }
-    return [
-
-      ['1/2/22', 1.0],
-      ['1/3/22', 0],
-      ['1/4/22', 0],
-      ['1/5/22', 0],
-      ['1/6/22', 4.0],
-      ['1/7/22', 0],
-      ['1/8/22', 1.0],
-      ['1/9/22', 2.0],
-      ['1/10/22', 0],
-      ['1/11/22', 3.0],
-      //User Data here.
-    ];
+    return output;
   }

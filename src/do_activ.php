@@ -3,6 +3,8 @@ include "usr_pre_fls/checks.php";
 
 
 function snapshot(){
+    $config = parse_ini_file("../config/config.ini");
+    $shapshot_time = $config['snapshot_time_seconds'];
     if (file_exists("../mass.json")){
         $mass = json_decode(file_get_contents("../mass.json"), true);
         $usersDep = 0;
@@ -20,19 +22,24 @@ function snapshot(){
                 $usersArv = $usersArv+1;
             }
         }
+        $time = time();
+        if (file_exists("his.json")){
+            $history = json_decode(file_get_contents("his.json"), true);
+            foreach($history as $history_arr){
+                $last = $history_arr['time'];
+            }
+        }
+        if (!isset($history) or $time-$history['history'][$last]['time'] >= $shapshot_time){
+            $history['history'][$time] = array(
+                "out"=>$usersDep,
+                "in"=>$usersArv,
+                "userReg"=>count($mass['user']),
+                "roomReg"=>count($mass['room']),
+                "time"=>$time
+            );
+            write_json($history, "../his.json");
+        }
     }
-    $time = time();
-    if (file_exists("his.json")){
-        $history = json_decode(file_get_contents("his.json"), true);
-    }
-    $history['history'][$time] = array(
-        "out"=>$usersDep,
-        "in"=>$usersArv,
-        "userReg"=>count($mass['user']),
-        "roomReg"=>count($mass['room']),
-        "time"=>$time
-    );
-    write_json($history, "his.json");
 }
 ck_page();
 check_string($_GET['room'], "INVALID ROOM VALUE NOT NUMERIC");

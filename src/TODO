@@ -2,3 +2,5 @@
 
 CHANGE THE API!!!
 REDO RM USER.PHP AND EDUSER.PHP
+make a config thing to only so snapshots a specified ammount of seconds
+make a occurance thing based on what time the students come out of class and which students might be friends
