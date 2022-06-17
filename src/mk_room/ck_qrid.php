@@ -51,7 +51,7 @@ if ($ini['overide_automatic_domain_name'] != "1"){
   $domain = $_SERVER['SERVER_NAME'];
 }
 $page_val = $_GET['room'];
-$url = "https://" . $domain . "/do_activ.php?room=" . $page_val . "&page=main";
+$url = "https://" . $domain . "/index.php?room=" . $page_val . "&page=main";
 echo("Right click the QR code and download it it is current set to qrid " . $page_val . "<br>")
 ?>
 <title>Make a room!</title>
