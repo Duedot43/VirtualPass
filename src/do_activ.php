@@ -45,7 +45,13 @@ ck_page();
 check_string($_GET['room'], "INVALID ROOM VALUE NOT NUMERIC");
 snapshot();
 if (!isset($_COOKIE['phid']) or !file_exists("registered_phid/" . $_COOKIE['phid'])){
-    echo "YOU CANNOT BE HERE WITHOUT A COOKIE!";
+    if (isset($_GET['room']) and isset($_GET['page'])){
+        header("Location: /index.php?room=" . $_GET['room'] . "&page=" . $_GET['page']);
+        exit();
+    } else{
+        header("Location: /");
+        exit();
+    }
     exit();
 }
 
