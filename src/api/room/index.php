@@ -24,6 +24,9 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
             if ($mass != false){
                 $room = read_file("../../registerd_qrids/" . $request[0]);
                 if ($room != false){
+                    $output = array(
+                        $request[0]=>$room
+                    );
                     echo json_encode($output);
                     exit();
                 } else{
