@@ -11,7 +11,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
             if ($mass != false){
                 $output = array("success"=>1);
                 foreach ($mass['room'] as $room_id){
-                    $output[$room_id] = read_file("../../registerd_qrids/" . $room_id);
+                    $output['room'][read_file("../../registerd_qrids/" . $room_id)] = $room_id;
                 }
                 echo json_encode($output);
                 exit();
@@ -26,7 +26,9 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
                 if ($room != false){
                     $output = array(
                         "success"=>1,
-                        $request[0]=>$room
+                        "room"=>array(
+                            $request[0]=>$room
+                        )
                     );
                     echo json_encode($output);
                     exit();
@@ -46,7 +48,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
     if ($_SERVER['REQUEST_METHOD'] == "PUT"){
         $post_arr = json_decode(file_get_contents("php://input"), true);
         $request = unsetValue(explode("/", $_SERVER['REQUEST_URI']), array("api", "room"));
-        if ($post_arr == false){
+        if ($post_arr == false or !isset($post_arr['room'])){
             echo '{"success":0, "reason":"invalid_post", "human_reason":"The post data you send either is not valid or non exiestant"}';err();
             exit();
         }
@@ -61,14 +63,34 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
                     exit();
                 } else{
                     //put to one user
-                    if (file_exists("../../registerd_qrids/" . $request[0])){
-                        file_put_contents("../../registerd_qrids/" . $request[0], $post_arr['room']);
+                    file_put_contents("../../registerd_qrids/" . $request[0], $post_arr['room']);
+                    echo '{"success":1}';
+                    exit();
+                   
+                }
+
+            } else{
+                echo '{"success":0, "reason":"no_mass", "human_reason":"The mass.json file could not be located"}';err();
+                exit();
+            }
+    }
+
+    //end of put section
+
+    if ($_SERVER['REQUEST_METHOD'] == "DELETE"){
+        $request = unsetValue(explode("/", $_SERVER['REQUEST_URI']), array("api", "room"));
+        $mass = readJson("../../../mass.json");
+            if ($mass != false){
+                if (!isset($request[0])){
+                    foreach ($mass['room'] as $room_id){
+                        unlink("../../registerd_qrids/" . $room_id);
                         echo '{"success":1}';
                         exit();
-                    } else{
-                        echo '{"success":0, "reason":"invalid_user", "human_reason":"The user you requested does not exist"}';err();
-                        exit();
                     }
+                } else{
+                    unlink("../../registerd_qrids/" . $$request[0]);
+                    echo '{"success":1}';
+                    exit();
                 }
 
             } else{
