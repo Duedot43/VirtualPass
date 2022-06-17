@@ -67,4 +67,11 @@ function unsetValue(array $array, array $value, $strict = TRUE)
     }
     return $new_arr;
 }
+function ifnumeric(int $value){
+    if (is_numeric($value)){
+        return true;
+    } else{
+        return false;
+    }
+}
 ?>
