@@ -55,7 +55,7 @@ function unsetValue(array $array, array $value, $strict = TRUE)
             unset($array[$key]);
         }
     }
-    $count = 0;
+    $count = -1;
     $new_arr = array();
     foreach ($array as $arr_val){
         if ($arr_val == ""){
@@ -63,6 +63,7 @@ function unsetValue(array $array, array $value, $strict = TRUE)
         } else{
             $new_arr[$count] = $arr_val;
         }
+        $count = $count+1;
     }
     return $new_arr;
 }
