@@ -11,7 +11,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
             if ($mass != false){
                 $output = array("success"=>1);
                 foreach ($mass['student'] as $student_id){
-                    $output['student'][read_file("../../registered_phid/" . $student_id)] = $student_id;
+                    $output['student'][$student_id] = readJson("../../registered_phid/" . $student_id);
                 }
                 echo json_encode($output);
                 exit();
@@ -23,7 +23,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
             $mass = readJson("../../../mass.json");
             if ($mass != false){
                 if (!ifnumeric($request[0])){
-                    $student = read_file("../../registered_phid/" . $request[0]);
+                    $student = readJson("../../registered_phid/" . $request[0]);
                     if ($student != false){
                         $output = array(
                             "success"=>1,
