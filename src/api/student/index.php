@@ -10,7 +10,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
             $mass = readJson("../../../mass.json");
             if ($mass != false){
                 $output = array("success"=>1);
-                foreach ($mass['student'] as $student_id){
+                foreach ($mass['user'] as $student_id){
                     $output['student'][$student_id] = readJson("../../registered_phid/" . $student_id);
                 }
                 echo json_encode($output);
@@ -22,7 +22,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
         } else{
             $mass = readJson("../../../mass.json");
             if ($mass != false){
-                if (!ifnumeric($request[0])){
+                if (ifnumeric($request[0])){
                     $student = readJson("../../registered_phid/" . $request[0]);
                     if ($student != false){
                         $output = array(
@@ -61,14 +61,14 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
             if ($mass != false){
                 if (!isset($request[0])){
                     //put to all users
-                    foreach ($mass['student'] as $student_id){
+                    foreach ($mass['user'] as $student_id){
                         file_put_contents("../../registered_phid/" . $student_id, $post_arr['student']);
                     }
                     echo '{"success":1}';
                     exit();
                 } else{
                     //put to one user
-                    if (!ifnumeric($request[0])){
+                    if (is_numeric((int) $request[0])){
                         file_put_contents("../../registered_phid/" . $request[0], $post_arr['student']);
                         echo '{"success":1}';
                         exit();
@@ -92,14 +92,18 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
         $mass = readJson("../../../mass.json");
             if ($mass != false){
                 if (!isset($request[0])){
-                    foreach ($mass['student'] as $student_id){
+                    foreach ($mass['user'] as $student_id){
                         unlink("../../registered_phid/" . $student_id);
+                        unset($mass['user'][$student_id]);
+                        file_put_contents("../../../mass.json", json_encode($mass));
                         echo '{"success":1}';
                         exit();
                     }
                 } else{
-                    if (!ifnumeric($request[0])){
+                    if (ifnumeric($request[0])){
                         unlink("../../registered_phid/" . $$request[0]);
+                        unset($mass['user'][$request[0]]);
+                        file_put_contents("../../../mass.json", json_encode($mass));
                         echo '{"success":1}';
                         exit();
                     } else{

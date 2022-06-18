@@ -22,7 +22,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
         } else{
             $mass = readJson("../../../mass.json");
             if ($mass != false){
-                if (!ifnumeric($request[0])){
+                if (ifnumeric($request[0])){
                     $room = read_file("../../registerd_qrids/" . $request[0]);
                     if ($room != false){
                         $output = array(
@@ -68,7 +68,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
                     exit();
                 } else{
                     //put to one user
-                    if (!ifnumeric($request[0])){
+                    if (ifnumeric($request[0])){
                         file_put_contents("../../registerd_qrids/" . $request[0], $post_arr['room']);
                         echo '{"success":1}';
                         exit();
@@ -94,12 +94,16 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
                 if (!isset($request[0])){
                     foreach ($mass['room'] as $room_id){
                         unlink("../../registerd_qrids/" . $room_id);
+                        unset($mass['user'][$room_id]);
+                        file_put_contents("../../../mass.json", json_encode($mass));
                         echo '{"success":1}';
                         exit();
                     }
                 } else{
-                    if (!ifnumeric($request[0])){
-                        unlink("../../registerd_qrids/" . $$request[0]);
+                    if (ifnumeric($request[0])){
+                        unlink("../../registerd_qrids/" . $request[0]);
+                        unset($mass['user'][$request[0]]);
+                        file_put_contents("../../../mass.json", json_encode($mass));
                         echo '{"success":1}';
                         exit();
                     } else{
