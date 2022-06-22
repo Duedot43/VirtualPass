@@ -35,6 +35,10 @@ if ($ini['overide_automatic_domain_name'] != "1"){
 }
 ck_page();
 if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['stid']) and isset($_POST['stem']) and filter_var($_POST['stem'], FILTER_VALIDATE_EMAIL)){
+  if (isset($_COOKIE['phid']) and file_exists("registered_phid/" . $COOKIE['phid'])){
+    header("Location: /index.php?room=" . $_GET['room'] . "&page=main");
+    exit();
+  }
   $ranid = rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand() . rand();
   check_string($_GET['room'], "Invalid room value");
   $user_arr = array(

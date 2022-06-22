@@ -60,21 +60,31 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
         $mass = readJson("../../../mass.json");
             if ($mass != false){
                 if (!isset($request[0])){
-                    //put to all users
-                    foreach ($mass['user'] as $student_id){
-                        file_put_contents("../../registered_phid/" . $student_id, $post_arr['student']);
-                    }
-                    echo '{"success":1}';
-                    exit();
-                } else{
-                    //put to one user
-                    if (is_numeric((int) $request[0])){
-                        file_put_contents("../../registered_phid/" . $request[0], $post_arr['student']);
+                    if (verifyStudentPut($post_arr['student'])){
+                        //put to all users
+                        foreach ($mass['user'] as $student_id){
+                            file_put_contents("../../registered_phid/" . $student_id, $post_arr['student']);
+                        }
                         echo '{"success":1}';
                         exit();
                     } else{
-                        echo '{"success":0, "reason":"not_numeric", "human_reason":"The student you requested is not numeric"}';err();
+                        echo '{"success":0, "reason":"invelid_student", "human_reason":"The student json you submitted is invalid"}';err();
+                        exit();
+                    }
+                } else{
+                    if (verifyStudentPut($post_arr['student'])){
+                        //put to one user
+                        if (is_numeric((int) $request[0]) and verifyStudentPut($post_arr['student'])){
+                            file_put_contents("../../registered_phid/" . $request[0], $post_arr['student']);
+                            echo '{"success":1}';
                             exit();
+                        } else{
+                            echo '{"success":0, "reason":"not_numeric", "human_reason":"The student you requested is not numeric"}';err();
+                            exit();
+                        }
+                    } else{
+                        echo '{"success":0, "reason":"invelid_student", "human_reason":"The student json you submitted is invalid"}';err();
+                        exit();
                     }
                    
                 }
