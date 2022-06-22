@@ -36,20 +36,19 @@ function check_phid($pid){
 if(isset($_COOKIE['phid'])){
     check_phid($_COOKIE['phid']);
     if (file_exists("registered_phid/" . $_COOKIE['phid'])){
-        copy("registered_phid/" . $_COOKIE['phid'], "human_info/" . $_COOKIE['phid'] . "/archived_ini");
+        $student = readJson("registered_phid/" . $_COOKIE['phid']);
         unlink("registered_phid/" . $_COOKIE['phid']);
-        $main_json = json_decode(file_get_contents("../mass.json"), true);
-        $main_json['user'] = \array_diff($main_json['user'], [$_COOKIE['phid']]);
-        array_push($main_json['removed'], $_COOKIE['phid']);
-        $json_out = fopen("../mass.json", "w");
-        fwrite($json_out, json_encode($main_json));
-        fclose($json_out);
+        unset($mass['user'][$_COOKIE['phid']]);
+        $mass['removed'][$_COOKIE['phid']] = $student;
+        file_put_contents("../mass.json", json_encode($mass));
         setcookie("phid", "", time() - 9999999999);
     }else{
         echo("Internal server error your file is not here! please try again...");
+        exit();
     }
 } else{
     echo("Internal server error your cookie is not here! please try again...");
+    exit();
 }
 
 ?>

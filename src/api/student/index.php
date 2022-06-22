@@ -103,19 +103,28 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
             if ($mass != false){
                 if (!isset($request[0])){
                     foreach ($mass['user'] as $student_id){
-                        unlink("../../registered_phid/" . $student_id);
-                        unset($mass['user'][$student_id]);
-                        file_put_contents("../../../mass.json", json_encode($mass));
-                        echo '{"success":1}';
-                        exit();
+                        $student = readJson("../../registered_phid/" . $request[0]);
+                        unlink("../../registered_phid/" . $request[0]);
+                        unset($mass['user'][$request[0]]);
+                        $mass['removed'][$request[0]] = $student;
                     }
+                    file_put_contents("../../../mass.json", json_encode($mass));
+                    echo '{"success":1}';
+                    exit();
                 } else{
                     if (ifnumeric($request[0])){
-                        unlink("../../registered_phid/" . $$request[0]);
-                        unset($mass['user'][$request[0]]);
-                        file_put_contents("../../../mass.json", json_encode($mass));
-                        echo '{"success":1}';
-                        exit();
+                        if (file_exists(("../../registered_phid/" . $request[0]))){
+                            $student = readJson("../../registered_phid/" . $request[0]);
+                            unlink("../../registered_phid/" . $request[0]);
+                            unset($mass['user'][$request[0]]);
+                            $mass['removed'][$request[0]] = $student;
+                            file_put_contents("../../../mass.json", json_encode($mass));
+                            echo '{"success":1}';
+                            exit();
+                        } else{
+                            echo '{"success":0, "reason":"no_user", "human_reason":"The student you requested does not exist"}';err();
+                            exit();
+                        }
                     } else{
                         echo '{"success":0, "reason":"not_numeric", "human_reason":"The student you requested is not numeric"}';err();
                             exit();
