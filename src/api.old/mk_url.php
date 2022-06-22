@@ -39,10 +39,10 @@ $config = parse_ini_file("../../config/config.ini");
 if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['api_uname']){
     if (isset($_SERVER['PHP_AUTH_PW']) and $_SERVER['PHP_AUTH_PW'] == $config['api_passwd']){
         $ini = parse_ini_file('../../config/config.ini');
-        if ($ini['overide_automatic_domain_name'] == "1"){
+        if ($ini['override_automatic_domain_name'] == "1"){
         $domain = $ini['domain_name'];
         }
-        if ($ini['overide_automatic_domain_name'] != "1"){
+        if ($ini['override_automatic_domain_name'] != "1"){
         $domain = $_SERVER['SERVER_NAME'];
         }
         $page_val = rand();

@@ -23,10 +23,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 $ini = parse_ini_file('../../config/config.ini');
-if ($ini['overide_automatic_domain_name'] == "1"){
+if ($ini['override_automatic_domain_name'] == "1"){
   $domain = $ini['domain_name'];
 }
-if ($ini['overide_automatic_domain_name'] != "1"){
+if ($ini['override_automatic_domain_name'] != "1"){
   $domain = $_SERVER['SERVER_NAME'];
 }
 $cookie_namez = "teacher";

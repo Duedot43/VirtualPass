@@ -27,10 +27,10 @@ include "usr_pre_fls/checks.php";
 
 
 $ini = parse_ini_file('../config/config.ini');
-if ($ini['overide_automatic_domain_name'] == "1"){
+if ($ini['override_automatic_domain_name'] == "1"){
   $domain = $ini['domain_name'];
 }
-if ($ini['overide_automatic_domain_name'] != "1"){
+if ($ini['override_automatic_domain_name'] != "1"){
   $domain = $_SERVER['SERVER_NAME'];
 }
 ck_page();
