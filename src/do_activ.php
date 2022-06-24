@@ -42,6 +42,9 @@ function snapshot(){
     }
 }
 ck_page();
+if (isset($_COOKIE['phid'])){
+    check_string($_COOKIE['phid'], "incalid cookie");
+}
 check_string($_GET['room'], "INVALID ROOM VALUE NOT NUMERIC");
 snapshot();
 if (!isset($_COOKIE['phid']) or !file_exists("registered_phid/" . $_COOKIE['phid'])){

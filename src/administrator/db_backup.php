@@ -21,7 +21,7 @@ else{
 }
 check_phid($_COOKIE['admin']);
 $backup_arr = array();
-if (file_exists("../../mass.json")){
+if (!file_exists("../../mass.json")){
     echo "You do not have a DB to back up!";
     exit();
 }
@@ -59,6 +59,7 @@ if (isset($plugins['com_checkout']) and $plugins['com_checkout'] == 1){
     );
 }
 $backup_arr['config'] = parse_ini_file("../../config/config.ini", true);
+$backup_arr['history'] = json_decode(file_get_contents("../../his.json"), true);
 $backup_arr['version'] = json_decode(file_get_contents("../../version-info"), true)['current_version'];
 $backup_b64 = base64_encode(json_encode($backup_arr, JSON_PRETTY_PRINT));
 
@@ -70,10 +71,10 @@ function download(filename, textInput) {
 var element = document.createElement('a');
 element.setAttribute('href','data:text/plain;charset=utf-8, ' + encodeURIComponent(textInput));
 element.setAttribute('download', filename);
-document.body.appendChild(element);
+//document.body.appendChild(element);
 element.click();
 //document.body.removeChild(element);
 }
-download("<?php echo time(); ?>_backup.vp", <?php echo $backup_b64l ?>);
+download("<?php echo time(); ?>_backup.vp", "<?php echo $backup_b64 ?>");
 
 </script>

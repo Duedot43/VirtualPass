@@ -24,7 +24,6 @@ SOFTWARE.
 */
 include "usr_pre_fls/mk_mass.php";
 include "usr_pre_fls/checks.php";
-
 ck_page();
 $qrid = $_GET['room'];
 $date = date(DATE_ATOM);

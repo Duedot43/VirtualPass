@@ -1,4 +1,4 @@
-make a DB backup with database-backup.vp
+Make a system to install from a backup
 make a system to view all rooms and re make QR codes for them
 make a occurance thing based on what time the students come out of class and which students might be friends
 validate if a room already exists in regqrid

@@ -31,6 +31,9 @@ if (count($_GET) == 0){
 }
 ck_page();
 check_string($_GET['room'], "INVALID ROOM VALUE NOT NUMERIC");
+if (isset($_COOKIE['phid'])){
+  check_string($_COOKIE['phid'], "incalid cookie");
+}
 //update the icon!
 $icon_json = json_decode(file_get_contents("https://raw.githubusercontent.com/Duedot43/VirtualPass-Applets/master/favicons/index.json"), true);
 $plugin_json = json_decode(file_get_contents("usr_pre_fls/plugins.json"), true);

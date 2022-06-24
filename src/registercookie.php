@@ -33,9 +33,18 @@ if ($ini['override_automatic_domain_name'] == "1"){
 if ($ini['override_automatic_domain_name'] != "1"){
   $domain = $_SERVER['SERVER_NAME'];
 }
+if (isset($_COOKIE['phid'])){
+  check_string($_COOKIE['phid'], "incalid cookie");
+}
+check_string($_GET['room'], "INVALID ROOM VALUE NOT NUMERIC");
+if (isset($_COOKIE['phid']) and !file_exists("registered_phid/" . $_COOKIE['phid'])){
+  setcookie("phid", $ranid, time() - (86400 * 360), "/", $domain, TRUE, TRUE);
+  header("Location: /index.php?room=" . $_GET['room'] . "&page=main");
+  exit();
+}
 ck_page();
 if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['stid']) and isset($_POST['stem']) and filter_var($_POST['stem'], FILTER_VALIDATE_EMAIL)){
-  if (isset($_COOKIE['phid']) and file_exists("registered_phid/" . $COOKIE['phid'])){
+  if (isset($_COOKIE['phid']) and file_exists("registered_phid/" . $_COOKIE['phid'])){
     header("Location: /index.php?room=" . $_GET['room'] . "&page=main");
     exit();
   }
