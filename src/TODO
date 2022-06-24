@@ -2,3 +2,5 @@ Make a system to install from a backup
 make a system to view all rooms and re make QR codes for them
 make a occurance thing based on what time the students come out of class and which students might be friends
 validate if a room already exists in regqrid
+licence in real_index do_activ index registercookie all API db_backup db_restore
+make a db editor in vp.net/db_edit using the backups

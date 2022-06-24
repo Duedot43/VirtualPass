@@ -58,3 +58,4 @@ check_phid($_COOKIE['admin']);
 <input class="reg" type="button" value="Check memory usage" onclick="location='mem_usage.php'" />
 <input class="reg" type="button" value="Plugin manager" onclick="location='plugin_manager.php'" />
 <input class="reg" type="button" value="Take a backup" onclick="location='db_backup.php'" />
+<input class="reg" type="button" value="Restore a backup" onclick="location='db_restore.php'" />
