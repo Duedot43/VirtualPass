@@ -88,7 +88,7 @@ function install_plugin_data(string $plugin, array $plugin_data)
 {
     $plugin_data_real = $plugin_data[$plugin];
     foreach ($plugin_data_real as $plugin_arr){
-        file_put_contents(json_encode($plugin_arr['data']), $plugin_arr['data']);
+        file_put_contents($plugin_arr['data'], json_encode($plugin_arr['data']));
     }
 }
 function ck_plugin(string $plugin, array $new_plugin, bool $transfer = false, array $data = array())
@@ -136,17 +136,17 @@ if (isset($_FILES['fileToUpload']) and $_FILES['fileToUpload']['type'] == "appli
     }
     $time1 = time();
     echo "restoring mass.json...<br>";
-    file_put_contents(json_encode($backup_arr['mass']), "../../mass.json");
+    file_put_contents("../../mass.json", json_encode($backup_arr['mass']));
     echo "Restoring mass.json took " . time() - $time1 . " seconds <br>";
     $time = time();
     echo "Restoring student DB...<br>";
     foreach ($backup_arr['student'] as $student_arr) {
-        file_put_contents(json_encode($student_arr['arr']), "../registered_phid/" . $student_arr['id']);
+        file_put_contents("../registered_phid/" . $student_arr['id'], json_encode($student_arr['arr']));
     }
     echo "Restoring student DB took " . time() - $time . " seconds<br>";
     echo "Restoring config file...";
     $time = time();
-    file_put_contents(arr2ini($backup_arr['config']), "../../config/config.ini");
+    file_put_contents("../../config/config.ini", arr2ini($backup_arr['config']));
     echo "restoring config file took " . time() - $time . " seconds<br>";
     echo "Restoring history file...<br>";
     file_put_contents("../../his.json", json_encode($backup_arr['history']));
