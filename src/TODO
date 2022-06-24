@@ -1,6 +1,4 @@
-
-
-CHANGE THE API!!!
-REDO RM USER.PHP AND EDUSER.PHP
-make a config thing to only so snapshots a specified ammount of seconds
+make a DB backup with database-backup.vp
+make a system to view all rooms and re make QR codes for them
 make a occurance thing based on what time the students come out of class and which students might be friends
+validate if a room already exists in regqrid
