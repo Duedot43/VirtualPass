@@ -93,7 +93,7 @@ function install_plugin_data(string $plugin, array $plugin_data)
 }
 function ck_plugin(string $plugin, array $new_plugin, bool $transfer = false, array $data = array())
 {
-    $current_plugins = json_decode(file_get_contents("../usr_pre_fls/plugins.json"));
+    $current_plugins = json_decode(file_get_contents("../usr_pre_fls/plugins.json"), true);
     if (isset($current_plugins[$plugin]) and $current_plugins[$plugin] == 1) {
         if (!isset($new_plugin[$plugin]) or $new_plugin[$plugin] == 0) {
             //uninstall the plugin
