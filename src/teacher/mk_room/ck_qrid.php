@@ -22,27 +22,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-function check_phid($pid){
-  if (is_numeric($pid)){
-  }
-  else{
-      echo("Invalid! not numeric");
-    
-    exit();
-  }
-}
-if (!isset($_COOKIE['teacher'])){
-  exec("rm ../cookie/*");
-  header("Location: /teacher/index.html");
-  exit();
-}
-else{
-  if (!file_exists("../cookie/" . $_COOKIE['teacher'])){
-      header("Location:/teacher/index.html");
-      exit();
-  }
-}
-check_phid($_COOKIE['teacher']);
 $ini = parse_ini_file('../../../config/config.ini');
 if ($ini['override_automatic_domain_name'] == "1"){
   $domain = $ini['domain_name'];
