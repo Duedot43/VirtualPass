@@ -1,4 +1,5 @@
 make a occurance thing based on what time the students come out of class and which students might be friends
 validate if a room already exists in regqrid
 licence in real_index do_activ index registercookie all API db_backup db_restore
-make a db editor in vp.net/db_edit using the backups
+Make a backup-storer system so they can redo backups whenever via a menu
+make a backup restorer via a GET variable  (See i know the base 64 encoding would be usefull!!)
