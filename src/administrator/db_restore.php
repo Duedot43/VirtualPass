@@ -115,11 +115,15 @@ function ck_plugin(string $plugin, array $new_plugin, bool $transfer = false, ar
         }
     }
 }
-if (isset($_FILES['fileToUpload']) and $_FILES['fileToUpload']['type'] == "application/octet-stream") {
-    $file = $_FILES["fileToUpload"]["tmp_name"];
-    move_uploaded_file($file, "./backup.b64");
-    $backup = file_get_contents("./backup.b64");
-    unlink("./backup.b64");
+if (isset($_FILES['fileToUpload']) and $_FILES['fileToUpload']['type'] == "application/octet-stream" or isset($_GET['file'])) {
+    if (!isset($_GET['file'])){
+        $file = $_FILES["fileToUpload"]["tmp_name"];
+        move_uploaded_file($file, "./backup.b64");
+        $backup = file_get_contents("./backup.b64");
+        unlink("./backup.b64");
+    } else{
+        $backup = $_GET['file'];
+    }
     $backup_json = base64_decode($backup);
     if (!$backup_json) {
         echo "Invalid backup file! ERROR: NOT BASE64 ENCODED";
