@@ -173,6 +173,7 @@ if (isset($_FILES['fileToUpload']) and $_FILES['fileToUpload']['type'] == "appli
     exit();
 }
 ?>
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Restore</title>
 <tr>

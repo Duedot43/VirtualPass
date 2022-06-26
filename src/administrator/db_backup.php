@@ -64,7 +64,14 @@ $backup_arr['version'] = json_decode(file_get_contents("../../version-info"), tr
 $backup_b64 = base64_encode(json_encode($backup_arr, JSON_PRETTY_PRINT));
 
 ?>
-
+<head>
+    <link href="/style.css" rel="stylesheet" type="text/css" />
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Backup VirtualPass</title>
+<button onclick="download('<?php echo time(); ?>_backup.vp', '<?php echo $backup_b64 ?>');"'>Download backup file</button><br>
+<button onclick="location='https://duedot43.github.io/VirtualPass-Webpage/Editor/Backup/?file=<?php echo $backup_b64 ?>'">Edit and Apply Backup Now</button><br>
+<button onclick="location='/administrator/backups/?file=<?php echo $backup_b64 ?>'" >Store Backup Internally</button>
 <script>
 function download(filename, textInput) {
 
@@ -75,6 +82,5 @@ element.setAttribute('download', filename);
 element.click();
 //document.body.removeChild(element);
 }
-download("<?php echo time(); ?>_backup.vp", "<?php echo $backup_b64 ?>");
 
 </script>
