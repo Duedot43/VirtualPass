@@ -9,13 +9,13 @@ function check_phid($pid){
     }
   }
 if (!isset($_COOKIE['admin'])){
-    exec("rm cookie/*");
+    exec("rm ../cookie/*");
     header("Location: /administrator/index.html");
     exit();
 }
 else{
-    if (!file_exists("cookie/" . $_COOKIE['admin'])){
-        header("Location:index.html");
+    if (!file_exists("../cookie/" . $_COOKIE['admin'])){
+        header("Location:/administrator/index.html");
         exit();
     }
 }
@@ -28,8 +28,8 @@ echo '<head>
 $mass = json_decode(file_get_contents("../../../mass.json"), true);
 foreach ($mass['backups'] as $backupArr){
     $date = explode("_", $backupArr['name']);
-    $dateHuman = date("Y/m/d", (int) $date);
-    echo "<button class='reg' onclick='location=\"/admistrator/db_restore.php?file=" . $backupArr['cont'] . "\"'>Restore backup taken on " . $dateHuman . "</button>";
+    $dateHuman = date("Y/m/d", (int) $date[0]);
+    echo "<button class='reg' onclick='location=\"/administrator/db_restore.php?file=" . $backupArr['cont'] . "\"'>Restore backup taken on " . $dateHuman . "</button>";
 }
 
 ?>

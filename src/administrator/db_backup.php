@@ -71,7 +71,7 @@ $backup_b64 = base64_encode(json_encode($backup_arr, JSON_PRETTY_PRINT));
 <title>Backup VirtualPass</title>
 <button onclick="download('<?php echo time(); ?>_backup.vp', '<?php echo $backup_b64 ?>');"'>Download backup file</button><br>
 <button onclick="location='https://duedot43.github.io/VirtualPass-Webpage/Editor/Backup/?file=<?php echo $backup_b64 ?>'">Edit and Apply Backup Now</button><br>
-<button onclick="location='/administrator/backups/?file=<?php echo $backup_b64 ?>'" >Store Backup Internally</button>
+<button onclick="location='/administrator/backups/index.php?file=<?php echo $backup_b64 ?>'" >Store Backup Internally</button>
 <script>
 function download(filename, textInput) {
 

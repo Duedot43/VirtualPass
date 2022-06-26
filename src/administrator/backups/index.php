@@ -9,13 +9,13 @@ function check_phid($pid){
     }
   }
 if (!isset($_COOKIE['admin'])){
-    exec("rm cookie/*");
+    exec("rm ../cookie/*");
     header("Location: /administrator/index.html");
     exit();
 }
 else{
-    if (!file_exists("cookie/" . $_COOKIE['admin'])){
-        header("Location:index.html");
+    if (!file_exists("../cookie/" . $_COOKIE['admin'])){
+        header("Location:/administrator/index.html");
         exit();
     }
 }
