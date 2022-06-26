@@ -38,19 +38,20 @@ if (isset($_GET['room']) and is_numeric($_GET['room'])){
     echo '<button class="reg" onclick="location=\'/teacher/mk_room/ck_qrid.php?room=' . $room_id . '\'">Re make a QR code for this room</button>';
     $mass_json = json_decode(file_get_contents("../../mass.json"), true);
     foreach ($mass_json['user'] as $user_id){
-        $user_ini = json_decode("../registered_phid/" . $user_id, true);
-        foreach ($user_ini['room'] as $user_room_id){
-            if ($user_room_id == $room_id){
-            $tat = '<input class="reg" type="button" value="' . $user_ini['fname'] . ' ' . $user_ini['lname'] . ' ' . $user_ini['student_activ'] . '" onclick="location=\'/human_info/view.php?user=' . $user_id . '\'" style="border-color:' . border($user_ini['student_activ']) . '; color:white"/></td><br>';
-            echo $tat;
+        $user_ini = json_decode(file_get_contents("../registered_phid/" . $user_id), true);
+        foreach ($user_ini['rooms'] as $user_room_id){
+            if ((int) $user_room_id == (int) $room_id){
+                $tat = '<input class="reg" type="button" value="' . $user_ini['fname'] . ' ' . $user_ini['lname'] . ' ' . $user_ini['student_activ'] . '" onclick="location=\'/human_info/view.php?user=' . $user_id . '\'" style="border-color:' . border($user_ini['student_activ']) . '; color:white"/></td><br>';
+                echo $tat;
             }
         }
     }
+    exit();
 }
 $mass = json_Decode(file_get_contents("../../mass.json"), true);
 foreach ($mass['room'] as $room_id){
     $room_num = file_get_contents("../registerd_qrids/" . $room_id);
-    echo '<button class="reg" onclick="lcoation=\'/administrator/view_rooms.php?room=' . $room_id . '\'">' . $room_num . '</button><br>';
+    echo '<button class="reg" onclick="location=\'/administrator/view_rooms.php?room=' . $room_id . '\'">' . $room_num . '</button><br>';
 }
 
 ?>

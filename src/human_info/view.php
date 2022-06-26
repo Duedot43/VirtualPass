@@ -14,7 +14,7 @@ if (isset($_GET['date'])){
     }
     unset($user_arr['activity'][$_GET['date']]['date']);
     foreach ($user_arr['activity'][$_GET['date']] as $date_arr){
-        echo "User " . $user_arr['fname'] . " " . $user_arr['lname'] . " left room " . file_get_contents("../registerd_qrids/" . $date_arr['room']) . " at " . date("H:i:s", $date_arr['timeDep']) . " and arrived at " . date("H:i:s", $date_arr['timeArv']) . " they were gone for " . ($date_arr['timeArv'] - $date_arr['timeDep'])/60 . " minutes and " . $date_arr['timeArv'] - $date_arr['timeDep'] . " Seconds.<br><br>";
+        echo "User " . $user_arr['fname'] . " " . $user_arr['lname'] . " left room " . file_get_contents("../registerd_qrids/" . $date_arr['room']) . " at " . date("H:i:s", (int) $date_arr['timeDep']) . " and arrived at " . date("H:i:s", $date_arr['timeArv']) . " they were gone for " . ($date_arr['timeArv'] - $date_arr['timeDep'])/60 . " minutes and " . $date_arr['timeArv'] - $date_arr['timeDep'] . " Seconds.<br><br>";
 
     }
     exit();
