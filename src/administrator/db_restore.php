@@ -134,12 +134,14 @@ if (isset($_FILES['fileToUpload']) and $_FILES['fileToUpload']['type'] == "appli
         echo "Invalid backup file! ERROR: YOU ARE MISSING SOMETHING";
         exit();
     }
-    foreach (json_decode(file_get_contents("../../mass.json"), true)['user'] as $student){
-        unlink("../registered_phid/" . $student);
-    }
-    foreach (json_decode(file_get_contents("../../mass.json"), true)['room'] as $room){
-        unlink("../registerd_qrids/" . $room);
-    }
+    if (file_exists("../../mass.json")){
+ 		foreach (json_decode(file_get_contents("../../mass.json"), true)['user'] as $student){
+        	unlink("../registered_phid/" . $student);
+    	}
+    	foreach (json_decode(file_get_contents("../../mass.json"), true)['room'] as $room){
+        	unlink("../registerd_qrids/" . $room);
+    	}
+	}
     $time1 = time();
     echo "restoring mass.json...<br>";
     file_put_contents("../../mass.json", json_encode($backup_arr['mass']));
