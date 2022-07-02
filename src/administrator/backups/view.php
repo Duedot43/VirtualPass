@@ -29,7 +29,8 @@ $mass = json_decode(file_get_contents("../../../mass.json"), true);
 foreach ($mass['backups'] as $backupArr){
     $date = explode("_", $backupArr['name']);
     $dateHuman = date("Y/m/d", (int) $date[0]);
-    echo "<button class='reg' onclick='location=\"/administrator/db_restore.php?file=" . $backupArr['cont'] . "\"'>Restore backup taken on " . $dateHuman . "</button>";
+    echo "<button class='reg' onclick='location=\"/administrator/db_restore.php?file=" . $backupArr['cont'] . "\"'>Restore backup taken on " . $dateHuman . "</button><br>";
+    echo "<button class='reg' onclick='location=\"https://duedot43.github.io/VirtualPass-Webpage/Editor/Backup/?file=" . $backupArr['cont'] . "\"' >Edit backup</button>";
 }
 
 ?>
