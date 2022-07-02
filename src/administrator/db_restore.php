@@ -74,7 +74,7 @@ function uninstall_plugin(string $plugin)
 function install_plugin(string $plugin)
 {
     $plugin_index = json_decode(file_get_contents("https://raw.githubusercontent.com/Duedot43/VirtualPass-Applets/master/index.json"), true);
-    $selected_plugin = $plugin_index[$plugin];
+    $selected_plugin = $plugin_index['plugins'][$plugin];
     for ($x = 0; $x <= $selected_plugin['changed']; $x++) {
         //install the plugin
         if ($selected_plugin['clone_url'][$x] != "None") {

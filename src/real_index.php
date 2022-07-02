@@ -19,8 +19,6 @@
 //users departed with a line graph over the day by the hour
 //rooms used with a bar graph by the hour
 //if there is anything you would like to add feel free and dont worry about the data collection i will get those for you.
-check_string($_COOKIE['phid'], "incalid cookie");
-check_string($_GET['room'], "INVALID ROOM VALUE NOT NUMERIC");
 if (file_exists("../mass.json")){
     $mass_json = json_decode(file_get_contents("../mass.json"), true);
     $usersReg = count($mass_json['user']);
