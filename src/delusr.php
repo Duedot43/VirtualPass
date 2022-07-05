@@ -23,6 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 //really delete the user
+include "api/modules.php";
 function check_phid($pid){
     if (is_numeric($pid)){
     }
@@ -37,6 +38,7 @@ if(isset($_COOKIE['phid'])){
     check_phid($_COOKIE['phid']);
     if (file_exists("registered_phid/" . $_COOKIE['phid'])){
         $student = readJson("registered_phid/" . $_COOKIE['phid']);
+        $mass = readJson("../mass.json");
         unlink("registered_phid/" . $_COOKIE['phid']);
         unset($mass['user'][$_COOKIE['phid']]);
         $mass['removed'][$_COOKIE['phid']] = $student;
