@@ -34,7 +34,3 @@ file_put_contents("../../../mass.json" , json_encode($mass));
 header("Location: /administrator/backups/view.php");
 exit();
 ?>
-<head>
-    <link href="/style.css" rel="stylesheet" type="text/css" />
-</head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
