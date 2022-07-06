@@ -106,9 +106,8 @@ function ck_plugin(string $plugin, array $new_plugin, bool $transfer = false, ar
             }
         }
     }
-    if (isset($current_plugins[$plugin]) and $current_plugins[$plugin] == 0) {
+    if (!isset($current_plugins[$plugin]) or $current_plugins[$plugin] == 0) {
         if (!isset($new_plugin[$plugin]) or $new_plugin[$plugin] == 0) {
-            //do nothing
         }
         if (isset($new_plugin[$plugin]) and $new_plugin[$plugin] == 1) {
            install_plugin($plugin);
@@ -162,14 +161,14 @@ if (isset($_FILES['fileToUpload']) and $_FILES['fileToUpload']['type'] == "appli
     echo "restoring config file took " . time() - $time . " seconds<br>";
     echo "Restoring history file...<br>";
     file_put_contents("../../his.json", json_encode($backup_arr['history']));
-    echo "Restoring history file took 0 seconds";
-    echo "Checking for installed plugins...";
+    echo "Restoring history file took 0 seconds<br>";
+    echo "Checking for installed plugins...<br>";
     $current_plugins = json_decode(file_get_contents("../usr_pre_fls/plugins.json"));
-    ck_plugin("ck_ver", $backup_arr['plugins']);
-    ck_plugin("ccsd_auth", $backup_arr['plugins']);
-    ck_plugin("cart_checkout", $backup_arr['plugins'], true, $backup_arr['plugin_data']);
-    ck_plugin("com_checkout", $backup_arr['plugins'], true, $backup_arr['plugin_data']);
-    echo "backup restored.";
+    echo ck_plugin("ck_ver", $backup_arr['plugins']);
+    echo ck_plugin("ccsd_auth", $backup_arr['plugins']);
+    echo ck_plugin("cart_checkout", $backup_arr['plugins'], true, $backup_arr['plugin_data']);
+    echo ck_plugin("com_checkout", $backup_arr['plugins'], true, $backup_arr['plugin_data']);
+    echo "backup restored.<br>";
     exit();
 }
 ?>
