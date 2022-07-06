@@ -68,7 +68,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
                         echo '{"success":1}';
                         exit();
                     } else{
-                        echo '{"success":0, "reason":"invelid_student", "human_reason":"The student json you submitted is invalid"}';err();
+                        echo '{"success":0, "reason":"invalid_student", "human_reason":"The student json you submitted is invalid"}';err();
                         exit();
                     }
                 } else{
