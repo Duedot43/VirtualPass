@@ -43,7 +43,7 @@ if (isset($_COOKIE['phid']) and !file_exists("registered_phid/" . $_COOKIE['phid
   exit();
 }
 ck_page();
-if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['stid']) and isset($_POST['stem']) and filter_var($_POST['stem'], FILTER_VALIDATE_EMAIL)){
+if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['stid']) and isset($_POST['stem']) and validUser(array("fname"=>strtolower($_POST['firstname']),"lname"=>strtolower($_POST['lastname']),"email"=>$_POST['stem'],"id"=>$_POST['stid']))){
   if (isset($_COOKIE['phid']) and file_exists("registered_phid/" . $_COOKIE['phid'])){
     header("Location: /index.php?room=" . $_GET['room'] . "&page=main");
     exit();
@@ -63,13 +63,17 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
       "cnum"=>array(0,1)
     )
   );
+  if (!validUser(array("fname"=>strtolower($_POST['firstname']),"lname"=>strtolower($_POST['lastname']),"email"=>$_POST['stem'],"id"=>$_POST['stid']))){
+    echo "Invalid user info!! reload the page to try again.";
+    exit();
+  }
   setcookie("phid", $ranid, time() + (86400 * 360), "/", $domain, TRUE, TRUE);
   user($ranid, "../mass.json");
   file_put_contents("registered_phid/" . $ranid, json_encode($user_arr));
   header("Location: /do_activ.php?room=" . $_GET['room'] . "&page=main");
   exit();
 } elseif (isset($_POST['stem']) and !filter_var($_POST['stem'], FILTER_VALIDATE_EMAIL)){
-  echo "please enter valid email";
+  echo "Your user info is incorrect";
 }
 ?>
 
@@ -91,23 +95,23 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
                 <tr>
                     <td class="text" width="78">First Name
                         <td width="6">:</td>
-                        <td width="294"><input class="box" autocomplete="off" name="firstname" type="text" pattern="[a-zA-Z]+" id="firstname"
+                        <td width="294"><input class="box" autocomplete="off" value='<?php if(isset($_POST['firstname'])){echo $_POST['firstname']; } ?>' name="firstname" type="text" pattern="[a-zA-Z]+" id="firstname"
                             required></td>
                     </td>
                 </tr>
                 <tr>
                     <td>Last Name</td>
                     <td>:</td>
-                    <td><input class="box" name="lastname" autocomplete="off" type="text" id="lastname" pattern="[a-zA-Z]+" required></td>
+                    <td><input class="box" name="lastname" autocomplete="off" value='<?php if(isset($_POST['lastname'])){echo $_POST['firstname']; } ?>' type="text" id="lastname" pattern="[a-zA-Z]+" required></td>
                 </tr>
                 <tr>
                     <td>Student ID</td>
                     <td>:</td>
-                    <td><input class="box" name="stid" autocomplete="off" type="number" id="stid" placeholder="10150100" required></td>
+                    <td><input class="box" name="stid" autocomplete="off" value='<?php if(isset($_POST['stid'])){echo $_POST['firstname']; } ?>' type="number" id="stid" placeholder="10150100" required></td>
                 </tr>
                 <td>Student E-Mail</td>
                 <td>:</td>
-                <td><input class="box" name="stem" autocomplete="off" type="email" id="stem" placeholder="student@cherrycreekschools.org"
+                <td><input class="box" name="stem" autocomplete="off" value='<?php if(isset($_POST['stem'])){echo $_POST['firstname']; } ?>' type="email" id="stem" placeholder="student@cherrycreekschools.org"
                         required></td>
 </tr>
 <tr>
