@@ -62,7 +62,6 @@ if (file_exists("../mass.json")) {
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="/usr_pre_fls/anychart-base.min.js"></script>
     <script src="/usr_pre_fls/chart.js"> </script>
-    <script var mass=<?php echo file_get_contents("../mass.json"); ?>> </script>
     <meta name="description" content="The utility that lets you set up your users with a virtual hall pass for administrators to help keep track of where your emplyees are.">
 
     <!-- Facebook Meta Tags -->
@@ -83,23 +82,19 @@ if (file_exists("../mass.json")) {
 </head>
 
 <header>
-    <div class=navParent>
 
-        <!--
-interface.
-        <div class="usr">
-            Admin
-            <button action="">Logout</button>
-            <a> </a>
 
+    <div class=navParent-01>
+
+        <div class="navChild-01">
+            <button> Teacher Login </button>
+            <p> | </p>
+            <button> Admin Login </button>
         </div>
 
-        <div class=navChild>
+        <div class="navChild-h1">
 
         </div>
--->
-
-
     </div>
 
     <body>
