@@ -32,6 +32,8 @@ function room($id, $file_location){
             "removed" => array(
             ),
             "backups" => array(
+            ),
+            "apiKeys" => array(
             )
         );
     } else{
@@ -52,6 +54,8 @@ function user($id, $file_location){
             "removed" => array(
             ),
             "backups" => array(
+            ),
+            "apiKeys" => array(
             )
         );
     } else{

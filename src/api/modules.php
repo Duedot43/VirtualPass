@@ -18,6 +18,17 @@ function vp_auth(string $config, string $uname, string $passwd, string $branch)
         return false;
     }
 }
+function apiAuth(string $key, string $mass){
+    $mass = readJson($mass);
+    if ($mass == false){
+        return 1;
+    }
+    if (in_array($key, $mass['apiKeys'])){
+        return true;
+    } else{
+        return false;
+    }
+}
 function read_file(string $file)
 {
     if (file_exists($file)) {
