@@ -7,11 +7,11 @@ if (isset($_SERVER['PHP_AUTH_USER']) and apiAuth($_SERVER['PHP_AUTH_USER'], "../
     $key = $_SERVER['PHP_AUTH_USER'];
     if ($_SERVER['REQUEST_METHOD'] == "GET") {
         $mass = readJson("../../../mass.json");
-        $request = unsetValue(explode("/", $_SERVER['REQUEST_URI']), array("api.student", "student"));
+        $request = unsetValue(explode("/", $_SERVER['REQUEST_URI']), array("api_student", "room"));
         if (isset($request[0])) {
             foreach ($mass['room'] as $room_id) {
                 $realRoom = read_file("../../registerd_qrids/" . $room_id);
-                if ($realRoom == $request[0]) {
+                if ((int) $realRoom == (int) $request[0]) {
                     $output = array(
                         "success" => 1,
                         $request[0] => $room_id
