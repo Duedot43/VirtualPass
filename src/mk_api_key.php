@@ -6,7 +6,7 @@ if (isset($_COOKIE['phid']) and is_numeric($_COOKIE['phid']) and file_exists("re
     $mass = readJson("../mass.json");
     $key = uniqid(rand()) . uniqid(rand());
     $mass['apiKeys'][$key] = $_COOKIE['phid'];
-    file_put_contents("../mass.json", $mass);
+    file_put_contents("../mass.json", json_encode($mass));
     echo "Your API key is " . $key;
     exit();
 } else{
