@@ -2,6 +2,10 @@
 include "../../usr_pre_fls/checks.php";
 
 $json = json_decode(file_get_contents("php://input"), true);
+if (!isset($json['room'])){
+    echo '{"success":0, "reason":"no_room", "human_reason":"You must request a room to depart/arrive from"}';
+    exit();
+}
 $mass = json_decode(file_get_contents("../../../mass.json"), true);
 if ($mass == false){
     echo '{"success":0, "reason":"no_mass", "human_reason":"Mass.json does not exist!"}';
@@ -11,7 +15,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) and !in_array($_SERVER['PHP_AUTH_USER'], $
     echo '{"success":0, "reason":"invalid_auth", "human_reason":"Your API key is incorrect"}';
     exit();
 }
-$user = $mass[$_SERVER['PHP_AUTH_USER']];
+$user = $mass['apiKeys'][$_SERVER['PHP_AUTH_USER']];
 $user_json = json_decode(file_get_contents("../../registered_phid/" . $user), true);
 
 
@@ -48,7 +52,7 @@ if (!isset($user_json['activity'][$date])){
     exit();
 } else{
     $user_json['activity'][$date][$user_json['activity']['cnum'][0]] = array(
-        "room"=>$_GET['room'],
+        "room"=>$json['room'],
         "timeDep"=>$time1,
         "timeArv"=>$time2
     );
