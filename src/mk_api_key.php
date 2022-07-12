@@ -6,7 +6,7 @@ if (isset($_COOKIE['phid']) and is_numeric($_COOKIE['phid']) and file_exists("re
     $mass = readJson("../mass.json");
     foreach ($mass['apiKeys'] as $user){
         if ($_COOKIE['phid'] == $user){
-            echo "You akready have an API key it is " . key($user);
+            echo "You akready have an API key it is " . array_search($user, $mass['apiKeys']);
             exit();
         }
     }
