@@ -38,7 +38,7 @@ if (isset($_COOKIE['phid'])){
 }
 check_string($_GET['room'], "INVALID ROOM VALUE NOT NUMERIC");
 if (isset($_COOKIE['phid']) and !file_exists("registered_phid/" . $_COOKIE['phid'])){
-  setcookie("phid", $ranid, time() - (86400 * 360), "/", $domain, TRUE, TRUE);
+  setcookie("phid", "", time() - (86400 * 360), "/", $domain, TRUE, TRUE);
   header("Location: /index.php?room=" . $_GET['room'] . "&page=main");
   exit();
 }
