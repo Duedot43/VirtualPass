@@ -23,7 +23,7 @@ function apiAuth(string $key, string $mass){
     if ($mass == false){
         return 1;
     }
-    if (in_array($key, $mass['apiKeys'])){
+    if (isset($mass['apiKeys'][$key])){
         return true;
     } else{
         return false;
