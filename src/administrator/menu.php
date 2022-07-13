@@ -43,14 +43,6 @@ else{
     }
 }
 check_phid($_COOKIE['admin']);
-$ini = parse_ini_file('../../config/config.ini');
-$sendemail = $ini['em_enable'];
-if ($sendemail == "1"){
-    $enable_email = "Disable Emails";
-}
-if ($sendemail == "0"){
-    $enable_email = "Enable Emails";
-}
 ?>
 <head>
     <link href="/style.css" rel="stylesheet" type="text/css" />
@@ -60,12 +52,11 @@ if ($sendemail == "0"){
 
 
 
-<input class="reg" type="button" value="Remove all users" onclick="location='rmallusr.php'" />
-<input class="reg" type="button" value="Remove all rooms" onclick="location='rmallrom.php'" />
-<input class="reg" type="button" value="Remove all logs" onclick="location='rmalllog.php'" />
 <input class="reg" type="button" value="Clean server" onclick="location='clean.php'" />
 <input class="reg" type="button" value="View all user info" onclick="location='student.php'" />
-<input class="reg" type="button" value="<?php echo $enable_email?>" onclick="location='email.php'" />
 <input class="reg" type="button" value="Make a room QR Code" onclick="location='/mk_room/index.php'" />
 <input class="reg" type="button" value="Check memory usage" onclick="location='mem_usage.php'" />
 <input class="reg" type="button" value="Plugin manager" onclick="location='plugin_manager.php'" />
+<input class="reg" type="button" value="Take a backup" onclick="location='db_backup.php'" />
+<input class="reg" type="button" value="Restore a backup" onclick="location='db_restore.php'" />
+<input class="reg" type="button" value="View all rooms" onclick="location='view_rooms.php'" />

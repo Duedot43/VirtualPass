@@ -29,57 +29,41 @@ function fail(){
 function err(){
     header('HTTP/1.0 406 Not Acceptable');
 }
-if (!isset($_GET['who']) or $_GET['who'] != "all" and !is_numeric($_GET['who'])){
+if (!isset($_GET['format'])){
     err();
-    $output = array("success"=>0, "reason"=>"no_who", "help_url"=>"");
+    $output = array("success"=>0, "reason"=>"format_missing", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#format-missing");
     echo json_encode($output);
     exit();
-}
-if (!file_exists("../../mass.json")){
-    err();
-    $output = array("success"=>0, "reason"=>"no_mass", "help_url"=>"");
-    echo json_encode($output);
-    exit();
-}
-$main_json = json_decode(file_get_contents("../../mass.json"), true);
-if (is_numeric($_GET['who'])){
-    if (!in_array($_GET['who'], $main_json['user'], true)){
-        err();
-        $output = array("success"=>0, "reason"=>"no_user", "help_url"=>"");
-        echo json_encode($output);
-        exit();
-    }
 }
 $config = parse_ini_file("../../config/config.ini");
 if (isset($_SERVER['PHP_AUTH_USER']) and $_SERVER['PHP_AUTH_USER'] == $config['api_uname']){
     if (isset($_SERVER['PHP_AUTH_PW']) and $_SERVER['PHP_AUTH_PW'] == $config['api_passwd']){
-        if (is_numeric($_GET['who'])){
-            $output = array("success"=>1);
-            $user_ini = parse_ini_file("../registered_phid/" . $_GET['who'], true);
-            $output[$_GET['who']] = $user_ini;
-            echo json_encode($user_ini);
-            exit();
+        $ini = parse_ini_file('../../config/config.ini');
+        if ($ini['override_automatic_domain_name'] == "1"){
+        $domain = $ini['domain_name'];
         }
-        if ($_GET['who'] == "all"){
-            $mass_json = json_decode(file_get_contents("../../mass.json"), true);
-            $output = array("success"=>1);
-            foreach ($mass_json['user'] as $user_id){
-                $user_ini = parse_ini_file("../registered_phid/" . $user_id, true);
-                $output[$user_id] = $user_ini;
-            }
+        if ($ini['override_automatic_domain_name'] != "1"){
+        $domain = $_SERVER['SERVER_NAME'];
+        }
+        $page_val = rand();
+        $url = "https://" . $domain . "/index.php?room=" . $page_val . "&page=main";  
+        if ($_GET['format'] == "json"){  
+            $output = array("raw_url"=>$url, "room_id"=>$page_val, "domain"=>$domain, "success"=>1);
             echo json_encode($output);
             exit();
+        } else{
+            echo $url;
+            exit();
         }
-
     } else{
         fail();
-        $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"");
+        $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#authentication-failed");
         echo json_encode($output);
         exit();
     }
 } else{
     fail();
-    $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"");
+    $output = array("success"=>0, "reason"=>"auth_fail", "help_url"=>"https://github.com/Duedot43/VirtualPass/wiki/Make#authentication-failed");
     echo json_encode($output);
     exit();
 }

@@ -23,6 +23,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 //really delete the user
+include "api/modules.php";
 function check_phid($pid){
     if (is_numeric($pid)){
     }
@@ -32,24 +33,24 @@ function check_phid($pid){
       exit();
     }
   }
-$cookie_name = "phid";
-if(isset($_COOKIE[$cookie_name])){
-    check_phid($_COOKIE[$cookie_name]);
-    if (file_exists("registered_phid/" . $_COOKIE[$cookie_name])){
-        copy("registered_phid/" . $_COOKIE[$cookie_name], "human_info/" . $_COOKIE[$cookie_name] . "/archived_ini");
-        unlink("registered_phid/" . $_COOKIE[$cookie_name]);
-        $main_json = json_decode(file_get_contents("../mass.json"), true);
-        $main_json['user'] = \array_diff($main_json['user'], [$_COOKIE[$cookie_name]]);
-        array_push($main_json['removed'], $_COOKIE[$cookie_name]);
-        $json_out = fopen("../mass.json", "w");
-        fwrite($json_out, json_encode($main_json));
-        fclose($json_out);
+
+if(isset($_COOKIE['phid'])){
+    check_phid($_COOKIE['phid']);
+    if (file_exists("registered_phid/" . $_COOKIE['phid'])){
+        $student = readJson("registered_phid/" . $_COOKIE['phid']);
+        $mass = readJson("../mass.json");
+        unlink("registered_phid/" . $_COOKIE['phid']);
+        unset($mass['user'][$_COOKIE['phid']]);
+        $mass['removed'][$_COOKIE['phid']] = $student;
+        file_put_contents("../mass.json", json_encode($mass));
         setcookie("phid", "", time() - 9999999999);
     }else{
         echo("Internal server error your file is not here! please try again...");
+        exit();
     }
 } else{
     echo("Internal server error your cookie is not here! please try again...");
+    exit();
 }
 
 ?>

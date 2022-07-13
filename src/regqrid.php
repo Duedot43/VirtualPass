@@ -22,37 +22,22 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-function check_string($pid){
-    if (is_numeric($pid)){
-    }
-    else{
-      echo("Invalid phid cookie!");
-      
-      exit();
-    }
-  }
-  
-$qrid = $_GET['page'];
-$date = date(DATE_ATOM);
-//fairly simple check if the user has entered the room number log it put it in the qrid folder and send it back to stupid
-if (isset($_GET['page'])){
-  if ($_GET['page'] == ""){
-    echo("No page value!");
-    exit();
-  }
-} else{echo("No page value!");exit();}
 include "usr_pre_fls/mk_mass.php";
+include "usr_pre_fls/checks.php";
+ck_page();
+$qrid = $_GET['room'];
+$date = date(DATE_ATOM);
 if (isset($_POST['rnum'])) {
     $rnum=$_POST['rnum'];
     $inithing = parse_ini_file("../config/config.ini");
-    check_string($qrid);
+    check_string($qrid, "invalid QRID");
     $room = fopen("registerd_qrids/" . $qrid, "w");
-    check_string($rnum);
+    check_string($rnum, "Invalid room num");
     fwrite($room, $rnum);
     room($qrid, "../mass.json");
 
-    //NOTE: Dont ask me why its called stupid.php im still learning PHP and that was not easy to write
-    header("Location: /stupid.php?page=" . $qrid);
+    //NOTE: Dont ask me why its called index.php im still learning PHP and that was not easy to write
+    header("Location: /index.php?room=" . $qrid . "&page=main");
     exit();
 }
 ?>

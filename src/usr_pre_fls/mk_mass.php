@@ -30,6 +30,10 @@ function room($id, $file_location){
             "user" => array(
             ),
             "removed" => array(
+            ),
+            "backups" => array(
+            ),
+            "apiKeys" => array(
             )
         );
     } else{
@@ -48,6 +52,10 @@ function user($id, $file_location){
             "user" => array(
             ),
             "removed" => array(
+            ),
+            "backups" => array(
+            ),
+            "apiKeys" => array(
             )
         );
     } else{

@@ -1,20 +1,6 @@
-Make an API for adding usersDONE!
-Make an API for deleting rooms/users DONE!
-Redo  deluser.php to really remove users DONE!
-docs for mk_user.phpDONE! rm_user.phpDONE! rm_room.php DONE!
-Make edeting users API. DONE!
-Add help URL's DONE!
-Update docs for mkurl to include the success variable in the output DONE!
-Make docs for get_rooom, get_user, get_departed
-Add a removed archived users and get all users+info get one users info and departed DONE!
-make a demp python file for VirtualPass-Applets to show off the API's functionality DONE!
-add a toggle mode for stupid
-
-stupid.php?page=092547&activity=toggle
-output if student is departed
-stupid.php?page=092547&activity=Arrived
-Reload...
-nothing should change the student is still arrived
-Button... stupid.php?page=092547&activity=Departed
-
-Fox clean so it removed any installed plugins and resets the plugin.json file
+make a occurance thing based on what time the students come out of class and which students might be friends
+validate if a room already exists in regqrid
+licence in real_index do_activ index registercookie all API db_backup db_restore
+make a settings button
+Correct and add all the titles to the pages... (yay...)
+MAKE A LOGIN SYSTEM IDIOT!!

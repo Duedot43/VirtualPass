@@ -44,20 +44,22 @@ else{
 }
 check_phid($_COOKIE['admin']);
 function border($activity){
-  if ($activity == "Departed"){
+  if ($activity == 0){
     return "ff0004";
   }
-  if ($activity == "Arrived"){
+  if ($activity == 1){
     return "70b8d4";
   }
 }
-$mass_json = json_decode(file_get_contents("../../mass.json"), true);
+if (file_exists("../../mass.json")){
+  $mass_json = json_decode(file_get_contents("../../mass.json"), true);
+} else{
+  echo "NO USERS IN SYSTEM";
+}
 echo '<link href="/style.css" rel="stylesheet" type="text/css" />';
 foreach ($mass_json['user'] as $user_id){
-  $user_ini = parse_ini_file("../registered_phid/" . $user_id, true);
-  foreach ($user_ini as $user_room_id){
-    $tat = '<input class="reg" type="button" value="' . $user_ini['usrinfo']['first_name'] . ' ' . $user_ini['usrinfo']['last_name'] . ' ' . $user_ini['usrinfo']['student_activity'] . '" onclick="location=\'/human_info/' . $user_id . '/index.html\'" style="border-color:' . border($user_ini['usrinfo']['student_activity']) . '; color:white"/></td><br>';
-    echo $tat;
-  }
+  $user_ini = json_decode(file_get_contents("../registered_phid/" . $user_id), true);
+  $tat = '<input class="reg" type="button" value="' . $user_ini['fname'] . ' ' . $user_ini['lname'] . ' ' . $user_ini['student_activ'] . '" onclick="location=\'/human_info/view.php?user=' . $user_id . '\'" style="border-color:' . border($user_ini['student_activ']) . '; color:white"/></td><br>';
+  echo $tat;
 }
 ?>

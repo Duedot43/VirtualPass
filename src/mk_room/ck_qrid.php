@@ -44,14 +44,14 @@ else{
 }
 check_phid($_COOKIE['admin']);
 $ini = parse_ini_file('../../config/config.ini');
-if ($ini['overide_automatic_domain_name'] == "1"){
+if ($ini['override_automatic_domain_name'] == "1"){
   $domain = $ini['domain_name'];
 }
-if ($ini['overide_automatic_domain_name'] != "1"){
+if ($ini['override_automatic_domain_name'] != "1"){
   $domain = $_SERVER['SERVER_NAME'];
 }
-$page_val = $_GET['page'];
-$url = "https://" . $domain . "/stupid.php?page=" . $page_val;
+$page_val = $_GET['room'];
+$url = "https://" . $domain . "/do_activ.php?room=" . $page_val . "&page=main";
 echo("Right click the QR code and download it it is current set to qrid " . $page_val . "<br>")
 ?>
 <title>Make a room!</title>

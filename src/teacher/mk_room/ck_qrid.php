@@ -22,36 +22,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-function check_phid($pid){
-  if (is_numeric($pid)){
-  }
-  else{
-      echo("Invalid! not numeric");
-    
-    exit();
-  }
-}
-if (!isset($_COOKIE['teacher'])){
-  exec("rm ../cookie/*");
-  header("Location: /teacher/index.html");
-  exit();
-}
-else{
-  if (!file_exists("../cookie/" . $_COOKIE['teacher'])){
-      header("Location:/teacher/index.html");
-      exit();
-  }
-}
-check_phid($_COOKIE['teacher']);
 $ini = parse_ini_file('../../../config/config.ini');
-if ($ini['overide_automatic_domain_name'] == "1"){
+if ($ini['override_automatic_domain_name'] == "1"){
   $domain = $ini['domain_name'];
 }
-if ($ini['overide_automatic_domain_name'] != "1"){
+if ($ini['override_automatic_domain_name'] != "1"){
   $domain = $_SERVER['SERVER_NAME'];
 }
-$page_val = $_GET['page'];
-$url = "https://" . $domain . "/stupid.php?page=" . $page_val;
+$page_val = $_GET['room'];
+$url = "https://" . $domain . "/do_activ.php?room=" . $page_val . "&page=main";
 echo("Please click the download QR code button to download the QR code " . $page_val . "<br>")
 ?>
 <title>Make a room!</title>
