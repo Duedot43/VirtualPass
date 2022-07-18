@@ -40,6 +40,7 @@ if (isset($_POST['fname']) and isset($_POST['lname']) and isset($_POST['id']) an
     foreach ($ids as $id_name){
         $user[$id_name] = $_POST[$id_name];
     }
+    file_put_contents("registered_phid/" .$_COOKIE['phid'], json_encode($user));
 }
 if (validUser($user)){
     file_put_contents("registered_phid/" . $_COOKIE['phid'], json_encode($user));

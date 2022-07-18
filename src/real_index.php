@@ -90,6 +90,8 @@ if (file_exists("../mass.json")) {
             <button> Teacher Login </button>
             <p> | </p>
             <button> Admin Login </button>
+            <p> | </p>
+            <button> Student Login </button>
         </div>
 
         <div class="navChild-h1">
