@@ -86,7 +86,7 @@ function ifnumeric($value){
     }
 }
 function verifyStudentPut(array $studentArray){
-    if (isset($studentArray['fname']) and isset($studentArray['lname']) and isset($studentArray['email']) and isset($studentArray['id']) and isset($studentArray['student_activ']) and isset($studentArray['rooms']) and isset($studentArray['sctivity']) and isset($studentArray['activity']['cnum10'])){
+    if (isset($studentArray['fname']) and isset($studentArray['lname']) and isset($studentArray['email']) and isset($studentArray['id']) and isset($studentArray['student_activ']) and isset($studentArray['rooms']) and isset($studentArray['activity']) and isset($studentArray['activity']['cnum10'])){
         return true;
     } else{
         return false;

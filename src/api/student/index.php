@@ -1,6 +1,6 @@
 <?php
 include "../modules.php";
-
+include "../../usr_pre_fls/mk_mass.php";
 
 header("content-type: application/json; charset=utf-8");
 if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_auth("../../../config/config.ini", $_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'], "api") and ck_request()){
@@ -63,7 +63,8 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
                     if (verifyStudentPut($post_arr['student'])){
                         //put to all users
                         foreach ($mass['user'] as $student_id){
-                            file_put_contents("../../registered_phid/" . $student_id, $post_arr['student']);
+                            file_put_contents("../../registered_phid/" . $student_id, json_encode($post_arr['student']));
+                            user($student_id, "../../../mass.json");
                         }
                         echo '{"success":1}';
                         exit();
@@ -75,7 +76,8 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
                     if (verifyStudentPut($post_arr['student'])){
                         //put to one user
                         if (is_numeric((int) $request[0]) and verifyStudentPut($post_arr['student'])){
-                            file_put_contents("../../registered_phid/" . $request[0], $post_arr['student']);
+                            file_put_contents("../../registered_phid/" . $request[0], json_encode($post_arr['student']));
+                            user($request[0], "../../../mass.json");
                             echo '{"success":1}';
                             exit();
                         } else{

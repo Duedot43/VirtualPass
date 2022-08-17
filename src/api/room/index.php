@@ -1,5 +1,6 @@
 <?php
 include "../modules.php";
+include "../../usr_pre_fls/mk_mass.php";
 
 
 header("content-type: application/json; charset=utf-8");
@@ -63,6 +64,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
                     //put to all users
                     foreach ($mass['room'] as $room_id){
                         file_put_contents("../../registerd_qrids/" . $room_id, $post_arr['room']);
+                        room($room_id, "../../../mass.json");
                     }
                     echo '{"success":1}';
                     exit();
