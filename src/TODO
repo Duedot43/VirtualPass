@@ -10,3 +10,4 @@ Fix time bug and test time
 Fix ALL Skink secutiry vuenribilites
 Import DB from azure
 Fix the student API
+Make a screen to show what room you have departed from and a timer
