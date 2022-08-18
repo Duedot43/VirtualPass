@@ -65,7 +65,10 @@ if ($user_json['student_activ'] == 0){
 } else{
     $user_json['student_activ'] = 0;
 }
-
+if (!in_array($_GET['room'], $user_json['rooms'])){
+    array_push($user_json['rooms'], $_GET['room']);
+    write_json($user_json, "registered_phid/" . $_COOKIE['phid']);
+}
 
 $date = date("d") . "." . date("m") . "." . date("y");
 if ($user_json['activity']['cnum'][1] == 1){
@@ -105,4 +108,5 @@ if (!isset($user_json['activity'][$date])){
     header("Location: index.php?room=" . $_GET['room'] . "&page=main");
     exit();
 }
+
 ?>
