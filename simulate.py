@@ -118,11 +118,10 @@ def student(id):
                     croom = croom+1
                 subprocesses['studentSim'] = multiprocessing.Process(target=studentSim, args=(myId, myRooms[croom]))
                 subprocesses['studentSim'].start()
-
     myId = studentLstNew[id]
     myRooms = studentLstNew[id]['rooms']
     timePerRoom = 3600 #an hour
-    breakTime = 58800 #16 hours 20 minutes
+    breaktime = 58800 #16 hours 20 minutes
     startTime = int(time.time())
     croom = 0
     subprocesses['studentSim'] = multiprocessing.Process(target=studentSim, args=(myId, myRooms[croom]))
