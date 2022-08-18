@@ -1,9 +1,9 @@
 import multiprocessing, requests, json, random, time
 from tracemalloc import start
 from turtle import st
-students = 30
-studentsPerRoom = 5
-classesPerStudent = 3
+students = 300 #This is basicly how many subprocesses you want lol
+studentsPerRoom = 30
+classesPerStudent = 8
 roomAmm = students/studentsPerRoom
 roomAmm = round(roomAmm)
 studentLst = {}
