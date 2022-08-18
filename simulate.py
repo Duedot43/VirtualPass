@@ -92,7 +92,7 @@ def regStudentWithRoom():
             login = requests.get("http://" + vpHostname + "/do_activ.php?room=" + str(y) + "&page=main", headers={"Cookie": "phid=" + str(x)}, allow_redirects=False)
             login = requests.get("http://" + vpHostname + "/do_activ.php?room=" + str(y) + "&page=main", headers={"Cookie": "phid=" + str(x)}, allow_redirects=False)
         endTime = time.time()
-    print("Done!")
+    print("\nDone!")
 
 def student(id):
     global studentLstNew, classesPerStudent
