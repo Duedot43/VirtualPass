@@ -60,7 +60,7 @@ def makeRealStudents():
     global studentLst, roomNumbersDct, studentLstNew, students
     studentLstNew = {}
     print("Making students...")
-    count = 0
+    count = 1
     for x in studentLst:
         print(count, "_of_", students, end='\r')
         login = requests.post("http://" + vpHostname + "/registercookie.php?room=" + str(studentLst[x]['rooms'][0]) + "&page=main", data={"firstname": studentLst[x]['fname'], "lastname": studentLst[x]['lname'], "stid": studentLst[x]['id'], "stem": studentLst[x]['email']}, allow_redirects=False)
@@ -77,7 +77,7 @@ def makeRealStudents():
 def regStudentWithRoom():
     global studentLst, roomNumbersDct, studentLstNew, students, classesPerStudent
     print("regestering students with their rooms...")
-    count = 0
+    count = 1
     startTime = 0
     endTime = 0
     tprLst = []
