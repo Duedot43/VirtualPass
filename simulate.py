@@ -28,7 +28,7 @@ def createRooms():
     cookieLst = cookieLst[1].split(";")
     adminKey = cookieLst[0]
     print("Making all rooms...")
-    count = 0
+    count = 1
     for x in roomNumbersDct:
         print(count, "_of_", roomAmm, end='\r')
         makeRoom = requests.post("http://" + vpHostname + "/teacher/mk_room/regqrid.php?room=" + str(x), allow_redirects=False, headers={"Cookie": "teacher=" + str(adminKey)}, data={"rnum": str(roomNumbersDct[x]['rnum'])})
@@ -77,7 +77,7 @@ def makeRealStudents():
 def regStudentWithRoom():
     global studentLst, roomNumbersDct, studentLstNew, students, classesPerStudent
     print("regestering students with their rooms...")
-    count = 1
+    count = 0
     startTime = 0
     endTime = 0
     tprLst = []
