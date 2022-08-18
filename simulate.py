@@ -85,7 +85,7 @@ def regStudentWithRoom():
     for x in studentLstNew:
         tpr = endTime - startTime
         tprLst.append(tpr)
-        timeLeft = ((sum(tprLst)/len(tprLst))*students)-(time.time()-vStartTime)
+        timeLeft = ((sum(tprLst)/len(tprLst))-(time.time()-vStartTime))*students
         startTime = time.time()
         count = count+1
         print(count, " of ", students, "Seconds per request:", round(sum(tprLst)/len(tprLst)), "Time remaining:", convert(timeLeft), end='\r')
