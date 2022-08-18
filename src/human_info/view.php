@@ -19,7 +19,7 @@ if (isset($_GET['date'])){
     }
     exit();
 }
-$user_arr = json_decode(file_get_contents("../registered_phid/" . $_COOKIE['phid']), true);
+$user_arr = json_decode(file_get_contents("../registered_phid/" . $_GET['user']), true);
 unset($user_arr['activity']['cnum']);
 
 foreach ($user_arr['activity'] as $activ){
