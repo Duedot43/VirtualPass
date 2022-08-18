@@ -85,10 +85,10 @@ def regStudentWithRoom():
     for x in studentLstNew:
         tpr = endTime - startTime
         tprLst.append(tpr)
-        timeLeft = ((sum(tprLst)/len(tprLst))-(time.time()-vStartTime))*students
+        timeLeft = (sum(tprLst)/len(tprLst))*students-(time.time()-vStartTime)
         startTime = time.time()
         count = count+1
-        print(count, " of ", students, "Seconds per request:", round(sum(tprLst)/len(tprLst)), "Time remaining:", convert(timeLeft), end='\r')
+        print(count, " of ", students, "Seconds per request:", round(sum(tprLst)/len(tprLst)), "Time remaining:", convert(int(timeLeft)), end='\r')
         for y in studentLstNew[x]['rooms']:
             login = requests.get("http://" + vpHostname + "/do_activ.php?room=" + str(y) + "&page=main", headers={"Cookie": "phid=" + str(x)}, allow_redirects=False)
             login = requests.get("http://" + vpHostname + "/do_activ.php?room=" + str(y) + "&page=main", headers={"Cookie": "phid=" + str(x)}, allow_redirects=False)
