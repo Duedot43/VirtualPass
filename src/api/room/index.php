@@ -72,6 +72,7 @@ if (isset($_SERVER['PHP_AUTH_USER']) and isset($_SERVER['PHP_AUTH_PW']) and vp_a
                     //put to one user
                     if (ifnumeric($request[0])){
                         file_put_contents("../../registerd_qrids/" . $request[0], $post_arr['room']);
+                        room($request[0], "../../../mass.json");
                         echo '{"success":1}';
                         exit();
                     } else{
