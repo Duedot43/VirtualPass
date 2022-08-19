@@ -1,5 +1,5 @@
 import multiprocessing, requests, json, random, time
-students = 3000 #This is basicly how many subprocesses you want lol
+students = 300 #This is basicly how many subprocesses you want lol
 studentsPerRoom = 30
 classesPerStudent = 8
 roomAmm = students/studentsPerRoom
@@ -123,8 +123,8 @@ def student(id):
     breaktime = 58800 #16 hours 20 minutes
     startTime = int(time.time())
     croom = 0
-    subprocesses['studentSim'] = multiprocessing.Process(target=studentSim, args=(myId, myRooms[croom]))
-    subprocesses['switchRoom'] = multiprocessing.Process(target=switchRoom, args=(subprocesses, timePerRoom, startTime, croom, myId, myRooms, classesPerStudent))
+    subprocesses['studentSim'] = multiprocessing.Process(target=studentSim, args=(id, myRooms[croom]))
+    subprocesses['switchRoom'] = multiprocessing.Process(target=switchRoom, args=(subprocesses, timePerRoom, startTime, croom, id, myRooms, classesPerStudent))
     subprocesses['studentSim'].start()
     subprocesses['switchRoom'].start()
 def startProcesses():
