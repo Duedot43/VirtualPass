@@ -31,6 +31,13 @@ function check_phid($pid){
       exit();
     }
   }
+function studentActiv($activ){
+  if ($activ == 1){
+    return "arrived";
+  } else{
+    return "departed";
+  }
+}
 if (!isset($_COOKIE['admin'])){
     exec("rm cookie/*");
     header("Location: /administrator/index.html");
@@ -59,7 +66,7 @@ if (file_exists("../../mass.json")){
 echo '<link href="/style.css" rel="stylesheet" type="text/css" />';
 foreach ($mass_json['user'] as $user_id){
   $user_ini = json_decode(file_get_contents("../registered_phid/" . $user_id), true);
-  $tat = '<input class="reg" type="button" value="' . $user_ini['fname'] . ' ' . $user_ini['lname'] . ' ' . $user_ini['student_activ'] . '" onclick="location=\'/human_info/view.php?user=' . $user_id . '\'" style="border-color:' . border($user_ini['student_activ']) . '; color:white"/></td><br>';
+  $tat = '<input class="reg" type="button" value="' . $user_ini['fname'] . ' ' . $user_ini['lname'] . ' ' . studentActiv($user_ini['student_activ']) . '" onclick="location=\'/human_info/view.php?user=' . $user_id . '\'" style="border-color:' . border($user_ini['student_activ']) . '; color:white"/></td><br><br>';
   echo $tat;
 }
 ?>

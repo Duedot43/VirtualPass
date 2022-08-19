@@ -1,13 +1,20 @@
 <?php
 include "../usr_pre_fls/checks.php";
 check_string($_GET['user'], "INCORRECT PHID COOKIE REQUEST");
+function studentActiv($activ){
+  if ($activ == 1){
+    return "arrived";
+  } else{
+    return "departed";
+  }
+}
 if (!file_exists("../registered_phid/" . $_GET['user'])){
     echo "THAT USER DOES NOT EXIST!";
     exit();
 }
 echo '<link href="/style.css" rel="stylesheet" type="text/css" />';
 if (isset($_GET['date'])){
-    $user_arr = json_decode(file_get_contents("../registered_phid/" . $_COOKIE['phid']), true);
+    $user_arr = json_decode(file_get_contents("../registered_phid/" . $_GET['user']), true);
     if (!isset($user_arr['activity'][$_GET['date']])){
         echo "THAT USER DATE DOES NOT EXIST";
         exit();

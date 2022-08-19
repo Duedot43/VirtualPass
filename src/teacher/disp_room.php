@@ -51,6 +51,13 @@ function border($activity){
     return "70b8d4";
   }
 }
+function studentActiv($activ){
+  if ($activ == 1){
+    return "arrived";
+  } else{
+    return "departed";
+  }
+}
 echo '<head>
 <link href="/style.css" rel="stylesheet" type="text/css" />
 </head>
@@ -62,7 +69,7 @@ foreach ($mass_json['user'] as $user_id){
   $user_ini = json_decode(file_get_contents("../registered_phid/" . $user_id), true);
   foreach ($user_ini['rooms'] as $user_room_id){
     if ($user_room_id == $room_id){
-      $tat = '<input class="reg" type="button" value="' . $user_ini['fname'] . ' ' . $user_ini['lname'] . ' ' . $user_ini['student_activ'] . '" onclick="location=\'/human_info/view.php?user=' . $user_id . '\'" style="border-color:' . border($user_ini['student_activ']) . '; color:white"/></td><br>';
+      $tat = '<input class="reg" type="button" value="' . $user_ini['fname'] . ' ' . $user_ini['lname'] . ' ' . studentActiv($user_ini['student_activ']) . '" onclick="location=\'/human_info/view.php?user=' . $user_id . '\'" style="border-color:' . border($user_ini['student_activ']) . '; color:white"/></td><br>';
       echo $tat;
     }
   }
