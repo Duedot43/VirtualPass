@@ -1,19 +1,16 @@
 <?php
-
-function read(string $file, string $format = "raw"){
-    if ($format == "json"){
-        $output = json_decode(file_get_contents($file), true);
-        return $output;
-    } elseif ($format = "raw") {
-        $output = file_get_contents($file);
-        return $output;
-    }
-
+function config(string $config){
+    //im lazy
+    return parse_ini_file($config);
 }
 
 class user {
-    //what do to on start?
-    public function __construct() {
-        
+    public array $uInfo;
+    function read() {
+        $userId = $this->uInfo['sysId'];
+    }
+    // Set the users info
+    public function install() {
+
     }
 }
