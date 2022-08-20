@@ -1,5 +1,5 @@
 import multiprocessing, requests, json, random, time
-students = 300 #This is basicly how many subprocesses you want lol
+students = 300 #This is basically how many subprocesses you want lol
 studentsPerRoom = 30
 classesPerStudent = 8
 roomAmm = students/studentsPerRoom
@@ -8,6 +8,8 @@ studentLst = {}
 vpHostname = "localhost:8080"
 names = requests.get("https://raw.githubusercontent.com/smashew/NameDatabases/master/NamesDatabases/first%20names/us.txt").text.replace("\r", "").split("\n"); names.pop(len(names) - 1)
 lnames = requests.get("https://raw.githubusercontent.com/smashew/NameDatabases/master/NamesDatabases/surnames/us.txt").text.replace("\r", "").split("\n"); lnames.pop(len(lnames) - 1)
+
+
 def convert(seconds):
     seconds = seconds % (24 * 3600)
     hour = seconds // 3600
@@ -16,6 +18,8 @@ def convert(seconds):
     seconds %= 60
       
     return "%d:%02d:%02d" % (hour, minutes, seconds)
+
+
 def createRooms():
     global studentLst, roomNumbersDct, roomAmm
     login = requests.post("http://" + vpHostname + "/teacher/cklogin.php", data={"uname": "teach", "passwd": "teach"}, allow_redirects=False)
@@ -32,6 +36,8 @@ def createRooms():
         makeRoom = requests.post("http://" + vpHostname + "/teacher/mk_room/regqrid.php?room=" + str(x), allow_redirects=False, headers={"Cookie": "teacher=" + str(adminKey)}, data={"rnum": str(roomNumbersDct[x]['rnum'])})
         count = count+1
     print("\nDONE!")
+
+
 def makeStudents():
     global students, roomAmm, classesPerStudent, studentLst, roomNumbers, roomNumbersDct
     firstRoom = 100
@@ -54,6 +60,8 @@ def makeStudents():
             "email": random.choice(names) + "@gmail.com",
             "rooms": tmpRoom
         }
+
+
 def makeRealStudents():
     global studentLst, roomNumbersDct, studentLstNew, students
     studentLstNew = {}
@@ -72,9 +80,11 @@ def makeRealStudents():
         studentLstNew[studentPhid] = studentLst[x]
         count = count+1
     print("\nDONE!")
+
+
 def regStudentWithRoom():
     global studentLst, roomNumbersDct, studentLstNew, students, classesPerStudent
-    print("regestering students with their rooms...")
+    print("registering students with their rooms...")
     count = 0
     startTime = 0
     endTime = 0
@@ -93,9 +103,11 @@ def regStudentWithRoom():
         endTime = time.time()
     print("\nDone!")
 
+
 def student(id):
     global studentLstNew, classesPerStudent
     subprocesses = {}
+
     def studentSim(myId, currentRoom):
         while True:
             time.sleep(random.randint(600, 1800))
@@ -104,6 +116,7 @@ def student(id):
             time.sleep(random.randint(180, 600))
             requests.get("http://" + vpHostname + "/do_activ.php?room=" + str(currentRoom) + "&page=main", headers={"Cookie": "phid=" + str(myId)}, allow_redirects=False)
             print(id, "Arrived")
+
     def switchRoom(subprocesses, timePerRoom, sTime, croom, myId, myRooms, classesPerStudent):
         while True:
             time.sleep(60)
@@ -127,6 +140,8 @@ def student(id):
     subprocesses['switchRoom'] = multiprocessing.Process(target=switchRoom, args=(subprocesses, timePerRoom, startTime, croom, id, myRooms, classesPerStudent))
     subprocesses['studentSim'].start()
     subprocesses['switchRoom'].start()
+
+
 def startProcesses():
     global processList, studentLstNew
     processList = {}
@@ -134,6 +149,8 @@ def startProcesses():
         processList[x] = multiprocessing.Process(target=student, args=(x,))
         processList[x].start()
     print("All processes started!")
+
+
 makeStudents()
 createRooms()
 makeRealStudents()
