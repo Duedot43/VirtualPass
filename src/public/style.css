@@ -1,8 +1,20 @@
 html, body {
     margin: 0;
+    background-color: #f3f3f3;
 }
 
-@media screen and ( min-width: 600px) {
+:root {
+    --body-bg: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --body-bg: #27434b;
+    }
+
+}
+
+@media screen and ( min-width: 600px ) {
     .nav-parent {
         display: flex;
         width: 100%;
@@ -16,11 +28,12 @@ html, body {
         width: 100%;
         z-index: 9;
         border: 5px #3a3a3a;
-        background-color: #dedede;
+        background-color: #ffffff;
     }
 
     .logo {
         padding: 5px;
+        width: 200px;
 
     }
 
@@ -38,23 +51,42 @@ html, body {
     }
 
     .h-login-button {
-        float: right;
+        position: absolute;
+        top: 5px;
+        right: 5px;
         border: 5px #ff0000;
     }
 
+    .h-login-button button {
+        width: 70px;
+        height: 30px;
+        background: none;
+        border: none;
+    }
+
+    .h-login-button button:hover {
+        opacity: 70%;
+        cursor: pointer;
+    }
+
     .acc-menu {
+        display: none;
         position: absolute;
-        right: 20px;
-        width: 100px;
-        max-width: 100px;
-        background-color: #f3f3f3;
-        border-radius: 5px;
+        margin-top: 15px;
+        padding: 3px;
+        right: 5px;
+        background-color: #ffffff;
         box-shadow: 0 0 2px 0 #000000;
+    }
+
+    .acc-menu label {
+        padding: 5px;
+        font-family: Arial, Helvetica, sans-serif;
     }
 
     .acc-menu button {
         width: 120px;
-        padding: 4px;
+        padding: 40px;
         background-color: #f3f3f3;
         border: none;
     }
@@ -65,10 +97,10 @@ html, body {
 
     .sidenav {
         position: absolute;
-        padding-top:25px;
-        width: 180px;
-        height: 100%;
-        background-color: #f3f3f3;
+        padding: 25px 5px 5px 5px;
+        width: 200px;
+        height: 95%;
+        background-color: #ffffff;
         font-family: Arial, Helvetica, sans-serif;
         box-shadow: 0 0 2px 0;
     }
@@ -94,5 +126,6 @@ html, body {
 
     .sidenav button:hover {
         background-color: #dadada;
+        cursor: pointer;
     }
 }

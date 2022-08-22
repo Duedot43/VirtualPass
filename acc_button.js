@@ -1,9 +1,6 @@
+//Help me with the MOZ Issue
 function mButton() {
-    "use strict";
-    let login = document.getElementById('acc-menu');
-
-    if (login.style.display === ('show')) {
-        login.style.display = ('none');
-    }
-
+    'use strict';
+    const login = document.getElementsByClassName('acc-menu');
+    login.style.display = 'block';
 }

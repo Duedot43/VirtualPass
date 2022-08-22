@@ -20,12 +20,21 @@
         </div>
 
         <div class="h-login-button">
-            <button onclick="mButton()">Login</button>
+            <button id="l-button" onclick="mButton()">Login</button>
             <div class="acc-menu">
+                <form>
+                    <label>
+                        Email:
+                        <input type="email"/>
+                    </label>
 
-                <button>Dashboard</button>
-                <button>Settings</button>
-                <button>Log Out</button>
+                    <label>
+                        Password:
+                        <input type="password"/>
+                    </label>
+                </form>
+
+
             </div>
         </div>
     </div>
@@ -44,12 +53,16 @@
         <br/>
         <hr/>
         <a> Category 2</a>
+
+        <div class="bottom-nav">
+            <button>Dark Mode</button>
+        </div>
+
     </div>
 
-    <script src="acc_button.js"></script>
+
 </div>
 
-
-
+<script src="acc_button.js"></script>
 </body>
 </html>
