@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 include "include/modules.php";
 
 
@@ -14,4 +15,3 @@ if (!isset($_GET['room'])) {
 if (!isset($_COOKIE['id'])) {
     header('Location: /regUser.php');
 }
-?>

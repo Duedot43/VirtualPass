@@ -1,0 +1,98 @@
+html, body {
+    margin: 0;
+}
+
+@media screen and ( min-width: 600px) {
+    .nav-parent {
+        display: flex;
+        width: 100%;
+        height: 40px;
+        box-shadow: 0 0 2px 0 #000000;
+    }
+
+    .top-nav {
+        position: relative;
+        margin: 0;
+        width: 100%;
+        z-index: 9;
+        border: 5px #3a3a3a;
+        background-color: #dedede;
+    }
+
+    .logo {
+        padding: 5px;
+
+    }
+
+    .logo:hover {
+        text-decoration: underline;
+        cursor: pointer;
+        color: #dadada;
+    }
+
+    .logo a {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 25px;
+        text-decoration: none;
+        color: #484848;
+    }
+
+    .h-login-button {
+        float: right;
+        border: 5px #ff0000;
+    }
+
+    .acc-menu {
+        position: absolute;
+        right: 20px;
+        width: 100px;
+        max-width: 100px;
+        background-color: #f3f3f3;
+        border-radius: 5px;
+        box-shadow: 0 0 2px 0 #000000;
+    }
+
+    .acc-menu button {
+        width: 120px;
+        padding: 4px;
+        background-color: #f3f3f3;
+        border: none;
+    }
+
+    .acc-menu button:hover {
+        background-color: #dadada;
+    }
+
+    .sidenav {
+        position: absolute;
+        padding-top:25px;
+        width: 180px;
+        height: 100%;
+        background-color: #f3f3f3;
+        font-family: Arial, Helvetica, sans-serif;
+        box-shadow: 0 0 2px 0;
+    }
+
+    .sidenav h2 {
+        font-size: 25px;
+    }
+
+    .sidenav a {
+        position: absolute;
+        width: 100%;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .sidenav button {
+        position: relative;
+        width: 100%;
+        padding: 7px;
+        background: none;
+        border: none;
+    }
+
+    .sidenav button:hover {
+        background-color: #dadada;
+    }
+}
