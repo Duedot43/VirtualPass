@@ -36,6 +36,7 @@ if (roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[
         $timeDep = time();
         $timeArv = "";
         $departureData['cnum'][1] = 1;
+        $set = false;
     } else{
         $timeDep = $departureData['activity'][$date][$departureData['cnum'][0]]['timeDep'];
         $timeArv = time();
