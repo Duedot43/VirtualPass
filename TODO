@@ -26,6 +26,7 @@
     Settings button
     Student index search
     Organized student index
+    What the student viewing orginization should be
 
 
 # Other
@@ -35,5 +36,6 @@
     Import DB from azure
     Fix student API
     basically rewrite the whole thing...
+    Email parents if a students gone for X ammount of times
 
 and more to come...
