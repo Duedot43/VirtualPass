@@ -20,32 +20,27 @@ if (isset($_POST['rnum'])) {
 
 }
 ?>
-<title>Register Room</title>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link href="/public/style.css" rel="stylesheet" type="text/css" />
+    <title>Register Room</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="src/public/style.css"  type="text/css"/>
 </head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<tr>
-<form method="post">
-<td>
-<table width="100%" border="0" cellpadding="3" cellspacing="1">
-<tr>
-<td colspan="3"><strong>First time setup! Please input the current room number of this qrcode to register this code.</strong></td>
-</tr>
-<tr>
-<td width="78">Room Number</td>
-<td width="6">:</td>
-<td width="294"><input class="box" name="rnum" autocomplete="off" type="number" id="rnum" required></td>
-</tr>
-<tr>
-</tr>
-<tr>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td><input class="reg" type="submit" name="Submit" value="Submit"></td>
-</tr>
-</table>
-</td>
-</form>
-</tr>
-</table>
+
+<body>
+    <div class="l-card-container">
+        <a>First time setup. Please input the room number of this QR code to register.</a>
+        <form method="post">
+            <label>
+                Room Number:
+                <input class="box" name="rnum" autocomplete="off" type="number" id="rnum" required/>
+            </label>
+<!-- Legacy classes are still included, I have no clue if it conflicts -->
+            <button class="reg" type="button" name="Submit" value="Submit"> <button> 
+        </form>
+    </div>
+</body>
+</html>

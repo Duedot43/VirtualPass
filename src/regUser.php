@@ -74,3 +74,32 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
 </form>
 </tr>
 </table>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Register Room</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="./public/style.css"  type="text/css"/>
+</head>
+
+<body>
+<div>
+    <form>
+        <label>
+            First Name:
+            <input/>
+            Last Name:
+            <input/>
+            Student ID:
+            <input/>
+            Student Email:
+            <input>
+        </label>
+    </form>
+</div>
+
+</body>
+
+</html>

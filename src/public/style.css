@@ -128,4 +128,16 @@ html, body {
         background-color: #dadada;
         cursor: pointer;
     }
+
+    .l-card-container {
+        position: absolute;
+    }
+
+    .l-card-container a {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    
+    .l-card-container input {
+        
+    }
 }
