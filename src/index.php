@@ -34,7 +34,28 @@ sendSqlCommand("CREATE TABLE IF NOT EXISTS history (
     PRIMARY KEY (snTime)
 
 );", "root", $config['sqlRootPasswd'], "VirtualPass");
+sendSqlCommand("CREATE TABLE IF NOT EXISTS admins (
+    uname varchar(255) NOT NULL,
+    passwd varchar(255),
+    PRIMARY KEY (uname)
 
+);", "root", $config['sqlRootPasswd'], "VirtualPass");
+sendSqlCommand("CREATE TABLE IF NOT EXISTS teachers (
+    uname varchar(255) NOT NULL,
+    passwd varchar(255),
+    PRIMARY KEY (uname)
+
+);", "root", $config['sqlRootPasswd'], "VirtualPass");
+sendSqlCommand("CREATE TABLE IF NOT EXISTS teacherCookie (
+    cookie varchar(255) NOT NULL,
+    PRIMARY KEY (cookie)
+
+);", "root", $config['sqlRootPasswd'], "VirtualPass");
+sendSqlCommand("CREATE TABLE IF NOT EXISTS adminCookie (
+    cookie varchar(255) NOT NULL,
+    PRIMARY KEY (cookie)
+
+);", "root", $config['sqlRootPasswd'], "VirtualPass");
 // redirect to the main page
 if (!isset($_GET['room'])) {
     header('Location: /realIndex.php');

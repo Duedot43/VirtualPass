@@ -46,6 +46,30 @@ function roomExists($uname, $passwd, $db, $roomKey) {
         return false;
     }
 }
+function adminCookieExists($uname, $passwd, $db, $cookie) {
+    $output = (sendSqlCommand("SELECT * FROM adminCookie WHERE cookie=" . $cookie, $uname, $passwd, $db));
+    if ($output[0] == 1) {
+        return false;
+    }
+    //????
+    if (mysqli_num_rows($output[1]) != 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+function teacherCookieExists($uname, $passwd, $db, $cookie) {
+    $output = (sendSqlCommand("SELECT * FROM teacherCookie WHERE cookie=" . $cookie, $uname, $passwd, $db));
+    if ($output[0] == 1) {
+        return false;
+    }
+    //????
+    if (mysqli_num_rows($output[1]) != 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
 function getRoomData($uname, $passwd, $db, $key){
     $response = sendSqlCommand("SELECT * FROM rooms WHERE ID=" . $key, $uname, $passwd, $db)[1];
     $data = mysqli_fetch_array($response);
@@ -89,4 +113,28 @@ function installRoom($info, $uname, $passwd, $db){
     $out[2] = $id;
     return $out;
 
+}
+function authAdmin($uname, $passwd, $db, $admUname, $admPasswd) {
+    $out = sendSqlCommand("SELECT * FROM admins WHERE uname='" . $admUname . "';", $uname, $passwd, $db);
+    if ($out[0] == 1) {
+        return false;
+    }
+    $info = mysqli_fetch_array($out[1]);
+    if ($info['passwd'] == $admPasswd) {
+        return true;
+    } else {
+        return false;
+    }
+}
+function authTeach($uname, $passwd, $db, $admUname, $admPasswd) {
+    $out = sendSqlCommand("SELECT * FROM teachers WHERE uname='" . $admUname . "';", $uname, $passwd, $db);
+    if ($out[0] == 1) {
+        return false;
+    }
+    $info = mysqli_fetch_array($out[1]);
+    if ($info['passwd'] == $admPasswd) {
+        return true;
+    } else {
+        return false;
+    }
 }
