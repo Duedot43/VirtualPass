@@ -138,3 +138,10 @@ function authTeach($uname, $passwd, $db, $admUname, $admPasswd) {
         return false;
     }
 }
+function activ2eng($status) {
+    if ($status == 1) {
+        return "arrived";
+    } else{
+        return "departed";
+    }
+}

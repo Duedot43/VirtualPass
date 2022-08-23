@@ -16,6 +16,6 @@ if (!isset($_COOKIE['adminCookie']) or !adminCookieExists("root", $config['sqlRo
 
 
 
-<input class="reg" type="button" value="View all user info" onclick="location='/viewer/studentView.php?refer=adminCookie'" />
+<input class="reg" type="button" value="View all user info" onclick="location='/viewer/studentView.php'" />
 <input class="reg" type="button" value="Make a room QR Code" onclick="location='/mk_room/index.php'" />
 <input class="reg" type="button" value="View all rooms" onclick="location='view_rooms.php'" />
