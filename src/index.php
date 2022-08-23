@@ -14,6 +14,8 @@ sendSqlCommand("CREATE TABLE IF NOT EXISTS users (
     lastName varchar(255),
     ID varchar(255),
     email varchar(255),
+    activ varchar(1),
+    misc LONGTEXT,
     PRIMARY KEY (sysID)
 
 );", "root", $config['sqlRootPasswd'], "VirtualPass");
@@ -21,6 +23,15 @@ sendSqlCommand("CREATE TABLE IF NOT EXISTS rooms (
     ID varchar(255) NOT NULL,
     num varchar(255),
     PRIMARY KEY (ID)
+
+);", "root", $config['sqlRootPasswd'], "VirtualPass");
+sendSqlCommand("CREATE TABLE IF NOT EXISTS history (
+    snTime varchar(255) NOT NULL,
+    snOut varchar(255),
+    snIn varchar(255),
+    userReg varchar(255),
+    roomReg varchar(255),
+    PRIMARY KEY (snTime)
 
 );", "root", $config['sqlRootPasswd'], "VirtualPass");
 
@@ -48,5 +59,5 @@ if (!isset($_COOKIE['id'])) {
 
 
 if ( isset($_COOKIE['id']) and userExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']))) {
-
+ echo "<input type='button' onclick'Location=\"/doActiv.php?room=" . $_GET['room'] . "\"'>";
 }

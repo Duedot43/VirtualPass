@@ -19,21 +19,28 @@ function sanatizeUser(array $userInfo)
 }
 
 function userExists($uname, $passwd, $db, $userKey) {
-    $output = mysqli_fetch_array(sendSqlCommand("SELECT * FROM users WHERE sysID=" . $userKey, $uname, $passwd, $db)[1]);
-    if (is_array($output)) {
+    $output = (sendSqlCommand("SELECT * FROM users WHERE sysID=" . $userKey, $uname, $passwd, $db));
+    if ($output[0] == 1) {
+        return false;
+    }
+    if (mysqli_num_rows($output[1]) != 0) {
         return true;
     } else {
         return false;
     }
 }
 function getUserData($uname, $passwd, $db, $key){
-    $response = sendSqlCommand("SELECT * FROM users WHERE sysID=" . $key, $uname, $passwd, $db)[1];
+    $response = sendSqlCommand("SELECT * FROM users WHERE sysID=" . $key . ";", $uname, $passwd, $db)[1];
     $data = mysqli_fetch_array($response);
     return $data;
 }
 function roomExists($uname, $passwd, $db, $roomKey) {
-    $output = mysqli_fetch_array(sendSqlCommand("SELECT * FROM rooms WHERE ID=" . $roomKey, $uname, $passwd, $db)[1]);
-    if (is_array($output)) {
+    $output = (sendSqlCommand("SELECT * FROM rooms WHERE ID=" . $roomKey, $uname, $passwd, $db));
+    if ($output[0] == 1) {
+        return false;
+    }
+    //????
+    if (mysqli_num_rows($output[1]) != 0) {
         return true;
     } else {
         return false;
@@ -71,7 +78,7 @@ function sendSqlCommandRaw($command, $uname, $passwd)
 }
 function installUser($info, $uname, $passwd, $db){
     $id = rand() . rand();
-    $out = sendSqlCommand("INSERT users VALUES('" . $id . "', '" . $info[0] . "', '" . $info[1] . "', '" . $info[2] . "', '" . $info[3] . "');", $uname, $passwd, $db);
+    $out = sendSqlCommand("INSERT users VALUES('" . $id . "', '" . $info[0] . "', '" . $info[1] . "', '" . $info[2] . "', '" . $info[3] . "', '1', '{\"rooms\": {}, \"cnum\": [0,0], \"activity\": {}}');", $uname, $passwd, $db);
     $out[2] = $id;
     return $out;
 
