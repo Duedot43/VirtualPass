@@ -37,7 +37,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
         $dateArr = $miscData['activity'][$_GET['date']];
         foreach ($dateArr as $occorance) {
             if ($occorance['room'] == $_GET['room']) {
-                echo $user['firstName'] . " " . $user['lastName'] . " departed from room " . $occorance['room'] . " they were gone for " . gmdate("H:i:s", $occorance['timeArv'] - $occorance['timeDep']) . "<br>";
+                echo htmlspecialchars($user['firstName'],  ENT_QUOTES, 'UTF-8') . " " . htmlspecialchars($user['lastName'],  ENT_QUOTES, 'UTF-8') . " departed from room " . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . " they were gone for " . gmdate("H:i:s", $occorance['timeArv'] - $occorance['timeDep']) . "<br>";
             }
         }
         exit();
@@ -58,7 +58,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
         foreach ($dateArr as $occorance) {
             if (!in_array($occorance['room'], $rooms)) {
                 array_push($rooms, $occorance['room']);
-                echo "<button onclick='/viewer/studentView.php?user=" . $_GET['user'] . "&date=" . $_GET['date'] . "&room=" . $occorance['room'] . "' >" . $occorance['room'] . "</button><br>";
+                echo "<button onclick='/viewer/studentView.php?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "&date=" . htmlspecialchars($_GET['date'],  ENT_QUOTES, 'UTF-8') . "&room=" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "' >" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "</button><br>";
             }
         }
         exit();

@@ -61,7 +61,7 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
                     <td width="6">:</td>
                     <td width="294"><input class="box" autocomplete="off" value='
                         <?php if (isset($_POST['firstname'])) {
-                            echo $_POST['firstname'];
+                            echo htmlspecialchars($_POST['firstname'],  ENT_QUOTES, 'UTF-8');
                         }
                         ?>' name="firstname" type="text" pattern="[a-zA-Z]+" id="firstname" required></td>
         </td>
@@ -71,7 +71,7 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
     <td>:</td>
     <td><input class="box" name="lastname" autocomplete="off" value='
                     <?php if (isset($_POST['lastname'])) {
-                        echo $_POST['firstname'];
+                        echo htmlspecialchars($_POST['lastname'],  ENT_QUOTES, 'UTF-8');
                     }
                     ?>' type="text" id="lastname" pattern="[a-zA-Z]+" required></td>
 </tr>
@@ -80,7 +80,7 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
     <td>:</td>
     <td><input class="box" name="stid" autocomplete="off" value='
                     <?php if (isset($_POST['stid'])) {
-                        echo $_POST['firstname'];
+                        echo htmlspecialchars($_POST['stid'],  ENT_QUOTES, 'UTF-8');
                     }
                     ?>' type="number" id="stid" placeholder="10150100" required></td>
 </tr>
@@ -88,7 +88,7 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
 <td>:</td>
 <td><input class="box" name="stem" autocomplete="off" value='
                 <?php if (isset($_POST['stem'])) {
-                    echo $_POST['firstname'];
+                    echo htmlspecialchars($_POST['stid'],  ENT_QUOTES, 'UTF-8');
                 }
                 ?>' type="email" id="stem" placeholder="student@cherrycreekschools.org" required></td>
 </tr>

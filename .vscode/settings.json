@@ -22,7 +22,8 @@
         "**/CVS": true,
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
-        "oldCode": true
+        "oldCode": false,
+        ".dccache": true
     },
     "explorerExclude.backup": {}
 }
