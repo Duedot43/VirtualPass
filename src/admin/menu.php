@@ -1,5 +1,5 @@
 <?php
-include "../include/modules.php";
+require "../include/modules.php";
 $config = parse_ini_file("../../config/config.ini");
 
 

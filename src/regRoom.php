@@ -1,5 +1,6 @@
 <?php
-include "include/modules.php";
+require "include/modules.php";
+
 $domain = getDomain();
 if (!isset($_GET['room'])) {
     header('Location: /');

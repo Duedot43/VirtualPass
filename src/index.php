@@ -1,6 +1,6 @@
 <?php
 declare(strict_types=1);
-include "include/modules.php";
+require "include/modules.php";
 $domain = getDomain();
 
 
