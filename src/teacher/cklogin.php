@@ -20,4 +20,6 @@ if (isset($_POST['uname']) and isset($_POST['passwd']) and authTeach("root", $co
     setcookie("teacherCookie", $id, time()+3600, "/", $domain, true, true);
     sendSqlCommand("INSERT teacherCookie VALUES('" . $id . "');", "root", $config['sqlRootPasswd'], "VirtualPass");
     header("Location: /teacher/menu.php");
+} else {
+    echo "Username or password incorrect";
 }
