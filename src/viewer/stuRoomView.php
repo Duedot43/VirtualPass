@@ -39,5 +39,6 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
         exit();
     } else {
         header("Location: /teacher/");
+        exit();
     }
 }

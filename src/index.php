@@ -105,6 +105,17 @@ sendSqlCommand(
     $config['sqlRootPasswd'],
     "VirtualPass"
 );
+sendSqlCommand(
+    "CREATE TABLE IF NOT EXISTS apiKeys (
+    apiKey varchar(255) NOT NULL,
+    perms varchar(255),
+    PRIMARY KEY (apiKey)
+
+);",
+    "root",
+    $config['sqlRootPasswd'],
+    "VirtualPass"
+);
 // redirect to the main page
 if (!isset($_GET['room'])) {
     header('Location: /realIndex.php');

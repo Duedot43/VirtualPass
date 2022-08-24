@@ -7,11 +7,7 @@
 
 # Security
 
-    identify security flaws and use encryption
-    Fix _ALL_ security vulnerabilities
     Import student DB with CSV file
-    Fix time bug and test time
-
 
 # Application Testing / Validation
 
@@ -21,21 +17,15 @@
 
 # UI / UX
 
-    Correct and add all the titles to the pages... (yay...)
-    Page that displays student room # and departure time.
     Settings button
     Student index search
     Organized student index
-    What the student viewing orginization should be
 
 
 # Other
 
-    move all users to a main file *maybe* in an SQL database
-    and export to CSV
-    Import DB from azure
-    Fix student API
-    basically rewrite the whole thing...
+    Export to CSV
+    Make an API
     Email parents if a students gone for X ammount of times
 
 and more to come...
