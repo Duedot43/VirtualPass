@@ -1,4 +1,17 @@
 <?php
+
+/** 
+ * Departs or arrives the user
+ * 
+ * PHP version 8.1
+ * 
+ * @file     /src/doActiv.php
+ * @category Activity_Changer
+ * @package  VirtualPass
+ * @author   Jack <duedot43@noreplay-github.com>
+ * @license  https://mit-license.org/ MIT
+ * @link     https://github.com/Duedot43/VirtualPass
+ */
 require "include/modules.php";
 $domain = getDomain();
 if (!isset($_GET['room'])) {
@@ -28,7 +41,7 @@ if (roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[
 
     if (!isset($departureData['activity'][$date])) {
         $departureData['activity'][$date] = array();
-        $departureData['cnum'] = array(0,0);
+        $departureData['cnum'] = array(0, 0);
     }
 
     //determin the time
@@ -37,7 +50,7 @@ if (roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[
         $timeArv = "";
         $departureData['cnum'][1] = 1;
         $set = false;
-    } else{
+    } else {
         $timeDep = $departureData['activity'][$date][$departureData['cnum'][0]]['timeDep'];
         $timeArv = time();
         $departureData['cnum'][1] = 0;
@@ -46,27 +59,37 @@ if (roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[
 
     //mark down the time that the user does an activity
     $departureData['activity'][$date][$departureData['cnum'][0]] = array(
-        "room"=>preg_replace("/[^0-9.]+/i", "", $_GET['room']),
-        "timeDep"=>$timeDep,
-        "timeArv"=>$timeArv
+        "room" => preg_replace("/[^0-9.]+/i", "", $_GET['room']),
+        "timeDep" => $timeDep,
+        "timeArv" => $timeArv
     );
-    if ($set){
+    if ($set) {
         $departureData['cnum'][0] = $departureData['cnum'][0] + 1;
     }
     print_r($departureData);
-    sendSqlCommand("UPDATE users 
+    sendSqlCommand(
+        "UPDATE users 
     SET 
         activ = '" . $userData['activ'] . "'
     WHERE
-        sysId=" . preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']) . ";", "root", $config['sqlRootPasswd'], "VirtualPass");
+        sysId=" . preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']) . ";",
+        "root",
+        $config['sqlRootPasswd'],
+        "VirtualPass"
+    );
 
 
-    sendSqlCommand("UPDATE users 
+    sendSqlCommand(
+        "UPDATE users 
     SET 
         misc = '" . json_encode($departureData) . "'
     WHERE
-        sysId=" . preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']) . ";", "root", $config['sqlRootPasswd'], "VirtualPass");
+        sysId=" . preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']) . ";",
+        "root",
+        $config['sqlRootPasswd'],
+        "VirtualPass"
+    );
     header("Location: /?room=" . $_GET['room']);
-} else{
+} else {
     header("Location: /?room=" . $_GET['room']);
 }

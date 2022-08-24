@@ -1,4 +1,18 @@
 <?php
+
+/** 
+ * Home page and navigator
+ * 
+ * PHP version 8.1
+ * 
+ * @file     /src/index.php
+ * @category Redirect+Home_Page
+ * @package  VirtualPass
+ * @author   Jack <duedot43@noreplay-github.com>
+ * @license  https://mit-license.org/ MIT
+ * @link     https://github.com/Duedot43/VirtualPass
+ */
+
 declare(strict_types=1);
 require "include/modules.php";
 $domain = getDomain();
@@ -8,7 +22,8 @@ $config = parse_ini_file("../config/config.ini");
 
 //create everything if it does not exist
 sendSqlCommandRaw("CREATE DATABASE IF NOT EXISTS VirtualPass;", "root", $config['sqlRootPasswd']);
-sendSqlCommand("CREATE TABLE IF NOT EXISTS users (
+sendSqlCommand(
+    "CREATE TABLE IF NOT EXISTS users (
     sysID varchar(255) NOT NULL,
     firstName varchar(255),
     lastName varchar(255),
@@ -18,14 +33,24 @@ sendSqlCommand("CREATE TABLE IF NOT EXISTS users (
     misc LONGTEXT,
     PRIMARY KEY (sysID)
 
-);", "root", $config['sqlRootPasswd'], "VirtualPass");
-sendSqlCommand("CREATE TABLE IF NOT EXISTS rooms (
+);",
+    "root",
+    $config['sqlRootPasswd'],
+    "VirtualPass"
+);
+sendSqlCommand(
+    "CREATE TABLE IF NOT EXISTS rooms (
     ID varchar(255) NOT NULL,
     num varchar(255),
     PRIMARY KEY (ID)
 
-);", "root", $config['sqlRootPasswd'], "VirtualPass");
-sendSqlCommand("CREATE TABLE IF NOT EXISTS history (
+);",
+    "root",
+    $config['sqlRootPasswd'],
+    "VirtualPass"
+);
+sendSqlCommand(
+    "CREATE TABLE IF NOT EXISTS history (
     snTime varchar(255) NOT NULL,
     snOut varchar(255),
     snIn varchar(255),
@@ -33,29 +58,53 @@ sendSqlCommand("CREATE TABLE IF NOT EXISTS history (
     roomReg varchar(255),
     PRIMARY KEY (snTime)
 
-);", "root", $config['sqlRootPasswd'], "VirtualPass");
-sendSqlCommand("CREATE TABLE IF NOT EXISTS admins (
+);",
+    "root",
+    $config['sqlRootPasswd'],
+    "VirtualPass"
+);
+sendSqlCommand(
+    "CREATE TABLE IF NOT EXISTS admins (
     uname varchar(255) NOT NULL,
     passwd varchar(255),
     PRIMARY KEY (uname)
 
-);", "root", $config['sqlRootPasswd'], "VirtualPass");
-sendSqlCommand("CREATE TABLE IF NOT EXISTS teachers (
+);",
+    "root",
+    $config['sqlRootPasswd'],
+    "VirtualPass"
+);
+sendSqlCommand(
+    "CREATE TABLE IF NOT EXISTS teachers (
     uname varchar(255) NOT NULL,
     passwd varchar(255),
     PRIMARY KEY (uname)
 
-);", "root", $config['sqlRootPasswd'], "VirtualPass");
-sendSqlCommand("CREATE TABLE IF NOT EXISTS teacherCookie (
+);",
+    "root",
+    $config['sqlRootPasswd'],
+    "VirtualPass"
+);
+sendSqlCommand(
+    "CREATE TABLE IF NOT EXISTS teacherCookie (
     cookie varchar(255) NOT NULL,
     PRIMARY KEY (cookie)
 
-);", "root", $config['sqlRootPasswd'], "VirtualPass");
-sendSqlCommand("CREATE TABLE IF NOT EXISTS adminCookie (
+);",
+    "root",
+    $config['sqlRootPasswd'],
+    "VirtualPass"
+);
+sendSqlCommand(
+    "CREATE TABLE IF NOT EXISTS adminCookie (
     cookie varchar(255) NOT NULL,
     PRIMARY KEY (cookie)
 
-);", "root", $config['sqlRootPasswd'], "VirtualPass");
+);",
+    "root",
+    $config['sqlRootPasswd'],
+    "VirtualPass"
+);
 // redirect to the main page
 if (!isset($_GET['room'])) {
     header('Location: /realIndex.php');
@@ -72,13 +121,13 @@ if (!isset($_COOKIE['id'])) {
     header('Location: /regUser.php?room=' . $_GET['room']);
     exit();
 } elseif (!userExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']))) {
-    setcookie("id", "", time()-31557600, "/", $domain, true, true);
+    setcookie("id", "", time() - 31557600, "/", $domain, true, true);
     header('Location: /regUser.php?room=' . $_GET['room']);
     exit();
 }
 
 
 
-if ( isset($_COOKIE['id']) and userExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']))) {
- echo "<input type='button' onclick'Location=\"/doActiv.php?room=" . $_GET['room'] . "\"'>";
+if (isset($_COOKIE['id']) and userExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']))) {
+    echo "<input type='button' onclick'Location=\"/doActiv.php?room=" . $_GET['room'] . "\"'>";
 }

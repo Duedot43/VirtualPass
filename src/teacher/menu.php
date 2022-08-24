@@ -1,4 +1,17 @@
 <?php
+
+/** 
+ * Menu for teacer
+ * 
+ * PHP version 8.1
+ * 
+ * @file     /src/teacher/menu.php
+ * @category Display
+ * @package  VirtualPass
+ * @author   Jack <duedot43@noreplay-github.com>
+ * @license  https://mit-license.org/ MIT
+ * @link     https://github.com/Duedot43/VirtualPass
+ */
 require "../include/modules.php";
 $config = parse_ini_file("../../config/config.ini");
 

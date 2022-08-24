@@ -1,4 +1,17 @@
 <?php
+
+/** 
+ * Student Viewer
+ * 
+ * PHP version 8.1
+ * 
+ * @file     /src/viewer/studentView.php
+ * @category Display
+ * @package  VirtualPass
+ * @author   Jack <duedot43@noreplay-github.com>
+ * @license  https://mit-license.org/ MIT
+ * @link     https://github.com/Duedot43/VirtualPass
+ */
 require "../include/modules.php";
 
 
@@ -20,12 +33,12 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
 
     //cycle through all the users and display them
     $result = sendSqlCommand("SELECT * FROM users;", "root", $config['sqlRootPasswd'], "VirtualPass");
-    while($row = mysqli_fetch_assoc($result[1])) {
+    while ($row = mysqli_fetch_assoc($result[1])) {
         echo "<button onclick='/viewer/studentView.php?user=" . $row['sysID'] . "' >" . $row['firstName'] . " " . $row['lastName'] . " " . activ2eng($row['activ']) . "</button><br>";
         //TODO Fix this HTML?
     }
 } else {
-    if (isset($_COOKIE['adminCookie'])){
+    if (isset($_COOKIE['adminCookie'])) {
         header("Location: /admin/");
         exit();
     } else {

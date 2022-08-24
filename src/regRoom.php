@@ -1,4 +1,17 @@
 <?php
+
+/** 
+ * Register room
+ * 
+ * PHP version 8.1
+ * 
+ * @file     /src/regRoom.php
+ * @category Register
+ * @package  VirtualPass
+ * @author   Jack <duedot43@noreplay-github.com>
+ * @license  https://mit-license.org/ MIT
+ * @link     https://github.com/Duedot43/VirtualPass
+ */
 require "include/modules.php";
 
 $domain = getDomain();
