@@ -338,6 +338,9 @@ function authAdmin(
         return false;
     }
     $info = mysqli_fetch_array($out[1]);
+    if (!isset($info['passwd'])) {
+        return false;
+    }
     if ($info['passwd'] == $admPasswd) {
         return true;
     } else {
@@ -372,6 +375,9 @@ function authTeach(
         return false;
     }
     $info = mysqli_fetch_array($out[1]);
+    if (!isset($info['passwd'])) {
+        return false;
+    }
     if ($info['passwd'] == $teachPasswd) {
         return true;
     } else {
