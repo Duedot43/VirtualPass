@@ -68,12 +68,12 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
             echo "That user does not exist.";
             exit();
         }
-        $user = getUserData("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['user']));
+        $user = getUserData("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8')));
         //TODO display user info in day room occorance format
         $miscData = json_decode($user['misc'], true);
         $array_keys = array_keys($miscData['activity']);
         foreach ($array_keys as $array_key) {
-            echo "<button onclick='/viewer/studentView.php?user=" . $_GET['user'] . "&date=" . $array_key . "' >" . $array_key . "</button>";
+            echo "<button onclick='/viewer/studentView.php?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "&date=" . $array_key . "' >" . $array_key . "</button>";
         }
         exit();
     }

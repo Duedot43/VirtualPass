@@ -20,7 +20,7 @@ if (!isset($_GET['room'])) {
 }
 $config = parse_ini_file("../config/config.ini");
 if (isset($_COOKIE['id']) and userExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']))) {
-    header('Location: /?room=' . $_GET['room']);
+    header('Location: /?room=' . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
     exit();
 } else {
     setcookie("id", "", time() - 31557600, "/", $domain, true, true);
@@ -37,7 +37,7 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
     $userInstall = installUser($userInfo, "root", $config['sqlRootPasswd'], "VirtualPass");
     setcookie("id", $userInstall[2], time() + 31557600, "/", $domain, true, true);
     //Send them back to depart
-    header("Location: /doActiv.php?room=" . $_GET['room']);
+    header("Location: /doActiv.php?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
     exit();
 }
 ?>

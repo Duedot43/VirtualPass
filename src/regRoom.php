@@ -21,7 +21,7 @@ if (!isset($_GET['room'])) {
 }
 $config = parse_ini_file("../config/config.ini");
 if (isset($_GET['room']) and roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['room']))) {
-    header('Location: /?room=' . $_GET['room']);
+    header('Location: /?room=' . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
     exit();
 }
 
@@ -29,7 +29,7 @@ if (isset($_GET['room']) and roomExists("root", $config['sqlRootPasswd'], "Virtu
 // now we make the room
 if (isset($_POST['rnum'])) {
     $installRoom = installRoom(array("id"=>preg_replace("/[^0-9.]+/i", "", $_GET['room']), "num"=>preg_replace("/[^0-9.]+/i", "", $_POST['rnum'])), "root", $config['sqlRootPasswd'], "VirtualPass");
-    header("Location: /?room=" . $_GET['room']);
+    header("Location: /?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
     exit();
 
 }
