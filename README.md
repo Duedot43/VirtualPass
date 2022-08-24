@@ -10,7 +10,8 @@ User data is stored outside the readable web scope so only the API with an API k
 * Download the latest release.<br>
 
 * Unzip the file and move it to `/var/www`. This is assuming you are using an Apache server.<br>
-* Install the PHP binary using your distros package manager.<br>
+* Install `php composer npm php-apache`<br>
+* Install the composer dependinces by running `composer install`<br>
 * Configure your server to run PHP code and tell it the website DIR is at `/var/www/VirtualPass/src/`.
 ***
 ## Setup
