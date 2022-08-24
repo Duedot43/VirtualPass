@@ -59,38 +59,22 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
                 <tr>
                     <td class="text" width="78">First Name
                     <td width="6">:</td>
-                    <td width="294"><input class="box" autocomplete="off" value='
-                        <?php if (isset($_POST['firstname'])) {
-                            echo htmlspecialchars($_POST['firstname'],  ENT_QUOTES, 'UTF-8');
-                        }
-                        ?>' name="firstname" type="text" pattern="[a-zA-Z]+" id="firstname" required></td>
+                    <td width="294"><input class="box" autocomplete="off" name="firstname" type="text" pattern="[a-zA-Z]+" id="firstname" required></td>
         </td>
 </tr>
 <tr>
     <td>Last Name</td>
     <td>:</td>
-    <td><input class="box" name="lastname" autocomplete="off" value='
-                    <?php if (isset($_POST['lastname'])) {
-                        echo htmlspecialchars($_POST['lastname'],  ENT_QUOTES, 'UTF-8');
-                    }
-                    ?>' type="text" id="lastname" pattern="[a-zA-Z]+" required></td>
+    <td><input class="box" name="lastname" autocomplete="off" type="text" id="lastname" pattern="[a-zA-Z]+" required></td>
 </tr>
 <tr>
     <td>Student ID</td>
     <td>:</td>
-    <td><input class="box" name="stid" autocomplete="off" value='
-                    <?php if (isset($_POST['stid'])) {
-                        echo htmlspecialchars($_POST['stid'],  ENT_QUOTES, 'UTF-8');
-                    }
-                    ?>' type="number" id="stid" placeholder="10150100" required></td>
+    <td><input class="box" name="stid" autocomplete="off" type="number" id="stid" placeholder="10150100" required></td>
 </tr>
 <td>Student E-Mail</td>
 <td>:</td>
-<td><input class="box" name="stem" autocomplete="off" value='
-                <?php if (isset($_POST['stem'])) {
-                    echo htmlspecialchars($_POST['stid'],  ENT_QUOTES, 'UTF-8');
-                }
-                ?>' type="email" id="stem" placeholder="student@cherrycreekschools.org" required></td>
+<td><input class="box" name="stem" autocomplete="off" type="email" id="stem" placeholder="student@cherrycreekschools.org" required></td>
 </tr>
 <tr>
     <td>&nbsp;</td>
