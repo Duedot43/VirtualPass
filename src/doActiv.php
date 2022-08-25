@@ -46,11 +46,13 @@ if (roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[
 
     //determin the time
     if ($departureData['cnum'][1] == 0) {
+        $room = preg_replace("/[^0-9.]+/i", "", $_GET['room']);
         $timeDep = time();
         $timeArv = "";
         $departureData['cnum'][1] = 1;
         $set = false;
     } else {
+        $room = $departureData['activity'][$date][$departureData['cnum'][0]]['room'];
         $timeDep = $departureData['activity'][$date][$departureData['cnum'][0]]['timeDep'];
         $timeArv = time();
         $departureData['cnum'][1] = 0;
@@ -59,14 +61,14 @@ if (roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[
 
     //mark down the time that the user does an activity
     $departureData['activity'][$date][$departureData['cnum'][0]] = array(
-        "room" => preg_replace("/[^0-9.]+/i", "", $_GET['room']),
+        "room" => $room,
         "timeDep" => $timeDep,
         "timeArv" => $timeArv
     );
     if ($set) {
         $departureData['cnum'][0] = $departureData['cnum'][0] + 1;
     }
-    print_r($departureData);
+    
     sendSqlCommand(
         "UPDATE users 
     SET 
