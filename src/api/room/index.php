@@ -62,20 +62,47 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             echo json_encode($output);
             exit();
         } else { //If they do request a specific room
+            //FIX THIS
             $miscData = json_decode($user['misc'], true);
             $output = array();
-            $output[preg_replace("/[^0-9.]+/i", "", $request[0])] = getRoomData("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $request[0]))['num'];
-            echo json_encode($output);
-            exit();
+            if (in_array($request[0], $miscData['rooms'])) {
+                $output[preg_replace("/[^0-9.]+/i", "", $request[0])] = getRoomData("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $request[0]))['num'];
+                echo json_encode($output);
+                exit();
+            } else {
+                echo json_encode(
+                    array(
+                        "success" => 0,
+                        "reason" => "invalid_room_id",
+                        "human_reason" => "The room ID you requested is not assigned to you"
+                    ),
+                    true
+                );
+                err();
+                exit();
+            }
         }
         //
 
 
-    } elseif ((int) $level[1] == 2 and (int) $level[1] == 3) {
+    } elseif ((int) $level[1] == 2 or (int) $level[1] == 3) {
         // Level 2 and 3 API
 
         //
-
+        if (!isset($request[0])) { //they do not request a specific room
+            $result = sendSqlCommand("SELECT * FROM rooms;", "root", $config['sqlRootPasswd'], "VirtualPass");
+            $output = array();
+            while ($row = mysqli_fetch_assoc($result[1])) {
+                $output[$row['ID']] = $row['num'];
+            }
+            echo json_encode($output);
+            exit();
+        } else { //do request a specific room
+            roomExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $request[0]);
+            $result = getRoomData("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $request[0]));
+            echo json_encode(array($result['ID']=>$result['num']));
+            exit();
+        }
         //
 
     }

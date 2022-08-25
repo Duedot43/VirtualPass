@@ -513,3 +513,28 @@ function userExistsErr(string $uname, string $passwd, string $db, string $user)
         exit();
     }
 }
+/**
+ * Errors if the room does not exist for the API
+ *
+ * @param string $uname  The MySQL username
+ * @param string $passwd The MySQL pasword
+ * @param string $db     The MySQL database name
+ * @param string $room   The user ID
+ * 
+ * @return void
+ */
+function roomExistsErr(string $uname, string $passwd, string $db, string $room)
+{
+    if (!roomExists($uname, $passwd, $db, $room)) {
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "invalid_room",
+                "human_reason" => "That room does not exist"
+            ),
+            true
+        );
+        err();
+        exit();
+    }
+}
