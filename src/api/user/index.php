@@ -45,7 +45,7 @@ if (!$level[0]) {
 $request = unsetValue(explode("/", $_SERVER['REQUEST_URI']), array("api", "user"));
 // If the user requests a user with a GET request
 if ($_SERVER['REQUEST_METHOD'] == "GET") {
-    if ($level[1] == 0 or $level[1] == 1) {
+    if ((int) $level[1] == 0 or (int) $level[1] == 1) {
         //level 0 and 1 API
 
         //
@@ -63,33 +63,47 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         exit();
         //
 
-    } elseif ((int) $level[1] == 2 and (int) $level[1] == 3) {
+    } elseif ((int) $level[1] == 2 or (int) $level[1] == 3) {
         // Level 2 and 3 API
 
         //
-
+        //cycle through all the users and display them
+        $result = sendSqlCommand("SELECT * FROM users;", "root", $config['sqlRootPasswd'], "VirtualPass");
+        $output = array();
+        while ($row = mysqli_fetch_assoc($result[1])) {
+            $output[$row['sysID']] = array(
+                "sysID" => $row['sysID'],
+                "firstName" => $row['firstName'],
+                "lastName" => $row['lastName'],
+                "ID" => $row['ID'],
+                "email" => $row['email'],
+                "misc" => json_decode($row['misc'])
+            );
+        }
+        echo json_encode($output);
+        exit();
         //
 
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == "PUT") {
-    if ($level[1] == 0) {
-    } elseif ($level[1] == 1) {
-    } elseif ($level[1] == 2) {
-    } elseif ($level[1] == 3) {
+    if ((int) $level[1] == 0) {
+    } elseif ((int) $level[1] == 1) {
+    } elseif ((int) $level[1] == 2) {
+    } elseif ((int) $level[1] == 3) {
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == "PATCH") {
-    if ($level[1] == 0) {
-    } elseif ($level[1] == 1) {
-    } elseif ($level[1] == 2) {
-    } elseif ($level[1] == 3) {
+    if ((int) $level[1] == 0) {
+    } elseif ((int) $level[1] == 1) {
+    } elseif ((int) $level[1] == 2) {
+    } elseif ((int) $level[1] == 3) {
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
-    if ($level[1] == 0) {
-    } elseif ($level[1] == 1) {
-    } elseif ($level[1] == 2) {
-    } elseif ($level[1] == 3) {
+    if ((int) $level[1] == 0) {
+    } elseif ((int) $level[1] == 1) {
+    } elseif ((int) $level[1] == 2) {
+    } elseif ((int) $level[1] == 3) {
     }
 }

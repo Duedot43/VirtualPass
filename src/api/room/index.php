@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         //
         userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
         $user = getUserData("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
-        //if they are not request a specific room
+        //if they are not requesting a specific room
         if (!isset($request[0])) {
             $miscData = json_decode($user['misc'], true);
             $output = array();
@@ -81,23 +81,23 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == "PUT") {
-    if ($level[1] == 0) {
-    } elseif ($level[1] == 1) {
-    } elseif ($level[1] == 2) {
-    } elseif ($level[1] == 3) {
+    if ((int) $level[1] == 0) {
+    } elseif ((int) $level[1] == 1) {
+    } elseif ((int) $level[1] == 2) {
+    } elseif ((int) $level[1] == 3) {
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == "PATCH") {
-    if ($level[1] == 0) {
-    } elseif ($level[1] == 1) {
-    } elseif ($level[1] == 2) {
-    } elseif ($level[1] == 3) {
+    if ((int) $level[1] == 0) {
+    } elseif ((int) $level[1] == 1) {
+    } elseif ((int) $level[1] == 2) {
+    } elseif ((int) $level[1] == 3) {
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
-    if ($level[1] == 0) {
-    } elseif ($level[1] == 1) {
-    } elseif ($level[1] == 2) {
-    } elseif ($level[1] == 3) {
+    if ((int) $level[1] == 0) {
+    } elseif ((int) $level[1] == 1) {
+    } elseif ((int) $level[1] == 2) {
+    } elseif ((int) $level[1] == 3) {
     }
 }
