@@ -385,6 +385,38 @@ function authTeach(
     }
 }
 /**
+ * API Auth
+ *
+ * @param string $uname  The MySQL username
+ * @param string $passwd The MySQL pasword
+ * @param string $db     The MySQL database name
+ * @param string $key    The API key
+ * 
+ * @return array
+ */
+function authApi(
+    string $uname,
+    string $passwd,
+    string $db,
+    string $key,
+) {
+    $out = sendSqlCommand(
+        "SELECT * FROM apiKeys WHERE apiKey='" . $key . "';",
+        $uname,
+        $passwd,
+        $db
+    );
+    if ($out[0] == 1) {
+        return array(false);
+    }
+    $info = mysqli_fetch_array($out[1]);
+    if (!isset($info['apiKey'])) {
+        return array(false);
+    } else {
+        return array(true, $info['perms']);
+    }
+}
+/**
  * Activity to English
  *
  * @param int $status The user status can be 1 or 0
@@ -398,4 +430,32 @@ function activ2eng(int $status)
     } else {
         return "departed";
     }
+}
+/**
+ * Unset a value in a URL
+ *
+ * @param array   $array  Array to be parsed
+ * @param array   $value  Things to be removed from array
+ * @param boolean $strict If strict or not
+ * 
+ * @return array
+ */
+function unsetValue(array $array, array $value, $strict = true)
+{
+    foreach ($value as $val) {
+        if (($key = array_search($val, $array, $strict)) !== false) {
+            unset($array[$key]);
+        }
+    }
+    $count = -1;
+    $new_arr = array();
+    foreach ($array as $arr_val) {
+        if ($arr_val == "") {
+            unset($array[$count]);
+        } else {
+            $new_arr[$count] = $arr_val;
+        }
+        $count = $count + 1;
+    }
+    return $new_arr;
 }
