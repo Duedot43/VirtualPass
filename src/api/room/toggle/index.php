@@ -41,7 +41,18 @@ if (!$level[0]) {
     authFail();
     exit();
 }
-
+if ((int) $level[1] > 1) {
+    echo json_encode(
+        array(
+            "success" => 0,
+            "reason" => "high_level",
+            "human_reason" => "Your level is too high to preform this action"
+        ),
+        true
+    );
+    err();
+    exit();
+}
 //Now we get to the real API
 $request = unsetValue(explode("/", trim($_SERVER['REQUEST_URI'], "?key=" . $_GET['key'])), array("api", "room", "toggle"));
 if (!isset($request[0])) {
@@ -132,7 +143,7 @@ if (roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[
             "success" => 1,
             "reason" => "success",
             "human_reason" => "success",
-            "status"=>$userData['activ']
+            "status" => $userData['activ']
         ),
         true
     );
