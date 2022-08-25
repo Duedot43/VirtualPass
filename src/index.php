@@ -105,10 +105,15 @@ sendSqlCommand(
     $config['sqlRootPasswd'],
     "VirtualPass"
 );
+// perm 0 is regular user they can access their info and either depart or arrive and can view only their real room numbers
+// perm 1 is regular user they can edit their basic info and do all level 0 can
+// perm 2 is administrator they can view all users view all rooms
+// perm 3 is full administrator they can view and change admin and teacher password view all users and rooms edit all users and rooms and delete all users and rooms
 sendSqlCommand(
     "CREATE TABLE IF NOT EXISTS apiKeys (
     apiKey varchar(255) NOT NULL,
     perms varchar(255),
+    user varchar(255),
     PRIMARY KEY (apiKey)
 
 );",

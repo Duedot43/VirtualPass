@@ -413,7 +413,7 @@ function authApi(
     if (!isset($info['apiKey'])) {
         return array(false);
     } else {
-        return array(true, $info['perms']);
+        return array(true, $info['perms'], $info['user']);
     }
 }
 /**
@@ -458,4 +458,23 @@ function unsetValue(array $array, array $value, $strict = true)
         $count = $count + 1;
     }
     return $new_arr;
+}
+/**
+ * Auth fail
+ *
+ * @return void
+ */
+function authFail()
+{
+    header('WWW-Authenticate: Basic realm="api"');
+    header('HTTP/1.0 401 Unauthorized');
+}
+/**
+ * Error
+ *
+ * @return void
+ */
+function err()
+{
+    header('HTTP/1.0 406 Not Acceptable');
 }
