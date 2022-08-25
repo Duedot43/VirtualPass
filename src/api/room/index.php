@@ -42,9 +42,62 @@ if (!$level[0]) {
     exit();
 }
 
-
 //Now we get to the real API
-$request = unsetValue(explode("/", $_SERVER['REQUEST_URI']), array("api", "room"));
-if ($_SERVER['REQUEST_METHOD'] == "GET" and $level[1] >= 1) {
-    
+$request = unsetValue(explode("/", trim($_SERVER['REQUEST_URI'], "?key=" . $_GET['key'])), array("api", "room"));
+if ($_SERVER['REQUEST_METHOD'] == "GET") {
+    if ((int) $level[1] == 0 or (int) $level[1] == 1) {
+        // Level 0 and 1 API
+
+
+        //
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        $user = getUserData("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        //if they are not request a specific room
+        if (!isset($request[0])) {
+            $miscData = json_decode($user['misc'], true);
+            $output = array();
+            foreach ($miscData['rooms'] as $roomID) {
+                $output[$roomID] = getRoomData("root", $config['sqlRootPasswd'], "VirtualPass", $roomID)['num'];
+            }
+            echo json_encode($output);
+            exit();
+        } else { //If they do request a specific room
+            $miscData = json_decode($user['misc'], true);
+            $output = array();
+            $output[preg_replace("/[^0-9.]+/i", "", $request[0])] = getRoomData("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $request[0]))['num'];
+            echo json_encode($output);
+            exit();
+        }
+        //
+
+
+    } elseif ((int) $level[1] == 2 and (int) $level[1] == 3) {
+        // Level 2 and 3 API
+
+        //
+
+        //
+
+    }
+}
+if ($_SERVER['REQUEST_METHOD'] == "PUT") {
+    if ($level[1] == 0) {
+    } elseif ($level[1] == 1) {
+    } elseif ($level[1] == 2) {
+    } elseif ($level[1] == 3) {
+    }
+}
+if ($_SERVER['REQUEST_METHOD'] == "PATCH") {
+    if ($level[1] == 0) {
+    } elseif ($level[1] == 1) {
+    } elseif ($level[1] == 2) {
+    } elseif ($level[1] == 3) {
+    }
+}
+if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
+    if ($level[1] == 0) {
+    } elseif ($level[1] == 1) {
+    } elseif ($level[1] == 2) {
+    } elseif ($level[1] == 3) {
+    }
 }

@@ -284,6 +284,16 @@ function installUser(array $info, string $uname, string $passwd, string $db)
         $passwd,
         $db
     );
+    $out = sendSqlCommand(
+        "INSERT apiKeys VALUES(
+            '" . rand() . rand() . "',
+            '0',
+            '" . $id . "'
+        );",
+        $uname,
+        $passwd,
+        $db
+    );
     $out[2] = $id;
     return $out;
 }
@@ -477,4 +487,29 @@ function authFail()
 function err()
 {
     header('HTTP/1.0 406 Not Acceptable');
+}
+/**
+ * Errors if the user does not exist for the API
+ *
+ * @param string $uname  The MySQL username
+ * @param string $passwd The MySQL pasword
+ * @param string $db     The MySQL database name
+ * @param string $user   The user ID
+ * 
+ * @return void
+ */
+function userExistsErr(string $uname, string $passwd, string $db, string $user)
+{
+    if (!userExists($uname, $passwd, $db, $user)) {
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "corrupt_key",
+                "human_reason" => "The user listed in your API key does not exist please contact a system administrator"
+            ),
+            true
+        );
+        err();
+        exit();
+    }
 }

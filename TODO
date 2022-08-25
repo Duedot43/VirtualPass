@@ -27,5 +27,8 @@
     Export to CSV
     Make an API
     Email parents if a students gone for X ammount of times
+    manage users must have delete user and manage api key for user
+    assign every user an api key with lvl 0
+    user managment pannel
 
 and more to come...
