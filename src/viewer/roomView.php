@@ -24,6 +24,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
     while ($row = mysqli_fetch_assoc($result[1])) {
         echo "<button onclick='/viewer/stuRoomView.php?room=" . $row['ID'] . "' >" . $row['num'] . "</button><br>";
         //TODO Fix this HTML?
+        //Onclick is usually used for JS Functions.
     }
     exit();
 } else {

@@ -42,76 +42,38 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
 }
 ?>
 
-<head>
-    <link href="/public/style.css" rel="stylesheet" type="text/css" />
-</head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Register</title>
-<tr>
-    <form method="post">
-        <td>
-            <table width="100%" border="0" cellpadding="3" cellspacing="1">
-                <tr>
-                    <td colspan="3"><strong>Register! (you only have to do this once.) We do not collect data.
-                            <hr />
-                        </strong></td>
-                </tr>
-                <tr>
-                    <td class="text" width="78">First Name
-                    <td width="6">:</td>
-                    <td width="294"><input class="box" autocomplete="off" name="firstname" type="text" pattern="[a-zA-Z]+" id="firstname" required></td>
-        </td>
-</tr>
-<tr>
-    <td>Last Name</td>
-    <td>:</td>
-    <td><input class="box" name="lastname" autocomplete="off" type="text" id="lastname" pattern="[a-zA-Z]+" required></td>
-</tr>
-<tr>
-    <td>Student ID</td>
-    <td>:</td>
-    <td><input class="box" name="stid" autocomplete="off" type="number" id="stid" placeholder="10150100" required></td>
-</tr>
-<td>Student E-Mail</td>
-<td>:</td>
-<td><input class="box" name="stem" autocomplete="off" type="email" id="stem" placeholder="student@cherrycreekschools.org" required></td>
-</tr>
-<tr>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
-    <td><input class="reg" type="submit" name="Submit" value="Register"></td>
-</tr>
-</table>
-</td>
-</form>
-</tr>
-</table>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Register Room</title>
+    <title>Register</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./public/style.css" type="text/css" />
+    <link rel="stylesheet" href="src/public/style.css" type="text/css" />
+    <link rel="icon" href="src/favicon.ico"/>
 </head>
 
 <body>
-    <div>
-        <form>
-            <label>
-                First Name:
-                <input />
-                Last Name:
-                <input />
-                Student ID:
-                <input />
-                Student Email:
-                <input>
-            </label>
-        </form>
-    </div>
+<div class="l-card-container">
+
+    <a>Register your user. (You'll Only have to do this once.)</a>
+    <hr/>
+
+    <form method="post">
+        <label>
+            First Name:
+            <input type="text" pattern="[a-zA-Z]+" required/>
+            Last Name:
+            <input type="text" required/>
+            Student ID:
+            <input  type="number" required/>
+            Student Email:
+            <input type="email" required>
+        </label>
+        <button type="submit"> Submit </button>
+
+    </form>
+</div>
 
 </body>
 

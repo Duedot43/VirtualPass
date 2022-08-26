@@ -1,6 +1,6 @@
 html, body {
     margin: 0;
-    background-color: #f3f3f3;
+    --body-bg: root;
 }
 
 :root {
@@ -10,6 +10,7 @@ html, body {
 @media (prefers-color-scheme: dark) {
     :root {
         --body-bg: #27434b;
+
     }
 
 }
@@ -129,15 +130,48 @@ html, body {
         cursor: pointer;
     }
 
-    .l-card-container {
-        position: absolute;
-    }
 
-    .l-card-container a {
-        font-family: Arial, Helvetica, sans-serif;
-    }
-    
-    .l-card-container input {
-        
-    }
+}
+.l-card-container {
+    margin: auto;
+    padding: 10px;
+    transform: translate(0, 50%);
+    max-width: 500px;
+    width: 90%;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 3px 0 #000000;
+}
+
+.l-card-container a {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.l-card-container label {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.l-card-container input {
+    margin: 5px 0 0 10px;
+    font-size: 17px;
+    padding: 5px;
+    background-color: #dcdcdc;
+    border: none;
+    border-radius: 7px;
+    width: 90%;
+
+}
+
+.l-card-container button {
+    margin: 10px 0 0 55%;
+    padding: 7px;
+    width: 40%;
+    background: #b5e8ee;
+    border: none;
+    border-radius: 5px;
+}
+
+.l-card-container button:hover {
+    background-color: #8ff0fa;
+    cursor: pointer;
 }
