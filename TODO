@@ -30,5 +30,6 @@
     manage users must have delete user and manage api key for user
     assign every user an api key with lvl 0
     user managment pannel
+    make the admin have a pre set cookie value so we know who they are and they can also have an API key same thing with teachers
 
 and more to come...

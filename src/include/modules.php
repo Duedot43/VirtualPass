@@ -144,7 +144,7 @@ function roomExists(string $uname, string $passwd, string $db, string $roomKey)
 function adminCookieExists(string $uname, string $passwd, string $db, string $cookie)
 {
     $output = sendSqlCommand(
-        "SELECT * FROM adminCookie WHERE cookie=" . $cookie,
+        "SELECT * FROM admins",
         $uname,
         $passwd,
         $db
@@ -153,11 +153,12 @@ function adminCookieExists(string $uname, string $passwd, string $db, string $co
         return false;
     }
     //????
-    if (mysqli_num_rows($output[1]) != 0) {
-        return true;
-    } else {
-        return false;
+    while ($row = mysqli_fetch_assoc($output[1])) {
+        if ($row['uuid'] == $cookie) {
+            return true;
+        }
     }
+    return false;
 }
 /**
  * Teacher Cookie Exists
@@ -176,7 +177,7 @@ function teacherCookieExists(
     string $cookie
 ) {
     $output = sendSqlCommand(
-        "SELECT * FROM teacherCookie WHERE cookie=" . $cookie,
+        "SELECT * FROM teachers",
         $uname,
         $passwd,
         $db
@@ -185,11 +186,12 @@ function teacherCookieExists(
         return false;
     }
     //????
-    if (mysqli_num_rows($output[1]) != 0) {
-        return true;
-    } else {
-        return false;
+    while ($row = mysqli_fetch_assoc($output[1])) {
+        if ($row['uuid'] == $cookie) {
+            return true;
+        }
     }
+    return false;
 }
 /**
  * Get Room Data
@@ -329,7 +331,7 @@ function installRoom(array $info, string $uname, string $passwd, string $db)
  * @param string $admUname  The user inputed admin username
  * @param string $admPasswd The user inputed admin password
  * 
- * @return bool
+ * @return array
  */
 function authAdmin(
     string $uname,
@@ -345,16 +347,16 @@ function authAdmin(
         $db
     );
     if ($out[0] == 1) {
-        return false;
+        return array(false);
     }
     $info = mysqli_fetch_array($out[1]);
     if (!isset($info['passwd'])) {
-        return false;
+        return array(false);
     }
     if ($info['passwd'] == $admPasswd) {
-        return true;
+        return array(true, $info['uuid']);
     } else {
-        return false;
+        return array(false);
     }
 }
 /**
@@ -366,7 +368,7 @@ function authAdmin(
  * @param string $teachUname  The user inputed teacher username
  * @param string $teachPasswd The user inputed teacher password
  * 
- * @return bool
+ * @return array
  */
 function authTeach(
     string $uname,
@@ -382,16 +384,16 @@ function authTeach(
         $db
     );
     if ($out[0] == 1) {
-        return false;
+        return array(false);
     }
     $info = mysqli_fetch_array($out[1]);
     if (!isset($info['passwd'])) {
-        return false;
+        return array(false);
     }
     if ($info['passwd'] == $teachPasswd) {
-        return true;
+        return array(true, rand() . rand() . rand());
     } else {
-        return false;
+        return array(false);
     }
 }
 /**

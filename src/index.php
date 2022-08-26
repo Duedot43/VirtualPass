@@ -67,6 +67,7 @@ sendSqlCommand(
     "CREATE TABLE IF NOT EXISTS admins (
     uname varchar(255) NOT NULL,
     passwd varchar(255),
+    uuid varchar(255),
     PRIMARY KEY (uname)
 
 );",
@@ -78,27 +79,8 @@ sendSqlCommand(
     "CREATE TABLE IF NOT EXISTS teachers (
     uname varchar(255) NOT NULL,
     passwd varchar(255),
+    uuid varchar(255),
     PRIMARY KEY (uname)
-
-);",
-    "root",
-    $config['sqlRootPasswd'],
-    "VirtualPass"
-);
-sendSqlCommand(
-    "CREATE TABLE IF NOT EXISTS teacherCookie (
-    cookie varchar(255) NOT NULL,
-    PRIMARY KEY (cookie)
-
-);",
-    "root",
-    $config['sqlRootPasswd'],
-    "VirtualPass"
-);
-sendSqlCommand(
-    "CREATE TABLE IF NOT EXISTS adminCookie (
-    cookie varchar(255) NOT NULL,
-    PRIMARY KEY (cookie)
 
 );",
     "root",

@@ -40,6 +40,8 @@ if (!isset($_COOKIE['adminCookie'])
 
 <input class="reg" type="button" value="View all user info" onclick="location='/viewer/studentView.php'" />
 
-<input class="reg" type="button" value="Make a room QR Code" onclick="location='/mk_room/index.php'" />
+<input class="reg" type="button" value="Make a room QR Code" onclick="location='/makeRoom/'" />
 
-<input class="reg" type="button" value="View all rooms" onclick="location='view_rooms.php'" />
+<input class="reg" type="button" value="View all rooms" onclick="location='/viewer/roomView.php'" />
+
+<input class="reg" type="button" value="Manage accounts" onclick="location='/viewer/roomView.php'" />

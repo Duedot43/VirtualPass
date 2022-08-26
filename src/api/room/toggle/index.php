@@ -46,7 +46,7 @@ if ((int) $level[1] > 1) {
         array(
             "success" => 0,
             "reason" => "high_level",
-            "human_reason" => "Your level is too high to preform this action"
+            "human_reason" => "Your level is too high to preform this action (aka you are too superiour)"
         ),
         true
     );
