@@ -32,7 +32,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
     while ($row = mysqli_fetch_assoc($result[1])) {
         if (in_array($_GET['room'], json_decode($row['misc'], true)['rooms'])) {
             echo "<button onclick='/viewer/studentView.php?user=" . $row['sysID'] . "' >" . $row['firstName'] . " " . $row['lastName'] . " " . activ2eng($row['activ']) . "</button><br>";
-            //TODO Fix this HTML?
+            
         }
     }
 } else {

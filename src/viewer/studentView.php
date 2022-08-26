@@ -85,7 +85,6 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
     $result = sendSqlCommand("SELECT * FROM users;", "root", $config['sqlRootPasswd'], "VirtualPass");
     while ($row = mysqli_fetch_assoc($result[1])) {
         echo "<button onclick='/viewer/studentView.php?user=" . $row['sysID'] . "' >" . $row['firstName'] . " " . $row['lastName'] . " " . activ2eng($row['activ']) . "</button><br>";
-        //TODO Fix this HTML?
     }
 } else {
     if (isset($_COOKIE['adminCookie'])) {

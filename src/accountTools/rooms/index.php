@@ -28,9 +28,40 @@ if (!roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/
 //Auth
 if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
     // change room num
-    // manage students in room
     // delete room
-    // arrive all students to room
+
+    // Delete room
+    if (isset($_GET['action']) and $_GET['action'] == "delete") {
+        $output = sendSqlCommand("DELETE FROM rooms WHERE ID='" . htmlspecialchars(preg_replace("/[^0-9.]+/i", "", $_GET['room']),  ENT_QUOTES, 'UTF-8') . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
+        if ($output[0] == 1) {
+            echo "Something went wrong with deleting the room!";
+            exit();
+        }
+        $result = sendSqlCommand("SELECT * FROM users;", "root", $config['sqlRootPasswd'], "VirtualPass");
+        while ($row = mysqli_fetch_assoc($result[1])) {
+            $misc = json_decode($row['misc']);
+            if (in_array($_GET['room'], $misc['rooms'])) {
+                $key = array_search($_GET['room'], $misc['rooms']);
+                unset($misc['rooms'][$key]);
+                sendSqlCommand(
+                    "UPDATE users 
+                SET 
+                    misc = '" . json_encode($misc) . "'
+                WHERE
+                    sysId=" . preg_replace("/[^0-9.]+/i", "", $row['sysID']) . ";",
+                    "root",
+                    $config['sqlRootPasswd'],
+                    "VirtualPass"
+                );
+            }
+        }
+    }
+
+    //print the main stuff
+    $room = getRoomData("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['room']));
+    echo "<button onclick='/accountTools/rooms/change.php?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8') . "' >Change room number</button>";
+    echo "<button onclick='/accountTools/rooms/?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8') . "&action=delete' >Delete the room</button>";
+    echo "<button onclick='/accountTools/rooms/import.php' >Import room DB</button>";
 } else {
     if (isset($_COOKIE['adminCookie'])) {
         header("Location: /admin/");
