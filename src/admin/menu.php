@@ -44,4 +44,6 @@ if (!isset($_COOKIE['adminCookie'])
 
 <input class="reg" type="button" value="View all rooms" onclick="location='/viewer/roomView.php'" />
 
-<input class="reg" type="button" value="Manage accounts" onclick="location='/viewer/roomView.php'" />
+<input class="reg" type="button" value="Manage admin accounts" onclick="location='/accountTools/admin'" />
+
+<input class="reg" type="button" value="Manage teacher accounts" onclick="location='/accountTools/teacher'" />

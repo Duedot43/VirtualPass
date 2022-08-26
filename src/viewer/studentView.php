@@ -69,7 +69,9 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
             exit();
         }
         $user = getUserData("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8')));
-        //TODO display user info in day room occorance format
+        if (isset($_COOKIE['adminCookie'])) {
+            echo "<button onclick='/accountTools/student/?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "' >Manage this user</button>";
+        }
         $miscData = json_decode($user['misc'], true);
         $array_keys = array_keys($miscData['activity']);
         foreach ($array_keys as $array_key) {

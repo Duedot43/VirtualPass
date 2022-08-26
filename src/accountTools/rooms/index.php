@@ -27,7 +27,9 @@ if (!roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/
 }
 //Auth
 if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
-
+    // change room num
+    // manage students in room
+    // delete room
 } else {
     if (isset($_COOKIE['adminCookie'])) {
         header("Location: /admin/");
