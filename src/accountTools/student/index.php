@@ -12,10 +12,10 @@
  * @license  https://mit-license.org/ MIT
  * @link     https://github.com/Duedot43/VirtualPass
  */
-require "../include/modules.php";
+require "../../include/modules.php";
 
 
-$config = parse_ini_file("../../config/config.ini");
+$config = parse_ini_file("../../../config/config.ini");
 echo "<!-- HEADERS -->";
 if (!isset($_GET['user'])) {
     echo "Your room is not set";

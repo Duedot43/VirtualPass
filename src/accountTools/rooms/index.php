@@ -12,10 +12,10 @@
  * @license  https://mit-license.org/ MIT
  * @link     https://github.com/Duedot43/VirtualPass
  */
-require "../include/modules.php";
+require "../../include/modules.php";
 
 
-$config = parse_ini_file("../../config/config.ini");
+$config = parse_ini_file("../../../config/config.ini");
 echo "<!-- HEADERS -->";
 if (!isset($_GET['room'])) {
     echo "Your room is not set";
@@ -30,6 +30,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
     // change room num
     // manage students in room
     // delete room
+    // arrive all students to room
 } else {
     if (isset($_COOKIE['adminCookie'])) {
         header("Location: /admin/");

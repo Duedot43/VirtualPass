@@ -391,7 +391,7 @@ function authTeach(
         return array(false);
     }
     if ($info['passwd'] == $teachPasswd) {
-        return array(true, rand() . rand() . rand());
+        return array(true, $info['uuid']);
     } else {
         return array(false);
     }
@@ -539,4 +539,57 @@ function roomExistsErr(string $uname, string $passwd, string $db, string $room)
         err();
         exit();
     }
+}
+/**
+ * Get admin by uuid
+ *
+ * @param string $uname  The MySQL username
+ * @param string $passwd The MySQL pasword
+ * @param string $db     The MySQL database name
+ * @param string $uuid   The admins uuid
+ * 
+ * @return array
+ */
+function getAdminByUuid(string $uname, string $passwd, string $db, string $uuid)
+{
+    $output = sendSqlCommand(
+        "SELECT * FROM admins",
+        $uname,
+        $passwd,
+        $db
+    );
+    //????
+    while ($row = mysqli_fetch_assoc($output[1])) {
+        if ($row['uuid'] == $uuid) {
+            return $row;
+        }
+    }
+    return array(null);
+}
+
+/**
+ * Get teacher by uuid
+ *
+ * @param string $uname  The MySQL username
+ * @param string $passwd The MySQL pasword
+ * @param string $db     The MySQL database name
+ * @param string $uuid   The teacher uuid
+ * 
+ * @return array
+ */
+function getTeacherByUuid(string $uname, string $passwd, string $db, string $uuid)
+{
+    $output = sendSqlCommand(
+        "SELECT * FROM teachers",
+        $uname,
+        $passwd,
+        $db
+    );
+    //????
+    while ($row = mysqli_fetch_assoc($output[1])) {
+        if ($row['uuid'] == $uuid) {
+            return $row;
+        }
+    }
+    return array(null);
 }

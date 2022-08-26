@@ -14,11 +14,9 @@
 require "../include/modules.php";
 $config = parse_ini_file("../../config/config.ini");
 $domain = getDomain();
-
-if (isset($_POST['uname']) and isset($_POST['passwd']) and authTeach("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^a-z.]+/i", "", $_POST['uname']), trim(trim($_POST['passwd'], '"'), "'"))) {
-    $id = rand() . rand() . rand();
-    setcookie("teacherCookie", $id, time()+3600, "/", $domain, true, true);
-    sendSqlCommand("INSERT teacherCookie VALUES('" . $id . "');", "root", $config['sqlRootPasswd'], "VirtualPass");
+$teacher = authTeach("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^a-z.]+/i", "", $_POST['uname']), trim(trim($_POST['passwd'], '"'), "'"));
+if (isset($_POST['uname']) and isset($_POST['passwd']) and $teacher[0]) {
+    setcookie("teacherCookie", $teacher[1], time()+3600, "/", $domain, true, true);
     header("Location: /teacher/menu.php");
 } else {
     echo "Username or password incorrect";
