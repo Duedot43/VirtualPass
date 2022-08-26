@@ -105,7 +105,7 @@ sendSqlCommand(
 );
 // redirect to the main page
 if (!isset($_GET['room'])) {
-    header('Location: /realIndex.php');
+    header('Location: /home.html');
     exit();
 }
 

@@ -53,7 +53,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
             <input name="rnum" placeholder="100" type="number" id="rnum" required/>
         </label>
         <!-- Legacy classes are still included, I have no clue if it conflicts -->
-        <button type="button" name="Submit" value="Submit">Register</button>
+        <button type="submit" name="Submit" value="Submit">Register</button>
     </form>
 </div>
 </body>
