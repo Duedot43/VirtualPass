@@ -1,11 +1,11 @@
 <?php
 
 /** 
- * Manage a room
+ * Manage an admin
  * 
  * PHP version 8.1
  * 
- * @file     /src/accountTools/rooms/index.php
+ * @file     /src/accountTools/admin/index.php
  * @category Managment
  * @package  VirtualPass
  * @author   Jack <duedot43@noreplay-github.com>
