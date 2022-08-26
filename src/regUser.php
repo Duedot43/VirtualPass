@@ -26,7 +26,7 @@ if (isset($_COOKIE['id']) and userExists("root", $config['sqlRootPasswd'], "Virt
     setcookie("id", "", time() - 31557600, "/", $domain, true, true);
 }
 
-
+// and sanatizeUser(array("", "", "", $_POST['stem']))[3] and roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['room']))
 
 if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['stid']) and isset($_POST['stem']) and sanatizeUser(array("", "", "", $_POST['stem']))[3] and roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['room']))) {
     //sanatize the user
@@ -49,8 +49,8 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
     <title>Register</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="src/public/style.css" type="text/css" />
-    <link rel="icon" href="src/favicon.ico"/>
+    <link rel="stylesheet" href="/public/style.css" type="text/css" />
+    <link rel="icon" href="/public/favicon.ico"/>
 </head>
 
 <body>
@@ -62,15 +62,15 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
     <form method="post">
         <label>
             First Name:
-            <input type="text" pattern="[a-zA-Z]+" required/>
+            <input type="text" pattern="[a-zA-Z]+" name="firstname" id="firstname" required/>
             Last Name:
-            <input type="text" required/>
+            <input type="text" name="lastname" id="lastname" required/>
             Student ID:
-            <input  type="number" required/>
+            <input  type="number" name="stid" id="stid" required/>
             Student Email:
-            <input type="email" required>
+            <input type="email" name="stem" id="stem" required>
         </label>
-        <button type="submit"> Submit </button>
+        <button type="submit" name="Submit" value="Submit"> Submit </button>
 
     </form>
 </div>
