@@ -17,7 +17,7 @@ $config = parse_ini_file("../../config/config.ini");
 
 
 if (!isset($_COOKIE['teacherCookie']) or !teacherCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['teacherCookie']))) {
-    header("Location: /teacher");
+    header("Location: /teacher/login.html");
     exit();
 }
 ?>
@@ -32,3 +32,4 @@ if (!isset($_COOKIE['teacherCookie']) or !teacherCookieExists("root", $config['s
 <input class="reg" type="button" value="View all user info" onclick="location='/viewer/studentView.php'" />
 <input class="reg" type="button" value="Make a room QR Code" onclick="location='/mk_room/index.php'" />
 <input class="reg" type="button" value="View all rooms" onclick="location='view_rooms.php'" />
+<input class="reg" type="button" value="View all rooms" onclick="location='/teacher/search.php'" />

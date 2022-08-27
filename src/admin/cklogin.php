@@ -24,7 +24,7 @@ $admin = authAdmin(
 );
 if (isset($_POST['uname']) and isset($_POST['passwd']) and $admin[0]) {
     setcookie("adminCookie", $admin[1], time() + 3600, "/", $domain, true, true);
-    header("Location: /admin/menu.php");
+    header("Location: /admin");
 } else {
     echo "username or password incorrect";
 }

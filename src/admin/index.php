@@ -24,7 +24,7 @@ if (!isset($_COOKIE['adminCookie'])
         preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie'])
     )
 ) {
-    header("Location: /admin");
+    header("Location: /admin/login.html");
     exit();
 }
 // My lint program and my formatter are arguing this is not good
