@@ -1,177 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link href="./public/style.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link href="./public/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
 </head>
+
 <body>
 
-<div class="nav-parent">
-    <div class="top-nav">
+    <div class="nav-parent">
+        <div class="top-nav">
 
-        <div class="logo">
-            <a href="/" class="">
-                <img src="./public/favicon.ico" alt="" width="30px"/>
-                VirtualPass
+            <div class="logo">
+                <a href="/" class="">
+                    <img src="./public/favicon.ico" alt="" width="30px" />
+                    VirtualPass
 
-            </a>
-            <a style="font-size: 14px;">ATS</a>
-        </div>
+                </a>
+                <a style="font-size: 14px;">ATS</a>
+            </div>
 
-        <div class="h-login-button">
+            <div class="h-login-button">
 
-            <button id="l-button" onclick="login_button()">
+                <button id="l-button" onclick="login_button()">
 
-                <span class="material-symbols-outlined">
-                    account_circle
-                </span>
-            </button>
+                    <span class="material-symbols-outlined">
+                        account_circle
+                    </span>
+                </button>
 
-            <div class="acc-menu" style="display:none;">
-                <form>
-                    <label>
-                        Email:
-                        <input type="email"/>
-                    </label>
+                <div class="acc-menu" style="display:none;">
+                    <form>
+                        <label>
+                            Email:
+                            <input type="email" />
+                        </label>
 
-                    <label>
-                        Password:
-                        <input type="password"/>
-                    </label>
-                </form>
+                        <label>
+                            Password:
+                            <input type="password" />
+                        </label>
+                    </form>
 
 
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="sidenav">
+        <div class="sidenav">
 
-        <!-- some weird buggy code. DO NOT TOUCH IT! not until I find a fix!! -->
-        <br/> <br/>
-        <!-- No touch Zone ^ -->
+            <!-- some weird buggy code. DO NOT TOUCH IT! not until I find a fix!! -->
+            <br /> <br />
+            <!-- No touch Zone ^ -->
 
-        <div class="sidenav-head">
-            <h2>Dashboard</h2>
-        </div>
+            <div class="sidenav-head">
+                <h2>Dashboard</h2>
+            </div>
 
-        <a>Analytics</a>
-        <br>
-        <div class="button-container-01">
-            <button>
-                <span class="material-symbols-outlined">
-                    monitoring
-                </span>
-                Overview
-            </button>
-
-            <button>
-                <span class="material-symbols-outlined">
-                    group
-                </span>
-                Students
-            </button>
-
-            <button>
-                <span class="material-symbols-outlined">
-                    school
-                </span>
-                Classrooms
-            </button>
-            <button>Random button</button>
-
-        </div>
-
-        <br/>
-        <hr/>
-        <a>Other</a>
-        <br/>
-
-        <div class="button-container-01">
-            <button>
-                <span class="material-symbols-outlined">
-                    meeting_room
-                </span>
-                Manage Rooms
-            </button>
-
-            <button>
-                <span class="material-symbols-outlined">
-                    person_add
-                </span>
-                Manage Members
-
-                <span class="material-symbols-outlined" style=" padding-left: 47px;">
-                    arrow_drop_down
-                </span>
-
-
-            </button>
-
-            <div class="button-container-02">
+            <a>Analytics</a>
+            <br>
+            <div class="button-container-01">
                 <button>
-                    Admins
+                    <span class="material-symbols-outlined">
+                        monitoring
+                    </span>
+                    Overview
                 </button>
+
                 <button>
-                    Teachers
-                </button>
-                <button>
+                    <span class="material-symbols-outlined">
+                        group
+                    </span>
                     Students
                 </button>
+
+                <button>
+                    <span class="material-symbols-outlined">
+                        school
+                    </span>
+                    Classrooms
+                </button>
+                <button>Random button</button>
+
             </div>
 
-            <button>
+            <br />
+            <hr />
+            <a>Other</a>
+            <br />
+
+            <div class="button-container-01">
+                <button>
+                    <span class="material-symbols-outlined">
+                        meeting_room
+                    </span>
+                    Manage Rooms
+                </button>
+
+                <button>
+                    <span class="material-symbols-outlined">
+                        person_add
+                    </span>
+                    Manage Members
+
+                    <span class="material-symbols-outlined" style=" padding-left: 47px;">
+                        arrow_drop_down
+                    </span>
+
+
+                </button>
+
+                <div class="button-container-02">
+                    <button>
+                        Admins
+                    </button>
+                    <button>
+                        Teachers
+                    </button>
+                    <button>
+                        Students
+                    </button>
+                </div>
+
+                <button>
+                    <span class="material-symbols-outlined">
+                        empty_dashboard
+                    </span>
+                    Bruh
+                </button>
+
+            </div>
+
+            <div class="bottom-nav">
+                <div class="issue-tab" style="display:none;">
+                    <div>
+                        <p>Issues?</p>
+                        <p>Please visit the</p>
+                        <a href="https://github.com/Duedot43/VirtualPass/issues">Issue Tracker.</a>
+                    </div>
+
+                    <div>
+                        <p>Feedback.</p>
+                    </div>
+                </div>
+
                 <span class="material-symbols-outlined">
-                    empty_dashboard
+                    settings
                 </span>
-                Bruh
-            </button>
 
-        </div>
+                <span onclick="dark_mode()" class="material-symbols-outlined dark-mode-input">
+                    dark_mode
+                </span>
 
-        <div class="bottom-nav">
-            <div class="issue-tab" style="display:none;">
-                <div>
-                    <p>Issues?</p>
-                    <p>Please visit the</p>
-                    <a href="https://github.com/Duedot43/VirtualPass/issues">Issue Tracker.</a>
-                </div>
+                <span onclick="issues_button()" class="material-symbols-outlined">
+                    contact_support
+                </span>
 
-                <div>
-                    <p>Feedback.</p>
-                </div>
+                <p id="version-id" style="font-size:10px; margin: 0;"></p>
+
             </div>
-
-            <span  class="material-symbols-outlined">
-                settings
-            </span>
-
-            <span onclick="dark_mode()" class="material-symbols-outlined dark-mode-input">
-                dark_mode
-            </span>
-
-            <span onclick="issues_button()" class="material-symbols-outlined">
-                contact_support
-            </span>
-
-            <p id="version-id" style="font-size:10px; margin: 0;"></p>
-            <script>
-                const vp_version = 10;
-
-
-                document.getElementById('version-id').innerHTML = "Version ATS-" + vp_version;
-            </script>
 
         </div>
 
     </div>
 
-</div>
 
-
-<script src="include/mainScript.js"></script>
+    <script src="include/mainScript.js"></script>
 </body>
+
 </html>
