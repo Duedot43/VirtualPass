@@ -25,7 +25,6 @@
 # Other
 
     Export to CSV
-    Make an API
     Email parents if a students gone for X ammount of times
     manage users must have delete user and manage api key for user
     user managment pannel
@@ -35,5 +34,7 @@
     FINISH THE API
     Users can still register themselves to rooms if they exist with the API
     Test the room making API
+    MAKE LOGIN
+    REMOVE REGQRID AND REGUSER IN PLACE OF LOGIN
 
 and more to come...

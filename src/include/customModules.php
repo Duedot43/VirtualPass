@@ -13,6 +13,21 @@
  * @link     https://github.com/Duedot43/VirtualPass
  */
 /**
+ * Parse a CSV file
+ *
+ * @param string $file Is the CSV file you want to parse into an array
+ * 
+ * @return array returns the CSV file as an array
+ */
+function parseCsv(string $file)
+{
+    $csvAsArray = array_map(
+        'str_getcsv',
+        explode("\n", $file)
+    );
+    return $csvAsArray;
+}
+/**
  * Can import?
  *
  * @return boolean
@@ -30,7 +45,12 @@ function canImport()
  */
 function decompileAdmin(string $csv)
 {
-    return array();
+    $csv = parseCsv($csv);
+    $output = array();
+    foreach ($csv as $section) {
+        array_push($output, array("uname"=>$csv[0], "passwd"=>$csv[1], "uuid"));
+    }
+    return $output;
 }
 /**
  * Decompile teacher CSV

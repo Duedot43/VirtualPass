@@ -16,21 +16,6 @@
 // HELP ME THIS CODE SNIFFER EXTENTION IS MAKING ME SUFFER
 
 /**
- * Parse a CSV file
- *
- * @param string $file Is the CSV file you want to parse into an array
- * 
- * @return array returns the CSV file as an array
- */
-function parseCsv(string $file)
-{
-    $csvAsArray = array_map(
-        'str_getcsv',
-        file("/home/syntax/Downloads/exportUsers_2022-8-19.csv")
-    );
-    return $csvAsArray;
-}
-/**
  * Get the domain name
  *
  * @return string

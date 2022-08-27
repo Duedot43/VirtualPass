@@ -110,17 +110,18 @@ if (!isset($_GET['room'])) {
 }
 
 if (!roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['room']))) {
-    header('Location: /regRoom.php?room=' . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
+    echo "That room does not exist! Please contact an administrator.";
+    //header('Location: /regRoom.php?room=' . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
     exit();
 }
 
 //if the user cookie is not set then redirect to register
 if (!isset($_COOKIE['id'])) {
-    header('Location: /regUser.php?room=' . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
+    header('Location: /login.php?room=' . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
     exit();
 } elseif (!userExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']))) {
     setcookie("id", "", time() - 31557600, "/", $domain, true, true);
-    header('Location: /regUser.php?room=' . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
+    header('Location: /login.php?room=' . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
     exit();
 }
 
