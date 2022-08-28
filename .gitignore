@@ -1,2 +1,3 @@
 vendor/*
 .dccache
+.idea

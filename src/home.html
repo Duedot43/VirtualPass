@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link href="./public/style.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <meta name="home" content="admin-webpage."/>
+    <link rel="stylesheet" href="/public/style.css" type="text/css" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
@@ -18,7 +19,7 @@
 
             <div class="logo">
                 <a href="/" class="">
-                    <img src="./public/favicon.ico" alt="" width="30px" />
+                    <img src="/public/favicon.ico" alt="" width="30px" />
                     VirtualPass
 
                 </a>
@@ -27,36 +28,34 @@
 
             <div class="h-login-button">
 
-                <button id="l-button" onclick="login_button()">
+                <button id="l-button" class="dropdown-button">
 
                     <span class="material-symbols-outlined">
                         account_circle
                     </span>
+                    <span class="material-symbols-outlined">
+                        arrow_drop_down
+                    </span>
+
                 </button>
 
-                <div class="acc-menu" style="display:none;">
-                    <form>
-                        <label>
-                            Email:
-                            <input type="email" />
-                        </label>
+                <div class="acc-menu dropdown-container" style="display:none; padding-left: 3px;">
 
-                        <label>
-                            Password:
-                            <input type="password" />
-                        </label>
-                    </form>
+                    <button>
+                        My Account
+                        <br/>
+                        <a> {account} </a>
+                    </button>
 
+                    <hr style="opacity: 50%;"/>
+                    <button>Home</button>
+                    <button class="logout">Log Out</button>
 
                 </div>
             </div>
         </div>
 
         <div class="sidenav">
-
-            <!-- some weird buggy code. DO NOT TOUCH IT! not until I find a fix!! -->
-            <br /> <br />
-            <!-- No touch Zone ^ -->
 
             <div class="sidenav-head">
                 <h2>Dashboard</h2>
@@ -65,7 +64,7 @@
             <a>Analytics</a>
             <br>
             <div class="button-container-01">
-                <button>
+                <button id="overview-tab">
                     <span class="material-symbols-outlined">
                         monitoring
                     </span>
@@ -85,12 +84,10 @@
                     </span>
                     Classrooms
                 </button>
-                <button>Random button</button>
-
             </div>
 
             <br />
-            <hr />
+            <hr style="opacity: 25%; margin: 5px 10px 15px 5px;"/>
             <a>Other</a>
             <br />
 
@@ -102,20 +99,20 @@
                     Manage Rooms
                 </button>
 
-                <button>
+                <button class="dropdown-button">
+                    <i></i>
                     <span class="material-symbols-outlined">
                         person_add
                     </span>
                     Manage Members
 
-                    <span class="material-symbols-outlined" style=" padding-left: 47px;">
+                    <span class="material-symbols-outlined" style=" padding-left: 35px;">
                         arrow_drop_down
                     </span>
-
-
+                    <i></i>
                 </button>
 
-                <div class="button-container-02">
+                <div class="dropdown-container">
                     <button>
                         Admins
                     </button>
@@ -127,17 +124,30 @@
                     </button>
                 </div>
 
-                <button>
-                    <span class="material-symbols-outlined">
-                        empty_dashboard
-                    </span>
-                    Bruh
-                </button>
-
             </div>
 
             <div class="bottom-nav">
-                <div class="issue-tab" style="display:none;">
+
+                <button>
+                    <span class="material-symbols-outlined">
+                        settings
+                    </span>
+                </button>
+
+                <button>
+                    <span onclick="dark_mode()" class="material-symbols-outlined dark-mode-input">
+                    dark_mode
+                    </span>
+                </button>
+
+                <button class="dropdown-button">
+                    <span class="material-symbols-outlined ">
+                    contact_support
+                </span>
+                </button>
+
+
+                <div class="issue-tab dropdown-container" style="display:none;">
                     <div>
                         <p>Issues?</p>
                         <p>Please visit the</p>
@@ -149,28 +159,32 @@
                     </div>
                 </div>
 
-                <span class="material-symbols-outlined">
-                    settings
-                </span>
-
-                <span onclick="dark_mode()" class="material-symbols-outlined dark-mode-input">
-                    dark_mode
-                </span>
-
-                <span onclick="issues_button()" class="material-symbols-outlined">
-                    contact_support
-                </span>
-
                 <p id="version-id" style="font-size:10px; margin: 0;"></p>
-
             </div>
 
+        </div>
+    </div>
+
+
+    <div class="content-container">
+        <div class="main">
+
+            <h1 style="font-family: Arial, Helvetica, sans-serif"> Overview </h1>
+
+            <div class="chart-container">
+                <canvas id="myChart" width="400" height="200"></canvas>
+
+                <script src="/include/chart_config.js"></script>
+
+            </div>
         </div>
 
     </div>
 
 
-    <script src="include/mainScript.js"></script>
+
+    <script src="/include/mainScript.js"></script>
+
 </body>
 
 </html>

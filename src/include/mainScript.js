@@ -1,15 +1,3 @@
-function login_button() {
-    'use strict';
-    let login = document.querySelector('.acc-menu');
-    login.style.display === ('none') ? login.style.display = ('block') : login.style.display = ('none')
-}
-
-function issues_button() {
-    let issues = document.querySelector('.issue-tab');
-    issues.style.display === ('none') ? issues.style.display = ('block') : issues.style.display = ('none');
-
-}
-
 function dark_mode() {
     const dark = document.querySelector('span');
 
@@ -18,13 +6,29 @@ function dark_mode() {
     })
 }
 
+const dropdown = document.getElementsByClassName("dropdown-button");
+let i;
+
+for (i = 0; i < dropdown.length; i++) {
+    dropdown[i].addEventListener("click",function() {
+        this.classList.toggle("active");
+        const dropdownContent = this.nextElementSibling;
+        if (dropdownContent.style.display === "block") {
+            dropdownContent.style.display = "none";
+        } else {
+            dropdownContent.style.display = "block";
+        }
+    });
+}
+
+
 function loadFile(filePath) {
-    var result = null;
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.open("GET", filePath, false);
-    xmlhttp.send();
-    if (xmlhttp.status == 200) {
-        result = xmlhttp.responseText;
+    let result = null;
+    const xml_http = new XMLHttpRequest();
+    xml_http.open("GET", filePath, false);
+    xml_http.send();
+    if (xml_http.status === 200) {
+        result = xml_http.responseText;
     }
     return result;
 }
@@ -38,3 +42,5 @@ console.log(vp_ver);
 
 // deepcode ignore DOMXSS: Stop it please
 document.getElementById('version-id').innerHTML = "Version ATS-" + xmlDoc.getElementsByTagName("version")[0].childNodes[0].nodeValue;
+
+document.getElementById('overview-tab').style.backgroundColor = ('#acdbea')
