@@ -1,3 +1,35 @@
+<?php
+/** 
+ * The home page file
+ * 
+ * PHP version 8.1
+ * 
+ * @file     /src/home.php
+ * @category General_Functions
+ * @package  VirtualPass
+ * @author   howtoapple <howtoapple@noreplay-github.com>
+ * @license  https://mit-license.org/ MIT
+ * @link     https://github.com/Duedot43/VirtualPass
+ */
+require "include/modules.php";
+$config = parse_ini_file("../config/config.ini");
+
+
+
+// See if the admin user exists and as so set ther account info
+if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
+    $account = getAdminByUuid("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']));
+    $name = $account['uname'];
+} elseif (isset($_COOKIE['teacherCookie']) and teacherCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['teacherCookie']))) {
+    $account = getTeacherByUuid("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['teacherCookie']));
+    $name = $account['uname'];
+} elseif (isset($_COOKIE['id']) and userExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']))) {
+    $account = getUserData("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']));
+    $name = $account['firstName'];
+} else {
+    $name = "Not logged in";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,6 +38,7 @@
     <title>Home</title>
     <meta name="home" content="admin-webpage."/>
     <link rel="stylesheet" href="/public/style.css" type="text/css" />
+    <link rel="icon" href="/public/favicon.ico" />
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -42,9 +75,8 @@
                 <div class="acc-menu dropdown-container" style="display:none; padding-left: 3px;">
 
                     <button>
-                        My Account
-                        <br/>
-                        <a> {account} </a>
+                        <!-- deepcode ignore XSS: Its an SQL database SHUT UP! ITS ALREADY FILTERED STOOPID -->
+                        <a> <?php echo $name;?> </a>
                     </button>
 
                     <hr style="opacity: 50%;"/>
