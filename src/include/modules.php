@@ -592,7 +592,7 @@ function snapshot(string $uname, string $passwd, string $db, string $snTime)
 {
     $out = 0;
     $in = 0;
-    $lastHistory = sendSqlCommand("SELECT * FROM history ORDER BY snapTime DESC LIMIT 1;", $uname, $passwd, $db);
+    $lastHistory = sendSqlCommand("SELECT * FROM history WHERE snapTime=(SELECT max(snaptime) FROM history);", $uname, $passwd, $db);
     if (mysqli_num_rows($lastHistory[1]) == 0 or time()-mysqli_fetch_array($lastHistory[1])['snapTime'] >= $snTime) {
         $userIn = sendSqlCommand("SELECT * FROM users", $uname, $passwd, $db);
         $userInNum = 0;
