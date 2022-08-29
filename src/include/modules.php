@@ -578,3 +578,32 @@ function getTeacherByUuid(string $uname, string $passwd, string $db, string $uui
     }
     return array(null);
 }
+/**
+ * History snapshot
+ *
+ * @param string $uname  The MySQL username
+ * @param string $passwd The MySQL pasword
+ * @param string $db     The MySQL database name
+ * @param string $snTime The time between snapshots
+ * 
+ * @return void
+ */
+function snapshot(string $uname, string $passwd, string $db, string $snTime)
+{
+    $out = 0;
+    $in = 0;
+    $lastHistory = sendSqlCommand("SELECT * FROM history ORDER BY snapTime DESC LIMIT 1;", $uname, $passwd, $db);
+    if (mysqli_num_rows($lastHistory[1]) == 0 or time()-mysqli_fetch_array($lastHistory[1])['snapTime'] >= $snTime) {
+        $userIn = sendSqlCommand("SELECT * FROM users", $uname, $passwd, $db);
+        $userInNum = 0;
+        $userOutNum = 0;
+        while ($row = mysqli_fetch_array($userIn[1])) {
+            if ($row['activ'] == 1) {
+                $userInNum = $userInNum + 1;
+            } else {
+                $userOutNum = $userOutNum + 1;
+            }
+        }
+        $insert = sendSqlCommand("INSERT history VALUES('" . time() . "', '" . $userOutNum . "', '" . $userInNum . "');", $uname, $passwd, $db);
+    }
+}

@@ -91,6 +91,7 @@ if (roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[
         $config['sqlRootPasswd'],
         "VirtualPass"
     );
+    snapshot("root", $config['sqlRootPasswd'], "VirtualPass", $config['snapshotTime']);
     header("Location: /?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
 } else {
     header("Location: /?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));

@@ -51,12 +51,10 @@ sendSqlCommand(
 );
 sendSqlCommand(
     "CREATE TABLE IF NOT EXISTS history (
-    snTime varchar(255) NOT NULL,
+    snapTime varchar(255) NOT NULL,
     snOut varchar(255),
     snIn varchar(255),
-    userReg varchar(255),
-    roomReg varchar(255),
-    PRIMARY KEY (snTime)
+    PRIMARY KEY (snapTime)
 
 );",
     "root",
