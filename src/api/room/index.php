@@ -62,7 +62,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             echo json_encode($output);
             exit();
         } else { //If they do request a specific room
-            //FIX THIS
             $miscData = json_decode($user['misc'], true);
             $output = array();
             if (in_array($request[0], $miscData['rooms'])) {
@@ -109,8 +108,43 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 }
 if ($_SERVER['REQUEST_METHOD'] == "PUT") {
     if ((int) $level[1] == 0) {
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
     } elseif ((int) $level[1] == 1) {
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        $requestJson = json_decode(file_get_contents("php://input"), true);
+        if ($requestJson == false) {
+            echo json_encode(
+                array(
+                    "success" => 0,
+                    "reason" => "invalid_post_data",
+                    "human_reason" => "You have sent invalid POST data! It is supposed to be formatted in JSON."
+                ),
+                true
+            );
+            err();
+            exit();
+        }
     } elseif ((int) $level[1] == 2) {
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        err();
+        exit();
     } elseif ((int) $level[1] == 3) {
     }
 }
