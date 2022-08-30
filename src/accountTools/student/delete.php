@@ -1,11 +1,11 @@
 <?php
 
 /** 
- * Manage a student
+ * Delete a student
  * 
  * PHP version 8.1
  * 
- * @file     /src/accountTools/student/index.php
+ * @file     /src/accountTools/student/delete.php
  * @category Managment
  * @package  VirtualPass
  * @author   Jack <duedot43@noreplay-github.com>

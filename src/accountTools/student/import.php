@@ -1,11 +1,11 @@
 <?php
 
 /** 
- * Import rooms
+ * Import users
  * 
  * PHP version 8.1
  * 
- * @file     /src/accountTools/rooms/import.php
+ * @file     /src/accountTools/student/import.php
  * @category Managment
  * @package  VirtualPass
  * @author   Jack <duedot43@noreplay-github.com>
@@ -26,14 +26,14 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
     if (isset($_FILES["csv"])) {
         $file = $_FILES["csv"]["tmp_name"];
         move_uploaded_file($file, "./csv");
-        $room = decompileRoom(file_get_contents("./csv"));
-        if (!$room[0]) {
+        $user = decompileUser(file_get_contents("./csv"));
+        if (!$user[0]) {
             echo "Something has gone wrong with the import of your file please try again";
             exit();
         }
         unlink("./csv");
-        foreach ($room[1] as $roomRecord) {
-            $output = sendSqlCommand("INSERT rooms VALUES('" . $roomRecord['id'] . "', '" . $roomRecord['num'] . "')", "root", $config['sqlRootPasswd'], "VirtualPass");
+        foreach ($user[1] as $userRecord) {
+            $output = installUser(array($userRecord['firstName'], $userRecord['lastName'], $userRecord['ID'], $userRecord['email']), "root", $config['sqlRootPasswd'], "VirtualPass");
             if ($output[0] != 0) {
                 echo "Something has gone wrong importing the database please try again";
                 exit();

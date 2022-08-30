@@ -75,7 +75,7 @@ function userExists(string $uname, string $passwd, string $db, string $userKey)
  * @param string $db     The MySQL database name
  * @param string $key    The user unique ID
  * 
- * @return void
+ * @return array
  */
 function getUserData(string $uname, string $passwd, string $db, string $key)
 {
