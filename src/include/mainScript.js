@@ -1,83 +1,44 @@
+// Dark Mode button
+let dark_toggle = document.body;
 function dark_mode() {
-    const dark = document.querySelector('span');
 
-    dark.addEventListener('fullscreenchange', () => {
-        document.body.classList.toggle('')
-    })
+    dark_toggle.classList.toggle("dark-mode");
+    const change_theme = document.getElementsByClassName("sidenav");
+    change_theme.style.color = ('#ffffff');
+
 }
 
-var currentTab = 0; // Current tab is set to be the first tab (0)
-showTab(currentTab); // Display the current tab
-
-function showTab(n) {
-    // This function will display the specified tab of the form ...
-    var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
-    // ... and fix the Previous/Next buttons:
-    if (n == 0) {
-        document.getElementById("prevBtn").style.display = "none";
-    } else {
-        document.getElementById("prevBtn").style.display = "inline";
+function loadFile(filePath) {
+    let result = null;
+    const xml_http = new XMLHttpRequest();
+    xml_http.open("GET", filePath, false);
+    xml_http.send();
+    if (xml_http.status === 200) {
+        result = xml_http.responseText;
     }
-    if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";
-    } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
-    }
-    // ... and run a function that displays the correct step indicator:
-    fixStepIndicator(n)
+    return result;
 }
 
-function nextPrev(n) {
-    // This function will figure out which tab to display
-    var x = document.getElementsByClassName("tab");
-    // Exit the function if any field in the current tab is invalid:
-    if (n == 1 && !validateForm()) return false;
-    // Hide the current tab:
-    x[currentTab].style.display = "none";
-    // Increase or decrease the current tab by 1:
-    currentTab = currentTab + n;
-    // if you have reached the end of the form... :
-    if (currentTab >= x.length) {
-        //...the form gets submitted:
-        document.getElementById("regForm").submit();
-        return false;
-    }
-    // Otherwise, display the correct tab:
-    showTab(currentTab);
-}
+const vp_ver = loadFile("/public/version-info");
+parser = new DOMParser();
+xmlDoc = parser.parseFromString(vp_ver, "text/xml");
+console.log(vp_ver);
 
-function validateForm() {
-    // This function deals with validation of the form fields
-    var x, y, i, valid = true;
-    x = document.getElementsByClassName("tab");
-    y = x[currentTab].getElementsByTagName("input");
-    // A loop that checks every input field in the current tab:
-    for (i = 0; i < y.length; i++) {
-        // If a field is empty...
-        if (y[i].value == "") {
-            // add an "invalid" class to the field:
-            y[i].className += " invalid";
-            // and set the current valid status to false:
-            valid = false;
+
+// deepcode ignore DOMXSS: Stop it please
+document.getElementById('version-id').innerHTML = "Version ATS-" + xmlDoc.getElementsByTagName("version")[0].childNodes[0].nodeValue;
+
+// Automatically toggles Dark Mode
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+        if (event.matches) {
+            let change_theme = document.getElementsByClassName('');
+            change_theme.style.color('#c0c0c0')
+
+        } else {
+
         }
-    }
-    // If the valid status is true, mark the step as finished and valid:
-    if (valid) {
-        document.getElementsByClassName("step")[currentTab].className += " finish";
-    }
-    return valid; // return the valid status
-}
+    })
 
-function fixStepIndicator(n) {
-    // This function removes the "active" class of all steps...
-    var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
-    }
-    //... and adds the "active" class to the current step:
-    x[n].className += " active";
-}
 
 const dropdown = document.getElementsByClassName("dropdown-button");
 let i;
@@ -93,27 +54,5 @@ for (i = 0; i < dropdown.length; i++) {
         }
     });
 }
-
-
-function loadFile(filePath) {
-    let result = null;
-    const xml_http = new XMLHttpRequest();
-    xml_http.open("GET", filePath, false);
-    xml_http.send();
-    if (xml_http.status === 200) {
-        result = xml_http.responseText;
-    }
-    return result;
-}
-
-
-const vp_ver = loadFile("/public/version-info");
-parser = new DOMParser();
-xmlDoc = parser.parseFromString(vp_ver, "text/xml");
-console.log(vp_ver);
-
-
-// deepcode ignore DOMXSS: Stop it please
-document.getElementById('version-id').innerHTML = "Version ATS-" + xmlDoc.getElementsByTagName("version")[0].childNodes[0].nodeValue;
-
-document.getElementById('overview-tab').style.backgroundColor = ('#acdbea')
+const overtab = document.getElementById('overview-tab').style.backgroundColor = ('#acdbea')
+overtab.style.borderColor('#205c8f')

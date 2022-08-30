@@ -11,8 +11,9 @@ const data = {
     labels: labels,
     datasets: [{
         label: 'Dataset',
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgb(65,129,127)',
+        borderColor: 'rgb(65,129,127)',
+        color: 'white',
         data: [0, 10, 5, 2, 20, 30, 45],
     }]
 };

@@ -30,6 +30,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
     header("Location: /login.html");
     exit();
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -167,8 +168,8 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
                     </span>
                 </button>
 
-                <button>
-                    <span onclick="dark_mode()" class="material-symbols-outlined dark-mode-input">
+                <button onclick="dark_mode()">
+                    <span class="material-symbols-outlined dark-mode-input">
                     dark_mode
                     </span>
                 </button>
@@ -204,7 +205,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
 
             <h1 style="font-family: Arial, Helvetica, sans-serif"> Overview </h1>
 
-            <div class="chart-container">
+            <div class="chart-container"">
                 <canvas id="myChart" width="400" height="200"></canvas>
 
                 <script src="/include/chart_config.js"></script>

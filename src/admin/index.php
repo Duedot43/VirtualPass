@@ -39,7 +39,7 @@ if (!isset($_COOKIE['adminCookie'])
 
 
 <input class="reg" type="button" value="View all user info" onclick="location='/viewer/studentView.php'" />
-
+/
 <input class="reg" type="button" value="Make a room QR Code" onclick="location='/makeRoom/'" />
 
 <input class="reg" type="button" value="View all rooms" onclick="location='/viewer/roomView.php'" />
