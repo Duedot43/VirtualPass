@@ -231,9 +231,9 @@ html, body {
 }
 
 .l-card-container input {
-    margin: 5px 0 0 10px;
+    margin: 5px 0 0 20px;
     font-size: 17px;
-    padding: 5px;
+    padding: 7px;
     background-color: #dcdcdc;
     border: none;
     border-radius: 7px;
@@ -253,4 +253,28 @@ html, body {
 .l-card-container button:hover {
     background-color: #8ff0fa;
     cursor: pointer;
+}
+
+.b-card-container {
+    position: relative;
+    margin: auto;
+    transform: translate(0, 50%);
+    max-width: 600px;
+}
+
+.b-card-container a {
+    width: 1000px;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    color: rgb(78, 76, 76);
+    background-color: #ffffff;
+    border-radius: 5px;
+    text-decoration: none;
+
+}
+
+.b-card-container a:hover {
+    background-color: #dadada;
+    text-decoration: underline;
 }

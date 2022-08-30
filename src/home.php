@@ -27,7 +27,8 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
     $account = getUserData("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']));
     $name = $account['firstName'];
 } else {
-    $name = "Not logged in";
+    header("Location: /login.html");
+    exit();
 }
 ?>
 <!DOCTYPE html>

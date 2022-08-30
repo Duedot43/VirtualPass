@@ -71,6 +71,18 @@ if (roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[
     userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
     $userData = getUserData("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $level[2]));
     $departureData = json_decode($userData['misc'], true);
+    if (!in_array($request[0], $departureData['rooms'])) {
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "invalid_room",
+                "human_reason" => "The room you requested does not exist"
+            ),
+            true
+        );
+        err();
+        exit();
+    }
 
     //Depart or arrive the user
     if ($userData['activ'] == 1) {
@@ -81,9 +93,6 @@ if (roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[
     //that's simple right?
 
     //register their room
-    if (!in_array($request[0], $departureData['rooms'])) {
-        array_push($departureData['rooms'], $request[0]);
-    }
 
     $date = date("d") . "." . date("m") . "." . date("y");
 

@@ -27,13 +27,15 @@
     Export to CSV
     Email parents if a students gone for X ammount of times
     manage users must have delete user and manage api key for user
-    user managment pannel
     make the admin have a pre set cookie value so we know who they are and they can also have an API key same thing with teachers
-    room search for teacher
+    Test the room making API
+
+# IMPORT
+
     finish account managment
     FINISH THE API
-    Users can still register themselves to rooms if they exist with the API
-    Test the room making API
+    manage users must have delete user and manage api key for user
+    user managment pannel
 
 
 and more to come...
