@@ -42,8 +42,8 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
     }
 }
 ?>
-<button href="/accountTools/student/change.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>">Change Info</button>
-<button href="/accountTools/student/arrive.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>">Force Arrive</button>
-<button href="/accountTools/student/delete.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>">Delete User</button>
-<button href="/accountTools/student/key.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>">Manage API key</button>
-<button href="/accountTools/student/import.php">Import Users</button>
+<button onclick="location='/accountTools/student/change.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>'">Change Info</button>
+<button onclick="location='/accountTools/student/arrive.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>'">Force Arrive</button>
+<button onclick="location='/accountTools/student/delete.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>'">Delete User</button>
+<button onclick="location='/accountTools/student/key.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>'">Manage API key</button>
+<button onclick="location='/accountTools/student/import.php'">Import Users</button>

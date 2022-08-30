@@ -26,12 +26,12 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
     }
 
     if (isset($_COOKIE['adminCookie'])) {
-        echo "<button onclick='/accountTools/rooms/?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8') . "' >Manage this room</button>";
+        echo "<button onclick=\"location='/accountTools/rooms/?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8') . "'\" >Manage this room</button>";
     }
     $result = sendSqlCommand("SELECT * FROM users;", "root", $config['sqlRootPasswd'], "VirtualPass");
     while ($row = mysqli_fetch_assoc($result[1])) {
         if (in_array($_GET['room'], json_decode($row['misc'], true)['rooms'])) {
-            echo "<button onclick='/viewer/studentView.php?user=" . $row['sysID'] . "' >" . $row['firstName'] . " " . $row['lastName'] . " " . activ2eng($row['activ']) . "</button><br>";
+            echo "<button onclick=\"location='/viewer/studentView.php?user=" . $row['sysID'] . "'\" >" . $row['firstName'] . " " . $row['lastName'] . " " . activ2eng($row['activ']) . "</button><br>";
             
         }
     }

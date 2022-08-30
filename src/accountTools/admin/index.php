@@ -54,17 +54,17 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
     if (isset($_GET['account']) and adminCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['account']))) {
         $admin = getAdminByUuid("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['account']));
         // deepcode ignore XSS: Is not relevent 
-        echo "<button onclick='/accountTools/admin/?account=" . $admin['uuid'] . "&action=delete' >Delete account</button><br>";
+        echo "<button onclick=\"location='/accountTools/admin/?account=" . $admin['uuid'] . "&action=delete'\" >Delete account</button><br>";
         // deepcode ignore XSS: Is not relevent thats from valid data in the database
-        //echo "<button onclick='/accountTools/admin/?account=" . $admin['uuid'] . "&action=changePasswd' >Change password</button><br>";
+        //echo "<button onclick=\"location='/accountTools/admin/?account=" . $admin['uuid'] . "&action=changePasswd'\" >Change password</button><br>";
         exit();
     }
 
     // showing all the admins
     $result = sendSqlCommand("SELECT * FROM admins;", "root", $config['sqlRootPasswd'], "VirtualPass");
-    echo "<button onclick='/accountTools/admin/import.php' >Import admins</button><br>";
+    echo "<button onclick=\"location='/accountTools/admin/import.php'\" >Import admins</button><br>";
     while ($row = mysqli_fetch_assoc($result[1])) {
-        echo "<button onclick='/accountTools/admin/?account=" . $row['uuid'] . "' >" . $row['uname'] . "</button><br>";
+        echo "<button onclick=\"location='/accountTools/admin/?account=" . $row['uuid'] . "'\" >" . $row['uname'] . "</button><br>";
     }
 } else {
     if (isset($_COOKIE['adminCookie'])) {

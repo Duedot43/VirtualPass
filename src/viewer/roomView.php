@@ -22,7 +22,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
     //get all the rooms
     $result = sendSqlCommand("SELECT * FROM rooms;", "root", $config['sqlRootPasswd'], "VirtualPass");
     while ($row = mysqli_fetch_assoc($result[1])) {
-        echo "<button onclick='/viewer/stuRoomView.php?room=" . $row['ID'] . "' >" . $row['num'] . "</button><br>";
+        echo "<button onclick=\"location='/viewer/stuRoomView.php?room=" . $row['ID'] . "'\" >" . $row['num'] . "</button><br>";
         
         //Onclick is usually used for JS Functions.
     }

@@ -58,7 +58,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
         foreach ($dateArr as $occorance) {
             if (!in_array($occorance['room'], $rooms)) {
                 array_push($rooms, $occorance['room']);
-                echo "<button onclick='/viewer/studentView.php?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "&date=" . htmlspecialchars($_GET['date'],  ENT_QUOTES, 'UTF-8') . "&room=" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "' >" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "</button><br>";
+                echo "<button onclick=\"location='/viewer/studentView.php?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "&date=" . htmlspecialchars($_GET['date'],  ENT_QUOTES, 'UTF-8') . "&room=" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "'\" >" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "</button><br>";
             }
         }
         exit();
@@ -70,12 +70,12 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
         }
         $user = getUserData("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8')));
         if (isset($_COOKIE['adminCookie'])) {
-            echo "<button onclick='/accountTools/student/?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "' >Manage this user</button>";
+            echo "<button onclick=\"location='/accountTools/student/?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "'\" >Manage this user</button>";
         }
         $miscData = json_decode($user['misc'], true);
         $array_keys = array_keys($miscData['activity']);
         foreach ($array_keys as $array_key) {
-            echo "<button onclick='/viewer/studentView.php?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "&date=" . $array_key . "' >" . $array_key . "</button>";
+            echo "<button onclick=\"location='/viewer/studentView.php?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "&date=" . $array_key . "'\" >" . $array_key . "</button>";
         }
         exit();
     }
@@ -84,7 +84,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
     //cycle through all the users and display them
     $result = sendSqlCommand("SELECT * FROM users;", "root", $config['sqlRootPasswd'], "VirtualPass");
     while ($row = mysqli_fetch_assoc($result[1])) {
-        echo "<button onclick='/viewer/studentView.php?user=" . $row['sysID'] . "' >" . $row['firstName'] . " " . $row['lastName'] . " " . activ2eng($row['activ']) . "</button><br>";
+        echo "<button onclick=\"location='/viewer/studentView.php?user=" . $row['sysID'] . "'\" >" . $row['firstName'] . " " . $row['lastName'] . " " . activ2eng($row['activ']) . "</button><br>";
     }
 } else {
     if (isset($_COOKIE['adminCookie'])) {

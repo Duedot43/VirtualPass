@@ -126,5 +126,5 @@ if (!isset($_COOKIE['id'])) {
 
 
 if (isset($_COOKIE['id']) and userExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']))) {
-    echo "<input type='button' onclick'Location=\"/doActiv.php?room=" . htmlspecialchars(preg_replace("/[^0-9.]+/i", "", $_GET['room']), ENT_QUOTES, 'UTF-8') . "\"'>";
+    echo "<input type='button' onclick'location=\"/doActiv.php?room=" . htmlspecialchars(preg_replace("/[^0-9.]+/i", "", $_GET['room']), ENT_QUOTES, 'UTF-8') . "\"'>";
 }
