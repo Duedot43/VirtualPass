@@ -27,11 +27,13 @@ if (!userExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/
 }
 //Auth
 if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
-    // change basic info
-    // force arrive
-    // delete user
-    // api key managment
-    // import users
+    $output = sendSqlCommand("DELETE FROM users WHERE sysID='" . htmlspecialchars(preg_replace("/[^0-9.]+/i", "", $_GET['user']),  ENT_QUOTES, 'UTF-8') . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
+    if ($output[0] == 1) {
+        echo "Something went wrong with deleting the user!";
+        exit();
+    }
+    echo "Success! User deleted!";
+    exit();
 } else {
     if (isset($_COOKIE['adminCookie'])) {
         header("Location: /admin/");
@@ -41,9 +43,3 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
         exit();
     }
 }
-?>
-<button href="/accountTools/student/change.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>">Change Info</button>
-<button href="/accountTools/student/arrive.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>">Force Arrive</button>
-<button href="/accountTools/student/delete.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>">Delete User</button>
-<button href="/accountTools/student/key.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>">Manage API key</button>
-<button href="/accountTools/student/import.php">Import Users</button>
