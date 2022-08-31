@@ -40,6 +40,10 @@ for (i = 0; i < dropdown.length; i++) {
     });
 }
 
+function switchEmbed(url) {
+    document.getElementById('mainEmbed').src = url;
+}
+
 //Removes open tabs when user clicks anywhere on screen.
 const removeContent = document.getElementsByClassName('issue-tab')
 const random_variable = document.body;

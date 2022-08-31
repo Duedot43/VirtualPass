@@ -45,7 +45,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
 
 <body>
 <div class="l-card-container">
-    <a>First time setup. Please input the room number of this QR code to register.</a>
+    <a>Please input the room number to register.</a>
     <hr/>
     <form method="post">
         <label>

@@ -147,11 +147,11 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
             <br />
 
             <div class="button-container-01">
-                <button>
+                <button onclick="switchEmbed('/makeRoom/')" >
                     <span class="material-symbols-outlined">
                         meeting_room
                     </span>
-                    Manage Rooms
+                    Add Room
                 </button>
 
                 <button class="dropdown-button">
@@ -168,13 +168,16 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
                 </button>
 
                 <div class="dropdown-container">
-                    <button>
+                    <button onclick="switchEmbed('/accountTools/admin')">
                         Admins
                     </button>
-                    <button>
+                    <button onclick="switchEmbed('/accountTools/teacher')">
                         Teachers
                     </button>
-                    <button>
+                    <button onclick="switchEmbed('/viewer/studentView.php')">
+                        Students
+                    </button>
+                    <button onclick="switchEmbed('/viewer/roomView.php')">
                         Students
                     </button>
                 </div>
