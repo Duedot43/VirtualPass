@@ -1,13 +1,3 @@
-## Home page
-
-Make seprate admin teacher and student login buttons ill tell you how to authenticate them correctly
-Finish DarkMode
-
-## /src/viewer*
- Do HTML for this stuff the headers are marked with HEADERS
-
-## /src/accountTools/**
-Do HTML for this stuff too again HEADERS 
 
 
 set timer to let embed load (JavaScript)
@@ -18,4 +8,4 @@ Apple Webkit compatability (CSS)
 Firefox 56 and earlier compatability
 Make it so that site breaks when someone uses the Brave browser and display #h1 UNSAFE BROWSER DETECTED.
 Fix the top-nav
-
+Make side-nav scrollable when the manage menu is expanded

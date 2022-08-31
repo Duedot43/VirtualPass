@@ -21,15 +21,30 @@ if (!isset($_COOKIE['teacherCookie']) or !teacherCookieExists("root", $config['s
     exit();
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <link href="/style.css" rel="stylesheet" type="text/css" />
+    <title>Teacher Portal</title>
+    <meta name="color-scheme" content="dark light">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/style.css" type="text/css" />
+    <link rel="icon" href="/public/favicon.ico" />
 </head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teacher Portal</title>
 
 
+<body>
 
-<input class="reg" type="button" value="View all user info" onclick="location='/viewer/studentView.php'" />
-<input class="reg" type="button" value="Make a room QR Code" onclick="location='/mk_room/index.php'" />
-<input class="reg" type="button" value="View all rooms" onclick="location='view_rooms.php'" />
-<input class="reg" type="button" value="View all rooms" onclick="location='/teacher/search.php'" />
+    <div class="b-card-container">
+        <input class="reg" type="button" value="Make a room QR Code" onclick="location='/makeRoom/'" />
+        <input class="reg" type="button" value="Search for your room" onclick="location='/teacher/search.php'" />
+    </div>
+
+    <script src="/include/mainScript.js"></script>
+
+
+</body>
+
+
+</html>

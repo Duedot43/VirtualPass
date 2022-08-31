@@ -12,6 +12,7 @@
  * @license  https://mit-license.org/ MIT
  * @link     https://github.com/Duedot43/VirtualPass
  */
+//TODO rotate admin keys every day
 require "../include/modules.php";
 $config = parse_ini_file("../../config/config.ini");
 $domain = getDomain();

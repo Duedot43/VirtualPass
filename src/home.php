@@ -63,7 +63,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
             </div>
             -->
             <h1 style="font-family: Arial, Helvetica, sans-serif" id='viewportTitle'> Overview </h1>
-            <iframe  id='mainEmbed' src='/admin/' style="border:none;" width='100%'>
+            <iframe id='mainEmbed' src='/admin/' style="border:none;" width='100%'>
 
             </iframe>
         </div>
@@ -116,8 +116,11 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
                 <h2>Dashboard</h2>
             </div>
 
+
+            <br />
+            <hr style="opacity: 25%; margin: 5px 10px 15px 5px;" />
             <a>Analytics</a>
-            <br>
+            <br />
             <div class="button-container-01">
                 <button id="overview-tab">
                     <span class="material-symbols-outlined">
@@ -143,21 +146,56 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
 
             <br />
             <hr style="opacity: 25%; margin: 5px 10px 15px 5px;" />
+            <a>Pannels</a>
+            <br />
+            <div class="button-container-01">
+                <button id="overview-tab" onclick="switchEmbed('/admin')">
+                    <span class="material-symbols-outlined">
+                        admin_panel_settings
+                    </span>
+                    Admin Pannel
+                </button>
+
+                <button onclick="switchEmbed('/student')">
+                    <span class="material-symbols-outlined">
+                        person
+                    </span>
+                    Student Pannel
+                </button>
+
+                <button onclick="switchEmbed('/teacher')">
+                    <span class="material-symbols-outlined">
+                        school
+                    </span>
+                    Teacher Pannel
+                </button>
+            </div>
+
+
+            <br />
+            <hr style="opacity: 25%; margin: 5px 10px 15px 5px;" />
             <a>Other</a>
             <br />
 
             <div class="button-container-01">
-                <button onclick="switchEmbed('/makeRoom/')" >
+                <button onclick="switchEmbed('/makeRoom/')">
                     <span class="material-symbols-outlined">
                         meeting_room
                     </span>
                     Add Room
                 </button>
 
+                <button onclick="switchEmbed('/accountTools/student/make.php')">
+                    <span class="material-symbols-outlined">
+                        person_add
+                    </span>
+                    Add User
+                </button>
+
                 <button class="dropdown-button">
                     <i></i>
                     <span class="material-symbols-outlined">
-                        person_add
+                        supervised_user_circle
                     </span>
                     Manage Members
 
@@ -175,9 +213,6 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
                         Teachers
                     </button>
                     <button onclick="switchEmbed('/viewer/studentView.php')">
-                        Students
-                    </button>
-                    <button onclick="switchEmbed('/viewer/roomView.php')">
                         Students
                     </button>
                 </div>
