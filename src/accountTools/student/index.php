@@ -16,7 +16,7 @@ require "../../include/modules.php";
 
 
 $config = parse_ini_file("../../../config/config.ini");
-echo "<!-- HEADERS -->";
+echo "<!-- //TODO HEADERS -->";
 if (!isset($_GET['user'])) {
     echo "Your user is not set";
     exit();
@@ -28,9 +28,9 @@ if (!userExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/
 //Auth
 if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
     // change basic info
-    // force arrive
+    // TODO force arrive
     // delete user
-    // api key managment
+    // TODO api key managment
     // import users
 } else {
     if (isset($_COOKIE['adminCookie'])) {

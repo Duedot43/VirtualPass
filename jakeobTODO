@@ -8,3 +8,10 @@ Finish DarkMode
 
 ## /src/accountTools/**
 Do HTML for this stuff too again HEADERS 
+
+
+set timer to let embed load
+Oh and you also cant click off off the menus you have to click the button
+The overview window still scrools but the iframe does not
+Light mode button and broser default are diffrent
+Apple Webkit compatability

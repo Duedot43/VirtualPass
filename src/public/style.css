@@ -1,23 +1,55 @@
 html, body {
     margin: 0;
     height: 100%;
-    background-color: #ffffff;
-    color: #3a3a3a;
+    --bg: #ffffff;
+    --text: #3a3a3a;
+    --icon-color: #3254ab;
+    --highlight: #acdbea;
+    --line: black;
+    --input: #d3d3d3;
+    --l-btn: #aec1dd;
 }
 
-.dark-mode {
-    background-color: #29353b;
-    color: white;
-
+body.dark-mode {
+    --bg: #212a2f;
+    --text: white;
+    --icon-color: #3254ab;
+    --highlight: #17375b;
+    --line: white;
+    --input: #414763;
+    --l-btn: #54657e;
 }
 
-@media screen and ( min-width: 600px ) {
+@media (prefers-color-scheme: dark) {
+
+    body {
+        --bg: #212a2f;
+        --text: white;
+        --icon-color: #86b4e9;
+        --highlight: #174a5b;
+        --line: white;
+        --input: #414763;
+        --l-btn: #54657e;
+    }
+    body.light-mode {
+        --text: #3a3a3a;
+        --bg: #ffffff;
+        --icon-color: #3254ab;
+        --highlight: #acdbea;
+        --line: black;
+        --input: #d3d3d3;
+        --l-btn: #6f85a7;
+    }
+}
+
+@media screen and (min-width: 600px) {
 
     .content-container {
-        margin: 45px 0 0 250px;
-        padding:15px;
-        overflow:auto;
-        background: inherit;
+        position: relative;
+        margin-left: 250px;
+        padding: 25px 15px 15px 15px;
+        height: 100%;
+        background: var(--bg);
         white-space: nowrap;
     }
 
@@ -25,7 +57,12 @@ html, body {
         margin: auto;
         max-width: 1000px;
         min-width: 250px;
-        background: inherit;
+        overflow: hidden;
+        border-radius: 5px;   
+        box-shadow: 0 0 2px 0;
+        height: 100%;
+        color: var(--text);
+        background: var(--bg);
     }
 
 
@@ -33,26 +70,21 @@ html, body {
         display: flex;
         width: 100%;
         height: 40px;
-        background: inherit;
+        background: var(--bg);
     }
 
     .top-nav {
-        position: relative;
+        position: fixed;
         margin: 0;
         width: 100%;
         height: 50px;
         z-index: 9;
         border: 5px #3a3a3a;
-        background: inherit;
-        box-shadow: 0 0 2px 0 #000000;
+        background: var(--bg);
+        box-shadow: 0 0 2px 0 var(--line);
     }
 
-    .logo {
-        position: relative;
-        padding: 10px;
-        width: 200px;
 
-    }
 
     .logo:hover {
         text-decoration: underline;
@@ -64,13 +96,14 @@ html, body {
         font-family: Arial, Helvetica, sans-serif;
         font-size: 25px;
         text-decoration: none;
-        color: inherit;
+        color: var(--text);
     }
 
     .h-login-button {
-        position:absolute;
+        position: absolute;
         top: 12px;
         right: 5px;
+        background: inherit;
         color: inherit;
     }
 
@@ -79,7 +112,7 @@ html, body {
         height: 30px;
         background: none;
         border: none;
-        color: inherit;
+        color: var(--text);
     }
 
     .h-login-button button:hover {
@@ -93,8 +126,8 @@ html, body {
         padding: 3px;
         right: 2px;
         text-align: left;
-        background-color: inherit;
-        box-shadow: 0 0 2px 0 #000000;
+        background: var(--bg);
+        box-shadow: 0 0 2px 0 var(--line);
     }
 
     .acc-menu button {
@@ -119,13 +152,15 @@ html, body {
         bottom: 0;
         width: 250px;
         height: 100%;
+        z-index: 7;
         background-color: inherit;
         font-family: Arial, Helvetica, sans-serif;
-        box-shadow: 0 0 2px 0;
+        box-shadow: 0 0 2px 0 var(--line);
     }
 
     .sidenav h2 {
         font-size: 25px;
+        color: var(--text);
     }
 
     .sidenav a {
@@ -133,7 +168,7 @@ html, body {
         width: 100%;
         font-weight: bold;
         text-align: center;
-        color: #3254ab;
+        color: var(--icon-color);
     }
 
     .sidenav button {
@@ -141,19 +176,20 @@ html, body {
         width: 100%;
         text-align: left;
         padding: 10px;
+        margin: 3px 0 3px 0;
         background: none;
         border: none;
         font-size: 14px;
         border-radius: 25px 0 0 25px;
-        color: #3254ab;
+        color: var(--icon-color);
     }
 
     .sidenav button:hover {
-        background-color: #acdbea;
+        background-color: var(--highlight);
         cursor: pointer;
     }
 
-    .sidenav-head  h2 {
+    .sidenav-head h2 {
         margin-top: 65px;
     }
 
@@ -167,7 +203,9 @@ html, body {
 
     .bottom-nav button {
         display: inline-block;
+        margin: 0;
         width: 45px;
+        height: 45px;
         border-radius: 25px;
     }
 
@@ -177,8 +215,8 @@ html, body {
         bottom: 50px;
         width: 270px;
         padding: 3px;
-        background-color: inherit;
-        box-shadow: 0 0 2px 0 #000000;
+        background: var(--bg);
+        box-shadow: 0 0 2px 0 var(--line);
     }
 
     .issue-tab label {
@@ -203,7 +241,7 @@ html, body {
 
 
     .material-symbols-outlined:hover {
-        cursor:pointer;
+        cursor: pointer;
     }
 
     .dropdown-container {
@@ -211,6 +249,12 @@ html, body {
         padding-left: 35px;
     }
 
+    .logo {
+        position: relative;
+        padding: 10px;
+        width: 200px;
+
+    }
 }
 
 @media screen and (min-width: 500px) {
@@ -220,9 +264,9 @@ html, body {
         transform: translate(0, 50%);
         max-width: 500px;
         width: 90%;
-        background-color: white;
+        background-color: var(--bg);
         border-radius: 5px;
-        box-shadow: 0 0 3px 0 #000000;
+        box-shadow: 0 0 3px 0 var(--line);
     }
 
     .l-card-container a {
@@ -237,7 +281,7 @@ html, body {
         margin: 5px 0 0 20px;
         font-size: 17px;
         padding: 7px;
-        background-color: #dcdcdc;
+        background: var(--input);
         border: none;
         border-radius: 7px;
         width: 90%;
@@ -248,16 +292,20 @@ html, body {
         margin: 10px 0 0 55%;
         padding: 7px;
         width: 40%;
-        background: #b5e8ee;
+        background: var(--button);
         border: none;
         border-radius: 5px;
     }
 
     .l-card-container button:hover {
-        background-color: #8ff0fa;
+        background: var(--highlight);
         cursor: pointer;
     }
 
+    #mainEmbed {
+        overflow: hidden;
+        height: 100%;
+    }
 }
 
 @media screen and (max-width: 500px) {

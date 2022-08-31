@@ -16,7 +16,7 @@ require "../../include/modules.php";
 
 
 $config = parse_ini_file("../../../config/config.ini");
-echo "<!-- HEADERS -->";
+echo "<!-- //TODO HEADERS -->";
 if (!isset($_GET['user'])) {
     echo "Your user is not set";
     exit();

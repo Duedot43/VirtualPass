@@ -88,22 +88,104 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 }
 if ($_SERVER['REQUEST_METHOD'] == "PUT") {
     if ((int) $level[1] == 0) {
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
     } elseif ((int) $level[1] == 1) {
+        //TODO Level 1 user PUT
     } elseif ((int) $level[1] == 2) {
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
     } elseif ((int) $level[1] == 3) {
+        //TODO Level 3 user PUT
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == "PATCH") {
     if ((int) $level[1] == 0) {
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
     } elseif ((int) $level[1] == 1) {
+        //TODO Level 1 user PATCH
     } elseif ((int) $level[1] == 2) {
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
     } elseif ((int) $level[1] == 3) {
+        //TODO Level 3 user PATCH
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
     if ((int) $level[1] == 0) {
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
     } elseif ((int) $level[1] == 1) {
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
     } elseif ((int) $level[1] == 2) {
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
     } elseif ((int) $level[1] == 3) {
+        //TODO Level 3 user DELETE
     }
 }

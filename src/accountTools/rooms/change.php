@@ -16,7 +16,7 @@ require "../../include/modules.php";
 
 
 $config = parse_ini_file("../../../config/config.ini");
-echo "<!-- HEADERS -->";
+echo "<!-- //TODO HEADERS -->";
 if (!isset($_GET['room'])) {
     echo "Your room is not set";
     exit();

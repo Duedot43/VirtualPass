@@ -1,4 +1,5 @@
 <?php
+
 /** 
  * The home page file
  * 
@@ -38,16 +39,36 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <meta name="home" content="admin-webpage."/>
+    <meta name="home" content="admin-webpage." />
+    <meta name="color-scheme" content="dark light">
     <link rel="stylesheet" href="/public/style.css" type="text/css" />
     <link rel="icon" href="/public/favicon.ico" />
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 
 <body>
+
+    <div class="content-container">
+        <div class="main" height="100%">
+            <!---
+
+
+            <div class="chart-container"">
+                <canvas id="myChart" width="400" height="200"></canvas>
+
+                <script src="/include/chart_config.js"></script>
+
+            </div>
+            -->
+            <h1 style="font-family: Arial, Helvetica, sans-serif" id='viewportTitle'> Overview </h1>
+            <iframe  id='mainEmbed' src='/admin/' style="border:none;" width='100%'>
+
+            </iframe>
+        </div>
+    </div>
+
 
     <div class="nav-parent">
         <div class="top-nav">
@@ -78,10 +99,10 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
 
                     <button>
                         <!-- deepcode ignore XSS: Its an SQL database SHUT UP! ITS ALREADY FILTERED STOOPID -->
-                        <a> <?php echo $name;?> </a>
+                        <a> <?php echo $name; ?> </a>
                     </button>
 
-                    <hr style="opacity: 50%;"/>
+                    <hr style="opacity: 50%;" />
                     <button>Home</button>
                     <button class="logout">Log Out</button>
 
@@ -121,7 +142,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
             </div>
 
             <br />
-            <hr style="opacity: 25%; margin: 5px 10px 15px 5px;"/>
+            <hr style="opacity: 25%; margin: 5px 10px 15px 5px;" />
             <a>Other</a>
             <br />
 
@@ -168,16 +189,17 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
                     </span>
                 </button>
 
-                <button onclick="dark_mode()">
+                <button id="dark-toggler" class="dark-toggler">
                     <span class="material-symbols-outlined dark-mode-input">
-                    dark_mode
+                        dark_mode
                     </span>
                 </button>
 
+
                 <button class="dropdown-button">
                     <span class="material-symbols-outlined ">
-                    contact_support
-                </span>
+                        contact_support
+                    </span>
                 </button>
 
 
@@ -198,24 +220,6 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
 
         </div>
     </div>
-
-
-    <div class="content-container">
-        <div class="main">
-
-            <h1 style="font-family: Arial, Helvetica, sans-serif"> Overview </h1>
-
-            <div class="chart-container"">
-                <canvas id="myChart" width="400" height="200"></canvas>
-
-                <script src="/include/chart_config.js"></script>
-
-            </div>
-        </div>
-
-    </div>
-
-
 
     <script src="/include/mainScript.js"></script>
 

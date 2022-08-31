@@ -30,20 +30,31 @@ if (!isset($_COOKIE['adminCookie'])
 // My lint program and my formatter are arguing this is not good
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <link href="/style.css" rel="stylesheet" type="text/css" />
+    <title>Admin Portal</title>
+    <meta name="color-scheme" content="dark light">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/public/style.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" href="/public/favicon.ico" />
 </head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Portal</title>
+
+<body>
+
+    <div class="b-card-container">
+        <button onclick="location='/accountTools/teacher'"> Manage Teacher Accounts </button>
+        <button onclick="location='/accountTools/admin'"> Manage Admin Accounts </button>
+        <button onclick="location='/viewer/roomView.php'"> View all rooms </button>
+        <button onclick="location='/viewer/studentView.php'"> View all user info </button>
+        <button onclick="location='/makeRoom/'"> Generate room QR code </button>
+    </div>
+
+    <script src="/include/mainScript.js"></script>
 
 
+</body>
 
-<input class="reg" type="button" value="View all user info" onclick="location='/viewer/studentView.php'" />
-/
-<input class="reg" type="button" value="Make a room QR Code" onclick="location='/makeRoom/'" />
 
-<input class="reg" type="button" value="View all rooms" onclick="location='/viewer/roomView.php'" />
-
-<input class="reg" type="button" value="Manage admin accounts" onclick="location='/accountTools/admin'" />
-
-<input class="reg" type="button" value="Manage teacher accounts" onclick="location='/accountTools/teacher'" />
+</html>

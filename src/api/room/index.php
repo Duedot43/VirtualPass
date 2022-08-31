@@ -121,19 +121,16 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT") {
         exit();
     } elseif ((int) $level[1] == 1) {
         userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
-        $requestJson = json_decode(file_get_contents("php://input"), true);
-        if ($requestJson == false) {
-            echo json_encode(
-                array(
-                    "success" => 0,
-                    "reason" => "invalid_post_data",
-                    "human_reason" => "You have sent invalid POST data! It is supposed to be formatted in JSON."
-                ),
-                true
-            );
-            err();
-            exit();
-        }
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
     } elseif ((int) $level[1] == 2) {
         echo json_encode(
             array(
@@ -146,19 +143,88 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT") {
         err();
         exit();
     } elseif ((int) $level[1] == 3) {
+        //TODO Level 3 room api PUT
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == "PATCH") {
     if ((int) $level[1] == 0) {
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
     } elseif ((int) $level[1] == 1) {
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
     } elseif ((int) $level[1] == 2) {
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
     } elseif ((int) $level[1] == 3) {
+        //TODO level 3 room api PATCH
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
     if ((int) $level[1] == 0) {
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
     } elseif ((int) $level[1] == 1) {
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
     } elseif ((int) $level[1] == 2) {
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
     } elseif ((int) $level[1] == 3) {
+        //TODO level 3 room api DELETE
     }
 }
