@@ -16,7 +16,16 @@ require "../../include/modules.php";
 
 
 $config = parse_ini_file("../../../config/config.ini");
-echo "<!-- //TODO HEADERS -->";
+echo '<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Manage students</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/style.css" type="text/css" />
+    <link rel="icon" href="/public/favicon.ico" />
+</head>';
 if (!isset($_GET['user'])) {
     echo "Your user is not set";
     exit();
@@ -27,11 +36,6 @@ if (!userExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/
 }
 //Auth
 if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
-    // change basic info
-    // TODO force arrive
-    // delete user
-    // TODO api key managment
-    // import users
 } else {
     if (isset($_COOKIE['adminCookie'])) {
         header("Location: /admin/");

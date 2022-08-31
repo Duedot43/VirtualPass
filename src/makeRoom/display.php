@@ -1,7 +1,7 @@
 <?php
 
 /** 
- * Home page and navigator
+ * Room maker
  * 
  * PHP version 8.1
  * 
@@ -15,7 +15,16 @@
 require "../include/modules.php";
 $domain = getDomain();$config = parse_ini_file("../../config/config.ini");
 $config = parse_ini_file("../../config/config.ini");
-echo "<!-- //TODO HEADERS -->";
+echo '<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Download room QR</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/style.css" type="text/css" />
+    <link rel="icon" href="/public/favicon.ico" />
+</head>';
 //Auth
 if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie'])) or isset($_COOKIE['teacherCookie']) and teacherCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['teacherCookie']))) {
     if (!isset($_GET['id'])) {

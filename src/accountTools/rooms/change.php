@@ -16,7 +16,16 @@ require "../../include/modules.php";
 
 
 $config = parse_ini_file("../../../config/config.ini");
-echo "<!-- //TODO HEADERS -->";
+echo '<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Change room info</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/style.css" type="text/css" />
+    <link rel="icon" href="/public/favicon.ico" />
+</head>';
 if (!isset($_GET['room'])) {
     echo "Your room is not set";
     exit();

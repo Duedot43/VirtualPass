@@ -1,11 +1,11 @@
 <?php
 
 /** 
- * Delete a student
+ * Change api key status of a student
  * 
  * PHP version 8.1
  * 
- * @file     /src/accountTools/student/delete.php
+ * @file     /src/accountTools/student/key.php
  * @category Managment
  * @package  VirtualPass
  * @author   Jack <duedot43@noreplay-github.com>
@@ -20,7 +20,7 @@ echo '<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Delete a student</title>
+    <title>Manage student api key/title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/public/style.css" type="text/css" />
@@ -36,13 +36,7 @@ if (!userExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/
 }
 //Auth
 if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
-    $output = sendSqlCommand("DELETE FROM users WHERE sysID='" . htmlspecialchars(preg_replace("/[^0-9.]+/i", "", $_GET['user']),  ENT_QUOTES, 'UTF-8') . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
-    if ($output[0] == 1) {
-        echo "Something went wrong with deleting the user!";
-        exit();
-    }
-    echo "Success! User deleted!";
-    exit();
+    //TODO API Key
 } else {
     if (isset($_COOKIE['adminCookie'])) {
         header("Location: /admin/");
