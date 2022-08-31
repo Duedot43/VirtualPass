@@ -10,8 +10,11 @@ Finish DarkMode
 Do HTML for this stuff too again HEADERS 
 
 
-set timer to let embed load
+set timer to let embed load (JavaScript)
 Oh and you also cant click off off the menus you have to click the button
 The overview window still scrools but the iframe does not
 Light mode button and broser default are diffrent
-Apple Webkit compatability
+Apple Webkit compatability (CSS)
+Firefox 56 and earlier compatability
+Make it so that site breaks when someone uses the Brave browser and display #h1 UNSAFE BROWSER DETECTED.
+
