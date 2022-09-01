@@ -62,40 +62,20 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
         <a>Please Login </a>
         <hr />
 
-        <form id="regForm" method="post">
-            <div class="tab-container">
-                <label>
-                    First Name:
-                    <input type="text" pattern="[a-zA-Z]+" name="firstname" id="firstname" oninput="this.className = ''" required />
-                    Last Name:
-                    <input type="text" name="lastname" id="lastname" oninput="this.className = ''" required />
-                </label>
-            </div>
-
-            <div class=tab-container>
-                <label>
-                    Student ID:
-                    <input type="number" name="stid" id="stid" placeholder="10010010" oninput="this.className = ''" required />
-                    Student Email:
-                    <input type="email" name="stem" id="stem" placeholder="student@cherrycreekschools.org" oninput="this.className = ''" required>
-                </label>
-            </div>
+        <form method="post">
+            <label>
+                First Name:
+                <input type="text" pattern="[a-zA-Z]+" name="firstname" id="firstname" required />
+                Last Name:
+                <input type="text" name="lastname" id="lastname" required />
+                Student ID:
+                <input type="number" name="stid" id="stid" required />
+                Student Email:
+                <input type="email" name="stem" id="stem" required>
+            </label>
             <button type="submit" name="Submit" value="Submit"> Login </button>
 
-            <div style="overflow:auto;">
-                <div style="float:right;">
-                    <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                    <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-                </div>
-            </div>
-
-                    <div style="text-align:center;margin-top:40px;">
-            <span class="step"></span>
-            <span class="step"></span>
-        </div>
         </form>
-
-
     </div>
 
 </body>
