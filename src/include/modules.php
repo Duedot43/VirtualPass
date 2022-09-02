@@ -593,7 +593,7 @@ function snapshot(string $uname, string $passwd, string $db, string $snTime)
     $out = 0;
     $in = 0;
     $lastHistory = sendSqlCommand("SELECT * FROM history WHERE snapTime=(SELECT max(snaptime) FROM history);", $uname, $passwd, $db);
-    if (mysqli_num_rows($lastHistory[1]) == 0 or time()-mysqli_fetch_array($lastHistory[1])['snapTime'] >= $snTime) {
+    if (mysqli_num_rows($lastHistory[1]) == 0 or time() - mysqli_fetch_array($lastHistory[1])['snapTime'] >= $snTime) {
         $userIn = sendSqlCommand("SELECT * FROM users", $uname, $passwd, $db);
         $userInNum = 0;
         $userOutNum = 0;
@@ -606,4 +606,24 @@ function snapshot(string $uname, string $passwd, string $db, string $snTime)
         }
         $insert = sendSqlCommand("INSERT history VALUES('" . time() . "', '" . $userOutNum . "', '" . $userInNum . "');", $uname, $passwd, $db);
     }
+}
+/**
+ * Get API key by user ID
+ *
+ * @param string $uname  The MySQL username
+ * @param string $passwd The MySQL pasword
+ * @param string $db     The MySQL database name
+ * @param string $userId The user ID
+ * 
+ * @return array
+ */
+function getApiKeyByUser(string $uname, string $passwd, string $db, string $userId)
+{
+    $userIn = sendSqlCommand("SELECT * FROM apiKeys", $uname, $passwd, $db);
+    while ($row = mysqli_fetch_array($userIn[1])) {
+        if ($row['user'] === $userId) {
+            return array(true, $row['apiKey']);
+        }
+    }
+    return array(false, "");
 }
