@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
     }
 }
-if ($_SERVER['REQUEST_METHOD'] == "PUT") {
+if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH") {
     if ((int) $level[1] == 0) {
         userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
         echo json_encode(
@@ -100,7 +100,70 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT") {
         authFail();
         exit();
     } elseif ((int) $level[1] == 1) {
-        //TODO Level 1 user PUT
+        // See if the user exists
+        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        $postJson = json_decode(file_get_contents("php://input"), true);
+        if ($postJson == false or !isset($postJson['firstName']) or !isset($postJson['lastName']) or !isset($postJson['ID']) or !isset($postJson['email'])) {
+            echo json_encode(
+                array(
+                    "success" => 0,
+                    "reason" => "invalid_json",
+                    "human_reason" => "The JSON you sent is invalid"
+                ),
+                true
+            );
+            exit();
+        }
+
+        // Sanatize the data
+        $sanUser = sanatizeUser(array($postJson['firstName'], $postJson['lastName'], $postJson['ID'], $postJson['email']));
+        if ($sanUser[3] == false) {
+            echo json_encode(
+                array(
+                    "success" => 0,
+                    "reason" => "invalid_email",
+                    "human_reason" => "The email you sent is invalid"
+                ),
+                true
+            );
+            err();
+            exit();
+        }
+
+        $user = array(
+            "firstName" => $sanUser[0],
+            "lastName" => $sanUser[1],
+            "ID" => $sanUser[2],
+            "email" => $postJson['email']
+        );
+        $result = sendSqlCommand(
+            "UPDATE users SET firstName = '" . $user['firstName'] . "', lastName = '" . $user['lastName'] . "', ID = '" . $user['ID'] . "', email = '" . $user['email'] . "' WHERE sysID = '" . $level[2] . "';",
+            "root",
+            $config['sqlRootPasswd'],
+            "VirtualPass"
+        );
+        if ($result[0] == 0) {
+            echo json_encode(
+                array(
+                    "success" => 1,
+                    "reason" => "user_updated",
+                    "human_reason" => "Your user info was updated"
+                ),
+                true
+            );
+            exit();
+        } else {
+            echo json_encode(
+                array(
+                    "success" => 0,
+                    "reason" => "sql_error",
+                    "human_reason" => "There was an error updating your user info"
+                ),
+                true
+            );
+            err();
+            exit();
+        }
     } elseif ((int) $level[1] == 2) {
         userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
         echo json_encode(
@@ -114,38 +177,136 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT") {
         authFail();
         exit();
     } elseif ((int) $level[1] == 3) {
-        //TODO Level 3 user PUT
-    }
-}
-if ($_SERVER['REQUEST_METHOD'] == "PATCH") {
-    if ((int) $level[1] == 0) {
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
-        echo json_encode(
-            array(
-                "success" => 0,
-                "reason" => "no_access",
-                "human_reason" => "You do not have access to this method"
-            ),
-            true
-        );
-        authFail();
-        exit();
-    } elseif ((int) $level[1] == 1) {
-        //TODO Level 1 user PATCH
-    } elseif ((int) $level[1] == 2) {
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
-        echo json_encode(
-            array(
-                "success" => 0,
-                "reason" => "no_access",
-                "human_reason" => "You do not have access to this method"
-            ),
-            true
-        );
-        authFail();
-        exit();
-    } elseif ((int) $level[1] == 3) {
-        //TODO Level 3 user PATCH
+        if (isset($request[0])) {
+            if (userExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9]/", "", $request[0]))) {
+                $postJson = json_decode(file_get_contents("php://input"), true);
+                if ($postJson == false or !isset($postJson['firstName']) or !isset($postJson['lastName']) or !isset($postJson['ID']) or !isset($postJson['email'])) {
+                    echo json_encode(
+                        array(
+                            "success" => 0,
+                            "reason" => "invalid_json",
+                            "human_reason" => "The JSON you sent is invalid"
+                        ),
+                        true
+                    );
+                    exit();
+                }
+
+                // Sanatize the data
+                $sanUser = sanatizeUser(array($postJson['firstName'], $postJson['lastName'], $postJson['ID'], $postJson['email']));
+                if ($sanUser[3] == false) {
+                    echo json_encode(
+                        array(
+                            "success" => 0,
+                            "reason" => "invalid_email",
+                            "human_reason" => "The email you sent is invalid"
+                        ),
+                        true
+                    );
+                    err();
+                    exit();
+                }
+
+                $user = array(
+                    "firstName" => $sanUser[0],
+                    "lastName" => $sanUser[1],
+                    "ID" => $sanUser[2],
+                    "email" => $postJson['email']
+                );
+                $result = sendSqlCommand(
+                    "UPDATE users SET firstName = '" . $user['firstName'] . "', lastName = '" . $user['lastName'] . "', ID = '" . $user['ID'] . "', email = '" . $user['email'] . "' WHERE sysID = '" . $request[0] . "';",
+                    "root",
+                    $config['sqlRootPasswd'],
+                    "VirtualPass"
+                );
+                if ($result[0] == 0) {
+                    echo json_encode(
+                        array(
+                            "success" => 1,
+                            "reason" => "user_updated",
+                            "human_reason" => "Your user info was updated"
+                        ),
+                        true
+                    );
+                    exit();
+                } else {
+                    echo json_encode(
+                        array(
+                            "success" => 0,
+                            "reason" => "sql_error",
+                            "human_reason" => "There was an error updating your user info"
+                        ),
+                        true
+                    );
+                    err();
+                }
+            }
+        } else {
+            // If they want all users changed
+            $postJson = json_decode(file_get_contents("php://input"), true);
+            if ($postJson == false or !isset($postJson['firstName']) or !isset($postJson['lastName']) or !isset($postJson['ID']) or !isset($postJson['email'])) {
+                echo json_encode(
+                    array(
+                        "success" => 0,
+                        "reason" => "invalid_json",
+                        "human_reason" => "The JSON you sent is invalid"
+                    ),
+                    true
+                );
+                exit();
+            }
+
+            // Sanatize the data
+            $sanUser = sanatizeUser(array($postJson['firstName'], $postJson['lastName'], $postJson['ID'], $postJson['email']));
+            if ($sanUser[3] == false) {
+                echo json_encode(
+                    array(
+                        "success" => 0,
+                        "reason" => "invalid_email",
+                        "human_reason" => "The email you sent is invalid"
+                    ),
+                    true
+                );
+                err();
+                exit();
+            }
+
+            $user = array(
+                "firstName" => $sanUser[0],
+                "lastName" => $sanUser[1],
+                "ID" => $sanUser[2],
+                "email" => $postJson['email']
+            );
+            $users = sendSqlCommand(
+                "SELECT * FROM users;",
+                "root",
+                $config['sqlRootPasswd'],
+                "VirtualPass"
+            );
+            while ($row = mysqli_fetch_array($users[1])) {
+                $userSet = sendSqlCommand("UPDATE users SET firstName = '" . $user['firstName'] . "', lastName = '" . $user['lastName'] . "', ID = '" . $user['ID'] . "', email = '" . $user['email'] . "' WHERE sysID = '" . $row['sysID'] . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
+                if ($userSet[0] != 0) {
+                    echo json_encode(
+                        array(
+                            "success" => 0,
+                            "reason" => "sql_error",
+                            "human_reason" => "There was an error updating your user info"
+                        ),
+                        true
+                    );
+                    err();
+                    exit();
+                }
+            }
+            echo json_encode(
+                array(
+                    "success" => 1,
+                    "reason" => "users_updated",
+                    "human_reason" => "All users updated"
+                ),
+                true
+            );
+        }
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
@@ -186,6 +347,67 @@ if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
         authFail();
         exit();
     } elseif ((int) $level[1] == 3) {
-        //TODO Level 3 user DELETE
+        if (isset($request[0])) {
+            // If they want a specific user deleted
+            userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $request[0]);
+            $result = sendSqlCommand(
+                "DELETE FROM users WHERE sysID = '" . preg_replace("/[^0-9]/", "", $request[0]) . "';",
+                "root",
+                $config['sqlRootPasswd'],
+                "VirtualPass"
+            );
+            if ($result[0] == 0) {
+                echo json_encode(
+                    array(
+                        "success" => 1,
+                        "reason" => "user_deleted",
+                        "human_reason" => "Your user was deleted"
+                    ),
+                    true
+                );
+                exit();
+            } else {
+                echo json_encode(
+                    array(
+                        "success" => 0,
+                        "reason" => "sql_error",
+                        "human_reason" => "There was an error deleting your user"
+                    ),
+                    true
+                );
+                err();
+            }
+        } else {
+            // If they want all users deleted
+            $users = sendSqlCommand(
+                "SELECT * FROM users;",
+                "root",
+                $config['sqlRootPasswd'],
+                "VirtualPass"
+            );
+            while ($row = mysqli_fetch_array($users[1])) {
+                $userSet = sendSqlCommand("DELETE FROM users WHERE sysID = '" . $row['sysID'] . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
+                if ($userSet[0] != 0) {
+                    echo json_encode(
+                        array(
+                            "success" => 0,
+                            "reason" => "sql_error",
+                            "human_reason" => "There was an error deleting your user"
+                        ),
+                        true
+                    );
+                    err();
+                    exit();
+                }
+            }
+            echo json_encode(
+                array(
+                    "success" => 1,
+                    "reason" => "users_deleted",
+                    "human_reason" => "All users deleted"
+                ),
+                true
+            );
+        }
     }
 }

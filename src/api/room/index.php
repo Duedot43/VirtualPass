@@ -106,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
     }
 }
-if ($_SERVER['REQUEST_METHOD'] == "PUT") {
+if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH") {
     if ((int) $level[1] == 0) {
         userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
         echo json_encode(
@@ -143,48 +143,87 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT") {
         err();
         exit();
     } elseif ((int) $level[1] == 3) {
-        //TODO Level 3 room api PUT
-    }
-}
-if ($_SERVER['REQUEST_METHOD'] == "PATCH") {
-    if ((int) $level[1] == 0) {
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
-        echo json_encode(
-            array(
-                "success" => 0,
-                "reason" => "no_access",
-                "human_reason" => "You do not have access to this method"
-            ),
-            true
-        );
-        authFail();
-        exit();
-    } elseif ((int) $level[1] == 1) {
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
-        echo json_encode(
-            array(
-                "success" => 0,
-                "reason" => "no_access",
-                "human_reason" => "You do not have access to this method"
-            ),
-            true
-        );
-        authFail();
-        exit();
-    } elseif ((int) $level[1] == 2) {
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
-        echo json_encode(
-            array(
-                "success" => 0,
-                "reason" => "no_access",
-                "human_reason" => "You do not have access to this method"
-            ),
-            true
-        );
-        authFail();
-        exit();
-    } elseif ((int) $level[1] == 3) {
-        //TODO level 3 room api PATCH
+        if (isset($request[0])) {
+            $postJson = json_decode(file_get_contents("php://input"), true);
+            if ($postJson == false or !isset($postJson['num'])) {
+                echo json_encode(
+                    array(
+                        "success" => 0,
+                        "reason" => "invalid_json",
+                        "human_reason" => "The JSON you sent is invalid"
+                    ),
+                    true
+                );
+                err();
+                exit();
+            }
+            // $request[0] is the room ID
+            // $postJson['num'] is the room number
+            // MY GOD GITHUB COPILOT IS GOOD
+            roomExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $request[0]));
+            $result = sendSqlCommand("UPDATE rooms SET num = '" . preg_replace("/[^0-9.]+/i", "", $postJson['num']) . "' WHERE ID = '" . preg_replace("/[^0-9.]+/i", "", $request[0]) . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
+            if ($result[0] == 0) {
+                echo json_encode(
+                    array(
+                        "success" => 1,
+                        "reason" => "",
+                        "human_reason" => "Room number updated"
+                    ),
+                    true
+                );
+                err();
+                exit();
+            } else {
+                echo json_encode(
+                    array(
+                        "success" => 0,
+                        "reason" => "sql_error",
+                        "human_reason" => "An SQL error occurred"
+                    ),
+                    true
+                );
+                err();
+                exit();
+            }
+        } else {
+            $postJson = json_decode(file_get_contents("php://input"), true);
+            if ($postJson == false or !isset($postJson['num'])) {
+                echo json_encode(
+                    array(
+                        "success" => 0,
+                        "reason" => "invalid_json",
+                        "human_reason" => "The JSON you sent is invalid"
+                    ),
+                    true
+                );
+                err();
+                exit();
+            }
+            $rooms = sendSqlCommand("SELECT * FROM rooms;", "root", $config['sqlRootPasswd'], "VirtualPass");
+            while ($row = mysqli_fetch_array($rooms[1])) {
+                $replace = sendSqlCommand("UPDATE rooms SET num = '" . preg_replace("/[^0-9.]+/i", "", $postJson['num']) . "' WHERE ID = '" . $row['ID'] . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
+                if ($replace[0] == 1) {
+                    echo json_encode(
+                        array(
+                            "success" => 0,
+                            "reason" => "sql_error",
+                            "human_reason" => "An SQL error occurred"
+                        ),
+                        true
+                    );
+                    err();
+                    exit();
+                }
+            }
+            echo json_encode(
+                array(
+                    "success" => 1,
+                    "reason" => "",
+                    "human_reason" => "Room numbers updated"
+                ),
+                true
+            );
+        }
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
@@ -225,6 +264,57 @@ if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
         authFail();
         exit();
     } elseif ((int) $level[1] == 3) {
-        //TODO level 3 room api DELETE
+        if (isset($request[0])) {
+            roomExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $request[0]));
+            $result = sendSqlCommand("DELETE FROM rooms WHERE ID = '" . preg_replace("/[^0-9.]+/i", "", $request[0]) . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
+            if ($result[0] == 0) {
+                echo json_encode(
+                    array(
+                        "success" => 1,
+                        "reason" => "",
+                        "human_reason" => "Room deleted"
+                    ),
+                    true
+                );
+                err();
+                exit();
+            } else {
+                echo json_encode(
+                    array(
+                        "success" => 0,
+                        "reason" => "sql_error",
+                        "human_reason" => "An SQL error occurred"
+                    ),
+                    true
+                );
+                err();
+                exit();
+            }
+        } else {
+            $rooms = sendSqlCommand("SELECT * FROM rooms;", "root", $config['sqlRootPasswd'], "VirtualPass");
+            while ($row = mysqli_fetch_array($rooms[1])) {
+                $replace = sendSqlCommand("DELETE FROM rooms WHERE ID = '" . $row['ID'] . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
+                if ($replace[0] == 1) {
+                    echo json_encode(
+                        array(
+                            "success" => 0,
+                            "reason" => "sql_error",
+                            "human_reason" => "An SQL error occurred"
+                        ),
+                        true
+                    );
+                    err();
+                    exit();
+                }
+            }
+            echo json_encode(
+                array(
+                    "success" => 1,
+                    "reason" => "",
+                    "human_reason" => "Rooms deleted"
+                ),
+                true
+            );
+        }
     }
 }
