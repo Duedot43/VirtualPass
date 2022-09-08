@@ -124,5 +124,6 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
     // TODO change avalable departure time PER STUDENT
     // TODO Op parents out of emails With admin APPROVIAL
     // TODO Email Moly robins at the CRC
+    // TODO Add a parent portal
 }
 ?>
