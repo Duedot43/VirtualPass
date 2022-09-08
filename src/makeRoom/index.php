@@ -13,7 +13,7 @@
  */
 require "../include/modules.php";
 $config = parse_ini_file("../../config/config.ini");
-if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie'])) or isset($_COOKIE['teacherCookie']) and teacherCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['teacherCookie']))) {
+if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie'])) or isset($_COOKIE['teacherCookie']) and teacherCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['teacherCookie']))) {
     if (isset($_POST['rnum'])) {
         $room = installRoom(array("id"=>rand() . rand(), "num"=>htmlspecialchars(preg_replace("/[^0-9.]+/i", "", $_POST['rnum']),  ENT_QUOTES, 'UTF-8')), "root", $config['sqlRootPasswd'], "VirtualPass");
         if ($room[0] == 1) {

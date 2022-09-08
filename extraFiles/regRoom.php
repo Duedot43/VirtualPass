@@ -20,7 +20,7 @@ if (!isset($_GET['room'])) {
     exit();
 }
 $config = parse_ini_file("../config/config.ini");
-if (isset($_GET['room']) and roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['room']))) {
+if (isset($_GET['room']) and roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['room']))) {
     header('Location: /?room=' . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
     exit();
 }

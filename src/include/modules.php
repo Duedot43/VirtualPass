@@ -265,7 +265,8 @@ function installUser(array $info, string $uname, string $passwd, string $db)
             '" . $info[2] . "', 
             '" . $info[3] . "', 
             '1', 
-            '{\"rooms\": {}, \"cnum\": [0,0], \"activity\": {}}'
+            '{\"rooms\": {}, \"cnum\": [0,0], \"activity\": {}}',
+            '600'
         );",
         $uname,
         $passwd,

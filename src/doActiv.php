@@ -19,9 +19,9 @@ if (!isset($_GET['room'])) {
     exit();
 }
 $config = parse_ini_file("../config/config.ini");
-if (roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['room']))) {
+if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^a-zA-Z0-9]/", "", $_COOKIE['id'])) and roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['room']))) {
 
-    $userData = getUserData("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']));
+    $userData = getUserData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']));
     $departureData = json_decode($userData['misc'], true);
 
     //Depart or arrive the user
@@ -91,8 +91,8 @@ if (roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[
         $config['sqlRootPasswd'],
         "VirtualPass"
     );
-    snapshot("root", $config['sqlRootPasswd'], "VirtualPass", $config['snapshotTime']);
+    snapshot($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $config['snapshotTime']);
     header("Location: /?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
 } else {
-    header("Location: /?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
+    header("Location: /login.php");
 }

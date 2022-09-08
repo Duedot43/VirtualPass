@@ -28,7 +28,7 @@ echo '<!DOCTYPE html>
     <link rel="icon" href="/public/favicon.ico" />
 </head>';
 //Auth
-if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
+if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
     if (!canImport()) {
         echo "You do not have the tools to import your database";
         exit();

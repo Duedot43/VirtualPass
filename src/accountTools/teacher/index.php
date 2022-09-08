@@ -28,15 +28,15 @@ echo '<!DOCTYPE html>
     <link rel="icon" href="/public/favicon.ico" />
 </head>';
 //Auth
-if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
+if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
     // view teacher accounts
     // delete teacher account
     // change uname or password
     // import teacherrs
 
     // deleting admin
-    if (isset($_GET['account']) and teacherCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['account'])) and isset($_GET['action']) and $_GET['action'] == "delete") {
-        $teacher = getTeacherByUuid("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['account']));
+    if (isset($_GET['account']) and teacherCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account'])) and isset($_GET['action']) and $_GET['action'] == "delete") {
+        $teacher = getTeacherByUuid($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']));
         $output = sendSqlCommand("DELETE FROM teachers WHERE uname='" . $teacher['uname'] . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
         if ($output[0] == 0) {
             echo "Success! User deleted";
@@ -48,8 +48,8 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
     }
     /*
     // changing admin
-    if (isset($_GET['account']) and adminCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['account'])) and isset($_GET['action']) and $_GET['action'] == "delete") {
-        $admin = getAdminByUuid("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['account']));
+    if (isset($_GET['account']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account'])) and isset($_GET['action']) and $_GET['action'] == "delete") {
+        $admin = getAdminByUuid($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']));
         $output = sendSqlCommand("DELETE FROM admins WHERE uname=" . $admin['uname'] . ";", "root", $config['sqlRootPasswd'], "VirtualPass");
         if ($output[0] == 0) {
             echo "Success! User deleted";
@@ -61,8 +61,8 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
     }
     */
     //showing actions for an admin
-    if (isset($_GET['account']) and teacherCookieExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['account']))) {
-        $teacher = getTeacherByUuid("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['account']));
+    if (isset($_GET['account']) and teacherCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']))) {
+        $teacher = getTeacherByUuid($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']));
         // deepcode ignore XSS: Is not relevent 
         echo "<button onclick=\"location='/accountTools/teacher/?account=" . $teacher['uuid'] . "&action=delete'\" >Delete account</button><br>";
         // deepcode ignore XSS: Is not relevent thats from valid data in the database

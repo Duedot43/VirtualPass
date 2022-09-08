@@ -31,12 +31,11 @@ sendSqlCommand(
     email varchar(255),
     activ varchar(1),
     misc LONGTEXT,
+    depTime varchar(255),
     PRIMARY KEY (sysID)
 
 );",
-    "root",
-    $config['sqlRootPasswd'],
-    "VirtualPass"
+    $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'],
 );
 sendSqlCommand(
     "CREATE TABLE IF NOT EXISTS rooms (
@@ -45,9 +44,7 @@ sendSqlCommand(
     PRIMARY KEY (ID)
 
 );",
-    "root",
-    $config['sqlRootPasswd'],
-    "VirtualPass"
+    $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'],
 );
 sendSqlCommand(
     "CREATE TABLE IF NOT EXISTS history (
@@ -57,9 +54,7 @@ sendSqlCommand(
     PRIMARY KEY (snapTime)
 
 );",
-    "root",
-    $config['sqlRootPasswd'],
-    "VirtualPass"
+    $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'],
 );
 sendSqlCommand(
     "CREATE TABLE IF NOT EXISTS admins (
@@ -69,9 +64,7 @@ sendSqlCommand(
     PRIMARY KEY (uname)
 
 );",
-    "root",
-    $config['sqlRootPasswd'],
-    "VirtualPass"
+    $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'],
 );
 sendSqlCommand(
     "CREATE TABLE IF NOT EXISTS teachers (
@@ -81,9 +74,7 @@ sendSqlCommand(
     PRIMARY KEY (uname)
 
 );",
-    "root",
-    $config['sqlRootPasswd'],
-    "VirtualPass"
+    $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'],
 );
 // perm 0 is regular user they can access their info and either depart or arrive and can view only their real room numbers
 // perm 1 is regular user they can edit their basic info and do all level 0 can
@@ -97,9 +88,7 @@ sendSqlCommand(
     PRIMARY KEY (apiKey)
 
 );",
-    "root",
-    $config['sqlRootPasswd'],
-    "VirtualPass"
+    $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'],
 );
 // redirect to the main page
 if (!isset($_GET['room'])) {
@@ -107,7 +96,7 @@ if (!isset($_GET['room'])) {
     exit();
 }
 
-if (!roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['room']))) {
+if (!roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['room']))) {
     echo "That room does not exist! Please contact an administrator.";
     //header('Location: /regRoom.php?room=' . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
     exit();
@@ -117,7 +106,7 @@ if (!roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/
 if (!isset($_COOKIE['id'])) {
     header('Location: /login.php?room=' . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
     exit();
-} elseif (!userExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']))) {
+} elseif (!userExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']))) {
     setcookie("id", "", time() - 31557600, "/", $domain, true, true);
     header('Location: /login.php?room=' . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
     exit();
@@ -125,7 +114,15 @@ if (!isset($_COOKIE['id'])) {
 
 
 
-if (isset($_COOKIE['id']) and userExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']))) {
-
+if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']))) {
+    // TODO MORE THAN 10 MINUTES
+    // DONE Show pass on phone
+    // MAYBE? Choose look by student by room class 
+    // TODO Meet with councler
+    // DONE Show pass says pass is expired
+    // TODO If a kid goes to the CRC we need to log that for mass emails
+    // TODO change avalable departure time PER STUDENT
+    // TODO Op parents out of emails With admin APPROVIAL
+    // TODO Email Moly robins at the CRC
 }
 ?>

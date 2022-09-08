@@ -28,7 +28,7 @@ if (!isset($_GET['key'])) {
     err();
     exit();
 }
-$level = authApi("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['key']));
+$level = authApi($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['key']));
 if (!$level[0]) {
     echo json_encode(
         array(
@@ -49,8 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
         //level 0 and 1 API
 
         //
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
-        $user = getUserData("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
+        $user = getUserData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
         $output = array(
             "sysID" => $user['sysID'],
             "firstName" => $user['firstName'],
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 }
 if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH") {
     if ((int) $level[1] == 0) {
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
         echo json_encode(
             array(
                 "success" => 0,
@@ -101,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH"
         exit();
     } elseif ((int) $level[1] == 1) {
         // See if the user exists
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
         $postJson = json_decode(file_get_contents("php://input"), true);
         if ($postJson == false or !isset($postJson['firstName']) or !isset($postJson['lastName']) or !isset($postJson['ID']) or !isset($postJson['email'])) {
             echo json_encode(
@@ -165,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH"
             exit();
         }
     } elseif ((int) $level[1] == 2) {
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
         echo json_encode(
             array(
                 "success" => 0,
@@ -178,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH"
         exit();
     } elseif ((int) $level[1] == 3) {
         if (isset($request[0])) {
-            if (userExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9]/", "", $request[0]))) {
+            if (userExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9]/", "", $request[0]))) {
                 $postJson = json_decode(file_get_contents("php://input"), true);
                 if ($postJson == false or !isset($postJson['firstName']) or !isset($postJson['lastName']) or !isset($postJson['ID']) or !isset($postJson['email'])) {
                     echo json_encode(
@@ -311,7 +311,7 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH"
 }
 if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
     if ((int) $level[1] == 0) {
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
         echo json_encode(
             array(
                 "success" => 0,
@@ -323,7 +323,7 @@ if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
         authFail();
         exit();
     } elseif ((int) $level[1] == 1) {
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
         echo json_encode(
             array(
                 "success" => 0,
@@ -335,7 +335,7 @@ if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
         authFail();
         exit();
     } elseif ((int) $level[1] == 2) {
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
         echo json_encode(
             array(
                 "success" => 0,
@@ -349,7 +349,7 @@ if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
     } elseif ((int) $level[1] == 3) {
         if (isset($request[0])) {
             // If they want a specific user deleted
-            userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $request[0]);
+            userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $request[0]);
             $result = sendSqlCommand(
                 "DELETE FROM users WHERE sysID = '" . preg_replace("/[^0-9]/", "", $request[0]) . "';",
                 "root",

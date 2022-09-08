@@ -28,7 +28,7 @@ if (!isset($_GET['key'])) {
     err();
     exit();
 }
-$level = authApi("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['key']));
+$level = authApi($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['key']));
 if (!$level[0]) {
     echo json_encode(
         array(
@@ -50,14 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
 
         //
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
-        $user = getUserData("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
+        $user = getUserData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
         //if they are not requesting a specific room
         if (!isset($request[0])) {
             $miscData = json_decode($user['misc'], true);
             $output = array();
             foreach ($miscData['rooms'] as $roomID) {
-                $output[$roomID] = getRoomData("root", $config['sqlRootPasswd'], "VirtualPass", $roomID)['num'];
+                $output[$roomID] = getRoomData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $roomID)['num'];
             }
             echo json_encode($output);
             exit();
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             $miscData = json_decode($user['misc'], true);
             $output = array();
             if (in_array($request[0], $miscData['rooms'])) {
-                $output[preg_replace("/[^0-9.]+/i", "", $request[0])] = getRoomData("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $request[0]))['num'];
+                $output[preg_replace("/[^0-9.]+/i", "", $request[0])] = getRoomData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $request[0]))['num'];
                 echo json_encode($output);
                 exit();
             } else {
@@ -97,8 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
             echo json_encode($output);
             exit();
         } else { //do request a specific room
-            roomExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $request[0]);
-            $result = getRoomData("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $request[0]));
+            roomExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $request[0]);
+            $result = getRoomData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $request[0]));
             echo json_encode(array($result['ID']=>$result['num']));
             exit();
         }
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 }
 if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH") {
     if ((int) $level[1] == 0) {
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
         echo json_encode(
             array(
                 "success" => 0,
@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH"
         authFail();
         exit();
     } elseif ((int) $level[1] == 1) {
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
         echo json_encode(
             array(
                 "success" => 0,
@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH"
             // $request[0] is the room ID
             // $postJson['num'] is the room number
             // MY GOD GITHUB COPILOT IS GOOD
-            roomExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $request[0]));
+            roomExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $request[0]));
             $result = sendSqlCommand("UPDATE rooms SET num = '" . preg_replace("/[^0-9.]+/i", "", $postJson['num']) . "' WHERE ID = '" . preg_replace("/[^0-9.]+/i", "", $request[0]) . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
             if ($result[0] == 0) {
                 echo json_encode(
@@ -228,7 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH"
 }
 if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
     if ((int) $level[1] == 0) {
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
         echo json_encode(
             array(
                 "success" => 0,
@@ -240,7 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
         authFail();
         exit();
     } elseif ((int) $level[1] == 1) {
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
         echo json_encode(
             array(
                 "success" => 0,
@@ -252,7 +252,7 @@ if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
         authFail();
         exit();
     } elseif ((int) $level[1] == 2) {
-        userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
+        userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
         echo json_encode(
             array(
                 "success" => 0,
@@ -265,7 +265,7 @@ if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
         exit();
     } elseif ((int) $level[1] == 3) {
         if (isset($request[0])) {
-            roomExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $request[0]));
+            roomExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $request[0]));
             $result = sendSqlCommand("DELETE FROM rooms WHERE ID = '" . preg_replace("/[^0-9.]+/i", "", $request[0]) . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
             if ($result[0] == 0) {
                 echo json_encode(

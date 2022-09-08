@@ -17,9 +17,7 @@ require "../include/modules.php";
 $config = parse_ini_file("../../config/config.ini");
 $domain = getDomain();
 $admin = authAdmin(
-    "root",
-    $config['sqlRootPasswd'],
-    "VirtualPass",
+    $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'],
     preg_replace("/[^a-z.]+/i", "", $_POST['uname']),
     trim(trim($_POST['passwd'], '"'), "'")
 );

@@ -28,7 +28,7 @@ if (!isset($_GET['key'])) {
     err();
     exit();
 }
-$level = authApi("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $_GET['key']));
+$level = authApi($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['key']));
 if (!$level[0]) {
     echo json_encode(
         array(
@@ -67,9 +67,9 @@ if (!isset($request[0])) {
     err();
     exit();
 }
-if (roomExists("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $request[0]))) {
-    userExistsErr("root", $config['sqlRootPasswd'], "VirtualPass", $level[2]);
-    $userData = getUserData("root", $config['sqlRootPasswd'], "VirtualPass", preg_replace("/[^0-9.]+/i", "", $level[2]));
+if (roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $request[0]))) {
+    userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
+    $userData = getUserData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $level[2]));
     $departureData = json_decode($userData['misc'], true);
     if (!in_array($request[0], $departureData['rooms'])) {
         echo json_encode(
