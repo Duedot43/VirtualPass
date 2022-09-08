@@ -40,16 +40,17 @@ for (i = 0; i < dropdown.length; i++) {
     });
 }
 
-function switchEmbed(url) {
-    document.getElementById('mainEmbed').src = url;
-}
+const switchEmbed = document.querySelector('.button-container-01, button-container-02');
+switchEmbed.addEventListener('click', function(e) {
+
+    e.target.style.backgroundColor = ('var(--highlight)');    
+    document.getElementById('mainEmbed').src = e.target.value;
+
+})
+
 
 //Removes open tabs when user clicks anywhere on screen.
 const removeContent = document.getElementsByClassName('issue-tab')
 const random_variable = document.body;
-
-
-
- const change_tab = document.querySelector('.tabs')
 
 const overtab = document.getElementById('overview-tab').style.backgroundColor = ('var(--highlight)');

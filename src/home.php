@@ -71,7 +71,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
 
 
     <div class="nav-parent">
-        <div class="top-nav">
+        <div class="top-nav" style="top: 0px;">
 
             <div class="logo">
                 <a href="/" class="">
@@ -110,152 +110,154 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists("root", $config['sqlRoo
             </div>
         </div>
 
-        <div class="sidenav">
+        <div class="sidenav-parent">
+            <div class="sidenav">
 
-            <div class="sidenav-head">
-                <h2>Dashboard</h2>
-            </div>
-
-
-            <br />
-            <hr style="opacity: 25%; margin: 5px 10px 15px 5px;" />
-            <a>Analytics</a>
-            <br />
-            <div class="button-container-01">
-                <button id="overview-tab">
-                    <span class="material-symbols-outlined">
-                        monitoring
-                    </span>
-                    Overview
-                </button>
-
-                <button>
-                    <span class="material-symbols-outlined">
-                        group
-                    </span>
-                    Students
-                </button>
-
-                <button>
-                    <span class="material-symbols-outlined">
-                        school
-                    </span>
-                    Classrooms
-                </button>
-            </div>
-
-            <br />
-            <hr style="opacity: 25%; margin: 5px 10px 15px 5px;" />
-            <a>Pannels</a>
-            <br />
-            <div class="button-container-01">
-                <button id="overview-tab" onclick="switchEmbed('/admin')">
-                    <span class="material-symbols-outlined">
-                        admin_panel_settings
-                    </span>
-                    Admin Pannel
-                </button>
-
-                <button onclick="switchEmbed('/student')">
-                    <span class="material-symbols-outlined">
-                        person
-                    </span>
-                    Student Pannel
-                </button>
-
-                <button onclick="switchEmbed('/teacher')">
-                    <span class="material-symbols-outlined">
-                        school
-                    </span>
-                    Teacher Pannel
-                </button>
-            </div>
+                <div class="sidenav-head">
+                    <h2>Dashboard</h2>
+                </div>
 
 
-            <br />
-            <hr style="opacity: 25%; margin: 5px 10px 15px 5px;" />
-            <a>Other</a>
-            <br />
-
-            <div class="button-container-01">
-                <button onclick="switchEmbed('/makeRoom/')">
-                    <span class="material-symbols-outlined">
-                        meeting_room
-                    </span>
-                    Add Room
-                </button>
-
-                <button onclick="switchEmbed('/accountTools/student/make.php')">
-                    <span class="material-symbols-outlined">
-                        person_add
-                    </span>
-                    Add User
-                </button>
-
-                <button class="dropdown-button">
-                    <i></i>
-                    <span class="material-symbols-outlined">
-                        supervised_user_circle
-                    </span>
-                    Manage Members
-
-                    <span class="material-symbols-outlined" style=" padding-left: 35px;">
-                        arrow_drop_down
-                    </span>
-                    <i></i>
-                </button>
-
-                <div class="dropdown-container">
-                    <button onclick="switchEmbed('/accountTools/admin')">
-                        Admins
+                <br />
+                <hr style="opacity: 25%; margin: 5px 10px 15px 5px;" />
+                <a>Analytics</a>
+                <br />
+                <div class="button-container-01">
+                    <button id="overview-tab">
+                        <span class="material-symbols-outlined">
+                            monitoring
+                        </span>
+                        Overview
                     </button>
-                    <button onclick="switchEmbed('/accountTools/teacher')">
-                        Teachers
-                    </button>
-                    <button onclick="switchEmbed('/viewer/studentView.php')">
+
+                    <button>
+                        <span class="material-symbols-outlined">
+                            group
+                        </span>
                         Students
                     </button>
+
+                    <button>
+                        <span class="material-symbols-outlined">
+                            school
+                        </span>
+                        Classrooms
+                    </button>
+                </div>
+
+                <br />
+                <hr style="opacity: 25%; margin: 5px 10px 15px 5px;" />
+                <a>Panels</a>
+                <br />
+                <div class="button-container-02">
+                    <button id="overview-tab" value='/admin'>
+                        <span class="material-symbols-outlined">
+                            admin_panel_settings
+                        </span>
+                        Admin Panel
+                    </button>
+
+                    <button value='/student'>
+                        <span class="material-symbols-outlined">
+                            person
+                        </span>
+                        Student Panel
+                    </button>
+
+                    <button value='/teacher'>
+                        <span class="material-symbols-outlined">
+                            school
+                        </span>
+                        Teacher Panel
+                    </button>
+                </div>
+
+
+                <br />
+                <hr style="opacity: 25%; margin: 5px 10px 15px 5px;" />
+                <a>Other</a>
+                <br />
+
+                <div class="button-container-03">
+                    <button value='/makeRoom/'>
+                        <span class="material-symbols-outlined">
+                            meeting_room
+                        </span>
+                        Add Room
+                    </button>
+
+                    <button value='/accountTools/student/make.php'>
+                        <span class="material-symbols-outlined">
+                            person_add
+                        </span>
+                        Add User
+                    </button>
+
+                    <button class="dropdown-button">
+                        <i></i>
+                        <span class="material-symbols-outlined">
+                            supervised_user_circle
+                        </span>
+                        Manage Members
+
+                        <span class="material-symbols-outlined" style=" padding-left: 35px;">
+                            arrow_drop_down
+                        </span>
+                        <i></i>
+                    </button>
+
+                    <div class="dropdown-container">
+                        <button value='/accountTools/admin'>
+                            Admins
+                        </button>
+                        <button value='/accountTools/teacher'>
+                            Teachers
+                        </button>
+                        <button value='/viewer/studentView.php'>
+                            Students
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="bottom-nav">
+
+                    <button>
+                        <span class="material-symbols-outlined">
+                            settings
+                        </span>
+                    </button>
+
+                    <button id="dark-toggler" class="dark-toggler">
+                        <span class="material-symbols-outlined dark-mode-input">
+                            dark_mode
+                        </span>
+                    </button>
+
+
+                    <button class="dropdown-button">
+                        <span class="material-symbols-outlined ">
+                            contact_support
+                        </span>
+                    </button>
+
+
+                    <div class="issue-tab dropdown-container" style="display:none;">
+                        <div>
+                            <p>Issues?</p>
+                            <p>Please visit the</p>
+                            <a href="https://github.com/Duedot43/VirtualPass/issues">Issue Tracker.</a>
+                        </div>
+
+                        <div>
+                            <p>Feedback.</p>
+                        </div>
+                    </div>
+
+                    <p id="version-id" style="font-size:10px; margin: 0;"></p>
                 </div>
 
             </div>
-
-            <div class="bottom-nav">
-
-                <button>
-                    <span class="material-symbols-outlined">
-                        settings
-                    </span>
-                </button>
-
-                <button id="dark-toggler" class="dark-toggler">
-                    <span class="material-symbols-outlined dark-mode-input">
-                        dark_mode
-                    </span>
-                </button>
-
-
-                <button class="dropdown-button">
-                    <span class="material-symbols-outlined ">
-                        contact_support
-                    </span>
-                </button>
-
-
-                <div class="issue-tab dropdown-container" style="display:none;">
-                    <div>
-                        <p>Issues?</p>
-                        <p>Please visit the</p>
-                        <a href="https://github.com/Duedot43/VirtualPass/issues">Issue Tracker.</a>
-                    </div>
-
-                    <div>
-                        <p>Feedback.</p>
-                    </div>
-                </div>
-
-                <p id="version-id" style="font-size:10px; margin: 0;"></p>
-            </div>
-
         </div>
     </div>
 
