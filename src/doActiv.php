@@ -76,7 +76,7 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
     WHERE
         sysId=" . preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']) . ";",
         "root",
-        $config['sqlRootPasswd'],
+        $config['sqlPasswd'],
         "VirtualPass"
     );
 
@@ -88,7 +88,7 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
     WHERE
         sysId=" . preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']) . ";",
         "root",
-        $config['sqlRootPasswd'],
+        $config['sqlPasswd'],
         "VirtualPass"
     );
     snapshot($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $config['snapshotTime']);

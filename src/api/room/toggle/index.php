@@ -132,7 +132,7 @@ if (roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg
     WHERE
         sysId=" . preg_replace("/[^0-9.]+/i", "", $level[2]) . ";",
         "root",
-        $config['sqlRootPasswd'],
+        $config['sqlPasswd'],
         "VirtualPass"
     );
 
@@ -144,7 +144,7 @@ if (roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg
     WHERE
         sysId=" . preg_replace("/[^0-9.]+/i", "", $level[2]) . ";",
         "root",
-        $config['sqlRootPasswd'],
+        $config['sqlPasswd'],
         "VirtualPass"
     );
     echo json_encode(

@@ -30,7 +30,7 @@ echo '<!DOCTYPE html>
 //Auth
 if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie'])) or isset($_COOKIE['teacherCookie']) and teacherCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['teacherCookie']))) {
     //get all the rooms
-    $result = sendSqlCommand("SELECT * FROM rooms;", "root", $config['sqlRootPasswd'], "VirtualPass");
+    $result = sendSqlCommand("SELECT * FROM rooms;", "root", $config['sqlPasswd'], "VirtualPass");
     while ($row = mysqli_fetch_assoc($result[1])) {
         echo "<button onclick=\"location='/viewer/stuRoomView.php?room=" . $row['ID'] . "'\" >" . $row['num'] . "</button><br>";
         

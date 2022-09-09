@@ -28,7 +28,7 @@ if (isset($_GET['room']) and roomExists($config['sqlUname'], $config['sqlPasswd'
 
 // now we make the room
 if (isset($_POST['rnum'])) {
-    $installRoom = installRoom(array("id"=>preg_replace("/[^0-9.]+/i", "", $_GET['room']), "num"=>preg_replace("/[^0-9.]+/i", "", $_POST['rnum'])), "root", $config['sqlRootPasswd'], "VirtualPass");
+    $installRoom = installRoom(array("id"=>preg_replace("/[^0-9.]+/i", "", $_GET['room']), "num"=>preg_replace("/[^0-9.]+/i", "", $_POST['rnum'])), "root", $config['sqlPasswd'], "VirtualPass");
     header("Location: /?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
     exit();
 

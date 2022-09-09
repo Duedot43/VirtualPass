@@ -19,7 +19,7 @@ $config = parse_ini_file("../../config/config.ini");
 if (!isset($_COOKIE['adminCookie'])
     or !adminCookieExists(
         "root",
-        $config['sqlRootPasswd'],
+        $config['sqlPasswd'],
         "VirtualPass",
         preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie'])
     )

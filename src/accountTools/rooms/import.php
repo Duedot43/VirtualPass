@@ -43,7 +43,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         }
         unlink("./csv");
         foreach ($room[1] as $roomRecord) {
-            $output = sendSqlCommand("INSERT rooms VALUES('" . $roomRecord['id'] . "', '" . $roomRecord['num'] . "')", "root", $config['sqlRootPasswd'], "VirtualPass");
+            $output = sendSqlCommand("INSERT rooms VALUES('" . $roomRecord['id'] . "', '" . $roomRecord['num'] . "')", "root", $config['sqlPasswd'], "VirtualPass");
             if ($output[0] != 0) {
                 echo "Something has gone wrong importing the database please try again";
                 exit();

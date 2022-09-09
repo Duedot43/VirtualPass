@@ -37,7 +37,7 @@ if (!userExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], pre
 }
 //Auth
 if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
-    $output = sendSqlCommand("DELETE FROM users WHERE sysID='" . htmlspecialchars(preg_replace("/[^0-9.]+/i", "", $_GET['user']),  ENT_QUOTES, 'UTF-8') . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
+    $output = sendSqlCommand("DELETE FROM users WHERE sysID='" . htmlspecialchars(preg_replace("/[^0-9.]+/i", "", $_GET['user']),  ENT_QUOTES, 'UTF-8') . "';", "root", $config['sqlPasswd'], "VirtualPass");
     if ($output[0] == 1) {
         echo "Something went wrong with deleting the user!<br><button onclick=\"location='/accountTools/student'\" >Return home</button>";
         exit();

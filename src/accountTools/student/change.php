@@ -49,7 +49,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         WHERE
             sysId=" . preg_replace("/[^0-9.]+/i", "", $_GET['user']) . ";",
             "root",
-            $config['sqlRootPasswd'],
+            $config['sqlPasswd'],
             "VirtualPass"
         )[0];
         $output[1] = sendSqlCommand(
@@ -59,7 +59,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         WHERE
             sysId=" . preg_replace("/[^0-9.]+/i", "", $_GET['user']) . ";",
             "root",
-            $config['sqlRootPasswd'],
+            $config['sqlPasswd'],
             "VirtualPass"
         )[0];
         $output[2] = sendSqlCommand(
@@ -69,7 +69,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         WHERE
             sysId=" . preg_replace("/[^0-9.]+/i", "", $_GET['user']) . ";",
             "root",
-            $config['sqlRootPasswd'],
+            $config['sqlPasswd'],
             "VirtualPass"
         )[0];
         $output[3] = sendSqlCommand(
@@ -79,7 +79,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         WHERE
             sysId=" . preg_replace("/[^0-9.]+/i", "", $_GET['user']) . ";",
             "root",
-            $config['sqlRootPasswd'],
+            $config['sqlPasswd'],
             "VirtualPass"
         )[0];
         if (in_array(1, $output)) {

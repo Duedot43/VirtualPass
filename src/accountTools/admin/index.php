@@ -37,7 +37,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     // deleting admin
     if (isset($_GET['account']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account'])) and isset($_GET['action']) and $_GET['action'] == "delete") {
         $admin = getAdminByUuid($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']));
-        $output = sendSqlCommand("DELETE FROM admins WHERE uname='" . $admin['uname'] . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
+        $output = sendSqlCommand("DELETE FROM admins WHERE uname='" . $admin['uname'] . "';", "root", $config['sqlPasswd'], "VirtualPass");
         if ($output[0] == 0) {
             echo "Success! User deleted";
             exit();
@@ -50,7 +50,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     // changing admin
     if (isset($_GET['account']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account'])) and isset($_GET['action']) and $_GET['action'] == "delete") {
         $admin = getAdminByUuid($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']));
-        $output = sendSqlCommand("DELETE FROM admins WHERE uname=" . $admin['uname'] . ";", "root", $config['sqlRootPasswd'], "VirtualPass");
+        $output = sendSqlCommand("DELETE FROM admins WHERE uname=" . $admin['uname'] . ";", "root", $config['sqlPasswd'], "VirtualPass");
         if ($output[0] == 0) {
             echo "Success! User deleted";
             exit();
@@ -71,7 +71,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     }
 
     // showing all the admins
-    $result = sendSqlCommand("SELECT * FROM admins;", "root", $config['sqlRootPasswd'], "VirtualPass");
+    $result = sendSqlCommand("SELECT * FROM admins;", "root", $config['sqlPasswd'], "VirtualPass");
     echo "<button onclick=\"location='/accountTools/admin/import.php'\" >Import admins</button><br>";
     while ($row = mysqli_fetch_assoc($result[1])) {
         echo "<button onclick=\"location='/accountTools/admin/?account=" . $row['uuid'] . "'\" >" . $row['uname'] . "</button><br>";

@@ -43,7 +43,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         }
         unlink("./csv");
         foreach ($user[1] as $userRecord) {
-            $output = installUser(array($userRecord['firstName'], $userRecord['lastName'], $userRecord['ID'], $userRecord['email']), "root", $config['sqlRootPasswd'], "VirtualPass");
+            $output = installUser(array($userRecord['firstName'], $userRecord['lastName'], $userRecord['ID'], $userRecord['email']), "root", $config['sqlPasswd'], "VirtualPass");
             if ($output[0] != 0) {
                 echo "Something has gone wrong importing the database please try again";
                 exit();

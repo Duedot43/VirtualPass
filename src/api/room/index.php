@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
         //
         if (!isset($request[0])) { //they do not request a specific room
-            $result = sendSqlCommand("SELECT * FROM rooms;", "root", $config['sqlRootPasswd'], "VirtualPass");
+            $result = sendSqlCommand("SELECT * FROM rooms;", "root", $config['sqlPasswd'], "VirtualPass");
             $output = array();
             while ($row = mysqli_fetch_assoc($result[1])) {
                 $output[$row['ID']] = $row['num'];
@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH"
             // $postJson['num'] is the room number
             // MY GOD GITHUB COPILOT IS GOOD
             roomExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $request[0]));
-            $result = sendSqlCommand("UPDATE rooms SET num = '" . preg_replace("/[^0-9.]+/i", "", $postJson['num']) . "' WHERE ID = '" . preg_replace("/[^0-9.]+/i", "", $request[0]) . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
+            $result = sendSqlCommand("UPDATE rooms SET num = '" . preg_replace("/[^0-9.]+/i", "", $postJson['num']) . "' WHERE ID = '" . preg_replace("/[^0-9.]+/i", "", $request[0]) . "';", "root", $config['sqlPasswd'], "VirtualPass");
             if ($result[0] == 0) {
                 echo json_encode(
                     array(
@@ -199,9 +199,9 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH"
                 err();
                 exit();
             }
-            $rooms = sendSqlCommand("SELECT * FROM rooms;", "root", $config['sqlRootPasswd'], "VirtualPass");
+            $rooms = sendSqlCommand("SELECT * FROM rooms;", "root", $config['sqlPasswd'], "VirtualPass");
             while ($row = mysqli_fetch_array($rooms[1])) {
-                $replace = sendSqlCommand("UPDATE rooms SET num = '" . preg_replace("/[^0-9.]+/i", "", $postJson['num']) . "' WHERE ID = '" . $row['ID'] . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
+                $replace = sendSqlCommand("UPDATE rooms SET num = '" . preg_replace("/[^0-9.]+/i", "", $postJson['num']) . "' WHERE ID = '" . $row['ID'] . "';", "root", $config['sqlPasswd'], "VirtualPass");
                 if ($replace[0] == 1) {
                     echo json_encode(
                         array(
@@ -266,7 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
     } elseif ((int) $level[1] == 3) {
         if (isset($request[0])) {
             roomExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $request[0]));
-            $result = sendSqlCommand("DELETE FROM rooms WHERE ID = '" . preg_replace("/[^0-9.]+/i", "", $request[0]) . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
+            $result = sendSqlCommand("DELETE FROM rooms WHERE ID = '" . preg_replace("/[^0-9.]+/i", "", $request[0]) . "';", "root", $config['sqlPasswd'], "VirtualPass");
             if ($result[0] == 0) {
                 echo json_encode(
                     array(
@@ -291,9 +291,9 @@ if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
                 exit();
             }
         } else {
-            $rooms = sendSqlCommand("SELECT * FROM rooms;", "root", $config['sqlRootPasswd'], "VirtualPass");
+            $rooms = sendSqlCommand("SELECT * FROM rooms;", "root", $config['sqlPasswd'], "VirtualPass");
             while ($row = mysqli_fetch_array($rooms[1])) {
-                $replace = sendSqlCommand("DELETE FROM rooms WHERE ID = '" . $row['ID'] . "';", "root", $config['sqlRootPasswd'], "VirtualPass");
+                $replace = sendSqlCommand("DELETE FROM rooms WHERE ID = '" . $row['ID'] . "';", "root", $config['sqlPasswd'], "VirtualPass");
                 if ($replace[0] == 1) {
                     echo json_encode(
                         array(

@@ -46,13 +46,15 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
             <?php echo $user['firstName'] . " " . $user['lastName'] ?><br>
             <!-- deepcode ignore XSS: SHUT -->
             room: <?php echo $currentOccorance['room'] ?><br>
+            <?php // TODO do timer ?>
             <!-- deepcode ignore XSS: Please stop it -->
             <text id='departed' >Departed since <?php echo gmdate("h:i:s", $currentOccorance['timeDep']) ?></text><br>
             <script>
                 function expire() {
+                    console.log("Expired!");
                     document.getElementById('departed').innerHTML = "HALL PASS EXPIRED";
                 }
-                setTimeout(expire(),<?php echo $user['depTime'] - (time()-$currentOccorance['timeDep']);?>);
+                setTimeout(expire(), <?php echo ($user['depTime'] - (time()-$currentOccorance['timeDep'])) * 1000;?>);
             </script>
         </label>
 

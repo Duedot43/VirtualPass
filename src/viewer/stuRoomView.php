@@ -38,7 +38,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     if (isset($_COOKIE['adminCookie'])) {
         echo "<button onclick=\"location='/accountTools/rooms/?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8') . "'\" >Manage this room</button>";
     }
-    $result = sendSqlCommand("SELECT * FROM users;", "root", $config['sqlRootPasswd'], "VirtualPass");
+    $result = sendSqlCommand("SELECT * FROM users;", "root", $config['sqlPasswd'], "VirtualPass");
     while ($row = mysqli_fetch_assoc($result[1])) {
         if (in_array($_GET['room'], json_decode($row['misc'], true)['rooms'])) {
             echo "<button onclick=\"location='/viewer/studentView.php?user=" . $row['sysID'] . "'\" >" . $row['firstName'] . " " . $row['lastName'] . " " . activ2eng($row['activ']) . "</button><br>";
