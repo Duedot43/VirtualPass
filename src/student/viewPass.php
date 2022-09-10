@@ -38,6 +38,9 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
 </head>
 
 <body>
+
+    <div id="ani-background"></div>
+
     <div class="l-card-container">
 
 
@@ -45,15 +48,39 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
             <!-- deepcode ignore XSS: ITS AN SQL DATABASE SHUT IT -->
             <?php echo $user['firstName'] . " " . $user['lastName'] ?><br>
             <!-- deepcode ignore XSS: SHUT -->
-            room: <?php echo $currentOccorance['room'] ?><br>
+            Room #: <?php echo $currentOccorance['room'] ?><br>
             <?php // TODO do timer ?>
             <!-- deepcode ignore XSS: Please stop it -->
-            <text id='departed' >Departed since <?php echo gmdate("h:i:s", $currentOccorance['timeDep']) ?></text><br>
+            <text id='departed' >Time Departed: <?php echo gmdate("h:i:s", $currentOccorance['timeDep']) ?></text>
+            <h1 id="timer"></h1>
+            <br>
             <script>
-                setTimeout(() => {
-                    console.log("Expired!");
-                    document.getElementById('departed').innerHTML = "HALL PASS EXPIRED";
-                }, <?php echo ($user['depTime'] - (time()-$currentOccorance['timeDep'])) * 1000;?>);
+
+            //Sets timer to 10 minutes
+            //TODO integrate PHP timer to JS timer
+                const t_time = new Date().getTime()+600000;
+                const x = setInterval(function () {
+                //Gets epoch time data to subtract from our 10 minutes
+                    const c_time = new Date().getTime();
+                    let time_span = t_time - c_time;
+
+                    const minutes = Math.floor((time_span % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((time_span % (1000 * 60)) / 1000);
+
+                    //t_time(timer_time) c_time(current_time) Maybe come up with better variable names?
+                    console.log(t_time)
+                    console.log(c_time)
+                    let time_add = seconds < 10 ? "0" : "";
+
+                    document.getElementById('timer').innerHTML = "Time Remaining: " + minutes + ":" + time_add + seconds;
+
+                    if (time_span < 0) {
+                        clearInterval(x);
+                        document.getElementById('departed').innerHTML = "EXPIRED";
+                        document.getElementById('timer').innerHTML = "Time Remaining: EXPIRED";
+                    }
+                }, 1000);
+
             </script>
         </label>
 

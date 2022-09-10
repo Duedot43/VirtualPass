@@ -40,13 +40,17 @@ for (i = 0; i < dropdown.length; i++) {
     });
 }
 
-const switchEmbed = document.querySelector('.button-container-01, button-container-02');
-switchEmbed.addEventListener('click', function(e) {
+const switchEmbed = document.querySelectorAll('button');
 
-    e.target.style.backgroundColor = ('var(--highlight)');    
-    document.getElementById('mainEmbed').src = e.target.value;
+for (i = 0; i < switchEmbed.length; i++) {
+    switchEmbed[i].addEventListener('click', function(e) {
 
-})
+        //e.target.style.backgroundColor = ('var(--highlight)');
+        document.getElementById('mainEmbed').src = e.target.value;
+
+    })
+}
+
 
 
 //Removes open tabs when user clicks anywhere on screen.
