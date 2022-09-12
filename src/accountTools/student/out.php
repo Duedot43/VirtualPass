@@ -1,11 +1,11 @@
 <?php
 
 /** 
- * Manage a student
+ * Manage how many seconds a student is allowed to be late
  * 
  * PHP version 8.1
  * 
- * @file     /src/accountTools/student/index.php
+ * @file     /src/accountTools/student/out.php
  * @category Managment
  * @package  VirtualPass
  * @author   Jack <duedot43@noreplay-github.com>
@@ -20,7 +20,7 @@ echo '<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Manage students</title>
+    <title>Manage Time Out</title>
     <meta name="color-scheme" content="dark light">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -37,6 +37,7 @@ if (!userExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], pre
 }
 //Auth
 if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
+    //TODO Manage time out of classroom
 } else {
     if (isset($_COOKIE['adminCookie'])) {
         header("Location: /admin/");
@@ -46,10 +47,3 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         exit();
     }
 }
-?>
-<button onclick="location='/accountTools/student/change.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>'">Change Info</button>
-<button onclick="location='/accountTools/student/arrive.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>'">Force Arrive</button>
-<button onclick="location='/accountTools/student/delete.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>'">Delete User</button>
-<button onclick="location='/accountTools/student/key.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>'">Manage API key</button>
-<button onclick="location='/accountTools/student/out.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>'">Allowed time out</button>
-<button onclick="location='/accountTools/student/import.php'">Import Users</button>
