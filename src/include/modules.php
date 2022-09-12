@@ -276,7 +276,8 @@ function installUser(array $info, string $uname, string $passwd, string $db)
         "INSERT apiKeys VALUES(
             '" . rand() . rand() . "',
             '0',
-            '" . $id . "'
+            '" . $id . "',
+            '0'
         );",
         $uname,
         $passwd,
@@ -627,4 +628,32 @@ function getApiKeyByUser(string $uname, string $passwd, string $db, string $user
         }
     }
     return array(false, "");
+}
+/**
+ * Ck last time
+ *
+ * @param string $uname  The MySQL username
+ * @param string $passwd The MySQL pasword
+ * @param string $db     The MySQL database name
+ * @param string $apiKey The user api key
+ * 
+ * @return null
+ */
+function tooMuchReqErr(string $uname, string $passwd, string $db, string $apiKey)
+{
+    $apiUser = mysqli_fetch_array(sendSqlCommand("SELECT * FROM apiKeys WHERE apiKey='" . $apiKey . "';", $uname, $passwd, $db)[1]);
+    if (time() - $apiUser['lastTime'] < 3) {
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "too_many_requests",
+                "human_reason" => "You are making too many requests to the API"
+            ),
+            true
+        );
+        err();
+        exit();
+    } else {
+        sendSqlCommand("UPDATE apiKeys SET lastTime='" . time() . "' WHERE apiKey='" . $apiKey . "';", $uname, $passwd, $db);
+    }
 }

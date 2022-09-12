@@ -41,6 +41,8 @@ if (!$level[0]) {
     authFail();
     exit();
 }
+// See if they made too many requests
+tooMuchReqErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['key']));
 //Now we get to the real api
 $request = unsetValue(explode("/", $_SERVER['REQUEST_URI']), array("api", "user"));
 // If the user requests a user with a GET request

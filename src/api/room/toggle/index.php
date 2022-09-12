@@ -41,6 +41,8 @@ if (!$level[0]) {
     authFail();
     exit();
 }
+// See if they made too many requests
+tooMuchReqErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['key']));
 if ((int) $level[1] > 1) {
     echo json_encode(
         array(

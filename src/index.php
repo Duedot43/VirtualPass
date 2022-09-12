@@ -95,6 +95,7 @@ sendSqlCommand(
     apiKey varchar(255) NOT NULL,
     perms varchar(255),
     user varchar(255),
+    lastTime varchar(255),
     PRIMARY KEY (apiKey)
 
 );",
