@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/Duedot43/VirtualPass/master/src/Images/preview.png" width="100" height=auto onclick='location="https://virtualpass.net"'></img><br>
+<img src="https://raw.githubusercontent.com/Duedot43/VirtualPass/9964b06f96132ceec968d2db11fc68c2f3a31fe8/src/Images/preview.png" width="100" height=auto onclick='location="https://virtualpass.net"'></img><br>
 **Welcome to VirtualPass, a simple yet effective Virtual Hall Pass manager**<br>
 ***
 ## What is VirtualPass?
