@@ -1,0 +1,41 @@
+# Legal
+
+    TOS
+    Privacy Policy
+    COPPA compliant
+
+
+# Security
+
+    Import student DB with CSV file
+
+# Application Testing / Validation
+
+    test everything //- Write what needs to be tested.
+    Validate if a room already exists in regqrid
+
+
+# UI / UX
+
+    Settings button
+    Student index search
+    Organized student index
+
+
+# Other
+
+    Export to CSV
+    Email parents if a students gone for X ammount of times
+    manage users must have delete user and manage api key for user
+    make the admin have a pre set cookie value so we know who they are and they can also have an API key same thing with teachers
+    Test the room making API
+
+# IMPORT
+
+    finish account managment
+    FINISH THE API
+    manage users must have delete user and manage api key for user
+    user managment pannel
+
+
+and more to come...

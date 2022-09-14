@@ -5,99 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "User frontend",
+            "name": "Start server",
             "type": "php",
             "request": "launch",
             "runtimeArgs": [
-                "-dxdebug.mode=debug",
-                "-dxdebug.start_with_request=yes",
                 "-S",
-                "localhost:8080",
+                "localhost:8000",
                 "-t",
-                "src"
+                "./src"
             ],
-            "program": "",
-            "cwd": "${workspaceRoot}",
             "port": 9003,
             "serverReadyAction": {
-                "pattern": "Development Server \\(http://localhost:([0-9]+)\\) started",
-                "uriFormat": "http://localhost:%s/index.php?room=721650438",
                 "action": "openExternally"
             }
-        },
-        {
-            "name": "Admin frontend",
-            "type": "php",
-            "request": "launch",
-            "runtimeArgs": [
-                "-dxdebug.mode=debug",
-                "-dxdebug.start_with_request=yes",
-                "-S",
-                "localhost:8080",
-                "-t",
-                "src"
-            ],
-            "program": "",
-            "cwd": "${workspaceRoot}",
-            "port": 9003,
-            "serverReadyAction": {
-                "pattern": "Development Server \\(http://localhost:([0-9]+)\\) started",
-                "uriFormat": "http://localhost:%s/administrator",
-                "action": "openExternally"
-            }
-        },
-        {
-            "name": "Teacher frontend",
-            "type": "php",
-            "request": "launch",
-            "runtimeArgs": [
-                "-dxdebug.mode=debug",
-                "-dxdebug.start_with_request=yes",
-                "-S",
-                "localhost:8080",
-                "-t",
-                "src"
-            ],
-            "program": "",
-            "cwd": "${workspaceRoot}",
-            "port": 9003,
-            "serverReadyAction": {
-                "pattern": "Development Server \\(http://localhost:([0-9]+)\\) started",
-                "uriFormat": "http://localhost:%s/teacher",
-                "action": "openExternally"
-            }
-        },
-        {
-            "name": "API Backend",
-            "type": "php",
-            "request": "launch",
-            "runtimeArgs": [
-                "-dxdebug.mode=debug",
-                "-dxdebug.start_with_request=yes",
-                "-S",
-                "localhost:8080",
-                "-t",
-                "src"
-            ],
-            "program": "",
-            "cwd": "${workspaceRoot}",
-            "port": 9003,
-        },
-        {
-            "name": "Launch currently open script",
-            "type": "php",
-            "request": "launch",
-            "program": "${file}",
-            "cwd": "${fileDirname}",
-            "port": 0,
-            "runtimeArgs": [
-                "-dxdebug.start_with_request=yes"
-            ],
-            "env": {
-                "XDEBUG_MODE": "debug,develop",
-                "XDEBUG_CONFIG": "client_port=${port}"
-            }
-        },
+        }
         
     ]
 }

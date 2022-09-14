@@ -1,0 +1,381 @@
+html, body {
+    margin: 0;
+    height: 100%;
+    --bg: #ffffff;
+    --text: #3a3a3a;
+    --icon-color: #3254ab;
+    --highlight: #acdbea;
+    --line: black;
+    --input: #d3d3d3;
+    --l-btn: #6694da;
+    background: var(--bg);
+}
+
+body.dark-mode {
+    --bg: #212a2f;
+    --text: white;
+    --icon-color: #3254ab;
+    --highlight: #17375b;
+    --line: white;
+    --input: #414763;
+    --l-btn: #54657e;
+}
+
+@media (prefers-color-scheme: dark) {
+
+    body {
+        --bg: #212a2f;
+        --text: white;
+        --icon-color: #86b4e9;
+        --highlight: #174a5b;
+        --line: white;
+        --input: #414763;
+        --l-btn: #54657e;
+    }
+    body.light-mode {
+        --text: #3a3a3a;
+        --bg: #ffffff;
+        --icon-color: #3254ab;
+        --highlight: #acdbea;
+        --line: black;
+        --input: #d3d3d3;
+        --l-btn: #6694da;
+    }
+}
+
+@media screen and (min-width: 600px) {
+
+    .content-container {
+        position: relative;
+        padding: 75px 15px 15px 275px;
+        height: 100%;
+        background: var(--bg);
+        white-space: nowrap;
+    }
+
+    .main {
+        margin: auto;
+        max-width: 1000px;
+        min-width: 250px;
+        overflow: hidden;
+        border-radius: 5px;   
+        box-shadow: 0 0 2px 0;
+        height: 100%;
+        color: var(--text);
+        background: var(--bg);
+    }
+
+
+    .nav-parent {
+        display: flex;
+        width: 100%;
+        height: 40px;
+        background: var(--bg);
+    }
+
+    .top-nav {
+        position: fixed;
+        margin: 0;
+        width: 100%;
+        height: 50px;
+        z-index: 9;
+        border: 5px #3a3a3a;
+        background: var(--bg);
+        box-shadow: 0 0 2px 0 var(--line);
+    }
+
+    .logo:hover {
+        text-decoration: underline;
+        cursor: pointer;
+        color: #dadada;
+    }
+
+    .logo a {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 25px;
+        text-decoration: none;
+        color: var(--text);
+    }
+
+    .h-login-button {
+        position: absolute;
+        top: 12px;
+        right: 5px;
+        background: inherit;
+        color: inherit;
+    }
+
+    .h-login-button button {
+        width: 80px;
+        height: 30px;
+        background: none;
+        border: none;
+        color: var(--text);
+    }
+
+    .h-login-button button:hover {
+        opacity: 70%;
+        cursor: pointer;
+    }
+
+    .acc-menu {
+        position: absolute;
+        margin-top: 10px;
+        padding: 3px;
+        right: 2px;
+        text-align: left;
+        background: var(--bg);
+        box-shadow: 0 0 2px 0 var(--line);
+    }
+
+    .acc-menu button {
+        width: 250px;
+        height: 50px;
+        padding: 10px;
+        border: none;
+        font-size: 15px;
+    }
+
+    .logout button:hover {
+        background-color: #ff6d6d;
+    }
+
+    .acc-menu button:hover {
+        background-color: #dadada;
+    }
+
+    .sidenav {
+        position: fixed;
+        padding: 5px 0 5px 5px;
+        width: 250px;
+        height: 100%;
+        z-index: 7;
+        bottom: 60px;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        background-color: inherit;
+        font-family: Arial, Helvetica, sans-serif;
+        box-shadow: 0 0 2px 0 var(--line);
+    }
+
+    .sidenav h2 {
+        font-size: 25px;
+        color: var(--text);
+    }
+
+    .sidenav a {
+        position: absolute;
+        width: 100%;
+        font-weight: bold;
+        text-align: center;
+        color: var(--icon-color);
+    }
+
+    .sidenav button {
+        position: relative;
+        width: 100%;
+        text-align: left;
+        padding: 10px;
+        margin: 3px 0 3px 0;
+        background: none;
+        border: none;
+        font-size: 14px;
+        border-radius: 25px 0 0 25px;
+        color: var(--icon-color);
+    }
+
+    .sidenav button:hover {
+        background-color: var(--highlight);
+        cursor: pointer;
+    }
+
+    .sidenav-head h2 {
+        margin-top: 65px;
+    }
+
+    .bottom-nav {
+        position: fixed;
+        width: 245px;
+        height: 50px;
+        padding: 5px;
+        bottom: 0;
+        left: 0;
+        background: var(--bg);
+        font-family: Arial, Helvetica, sans-serif;
+        box-shadow: 0 0 2px 0 var(--line);
+    }
+
+    .bottom-nav button {
+        display: inline-block;
+        margin: 0;
+        width: 45px;
+        height: 45px;
+        border-radius: 25px;
+    }
+
+    .issue-tab {
+        display: inline-block;
+        position: absolute;
+        bottom: 50px;
+        width: 270px;
+        padding: 3px;
+        background: var(--bg);
+        box-shadow: 0 0 2px 0 var(--line);
+    }
+
+    .issue-tab label {
+        padding: 5px;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .issue-tab button {
+        width: 120px;
+        padding: 40px;
+        background-color: #f3f3f3;
+        border: none;
+    }
+
+    .issue-tab a {
+        position: relative;
+    }
+
+    .issue-tab button:hover {
+        background-color: #dadada;
+    }
+
+
+    .material-symbols-outlined:hover {
+        cursor: pointer;
+    }
+
+    .dropdown-container {
+        display: none;
+        padding-left: 35px;
+    }
+
+    .logo {
+        position: relative;
+        padding: 10px;
+        width: 200px;
+
+    }
+}
+
+@media screen and (min-width: 500px) {
+    .l-card-container {
+        margin: auto;
+        padding: 10px;
+        transform: translate(0, 50%);
+        max-width: 500px;
+        width: 90%;
+        background-color: var(--bg);
+        border-radius: 5px;
+        box-shadow: 0 0 3px 0 var(--line);
+        color: var(--text);
+    }
+
+    .l-card-container a {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .l-card-container label {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .l-card-container input {
+        margin: 5px 0 0 20px;
+        font-size: 17px;
+        padding: 7px;
+        background: var(--input);
+        border: none;
+        border-radius: 7px;
+        width: 90%;
+
+    }
+
+    .l-card-container button {
+        margin: 10px 0 0 55%;
+        padding: 7px;
+        width: 40%;
+        background: var(--l-btn);
+        border: none;
+        border-radius: 5px;
+    }
+
+    .l-card-container button:hover {
+        background: var(--highlight);
+        cursor: pointer;
+    }
+
+    #mainEmbed {
+        overflow: hidden;
+        height: 100%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+
+    .l-card-container {
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        padding: 10px;
+        max-width: 500px;
+        background-color: var(--bg);
+        border-radius: 5px;
+        box-shadow: 0 0 3px 0 var(--line);
+        color: var(--text);
+    }
+
+    .l-card-container label {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+}
+
+
+.b-card-container {
+    position: relative;
+    margin: auto;
+    transform: translate(0, 50%);
+    max-width: 600px;
+}
+
+.b-card-container a {
+    width: 1000px;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    color: rgb(78, 76, 76);
+    background-color: inherit;
+    border-radius: 5px;
+    text-decoration: none;
+
+}
+
+.b-card-container a:hover {
+    background-color: #dadada;
+    text-decoration: underline;
+}
+
+#ani-background {
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: relative;
+    animation-name: example;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes example{
+
+    0%   {background-color:red; left:0px; top:0px;}
+    25%  {background-color:yellow; left:200px; top:0px;}
+    50%  {background-color:blue; left:200px; top:200px;}
+    75%  {background-color:green; left:0px; top:200px;}
+    100% {background-color:red; left:0px; top:0px;}
+
+}
