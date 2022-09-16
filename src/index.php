@@ -21,7 +21,7 @@ $domain = getDomain();
 $config = parse_ini_file("../config/config.ini");
 
 //create everything if it does not exist
-sendSqlCommandRaw("CREATE DATABASE IF NOT EXISTS VirtualPass;", "root", $config['sqlPasswd']);
+sendSqlCommandRaw("CREATE DATABASE IF NOT EXISTS VirtualPass;", $config['sqlUname'], $config['sqlPasswd']);
 sendSqlCommand(
     "CREATE TABLE IF NOT EXISTS users (
     sysID varchar(255) NOT NULL,
