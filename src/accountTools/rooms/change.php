@@ -38,7 +38,7 @@ if (!roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], pre
 //Auth
 if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
     if (isset($_POST['rnum'])) {
-        $output = installRoom(array("id" => preg_replace("/[^0-9.]+/i", "", $_GET['room']), "num" => preg_replace("/[^0-9.]+/i", "", $_POST['rnum'])), "root", $config['sqlPasswd'], "VirtualPass");
+        $output = installRoom(array("id" => preg_replace("/[^0-9.]+/i", "", $_GET['room']), "num" => preg_replace("/[^0-9.]+/i", "", $_POST['rnum'])), $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
         if ($output[0] == 1) {
             echo "Something has gone wrong please try again.";
             exit();

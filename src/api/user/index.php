@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
         //
         //cycle through all the users and display them
-        $result = sendSqlCommand("SELECT * FROM users;", "root", $config['sqlPasswd'], "VirtualPass");
+        $result = sendSqlCommand("SELECT * FROM users;", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
         $output = array();
         while ($row = mysqli_fetch_assoc($result[1])) {
             $output[$row['sysID']] = array(
@@ -140,9 +140,9 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH"
         );
         $result = sendSqlCommand(
             "UPDATE users SET firstName = '" . $user['firstName'] . "', lastName = '" . $user['lastName'] . "', ID = '" . $user['ID'] . "', email = '" . $user['email'] . "' WHERE sysID = '" . $level[2] . "';",
-            "root",
+            $config['sqlUname'],
             $config['sqlPasswd'],
-            "VirtualPass"
+            $config['sqlDB']
         );
         if ($result[0] == 0) {
             echo json_encode(
@@ -217,9 +217,9 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH"
                 );
                 $result = sendSqlCommand(
                     "UPDATE users SET firstName = '" . $user['firstName'] . "', lastName = '" . $user['lastName'] . "', ID = '" . $user['ID'] . "', email = '" . $user['email'] . "' WHERE sysID = '" . $request[0] . "';",
-                    "root",
+                    $config['sqlUname'],
                     $config['sqlPasswd'],
-                    "VirtualPass"
+                    $config['sqlDB']
                 );
                 if ($result[0] == 0) {
                     echo json_encode(
@@ -281,12 +281,12 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH"
             );
             $users = sendSqlCommand(
                 "SELECT * FROM users;",
-                "root",
+                $config['sqlUname'],
                 $config['sqlPasswd'],
-                "VirtualPass"
+                $config['sqlDB']
             );
             while ($row = mysqli_fetch_array($users[1])) {
-                $userSet = sendSqlCommand("UPDATE users SET firstName = '" . $user['firstName'] . "', lastName = '" . $user['lastName'] . "', ID = '" . $user['ID'] . "', email = '" . $user['email'] . "' WHERE sysID = '" . $row['sysID'] . "';", "root", $config['sqlPasswd'], "VirtualPass");
+                $userSet = sendSqlCommand("UPDATE users SET firstName = '" . $user['firstName'] . "', lastName = '" . $user['lastName'] . "', ID = '" . $user['ID'] . "', email = '" . $user['email'] . "' WHERE sysID = '" . $row['sysID'] . "';", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
                 if ($userSet[0] != 0) {
                     echo json_encode(
                         array(
@@ -354,9 +354,9 @@ if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
             userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $request[0]);
             $result = sendSqlCommand(
                 "DELETE FROM users WHERE sysID = '" . preg_replace("/[^0-9]/", "", $request[0]) . "';",
-                "root",
+                $config['sqlUname'],
                 $config['sqlPasswd'],
-                "VirtualPass"
+                $config['sqlDB']
             );
             if ($result[0] == 0) {
                 echo json_encode(
@@ -383,12 +383,12 @@ if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
             // If they want all users deleted
             $users = sendSqlCommand(
                 "SELECT * FROM users;",
-                "root",
+                $config['sqlUname'],
                 $config['sqlPasswd'],
-                "VirtualPass"
+                $config['sqlDB']
             );
             while ($row = mysqli_fetch_array($users[1])) {
-                $userSet = sendSqlCommand("DELETE FROM users WHERE sysID = '" . $row['sysID'] . "';", "root", $config['sqlPasswd'], "VirtualPass");
+                $userSet = sendSqlCommand("DELETE FROM users WHERE sysID = '" . $row['sysID'] . "';", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
                 if ($userSet[0] != 0) {
                     echo json_encode(
                         array(

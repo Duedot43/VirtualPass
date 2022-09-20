@@ -34,7 +34,7 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
     $userInfo[3] = $_POST['stem'];
 
     //install the user to the system
-    $userInstall = sendSqlCommand("SELECT * FROM users", "root", $config['sqlPasswd'], "VirtualPass");
+    $userInstall = sendSqlCommand("SELECT * FROM users", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
     while ($row = mysqli_fetch_array($userInstall[1])) {
         if (strToLower($row['firstName']) == strtolower($_POST['firstname']) and strToLower($row['lastName']) == strtolower($_POST['lastname']) and strToLower($row['ID']) == strtolower($_POST['stid']) and strToLower($row['email']) == strtolower($_POST['stem'])) {
             setcookie("id", $row["sysID"], time() + 31557600, "/", $domain, true, true);

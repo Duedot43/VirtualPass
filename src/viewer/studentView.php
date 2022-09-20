@@ -92,7 +92,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 
 
     //cycle through all the users and display them
-    $result = sendSqlCommand("SELECT * FROM users;", "root", $config['sqlPasswd'], "VirtualPass");
+    $result = sendSqlCommand("SELECT * FROM users;", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
     while ($row = mysqli_fetch_assoc($result[1])) {
         echo "<button onclick=\"location='/viewer/studentView.php?user=" . $row['sysID'] . "'\" >" . $row['firstName'] . " " . $row['lastName'] . " " . activ2eng($row['activ']) . "</button><br>";
     }

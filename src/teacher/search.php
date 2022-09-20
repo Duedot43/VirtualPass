@@ -22,7 +22,7 @@ if (!isset($_COOKIE['teacherCookie']) and !teacherCookieExists($config['sqlUname
     exit();
 }
 if (isset($_POST['rnum'])) {
-    $result = sendSqlCommand("SELECT * FROM rooms;", "root", $config['sqlPasswd'], "VirtualPass");
+    $result = sendSqlCommand("SELECT * FROM rooms;", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
     while ($row = mysqli_fetch_assoc($result[1])) {
         if ($row['num'] == $_POST['rnum']) {
             header("Location: /viewer/stuRoomView.php?room=" . $row['ID']);

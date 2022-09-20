@@ -43,7 +43,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         }
         unlink("./csv");
         foreach ($teachers[1] as $teacherRecord) {
-            $output = sendSqlCommand("INSERT teachers VALUES('" . $teacherRecord['uname'] . "', '" . $teacherRecord['passwd'] . "', '" . $teacherRecord['uuid'] . "')", "root", $config['sqlPasswd'], "VirtualPass");
+            $output = sendSqlCommand("INSERT teachers VALUES('" . $teacherRecord['uname'] . "', '" . $teacherRecord['passwd'] . "', '" . $teacherRecord['uuid'] . "')", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
             if ($output[0] != 0) {
                 echo "Something has gone wrong importing the database please try again";
                 exit();

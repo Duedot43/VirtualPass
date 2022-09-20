@@ -42,12 +42,12 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 
     // Delete room
     if (isset($_GET['action']) and $_GET['action'] == "delete") {
-        $output = sendSqlCommand("DELETE FROM rooms WHERE ID='" . htmlspecialchars(preg_replace("/[^0-9.]+/i", "", $_GET['room']),  ENT_QUOTES, 'UTF-8') . "';", "root", $config['sqlPasswd'], "VirtualPass");
+        $output = sendSqlCommand("DELETE FROM rooms WHERE ID='" . htmlspecialchars(preg_replace("/[^0-9.]+/i", "", $_GET['room']),  ENT_QUOTES, 'UTF-8') . "';", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
         if ($output[0] == 1) {
             echo "Something went wrong with deleting the room!";
             exit();
         }
-        $result = sendSqlCommand("SELECT * FROM users;", "root", $config['sqlPasswd'], "VirtualPass");
+        $result = sendSqlCommand("SELECT * FROM users;", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
         while ($row = mysqli_fetch_assoc($result[1])) {
             $misc = json_decode($row['misc']);
             if (in_array($_GET['room'], $misc['rooms'])) {
@@ -59,9 +59,9 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                     misc = '" . json_encode($misc) . "'
                 WHERE
                     sysId=" . preg_replace("/[^0-9.]+/i", "", $row['sysID']) . ";",
-                    "root",
+                    $config['sqlUname'],
                     $config['sqlPasswd'],
-                    "VirtualPass"
+                    $config['sqlDB']
                 );
             }
         }

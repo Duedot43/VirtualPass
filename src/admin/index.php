@@ -18,9 +18,9 @@ $config = parse_ini_file("../../config/config.ini");
 
 if (!isset($_COOKIE['adminCookie'])
     or !adminCookieExists(
-        "root",
+        $config['sqlUname'],
         $config['sqlPasswd'],
-        "VirtualPass",
+        $config['sqlDB'],
         preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie'])
     )
 ) {

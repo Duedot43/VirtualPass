@@ -34,7 +34,7 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
     $userInfo[3] = $_POST['stem'];
 
     //install the user to the system
-    $userInstall = installUser($userInfo, "root", $config['sqlPasswd'], "VirtualPass");
+    $userInstall = installUser($userInfo, $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
     if ($userInstall[0] == 1) {
         echo "Something has gone wrong making the user!";
         exit();

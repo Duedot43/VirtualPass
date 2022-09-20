@@ -75,9 +75,9 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
         activ = '" . $userData['activ'] . "'
     WHERE
         sysId=" . preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']) . ";",
-        "root",
+        $config['sqlUname'],
         $config['sqlPasswd'],
-        "VirtualPass"
+        $config['sqlDB']
     );
 
 
@@ -87,9 +87,9 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
         misc = '" . json_encode($departureData) . "'
     WHERE
         sysId=" . preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']) . ";",
-        "root",
+        $config['sqlUname'],
         $config['sqlPasswd'],
-        "VirtualPass"
+        $config['sqlDB']
     );
     snapshot($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $config['snapshotTime']);
     header("Location: /?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
