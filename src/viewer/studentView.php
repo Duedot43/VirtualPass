@@ -93,8 +93,17 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 
     //cycle through all the users and display them
     $result = sendSqlCommand("SELECT * FROM users;", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
+    $departedIds = array();
+    $departedTimes = array();
+    $date = date("d") . "." . date("m") . "." . date("y");
     while ($row = mysqli_fetch_assoc($result[1])) {
-        echo "<button onclick=\"location='/viewer/studentView.php?user=" . $row['sysID'] . "'\" >" . $row['firstName'] . " " . $row['lastName'] . " " . activ2eng($row['activ']) . "</button><br>";
+        $misc = json_decode($row['misc'], true);
+        if ((int) $row['activ'] === 0) {
+            array_push($departedIds, $row['sysID']);
+            array_push($departedTimes, array($misc['activity'][$date][$misc['cnum'][0]]['timeDep'], $row['depTime']));
+        }
+        $border = (int) $row['activ'] === 0 ? 'style="border:orange; border-width:5px; border-style:solid;"' : 'style="border:green; border-width:5px; border-style:solid;"';
+        echo "<button id='" . $row['sysID'] . "' onclick=\"location='/viewer/studentView.php?user=" . $row['sysID'] . "'\" " . $border . " >" . $row['firstName'] . " " . $row['lastName'] . " " . activ2eng($row['activ']) . "</button><br>";
     }
 } else {
     if (isset($_COOKIE['adminCookie'])) {
@@ -105,3 +114,23 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         exit();
     }
 }
+?>
+<script>
+    var departedIds = <?php echo phpArr2str($departedIds); ?>;
+    var departedTimes = <?php echo phpArr2str($departedTimes); ?>;
+
+    function timer(ellimentId, userArr) {
+        var ogInner = document.getElementById(ellimentId).innerHTML;
+        setInterval(function() {
+            timeUsed = new Date().getTime() - (userArr[0] * 1000);
+            if (timeUsed > userArr[1] * 1000) {
+                document.getElementById(ellimentId).style.border = "red 5px solid";
+            }
+            document.getElementById(ellimentId).innerHTML = ogInner + " " + Math.floor(timeUsed / 1000 / 60) + "m " + Math.floor(timeUsed / 1000 % 60) + "s";
+        }, 1000);
+    }
+
+    for (i = 0; i < departedIds.length; i++) {
+        timer(departedIds[i], departedTimes[i]);
+    }
+</script>

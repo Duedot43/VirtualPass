@@ -58,7 +58,8 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
 
             //Sets timer to 10 minutes
             //TODO integrate PHP timer to JS timer
-                const t_time = new Date().getTime()+600000;
+                                                    //THIS NEEDS TO BE A PHP VALUE (timeOut - (ctime - timeDep)) * 1000
+                const t_time = new Date().getTime()+<?php echo ($user['depTime'] - (time() - $currentOccorance['timeDep'])) * 1000 ?>;
                 const x = setInterval(function () {
                 //Gets epoch time data to subtract from our 10 minutes
                     const c_time = new Date().getTime();

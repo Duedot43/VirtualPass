@@ -657,3 +657,34 @@ function tooMuchReqErr(string $uname, string $passwd, string $db, string $apiKey
         sendSqlCommand("UPDATE apiKeys SET lastTime='" . time() . "' WHERE apiKey='" . $apiKey . "';", $uname, $passwd, $db);
     }
 }
+/**
+ * PHP array to string
+ *
+ * @param array $array The PHP array to convert
+ * 
+ * @return string
+ */
+function phpArr2str(array $array)
+{
+    $output = '[';
+    $count = -1;
+    foreach ($array as $value) {
+        $count = $count + 1;
+        if (is_array($value)) {
+            if ($count != count($array) - 1) {
+                $output .= phpArr2str($value) . ',';
+            } else {
+                $output .= phpArr2str($value);
+            }
+        } else {
+            if ($count != count($array) - 1) {
+                $output .= '"' . $value . '"' . ',';
+            } else {
+                $output .= '"' . $value . '"';
+            }
+        }
+    }
+    $output .= ']';
+
+    return $output;
+}
