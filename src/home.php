@@ -71,7 +71,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 
 
     <div class="nav-parent">
-        <div class="top-nav" style="top: 0px;">
+        <div class="top-nav" style="top: 0;">
 
             <div class="logo">
                 <a href="/" class="">
@@ -122,8 +122,8 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                 <hr style="opacity: 25%; margin: 5px 10px 15px 5px;" />
                 <a>Analytics</a>
                 <br />
-                <div class="button-container-01">
-                    <button id="overview-tab">
+                <div class="button-container">
+                    <button class="highlighted" name="Overview">
                         <span class="material-symbols-outlined">
                             monitoring
                         </span>
@@ -149,27 +149,28 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                 <hr style="opacity: 25%; margin: 5px 10px 15px 5px;" />
                 <a>Panels</a>
                 <br />
-                <div class="button-container-02">
-                    <button id="overview-tab" value='/admin'>
+                <div class="button-container">
+                    <button id="overview-tab" value='/admin' name="Admin Panel">
                         <span class="material-symbols-outlined">
                             admin_panel_settings
                         </span>
                         Admin Panel
                     </button>
 
-                    <button value='/student'>
+                    <button value='/teacher' name="Teacher Panel">
+                        <span class="material-symbols-outlined">
+                            school
+                        </span>
+                        Teacher Panel
+                    </button>
+
+                    <button value='/student' name="Student Panel">
                         <span class="material-symbols-outlined">
                             person
                         </span>
                         Student Panel
                     </button>
 
-                    <button value='/teacher'>
-                        <span class="material-symbols-outlined">
-                            school
-                        </span>
-                        Teacher Panel
-                    </button>
                 </div>
 
 
@@ -178,15 +179,15 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                 <a>Other</a>
                 <br />
 
-                <div class="button-container-03">
-                    <button value='/makeRoom/'>
+                <div class="button-container">
+                    <button value='/makeRoom/' name="Add Room">
                         <span class="material-symbols-outlined">
                             meeting_room
                         </span>
                         Add Room
                     </button>
 
-                    <button value='/accountTools/student/make.php'>
+                    <button value='/accountTools/student/make.php' name="Add User">
                         <span class="material-symbols-outlined">
                             person_add
                         </span>
@@ -207,57 +208,62 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                     </button>
 
                     <div class="dropdown-container">
-                        <button value='/accountTools/admin'>
+                        <button value='/accountTools/admin' name="Manage Members: Admin">
                             Admins
                         </button>
-                        <button value='/accountTools/teacher'>
+                        <button value='/accountTools/teacher' name="Manage Members: Teachers">
                             Teachers
                         </button>
-                        <button value='/viewer/studentView.php'>
+                        <button value='/viewer/studentView.php' name="Manage Members: Students">
                             Students
                         </button>
                     </div>
 
+                    <script>
+
+                    </script>
                 </div>
 
-                <div class="bottom-nav">
 
-                    <button>
+
+            </div>
+            <div class="bottom-nav">
+
+                <button>
                         <span class="material-symbols-outlined">
                             settings
                         </span>
-                    </button>
+                </button>
 
-                    <button id="dark-toggler" class="dark-toggler">
+                <button id="dark-toggler" class="dark-toggler">
                         <span class="material-symbols-outlined dark-mode-input">
                             dark_mode
                         </span>
-                    </button>
+                </button>
 
 
-                    <button class="dropdown-button">
+                <button class="dropdown-button">
                         <span class="material-symbols-outlined ">
                             contact_support
                         </span>
-                    </button>
+                </button>
 
 
-                    <div class="issue-tab dropdown-container" style="display:none;">
-                        <div>
-                            <p>Issues?</p>
-                            <p>Please visit the</p>
-                            <a href="https://github.com/Duedot43/VirtualPass/issues">Issue Tracker.</a>
-                        </div>
-
-                        <div>
-                            <p>Feedback.</p>
-                        </div>
+                <div class="issue-tab dropdown-container" style="display:none;">
+                    <div>
+                        <p>Issues?</p>
+                        <p>Please visit the</p>
+                        <a href="https://github.com/Duedot43/VirtualPass/issues">Issue Tracker.</a>
                     </div>
 
-                    <p id="version-id" style="font-size:10px; margin: 0;"></p>
+                    <div>
+                        <p>Feedback.</p>
+                    </div>
                 </div>
 
+                <p id="version-id" style="font-size:10px; margin: 0;"></p>
             </div>
+
         </div>
     </div>
 

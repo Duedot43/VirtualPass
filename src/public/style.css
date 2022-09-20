@@ -14,7 +14,7 @@ html, body {
 body.dark-mode {
     --bg: #212a2f;
     --text: white;
-    --icon-color: #3254ab;
+    --icon-color: #86b4e9;
     --highlight: #17375b;
     --line: white;
     --input: #414763;
@@ -213,6 +213,14 @@ body.dark-mode {
         width: 45px;
         height: 45px;
         border-radius: 25px;
+        border: none;
+        background: none;
+        color: var(--icon-color);
+    }
+
+    .bottom-nav button:hover {
+        background-color: var(--highlight);
+        cursor: pointer;
     }
 
     .issue-tab {
@@ -221,6 +229,7 @@ body.dark-mode {
         bottom: 50px;
         width: 270px;
         padding: 3px;
+        z-index: 8;
         background: var(--bg);
         box-shadow: 0 0 2px 0 var(--line);
     }
@@ -260,6 +269,10 @@ body.dark-mode {
         padding: 10px;
         width: 200px;
 
+    }
+
+    .highlighted {
+        background-color: var(--highlight) !important;
     }
 }
 
@@ -330,6 +343,7 @@ body.dark-mode {
     }
 
     .l-card-container label {
+
         font-family: Arial, Helvetica, sans-serif;
     }
 
@@ -372,10 +386,10 @@ body.dark-mode {
 
 @keyframes example{
 
-    0%   {background-color:red; left:0px; top:0px;}
-    25%  {background-color:yellow; left:200px; top:0px;}
+    0%   {background-color:red; left:0; top:0;}
+    25%  {background-color:yellow; left:200px; top:0;}
     50%  {background-color:blue; left:200px; top:200px;}
-    75%  {background-color:green; left:0px; top:200px;}
-    100% {background-color:red; left:0px; top:0px;}
+    75%  {background-color:green; left:0; top:200px;}
+    100% {background-color:red; left:0; top:0;}
 
 }

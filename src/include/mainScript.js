@@ -11,12 +11,13 @@ else if (currentMode === "light") {
 }
 
 dark_toggler.addEventListener("click", function() {
+    let theme;
     if (prefersDark.matches) {
         document.body.classList.toggle("light-mode");
-        var theme = document.body.classList.contains('light-mode') ? "light" : "dark";
+        theme = document.body.classList.contains('light-mode') ? "light" : "dark";
     } else {
         document.body.classList.toggle("dark-mode");
-        var theme = document.body.classList.contains('dark-mode') ? "dark" : "light";
+        theme = document.body.classList.contains('dark-mode') ? "dark" : "light";
     }
 
     //localStorage.setItem("theme", theme);
@@ -34,27 +35,45 @@ for (i = 0; i < dropdown.length; i++) {
             dropdownContent.style.display = "none";
         } else {
             dropdownContent.style.display = "block";
-
-           
         }
     });
 }
 
-const switchEmbed = document.querySelectorAll('button');
+//async function to change embed data && selected button highlight
+const switchEmbed = document.querySelectorAll('.sidenav button');
 
 for (i = 0; i < switchEmbed.length; i++) {
     switchEmbed[i].addEventListener('click', function(e) {
 
-        //e.target.style.backgroundColor = ('var(--highlight)');
-        document.getElementById('mainEmbed').src = e.target.value;
+        //Reluctantly using a nestled for loop to check for highlights, and remove them.
+        for (i = 0; i < switchEmbed.length; i++) {
+            if (switchEmbed[i].classList.contains('highlighted')) {
+                switchEmbed[i].classList.remove('highlighted');
+            }
+        }
+        this.classList.add("highlighted");
 
+        const buttonName = this.getAttribute('name');
+        const viewportTitle = document.getElementById('viewportTitle');
+        viewportTitle.innerHTML = buttonName;
+
+        if (e.target.value) {
+            document.getElementById('mainEmbed').src = e.target.value;
+
+        }
     })
 }
 
-
-
-//Removes open tabs when user clicks anywhere on screen.
-const removeContent = document.getElementsByClassName('issue-tab')
-const random_variable = document.body;
-
-const overtab = document.getElementById('overview-tab').style.backgroundColor = ('var(--highlight)');
+//closes the dropdown menu when the user clicks outside of it
+window.onclick = function (event) {
+    if (!event.target.matches('.dropdown-button')) {
+        const dropdowns = document.getElementsByClassName("dropdown-content");
+        let i;
+        for (i = 0; i < dropdowns.length; i++) {
+            const openDropdown = dropdowns[i];
+            if (openDropdown.style.display === "block") {
+                openDropdown.style.display = "none";
+            }
+        }
+    }
+}
