@@ -87,9 +87,19 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         $output[4] = sendSqlCommand(
             "UPDATE apiKeys 
         SET 
-            perms = '" . $_POST['level'] . "'
+            perms = '" . preg_replace("/[^0-9.]+/i", "", $_POST['level']) . "'
         WHERE
             apiKey=" . $apiKey[1] . ";",
+            $config['sqlUname'],
+            $config['sqlPasswd'],
+            $config['sqlDB']
+        )[0];
+        $output[5] = sendSqlCommand(
+            "UPDATE users 
+        SET 
+            depTime = '" . (int) preg_replace("/[^0-9.]+/i", "", $_POST['out']) * 60 . "'
+        WHERE
+            sysId=" . preg_replace("/[^0-9.]+/i", "", $_GET['user']) . ";",
             $config['sqlUname'],
             $config['sqlPasswd'],
             $config['sqlDB']
@@ -101,7 +111,6 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             echo "User changed succesfully!";
             exit();
         }
-        //TODO change time allowed out of room
     }
 } else {
     if (isset($_COOKIE['adminCookie'])) {
@@ -145,12 +154,16 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                 <!-- deepcode ignore XSS: Its an SQL database please shut up -->
                 <input type="email" name="stem" id="stem" value="<?php echo $user['email']; ?>" required>
 
+                Allowed time out:
+                <!-- deepcode ignore XSS: Its an SQL database please shut up -->
+                <input type="number" name="out" id="out" value="<?php echo gmdate("i", $user['depTime']); ?>" required>
+
                 <label for="level">API Key level</label>
                 <select name="level" id="level">
-                    <option value="0" <?php echo (int) $apiKeyLevel === 0 ? "selected" : "" ?> >0</option>
-                    <option value="1" <?php echo (int) $apiKeyLevel === 1 ? "selected" : "" ?> >1</option>
-                    <option value="2" <?php echo (int) $apiKeyLevel === 2 ? "selected" : "" ?> >2</option>
-                    <option value="3" <?php echo (int) $apiKeyLevel === 3 ? "selected" : "" ?> >3</option>
+                    <option value="0" <?php echo (int) $apiKeyLevel === 0 ? "selected" : "" ?>>0</option>
+                    <option value="1" <?php echo (int) $apiKeyLevel === 1 ? "selected" : "" ?>>1</option>
+                    <option value="2" <?php echo (int) $apiKeyLevel === 2 ? "selected" : "" ?>>2</option>
+                    <option value="3" <?php echo (int) $apiKeyLevel === 3 ? "selected" : "" ?>>3</option>
                 </select>
             </label>
             <button type="submit" name="Submit" value="Submit"> Submit </button>
