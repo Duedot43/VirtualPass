@@ -6,3 +6,4 @@ Light mode button and broser default are diffrent
 Apple Webkit compatability (CSS)
 Firefox 56 and earlier compatability
 Make it so that site breaks when someone uses the Brave browser and display #h1 UNSAFE BROWSER DETECTED.
+Add a searching system for users using "SELECT * FROM users WHERE firstName LIKE "%joh%";"
