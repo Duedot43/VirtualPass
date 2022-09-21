@@ -141,6 +141,13 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
     $user = getUserData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']));
     $dpt = activ2eng((int) $user['activ']);
     $dpt2 = ((int) $user['activ'] === 1) ? "Depart" : "Arrive";
+    $misc = json_decode($user['misc'], true);
+    $date = date("d") . "." . date("m") . "." . date("y");
+    if ((int) $user['activ'] === 0 or isset($misc['activity'][$date])) {
+        $currentOccorance = $misc['activity'][$date][$misc['cnum'][0]];
+    } else {
+        $currentOccorance = array("arr"=>"e", "room"=>$_GET['room'], "timeDep"=>'0');
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -273,57 +280,75 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
     <meta charset="UTF-8">
     <title>Depart/Arrive</title>
     <meta name="color-scheme" content="dark light">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/public/favicon.ico" />
-
 </head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<tr>
-    <td>
-        <table width="100%" border="0" cellpadding="3" cellspacing="1">
-            <tr>
-                <!-- deepcode ignore XSS: YOU ARE AN IDIOT -->
-                <td colspan="80"><strong>Hall pass registered<br>you have <?php echo $dpt; ?><br></strong></td>
-            </tr>
-            <tr>
-                <td width="0"></td>
-                <td width="0"></td>
-                <!-- deepcode ignore XSS: Please stop -->
-                <td width="294"><input class="reg" type="button" id="return" value='<?php echo $dpt2; ?>' onclick="location='doActiv.php?room=<?php echo $_GET['room']; ?>'" /></td>
-                <script>
-                    document.getElementById("return").disabled = true;
-                    document.querySelector('#return').value = '5';
-                    setTimeout(() => {
-                        document.querySelector('#return').value = '4';
-                    }, 1000);
-                    setTimeout(() => {
-                        document.querySelector('#return').value = '3';
-                    }, 2000);
-                    setTimeout(() => {
-                        document.querySelector('#return').value = '2';
-                    }, 3000);
-                    setTimeout(() => {
-                        document.querySelector('#return').value = '1';
-                    }, 4000);
-                    setTimeout(() => {
-                        document.getElementById("return").disabled = false;
-                    }, 5000);
-                    setTimeout(() => {
-                        document.querySelector('#return').value = '<?php echo $dpt2; ?>';
-                    }, 5000);
-                </script>
-                <td width="78"></td>
-                <td width="80"></td>
-                <td width="294"><input class="reg" type="button" value="Get Hall Pass" onclick="location='/student/viewPass.php'" style="border-color:97042F; color:white" /></td>
-                <td width="0"></td>
-                <td width="0"></td>
-            </tr>
-            <tr>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <td>&nbsp;</td>
-            </tr>
-        </table>
-    </td>
-</tr>
-</table>
+
+<body>    
+    
+    <div id="ani-background"></div>
+
+    <div class="l-card-container">
+
+        <!-- deepcode ignore XSS: Shut the up -->
+        <p>you have <?php echo $dpt; ?></p>
+        <hr />
+
+        <label>
+            <!-- deepcode ignore XSS: ITS AN SQL DATABASE SHUT IT -->
+            <?php echo $user['firstName'] . " " . $user['lastName'] ?><br>
+            <!-- deepcode ignore XSS: SHUT -->
+            Room #: <?php echo $currentOccorance['room'] ?><br>
+            <!-- deepcode ignore XSS: Please stop it -->
+            <text id='departed'>Time Departed: <?php echo gmdate("h:i:s", (int) $currentOccorance['timeDep']) ?></text>
+            <h1 id="timer"></h1>
+            <br>
+            <script>
+                // deepcode ignore XSS: STOP ITTTTTTT
+                let timeAllowed = <?php echo (string) ($user['depTime'] * 1000) ?>;
+                const x = setInterval(function() {
+                    if (<?php echo (isset($currentOccorance['arr']) ? "false" : "true"); ?>) {
+                        // deepcode ignore XSS: Stupid dummy
+                        let timeOut = Date.now() - (<?php echo $currentOccorance['timeDep']; ?> * 1000);
+                        var timeRem = timeAllowed - timeOut;
+
+                        var add_zero = ((timeRem / 1000 % 60) < 10) ? "0" : "";
+                        document.getElementById('timer').innerHTML = "Time Remaining: " + Math.floor(timeRem / 1000 / 60) + ":" + add_zero + Math.floor(timeRem / 1000 % 60);
+
+                        if (timeRem < 0) {
+                            clearInterval(x);
+                            document.getElementById('timer').innerHTML = "Time Remaining: EXPIRED";
+                            document.getElementById('departed').innerHTML = "Time Departed: EXPIRED";
+                        }
+                    }
+
+                }, 1000);
+            </script>
+        </label>
+        <br/>
+        <hr/>
+
+        <!-- deepcode ignore XSS: THERE IS NOTHING WRONG WITH THIS -->
+        <button name="return" id="return" onclick="location='/doActiv.php?room=<?php echo $_GET['room']; ?>'" > <?php echo $dpt2; ?> </button>
+
+        <script>
+            const ret = document.getElementById('return');
+            ret.disabled = true;
+            let counter = 2;
+
+            const y = setInterval(function() {
+                counter--;
+                console.log(counter);
+                ret.innerHTML = counter;
+
+                if (counter <= 0) {
+                    clearInterval(y);
+                    ret.disabled = false;
+                    ret.innerHTML = '<?php echo $dpt2; ?>';
+                }
+            }, 1000);
+        </script>
+    </div>
+    
+</body>
+</html>

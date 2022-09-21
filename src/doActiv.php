@@ -42,6 +42,11 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
     if (!isset($departureData['activity'][$date])) {
         $departureData['activity'][$date] = array();
         $departureData['cnum'] = array(0, 0);
+        $departureData['activity'][$date][$departureData['cnum'][0]] = array(
+            "room" => "",
+            "timeDep" => "",
+            "timeArv" => ""
+        );
     }
 
     //determin the time
@@ -52,11 +57,17 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
         $departureData['cnum'][1] = 1;
         $set = false;
     } else {
+        //TODO bug over multipul days when the user is departed over days
         $room = $departureData['activity'][$date][$departureData['cnum'][0]]['room'];
         $timeDep = $departureData['activity'][$date][$departureData['cnum'][0]]['timeDep'];
         $timeArv = time();
         $departureData['cnum'][1] = 0;
         $set = true;
+        $departureData['activity'][$date][$departureData['cnum'][0] + 1] = array(
+            "room" => "",
+            "timeDep" => "",
+            "timeArv" => ""
+        );
     }
 
     //mark down the time that the user does an activity
@@ -68,7 +79,7 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
     if ($set) {
         $departureData['cnum'][0] = $departureData['cnum'][0] + 1;
     }
-    
+
     sendSqlCommand(
         "UPDATE users 
     SET 

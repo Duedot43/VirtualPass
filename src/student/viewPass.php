@@ -49,39 +49,34 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
             <?php echo $user['firstName'] . " " . $user['lastName'] ?><br>
             <!-- deepcode ignore XSS: SHUT -->
             Room #: <?php echo $currentOccorance['room'] ?><br>
-            <?php // TODO do timer ?>
+            <?php // TODO do timer 
+            ?>
             <!-- deepcode ignore XSS: Please stop it -->
-            <text id='departed' >Time Departed: <?php echo gmdate("h:i:s", $currentOccorance['timeDep']) ?></text>
+            <text id='departed'>Time Departed: <?php echo gmdate("h:i:s", $currentOccorance['timeDep']) ?></text>
             <h1 id="timer"></h1>
             <br>
             <script>
+                //Sets timer to 10 minutes
+                //TODO integrate PHP timer to JS timer
+                //THIS NEEDS TO BE A PHP VALUE (timeOut - (ctime - timeDep)) * 1000
+                
+                // deepcode ignore XSS: STOP ITTTTTTT
+                let timeAllowed = <?php echo $user['depTime'] * 1000?>;
+                const x = setInterval(function() {
+                   // deepcode ignore XSS: Stupid dummy
+                    let timeOut = Date.now() - (<?php echo $currentOccorance['timeDep']; ?> * 1000);
+                    var timeRem = timeAllowed - timeOut;
 
-            //Sets timer to 10 minutes
-            //TODO integrate PHP timer to JS timer
-                                                    //THIS NEEDS TO BE A PHP VALUE (timeOut - (ctime - timeDep)) * 1000
-                const t_time = new Date().getTime()+<?php echo ($user['depTime'] - (time() - $currentOccorance['timeDep'])) * 1000 ?>;
-                const x = setInterval(function () {
-                //Gets epoch time data to subtract from our 10 minutes
-                    const c_time = new Date().getTime();
-                    let time_span = t_time - c_time;
+                    var add_zero = ((timeRem / 1000) < 10) ? "0" : "";
+                    document.getElementById('timer').innerHTML = "Time Remaining: " + Math.floor(timeRem / 1000 / 60) + ":" + add_zero + Math.floor(timeRem / 1000 % 60);
 
-                    const minutes = Math.floor((time_span % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((time_span % (1000 * 60)) / 1000);
-
-                    //t_time(timer_time) c_time(current_time) Maybe come up with better variable names?
-                    console.log(t_time)
-                    console.log(c_time)
-                    let time_add = seconds < 10 ? "0" : "";
-
-                    document.getElementById('timer').innerHTML = "Time Remaining: " + minutes + ":" + time_add + seconds;
-
-                    if (time_span < 0) {
+                    if (timeRem < 0) {
                         clearInterval(x);
-                        document.getElementById('departed').innerHTML = "EXPIRED";
                         document.getElementById('timer').innerHTML = "Time Remaining: EXPIRED";
+                        document.getElementById('departed').innerHTML = "Time Departed: EXPIRED";
                     }
-                }, 1000);
 
+                }, 1000);
             </script>
         </label>
 

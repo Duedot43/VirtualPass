@@ -46,20 +46,20 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             echo "Something went wrong! here is the error " . $output[1];
         }
     }
-    /*
+
     // changing admin
     if (isset($_GET['account']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account'])) and isset($_GET['action']) and $_GET['action'] == "delete") {
         $admin = getAdminByUuid($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']));
         $output = sendSqlCommand("DELETE FROM admins WHERE uname=" . $admin['uname'] . ";", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
         if ($output[0] == 0) {
-            echo "Success! User deleted";
+            echo "Success! Admin deleted";
             exit();
         } else {
             // deepcode ignore XSS: BRO STOP IT ITS JUST AN SQL ERROR CODE
             echo "Something went wrong! here is the error " . $output[1];
         }
     }
-    */
+
     //showing actions for an admin
     if (isset($_GET['account']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']))) {
         $admin = getAdminByUuid($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']));
