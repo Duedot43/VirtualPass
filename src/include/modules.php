@@ -688,3 +688,19 @@ function phpArr2str(array $array)
 
     return $output;
 }
+/**
+ * Search a table
+ *
+ * @param string $table    The table to search
+ * @param string $keywords The keywords to search for
+ * @param string $section  The row to search in
+ * @param array  $config   The config file
+ * 
+ * @return array
+ */
+function search(string $table, string $keywords, string $section, array $config)
+{
+    $output = sendSqlCommand('SELECT * FROM ' . $table . ' WHERE ' . $section . ' LIKE "' . $keywords . '";', $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
+    $output = mysqli_fetch_array($output[1]);
+    return $output;
+}
