@@ -152,146 +152,23 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
 ?>
 <!DOCTYPE html>
 <html lang="en">
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Zilla+Slab&display=swap');
-
-    /* Regular setting */
-    :root {
-        --body-bg: #dadada;
-        --table-bg: white;
-        --body-color: #000000;
-    }
-
-    /* Dark setting */
-    @media (prefers-color-scheme: dark) {
-        :root {
-            --table-bg: #27434b;
-            --body-bg: #233035;
-            --body-color: #FFFFFF;
-        }
-    }
-
-    .box {
-        border: solid #70b8d4 3px;
-        border-radius: 5px;
-        padding: 5px;
-        width: 100%;
-    }
-
-    body {
-        font-family: "Zilla Slab", Arial, Helvetica, sans-serif;
-        color: #545d5eda;
-        background: var(--body-bg);
-        color: var(--body-color);
-
-    }
-
-    table {
-        margin: 0 auto;
-        max-width: 600px;
-        background: white;
-        border-radius: 7px;
-        box-shadow: 5px 5px rgb(82, 99, 102);
-        padding: 7px;
-        background: var(--table-bg);
-    }
-
-    .text {
-        min-width: 77px;
-    }
-
-    .reg {
-        width: 100%;
-        height: 40px;
-        font-family: "Zilla Slab";
-        font-size: 15px;
-        color: white;
-        background: #70b8d4;
-        border: solid #70b8d4;
-        border-radius: 5px;
-
-    }
-
-    input:hover {
-        border: solid #5da2da;
-        border-radius: 5px;
-        background: #5da2da;
-    }
-
-    html,
-    body,
-    #freq {
-        width: 100%;
-        height: 500px;
-        margin: 0;
-        padding: 0;
-    }
-
-    .navParent {
-        width: 100%px;
-        Height: 55px;
-        background-color: #FFFFFF;
-        box-shadow: 5px 0px 5px 5px #666666;
-
-    }
-
-    /* --real_index Page-- */
-
-    .navParent-01 {
-        display: flex;
-        width: 100%;
-        height: 50px;
-        margin: 0;
-        overflow: hidden;
-        background-color: #7700ff;
-        border-radius: 0px 5px 0px 5px;
-        box-shadow: 5px #FFFFFF;
-    }
-
-    .navChild-01 {
-        border: 5px;
-        padding: 5px;
-        position: absolute;
-        top: 0;
-        right: 0;
-        font-family: Arial, Helvetica, sans-serif;
-    }
-
-    .navChild-01 button {
-        justify-content: right;
-        background: none;
-        border: none;
-        z-index: 1;
-        color: White;
-    }
-
-    .navChild-01 button:hover {
-        color: #b1b1b1;
-        text-decoration: underline;
-    }
-
-
-    .navChild-h1 {
-        width: 10px;
-    }
-</style>
-
 <head>
     <meta charset="UTF-8">
     <title>Depart/Arrive</title>
     <meta name="color-scheme" content="dark light">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/public/favicon.ico" />
+    <link rel="stylesheet" href="/public/style.css" type="text/css" />
 </head>
 
 <body>    
-    
-    <div id="ani-background"></div>
+
 
     <div class="l-card-container">
 
         <!-- deepcode ignore XSS: Shut the up -->
-        <p>you have <?php echo $dpt; ?></p>
+        <br/><br/>
+        <a>You have <?php echo $dpt; ?></a>
         <hr />
 
         <label>
@@ -301,7 +178,7 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
             Room #: <?php echo $currentOccorance['room'] ?><br>
             <!-- deepcode ignore XSS: Please stop it -->
             <text id='departed'>Time Departed: <?php echo gmdate("h:i:s", (int) $currentOccorance['timeDep']) ?></text>
-            <h1 id="timer"></h1>
+            <h1 id="timer" style="color: #cbffcb;"></h1>
             <br>
             <script>
                 // deepcode ignore XSS: STOP ITTTTTTT
@@ -329,7 +206,7 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
         <hr/>
 
         <!-- deepcode ignore XSS: THERE IS NOTHING WRONG WITH THIS -->
-        <button name="return" id="return" onclick="location='/doActiv.php?room=<?php echo $_GET['room']; ?>'" > <?php echo $dpt2; ?> </button>
+        <button style="margin-left: 29%;" name="return" id="return" onclick="location='/doActiv.php?room=<?php echo $_GET['room']; ?>'" > <?php echo $dpt2; ?> </button>
 
         <script>
             const ret = document.getElementById('return');
@@ -349,6 +226,6 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
             }, 1000);
         </script>
     </div>
-    
+
 </body>
 </html>

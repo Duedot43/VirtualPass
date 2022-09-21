@@ -68,7 +68,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         foreach ($dateArr as $occorance) {
             if (!in_array($occorance['room'], $rooms)) {
                 array_push($rooms, $occorance['room']);
-                echo "<button onclick=\"location='/viewer/studentView.php?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "&date=" . htmlspecialchars($_GET['date'],  ENT_QUOTES, 'UTF-8') . "&room=" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "'\" >" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "</button><br>";
+                echo "<button onclick=\"location='/viewer/studentView.php?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "&date=" . htmlspecialchars($_GET['date'],  ENT_QUOTES, 'UTF-8') . "&room=" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "'\" >" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "</button><br/>";
             }
         }
         exit();
@@ -103,7 +103,10 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             array_push($departedTimes, array($misc['activity'][$date][$misc['cnum'][0]]['timeDep'], $row['depTime']));
         }
         $border = (int) $row['activ'] === 0 ? 'style="border:orange; border-width:5px; border-style:solid;"' : 'style="border:green; border-width:5px; border-style:solid;"';
-        echo "<button id='" . $row['sysID'] . "' onclick=\"location='/viewer/studentView.php?user=" . $row['sysID'] . "'\" " . $border . " >" . $row['firstName'] . " " . $row['lastName'] . " " . activ2eng($row['activ']) . "</button><br>";
+        echo "<td id='" . $row['sysID'] . "' onclick=\"location='/viewer/studentView.php?user=" . $row['sysID'] . "'\" " . $border . " >" . $row['firstName'] . " " . $row['lastName'] . " " . activ2eng($row['activ']) . "</td><br>";
+        // TODO create a table with the users and their status
+        // PHP isn't inserting the elements into the table correctly
+
     }
 } else {
     if (isset($_COOKIE['adminCookie'])) {
@@ -115,22 +118,48 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     }
 }
 ?>
-<script>
-    var departedIds = <?php echo phpArr2str($departedIds); ?>;
-    var departedTimes = <?php echo phpArr2str($departedTimes); ?>;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <meta name="home" content="admin-webpage." />
+    <meta name="color-scheme" content="dark light">
+    <link rel="stylesheet" href="/public/style.css" type="text/css" />
+    <link rel="icon" href="/public/favicon.ico" />
+</head>
 
-    function timer(ellimentId, userArr) {
-        var ogInner = document.getElementById(ellimentId).innerHTML;
-        setInterval(function() {
-            timeUsed = new Date().getTime() - (userArr[0] * 1000);
-            if (timeUsed > userArr[1] * 1000) {
-                document.getElementById(ellimentId).style.border = "red 5px solid";
+<body>
+
+    <table class="student-list">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+        </tr>
+        <script>
+            let departedIds = <?php echo phpArr2str($departedIds); ?>;
+            let departedTimes = <?php echo phpArr2str($departedTimes); ?>;
+
+            function timer(ellimentId, userArr) {
+                var ogInner = document.getElementById(ellimentId).innerHTML;
+                setInterval(function() {
+                    timeUsed = new Date().getTime() - (userArr[0] * 1000);
+                    if (timeUsed > userArr[1] * 1000) {
+                        document.getElementById(ellimentId).style.border = "red 5px solid";
+                    }
+                    document.getElementById(ellimentId).innerHTML = ogInner + " " + Math.floor(timeUsed / 1000 / 60) + "m " + Math.floor(timeUsed / 1000 % 60) + "s";
+                }, 1000);
             }
-            document.getElementById(ellimentId).innerHTML = ogInner + " " + Math.floor(timeUsed / 1000 / 60) + "m " + Math.floor(timeUsed / 1000 % 60) + "s";
-        }, 1000);
-    }
 
-    for (i = 0; i < departedIds.length; i++) {
-        timer(departedIds[i], departedTimes[i]);
-    }
-</script>
+            for (i = 0; i < departedIds.length; i++) {
+                timer(departedIds[i], departedTimes[i]);
+            }
+        </script>
+    </table>
+
+
+</body>
+
+
+
+</html>
