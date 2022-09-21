@@ -143,15 +143,16 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
     $dpt2 = ((int) $user['activ'] === 1) ? "Depart" : "Arrive";
     $misc = json_decode($user['misc'], true);
     $date = date("d") . "." . date("m") . "." . date("y");
-    if ((int) $user['activ'] === 0 or isset($misc['activity'][$date])) {
-        $currentOccorance = $misc['activity'][$date][$misc['cnum'][0]];
+    if (!isset($misc['activity'][$date]) or (int) $user['activ'] === 1) {
+        $currentOccorance = array("all" => "e", "room" => $_GET['room'], "timeDep" => '0');
     } else {
-        $currentOccorance = array("arr"=>"e", "room"=>$_GET['room'], "timeDep"=>'0');
-    }
+        $currentOccorance = $misc['activity'][$date][$misc['cnum'][0]];
+    } 
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Depart/Arrive</title>
@@ -161,13 +162,13 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
     <link rel="stylesheet" href="/public/style.css" type="text/css" />
 </head>
 
-<body>    
+<body>
 
 
     <div class="l-card-container">
 
+        <br /><br />
         <!-- deepcode ignore XSS: Shut the up -->
-        <br/><br/>
         <a>You have <?php echo $dpt; ?></a>
         <hr />
 
@@ -183,30 +184,32 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
             <script>
                 // deepcode ignore XSS: STOP ITTTTTTT
                 let timeAllowed = <?php echo (string) ($user['depTime'] * 1000) ?>;
-                const x = setInterval(function() {
-                    if (<?php echo (isset($currentOccorance['arr']) ? "false" : "true"); ?>) {
-                        // deepcode ignore XSS: Stupid dummy
-                        let timeOut = Date.now() - (<?php echo $currentOccorance['timeDep']; ?> * 1000);
-                        var timeRem = timeAllowed - timeOut;
+                if (<?php echo (isset($currentOccorance['all'])) ? "false": "true"  ?>) {
+                    const x = setInterval(function() {
+                        if (<?php echo (isset($currentOccorance['arr']) ? "false" : "true"); ?>) {
+                            // deepcode ignore XSS: Stupid dummy
+                            let timeOut = Date.now() - (<?php echo $currentOccorance['timeDep']; ?> * 1000);
+                            var timeRem = timeAllowed - timeOut;
 
-                        var add_zero = ((timeRem / 1000 % 60) < 10) ? "0" : "";
-                        document.getElementById('timer').innerHTML = "Time Remaining: " + Math.floor(timeRem / 1000 / 60) + ":" + add_zero + Math.floor(timeRem / 1000 % 60);
+                            var add_zero = ((timeRem / 1000 % 60) < 10) ? "0" : "";
+                            document.getElementById('timer').innerHTML = "Time Remaining: " + Math.floor(timeRem / 1000 / 60) + ":" + add_zero + Math.floor(timeRem / 1000 % 60);
 
-                        if (timeRem < 0) {
-                            clearInterval(x);
-                            document.getElementById('timer').innerHTML = "Time Remaining: EXPIRED";
-                            document.getElementById('departed').innerHTML = "Time Departed: EXPIRED";
+                            if (timeRem < 0) {
+                                clearInterval(x);
+                                document.getElementById('timer').innerHTML = "Time Remaining: EXPIRED";
+                                document.getElementById('departed').innerHTML = "Time Departed: EXPIRED";
+                            }
                         }
-                    }
 
-                }, 1000);
+                    }, 1000);
+                }
             </script>
         </label>
-        <br/>
-        <hr/>
+        <br />
+        <hr />
 
         <!-- deepcode ignore XSS: THERE IS NOTHING WRONG WITH THIS -->
-        <button style="margin-left: 29%;" name="return" id="return" onclick="location='/doActiv.php?room=<?php echo $_GET['room']; ?>'" > <?php echo $dpt2; ?> </button>
+        <button style="margin-left: 29%;" name="return" id="return" onclick="location='/doActiv.php?room=<?php echo $_GET['room']; ?>'"> <?php echo $dpt2; ?> </button>
 
         <script>
             const ret = document.getElementById('return');
@@ -228,4 +231,5 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
     </div>
 
 </body>
+
 </html>

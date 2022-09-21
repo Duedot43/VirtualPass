@@ -24,13 +24,6 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
     $userData = getUserData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']));
     $departureData = json_decode($userData['misc'], true);
 
-    //Depart or arrive the user
-    if ($userData['activ'] == 1) {
-        $userData['activ'] = 0;
-    } else {
-        $userData['activ'] = 1;
-    }
-    //that's simple right?
 
     //register their room
     if (!in_array($_GET['room'], $departureData['rooms'])) {
@@ -41,16 +34,21 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
 
     if (!isset($departureData['activity'][$date])) {
         $departureData['activity'][$date] = array();
-        $departureData['cnum'] = array(0, 0);
+        $departureData['cnum'] = array(0, 0); 
+        array_push($departureData['dates'], $date);
+        // TODO If the user decided to dtay departed into the next day then we need to look at the previous day (if there is one) and mark there arrived time we need to use the previous CNUM for this then we need to go as normal ::: i have 2 ways to do this i can do <this solution OR i could make it simpler by not recording the day only occorances then we can determin the day in the display by the timestamp and then sort but that might lead to more complexities and less viewable info in the DB
+        //TODO hmmm what does this do again?
+        /*
         $departureData['activity'][$date][$departureData['cnum'][0]] = array(
             "room" => "",
             "timeDep" => "",
             "timeArv" => ""
         );
+        */
     }
 
     //determin the time
-    if ($departureData['cnum'][1] == 0) {
+    if ((int) $userData['activ'] == 1) {
         $room = preg_replace("/[^0-9.]+/i", "", $_GET['room']);
         $timeDep = time();
         $timeArv = "";
@@ -63,11 +61,14 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
         $timeArv = time();
         $departureData['cnum'][1] = 0;
         $set = true;
+        //TODO HMMMMMM
+        /*
         $departureData['activity'][$date][$departureData['cnum'][0] + 1] = array(
             "room" => "",
             "timeDep" => "",
             "timeArv" => ""
         );
+        */
     }
 
     //mark down the time that the user does an activity
@@ -79,6 +80,14 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
     if ($set) {
         $departureData['cnum'][0] = $departureData['cnum'][0] + 1;
     }
+
+    //Depart or arrive the user
+    if ((int) $userData['activ'] === 1) {
+        $userData['activ'] = 0;
+    } else {
+        $userData['activ'] = 1;
+    }
+    //that's simple right?
 
     sendSqlCommand(
         "UPDATE users 

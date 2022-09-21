@@ -95,6 +95,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     $result = sendSqlCommand("SELECT * FROM users;", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
     $departedIds = array();
     $departedTimes = array();
+    $students = array();
     $date = date("d") . "." . date("m") . "." . date("y");
     while ($row = mysqli_fetch_assoc($result[1])) {
         $misc = json_decode($row['misc'], true);
@@ -103,7 +104,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             array_push($departedTimes, array($misc['activity'][$date][$misc['cnum'][0]]['timeDep'], $row['depTime']));
         }
         $border = (int) $row['activ'] === 0 ? 'style="border:orange; border-width:5px; border-style:solid;"' : 'style="border:green; border-width:5px; border-style:solid;"';
-        echo "<td id='" . $row['sysID'] . "' onclick=\"location='/viewer/studentView.php?user=" . $row['sysID'] . "'\" " . $border . " >" . $row['firstName'] . " " . $row['lastName'] . " " . activ2eng($row['activ']) . "</td><br>";
+        array_push($students, "<td id='" . $row['sysID'] . "' onclick=\"location='/viewer/studentView.php?user=" . $row['sysID'] . "'\" " . $border . " >" . $row['firstName'] . " " . $row['lastName'] . " " . activ2eng($row['activ']) . "</td><br>");
         // TODO create a table with the users and their status
         // PHP isn't inserting the elements into the table correctly
 
@@ -118,16 +119,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-    <meta name="home" content="admin-webpage." />
-    <meta name="color-scheme" content="dark light">
-    <link rel="stylesheet" href="/public/style.css" type="text/css" />
-    <link rel="icon" href="/public/favicon.ico" />
-</head>
+
 
 <body>
 
@@ -136,6 +128,13 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             <th>First Name</th>
             <th>Last Name</th>
         </tr>
+        <tr>
+            <?php
+            foreach ($students as $student) {
+                echo $student;
+            }
+            ?>
+        </tr>
         <script>
             let departedIds = <?php echo phpArr2str($departedIds); ?>;
             let departedTimes = <?php echo phpArr2str($departedTimes); ?>;
@@ -143,7 +142,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             function timer(ellimentId, userArr) {
                 var ogInner = document.getElementById(ellimentId).innerHTML;
                 setInterval(function() {
-                    timeUsed = new Date().getTime() - (userArr[0] * 1000);
+                    timeUsed = Date.now() - (userArr[0] * 1000);
                     if (timeUsed > userArr[1] * 1000) {
                         document.getElementById(ellimentId).style.border = "red 5px solid";
                     }

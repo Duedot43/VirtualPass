@@ -86,14 +86,6 @@ if (roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg
         exit();
     }
 
-    //Depart or arrive the user
-    if ($userData['activ'] == 1) {
-        $userData['activ'] = 0;
-    } else {
-        $userData['activ'] = 1;
-    }
-    //that's simple right?
-
     //register their room
 
     $date = date("d") . "." . date("m") . "." . date("y");
@@ -101,21 +93,32 @@ if (roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg
     if (!isset($departureData['activity'][$date])) {
         $departureData['activity'][$date] = array();
         $departureData['cnum'] = array(0, 0);
+        $departureData['activity'][$date][$departureData['cnum'][0]] = array(
+            "room" => "",
+            "timeDep" => "",
+            "timeArv" => ""
+        );
     }
 
     //determin the time
-    if ($departureData['cnum'][1] == 0) {
-        $room = $request[0];
+    if ((int) $userData['activ'] == 1) {
+        $room = preg_replace("/[^0-9.]+/i", "", $request[0]);
         $timeDep = time();
         $timeArv = "";
         $departureData['cnum'][1] = 1;
         $set = false;
     } else {
+        //TODO bug over multipul days when the user is departed over days
         $room = $departureData['activity'][$date][$departureData['cnum'][0]]['room'];
         $timeDep = $departureData['activity'][$date][$departureData['cnum'][0]]['timeDep'];
         $timeArv = time();
         $departureData['cnum'][1] = 0;
         $set = true;
+        $departureData['activity'][$date][$departureData['cnum'][0] + 1] = array(
+            "room" => "",
+            "timeDep" => "",
+            "timeArv" => ""
+        );
     }
 
     //mark down the time that the user does an activity
@@ -127,12 +130,21 @@ if (roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg
     if ($set) {
         $departureData['cnum'][0] = $departureData['cnum'][0] + 1;
     }
+
+    //Depart or arrive the user
+    if ((int) $userData['activ'] === 1) {
+        $userData['activ'] = 0;
+    } else {
+        $userData['activ'] = 1;
+    }
+    //that's simple right?
+
     sendSqlCommand(
         "UPDATE users 
-    SET 
-        activ = '" . $userData['activ'] . "'
-    WHERE
-        sysId=" . preg_replace("/[^0-9.]+/i", "", $level[2]) . ";",
+SET 
+    activ = '" . $userData['activ'] . "'
+WHERE
+    sysId=" . preg_replace("/[^0-9.]+/i", "", $level[2]) . ";",
         $config['sqlUname'],
         $config['sqlPasswd'],
         $config['sqlDB']
@@ -141,14 +153,15 @@ if (roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg
 
     sendSqlCommand(
         "UPDATE users 
-    SET 
-        misc = '" . json_encode($departureData) . "'
-    WHERE
-        sysId=" . preg_replace("/[^0-9.]+/i", "", $level[2]) . ";",
+SET 
+    misc = '" . json_encode($departureData) . "'
+WHERE
+    sysId=" . preg_replace("/[^0-9.]+/i", "", $level[2]) . ";",
         $config['sqlUname'],
         $config['sqlPasswd'],
         $config['sqlDB']
     );
+    snapshot($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $config['snapshotTime']);
     echo json_encode(
         array(
             "success" => 1,
