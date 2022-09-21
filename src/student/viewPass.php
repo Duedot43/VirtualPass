@@ -49,15 +49,13 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
             <?php echo $user['firstName'] . " " . $user['lastName'] ?><br>
             <!-- deepcode ignore XSS: SHUT -->
             Room #: <?php echo $currentOccorance['room'] ?><br>
-            <?php // TODO do timer 
-            ?>
+
             <!-- deepcode ignore XSS: Please stop it -->
             <text id='departed'>Time Departed: <?php echo gmdate("h:i:s", $currentOccorance['timeDep']) ?></text>
             <h1 id="timer"></h1>
             <br>
             <script>
                 //Sets timer to 10 minutes
-                //TODO integrate PHP timer to JS timer
                 //THIS NEEDS TO BE A PHP VALUE (timeOut - (ctime - timeDep)) * 1000
                 
                 // deepcode ignore XSS: STOP ITTTTTTT
