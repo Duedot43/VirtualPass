@@ -51,7 +51,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 <body>
 
     <div class="content-container">
-        <div class="main" height="100%">
+        <div class="main">
             <!---
 
 
@@ -63,9 +63,8 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             </div>
             -->
             <h1 style="font-family: Arial, Helvetica, sans-serif" id='viewportTitle'> Overview </h1>
-            <iframe id='mainEmbed' src='/admin/' style="border:none;" width='100%'>
+            <iframe id='mainEmbed' src='/admin/'> </iframe>
 
-            </iframe>
         </div>
     </div>
 

@@ -67,7 +67,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         $rooms = array();
         foreach ($dateArr as $occorance) {
             if (!in_array($occorance['room'], $rooms)) {
-                array_push($rooms, $occorance['room']);
+                $rooms[] = $occorance['room'];
                 echo "<button onclick=\"location='/viewer/studentView.php?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "&date=" . htmlspecialchars($_GET['date'],  ENT_QUOTES, 'UTF-8') . "&room=" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "'\" >" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "</button><br/>";
             }
         }
@@ -100,11 +100,11 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     while ($row = mysqli_fetch_assoc($result[1])) {
         $misc = json_decode($row['misc'], true);
         if ((int) $row['activ'] === 0) {
-            array_push($departedIds, $row['sysID']);
-            array_push($departedTimes, array($misc['activity'][$date][$misc['cnum'][0]]['timeDep'], $row['depTime']));
+            $departedIds[] = $row['sysID'];
+            $departedTimes[] = array($misc['activity'][$date][$misc['cnum'][0]]['timeDep'], $row['depTime']);
         }
         $border = (int) $row['activ'] === 0 ? 'style="border:orange; border-width:5px; border-style:solid;"' : 'style="border:green; border-width:5px; border-style:solid;"';
-        array_push($students, "<tr><td onclick=\"location='/viewer/studentView.php?user=" . $row['sysID'] . "'\" >" . $row['firstName'] . " </td><td>" . $row['lastName'] . "</td><td> " . activ2eng($row['activ']) . "</td><td " . $border . " id='" . $row['sysID'] . "'></td></tr><br>");
+        $students[] = "<tr><td onclick=\"location='/viewer/studentView.php?user=" . $row['sysID'] . "'\" >" . $row['firstName'] . " </td><td>" . $row['lastName'] . "</td><td> " . $row['ID'] . "</td><td>" . activ2eng($row['activ']) . "</td><td " . $border . " id='" . $row['sysID'] . "'></td></tr><br>";
         // TODO create a table with the users and their status
         // PHP isn't inserting the elements into the table correctly
 
@@ -112,23 +112,41 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 } else {
     if (isset($_COOKIE['adminCookie'])) {
         header("Location: /admin/");
-        exit();
     } else {
         header("Location: /teacher/");
-        exit();
     }
+    exit();
 }
 ?>
 
 
 <body>
 
-    <table class="student-list">
-        <tr>
+
+
+    <div class="list-nav">
+        <label for="search-by">Search By:
+            <br/>
+            <select id="search-by">
+                <option value="name"> First Name </option>
+                <option value="id"> ID </option>
+                <option value="status"> Status </option>
+
+                <input style="border-radius: 0 5px 5px 0; width: 170px; padding-left: 5px;" type="text" id="search-list" onkeyup="searchIndex()" placeholder="Search for names..">
+            </select>
+        </label>
+
+        <button onclick="sortTable()">Sort names</button>
+    </div>
+
+
+    <table id="index" class="student-list">
+        <tr class="header">
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Student ID</th>
             <th>Status</th>
-            <th>Time Out</th>
+            <th style="max-width: 25px;">Time Out</th>
         </tr>
         <?php
         foreach ($students as $student) {
@@ -136,12 +154,70 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         }
         ?>
         <script>
+
+            function searchIndex() {
+                let input, filter, table, tr, td, i, txtValue, searchBy;
+                searchBy = document.getElementById("search-by");
+                input = document.getElementById("search-list");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("index");
+                tr = table.getElementsByTagName("tr");
+
+                for (i = 0; i < tr.length; i++) {
+                    if (searchBy.value === "name") {
+                        td = tr[i].getElementsByTagName("td")[0];
+                        input.placeholder = "Search for names..";
+                    } else if (searchBy.value === "id") {
+                        td = tr[i].getElementsByTagName("td")[2];
+                        input.placeholder = "Search for ID..";
+                    } else if (searchBy.value === "status") {
+                        td = tr[i].getElementsByTagName("td")[3];
+                        input.placeholder = "Search for status..";
+                    }
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        }else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+
+            function sortTable() {
+                let table, rows, switching, i, x, y, shouldSwitch;
+                table = document.getElementById("index");
+                switching = true;
+
+                while (switching) {
+                    switching = false;
+                    rows = table.rows;
+
+                    for (i = 1; i < (rows.length - 1); i++) {
+                        shouldSwitch = false;
+                        x = rows[i].getElementsByTagName("TD")[0];
+                        y = rows[i + 1].getElementsByTagName("TD")[0];
+
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                    if (shouldSwitch) {
+                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                        switching = true;
+                    }
+                }
+            }
+
             let departedIds = <?php echo phpArr2str($departedIds); ?>;
             let departedTimes = <?php echo phpArr2str($departedTimes); ?>;
 
             function timer(ellimentId, userArr) {
                 setInterval(function() {
-                    timeUsed = Date.now() - (userArr[0] * 1000);
+                    let timeUsed = Date.now() - (userArr[0] * 1000);
                     if (timeUsed > userArr[1] * 1000) {
                         document.getElementById(ellimentId).style.border = "red 5px solid";
                     }

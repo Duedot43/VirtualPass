@@ -8,6 +8,7 @@ html, body {
     --line: black;
     --input: #d3d3d3;
     --l-btn: #6694da;
+    --tcolumm: #f2f2f2;
     background: var(--bg);
 }
 
@@ -31,6 +32,7 @@ body.dark-mode {
         --line: white;
         --input: #414763;
         --l-btn: #54657e;
+        --tcolumm: #3a4046;
     }
     body.light-mode {
         --text: #3a3a3a;
@@ -40,27 +42,32 @@ body.dark-mode {
         --line: black;
         --input: #d3d3d3;
         --l-btn: #6694da;
+        --tcolumm: #f2f2f2;
     }
 }
 
 @media screen and (min-width: 600px) {
 
     .content-container {
+        display: flex;
+        flex-direction: column;
         position: relative;
         padding: 75px 15px 15px 275px;
-        height: 100%;
+        height: 80%;
         background: var(--bg);
         white-space: nowrap;
     }
 
     .main {
+        flex-grow: 1;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
         margin: auto;
         max-width: 1000px;
         min-width: 250px;
-        overflow: hidden;
         border-radius: 5px;   
         box-shadow: 0 0 2px 0;
-        height: 100%;
         color: var(--text);
         background: var(--bg);
     }
@@ -322,10 +329,17 @@ body.dark-mode {
         cursor: pointer;
     }
 
+
     #mainEmbed {
-        overflow: hidden;
+        width: 100%;
         height: 100%;
+        border: none;
+        margin: 0;
+        padding: 0;
     }
+
+
+    .clear { clear: both; }
 }
 
 @media screen and (max-width: 500px) {
@@ -370,7 +384,7 @@ body.dark-mode {
 
 }
 
-.student-list table {
+.student-list {
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
@@ -379,11 +393,17 @@ body.dark-mode {
 
 .student-list th, .student-list td {
     text-align: left;
-    padding: 16px;
+    padding: 12px;
+    max-width: 150px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .student-list tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: var(--tcolumm);
+}
+
+.student-list tr.header, .student-list tr:hover {
+    opacity: 70%;
 }
 
 .b-card-container {
@@ -408,6 +428,27 @@ body.dark-mode {
 .b-card-container a:hover {
     background-color: #dadada;
     text-decoration: underline;
+}
+
+.list-nav {
+    position: relative;
+    float:right;
+    width: 400px;
+    padding: 5px;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.list-nav button, .list-nav select, .list-nav input {
+    display: inline-block;
+    margin: 0;
+    width: 100px;
+    height: 25px;
+    border-radius: 5px 0 0 5px;
+    border: none;
+    color: var(--text);
+    background: none;
+    box-shadow: 0 0 2px 0 var(--line);
 }
 
 #ani-background {
