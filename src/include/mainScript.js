@@ -44,22 +44,22 @@ const switchEmbed = document.querySelectorAll('.sidenav button');
 
 for (i = 0; i < switchEmbed.length; i++) {
     switchEmbed[i].addEventListener('click', function (e) {
-
-        //Reluctantly using a nestled for loop to check for highlights, and remove them.
-        for (i = 0; i < switchEmbed.length; i++) {
-            if (switchEmbed[i].classList.contains('highlighted')) {
-                switchEmbed[i].classList.remove('highlighted');
+        if (this.name != "null") {
+            //Reluctantly using a nestled for loop to check for highlights, and remove them.
+            for (i = 0; i < switchEmbed.length; i++) {
+                if (switchEmbed[i].classList.contains('highlighted')) {
+                    switchEmbed[i].classList.remove('highlighted');
+                }
             }
-        }
-        this.classList.add("highlighted");
+            this.classList.add("highlighted");
+            const buttonName = this.name;
+            const viewportTitle = document.getElementById('viewportTitle');
+            viewportTitle.innerHTML = buttonName;
 
-        const buttonName = this.getAttribute('name');
-        const viewportTitle = document.getElementById('viewportTitle');
-        viewportTitle.innerHTML = buttonName;
+            if (e.target.value) {
+                AJAX(e.target.value, "mainEmbed", true, this.name);
 
-        if (e.target.value) {
-            AJAX(e.target.value, "mainEmbed", true, this.name);
-
+            }
         }
     })
 }
@@ -77,7 +77,7 @@ function back() {
             }
             document.getElementsByName(target[1])[0].classList.add("highlighted");
         }
-        AJAX(target[0], "mainEmbed", false, target[1]);
+        AJAX(target[0], "mainEmbed", false);
         sessionStorage.setItem('current', (current - 1));
     }
 }
@@ -95,16 +95,24 @@ function forward() {
             }
             document.getElementsByName(target[1])[0].classList.add("highlighted");
         }
-        AJAX(target[0], "mainEmbed", false, target[1]);
+        AJAX(target[0], "mainEmbed", false);
         sessionStorage.setItem('current', (current + 1));
     }
 }
 
-function AJAX(target, element, rewnd = true, button = null) {
+function AJAX(target, element, rewnd = true, button = null, highlight = null) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             if (rewnd) {
+                if (highlight != null) {
+                    for (i = 0; i < switchEmbed.length; i++) {
+                        if (switchEmbed[i].classList.contains('highlighted')) {
+                            switchEmbed[i].classList.remove('highlighted');
+                        }
+                    }
+                    document.getElementsByName(highlight)[0].classList.add("highlighted");
+                }
                 var url = this.responseURL;
                 var parser = document.createElement("a");
                 parser.href = url;

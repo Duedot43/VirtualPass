@@ -39,19 +39,6 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         $admin = getAdminByUuid($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']));
         $output = sendSqlCommand("DELETE FROM admins WHERE uname='" . $admin['uname'] . "';", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
         if ($output[0] == 0) {
-            echo "Success! User deleted";
-            exit();
-        } else {
-            // deepcode ignore XSS: BRO STOP IT ITS JUST AN SQL ERROR CODE
-            echo "Something went wrong! here is the error " . $output[1];
-        }
-    }
-
-    // changing admin
-    if (isset($_GET['account']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account'])) and isset($_GET['action']) and $_GET['action'] == "delete") {
-        $admin = getAdminByUuid($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']));
-        $output = sendSqlCommand("DELETE FROM admins WHERE uname=" . $admin['uname'] . ";", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
-        if ($output[0] == 0) {
             echo "Success! Admin deleted";
             exit();
         } else {
@@ -64,7 +51,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     if (isset($_GET['account']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']))) {
         $admin = getAdminByUuid($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']));
         // deepcode ignore XSS: Is not relevent 
-        echo "<button onclick=\"location='/accountTools/admin/?account=" . $admin['uuid'] . "&action=delete'\" >Delete account</button><br>";
+        echo "<button onclick=\"AJAX('/accountTools/admin/?account=" . $admin['uuid'] . "&action=delete', 'mainEmbed')\" >Delete account</button><br>";
         // deepcode ignore XSS: Is not relevent thats from valid data in the database
         //echo "<button onclick=\"location='/accountTools/admin/?account=" . $admin['uuid'] . "&action=changePasswd'\" >Change password</button><br>";
         exit();
@@ -72,9 +59,9 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 
     // showing all the admins
     $result = sendSqlCommand("SELECT * FROM admins;", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
-    echo "<button onclick=\"location='/accountTools/admin/import.php'\" >Import admins</button><br>";
+    echo "<button onclick=\"AJAX('/accountTools/admin/import.php', 'mainEmbed')\" >Import admins</button><br>";
     while ($row = mysqli_fetch_assoc($result[1])) {
-        echo "<button onclick=\"location='/accountTools/admin/?account=" . $row['uuid'] . "'\" >" . $row['uname'] . "</button><br>";
+        echo "<button onclick=\"AJAX('/accountTools/admin/?account=" . $row['uuid'] . "', 'mainEmbed')\" >" . $row['uname'] . "</button><br>";
     }
 } else {
     if (isset($_COOKIE['adminCookie'])) {

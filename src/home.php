@@ -132,14 +132,14 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                         Overview
                     </button>
 
-                    <button>
+                    <button name='Students' >
                         <span class="material-symbols-outlined">
                             group
                         </span>
                         Students
                     </button>
 
-                    <button>
+                    <button name='Classrooms' >
                         <span class="material-symbols-outlined">
                             school
                         </span>
@@ -196,7 +196,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                         Add User
                     </button>
 
-                    <button class="dropdown-button">
+                    <button class="dropdown-button" name='null'>
                         <i></i>
                         <span class="material-symbols-outlined">
                             supervised_user_circle

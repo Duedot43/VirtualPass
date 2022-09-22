@@ -32,7 +32,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     //get all the rooms
     $result = sendSqlCommand("SELECT * FROM rooms;", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
     while ($row = mysqli_fetch_assoc($result[1])) {
-        echo "<button onclick=\"location='/viewer/stuRoomView.php?room=" . $row['ID'] . "'\" >" . $row['num'] . "</button><br>";
+        echo "<button onclick=\"AJAX('/viewer/stuRoomView.php?room=" . $row['ID'] . "', 'mainEmbed')\" >" . $row['num'] . "</button><br>";
         
         //Onclick is usually used for JS Functions.
     }

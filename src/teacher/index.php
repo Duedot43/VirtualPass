@@ -37,11 +37,10 @@ if (!isset($_COOKIE['teacherCookie']) or !teacherCookieExists($config['sqlUname'
 <body>
 
     <div class="b-card-container">
-        <input class="reg" type="button" value="Make a room QR Code" onclick="location='/makeRoom/'" />
-        <input class="reg" type="button" value="Search for your room" onclick="location='/teacher/search.php'" />
+        <input class="reg" type="button" value="Make a room QR Code" onclick="AJAX('/makeRoom/', 'mainEmbed')" />
+        <input class="reg" type="button" value="Search for your room" onclick="AJAX('/teacher/search.php', 'mainEmbed')" />
     </div>
 
-    <script src="/include/mainScript.js"></script>
 
 
 </body>

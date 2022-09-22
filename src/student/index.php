@@ -17,7 +17,7 @@ require "../include/modules.php";
 $config = parse_ini_file("../../config/config.ini");
 
 if (!isset($_COOKIE['id']) or !userExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']))) {
-    header("Location: /");
+    header("Location: /student/login.php");
     exit();
 } else {
     $user = getUserData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']));
