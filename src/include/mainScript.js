@@ -58,17 +58,69 @@ for (i = 0; i < switchEmbed.length; i++) {
         viewportTitle.innerHTML = buttonName;
 
         if (e.target.value) {
-            AJAX(e.target.value, "mainEmbed");
+            AJAX(e.target.value, "mainEmbed", true, this.name);
 
         }
     })
 }
 
-function AJAX(target, element) {
+function back() {
+    var current = parseInt(sessionStorage.getItem('current'), 10);
+    var rewind = JSON.parse(sessionStorage.getItem('rewind'));
+    if (current > 0) {
+        var target = rewind[current - 1];
+        if (target[1] != null) {
+            for (i = 0; i < switchEmbed.length; i++) {
+                if (switchEmbed[i].classList.contains('highlighted')) {
+                    switchEmbed[i].classList.remove('highlighted');
+                }
+            }
+            document.getElementsByName(target[1])[0].classList.add("highlighted");
+        }
+        AJAX(target[0], "mainEmbed", false, target[1]);
+        sessionStorage.setItem('current', (current - 1));
+    }
+}
+
+function forward() {
+    var current = parseInt(sessionStorage.getItem('current'), 10);
+    var rewind = JSON.parse(sessionStorage.getItem('rewind'));
+    if (current < rewind.length - 1) {
+        var target = rewind[current + 1];
+        if (target[1] != null) {
+            for (i = 0; i < switchEmbed.length; i++) {
+                if (switchEmbed[i].classList.contains('highlighted')) {
+                    switchEmbed[i].classList.remove('highlighted');
+                }
+            }
+            document.getElementsByName(target[1])[0].classList.add("highlighted");
+        }
+        AJAX(target[0], "mainEmbed", false, target[1]);
+        sessionStorage.setItem('current', (current + 1));
+    }
+}
+
+function AJAX(target, element, rewnd = true, button = null) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.response);
+            if (rewnd) {
+                var url = this.responseURL;
+                var parser = document.createElement("a");
+                parser.href = url;
+                var rewind = [];
+                if (sessionStorage.getItem('rewind') === null && sessionStorage.getItem('current') === null) {
+                    rewind.push([parser.pathname, button]);
+                    sessionStorage.setItem('rewind', JSON.stringify(rewind));
+                    sessionStorage.setItem('current', 0);
+                } else {
+                    var rewind = JSON.parse(sessionStorage.getItem('rewind'));
+                    var current = rewind.length;
+                    rewind.push([parser.pathname, button])
+                    sessionStorage.setItem('rewind', JSON.stringify(rewind));
+                    sessionStorage.setItem('current', (current));
+                }
+            }
             document.getElementById(element).innerHTML = this.response;
         }
     };
