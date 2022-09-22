@@ -70,7 +70,7 @@ if (!isset($request[0])) {
     exit();
 }
 if (roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $request[0]))) {
-    userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
+    userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $level[2]));
     $userData = getUserData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $level[2]));
     $departureData = json_decode($userData['misc'], true);
     if (!in_array($request[0], $departureData['rooms'])) {
@@ -86,49 +86,44 @@ if (roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg
         exit();
     }
 
-    //register their room
 
     $date = date("d") . "." . date("m") . "." . date("y");
-
+    $skip = false;
     if (!isset($departureData['activity'][$date])) {
+        array_push($departureData['dates'], $date);
         $departureData['activity'][$date] = array();
+        // Wow that is some DEEPLY nested stuff right there
+        if ((int) $userData['activ'] == 0 and count($departureData['dates']) > 1 and $departureData['activity'][$departureData['dates'][count($departureData['dates']) - 2]][$departureData['cnum'][0]]['timeArv'] == "") {
+            $departureData['activity'][$departureData['dates'][count($departureData['dates']) - 2]][$departureData['cnum'][0]]['timeArv'] = time();
+            $skip = true;
+        }
         $departureData['cnum'] = array(0, 0);
+    }
+    if (!$skip) {
+        //determin the time
+        if ((int) $userData['activ'] == 1) {
+            $room = preg_replace("/[^0-9.]+/i", "", $request[0]);
+            $timeDep = time();
+            $timeArv = "";
+            $departureData['cnum'][1] = 1;
+            $set = false;
+        } else {
+            $room = $departureData['activity'][$date][$departureData['cnum'][0]]['room'];
+            $timeDep = $departureData['activity'][$date][$departureData['cnum'][0]]['timeDep'];
+            $timeArv = time();
+            $departureData['cnum'][1] = 0;
+            $set = true;
+        }
+
+        //mark down the time that the user does an activity
         $departureData['activity'][$date][$departureData['cnum'][0]] = array(
-            "room" => "",
-            "timeDep" => "",
-            "timeArv" => ""
+            "room" => $room,
+            "timeDep" => $timeDep,
+            "timeArv" => $timeArv
         );
-    }
-
-    //determin the time
-    if ((int) $userData['activ'] == 1) {
-        $room = preg_replace("/[^0-9.]+/i", "", $request[0]);
-        $timeDep = time();
-        $timeArv = "";
-        $departureData['cnum'][1] = 1;
-        $set = false;
-    } else {
-        //TODO bug over multipul days when the user is departed over days
-        $room = $departureData['activity'][$date][$departureData['cnum'][0]]['room'];
-        $timeDep = $departureData['activity'][$date][$departureData['cnum'][0]]['timeDep'];
-        $timeArv = time();
-        $departureData['cnum'][1] = 0;
-        $set = true;
-        $departureData['activity'][$date][$departureData['cnum'][0] + 1] = array(
-            "room" => "",
-            "timeDep" => "",
-            "timeArv" => ""
-        );
-    }
-
-    //mark down the time that the user does an activity
-    $departureData['activity'][$date][$departureData['cnum'][0]] = array(
-        "room" => $room,
-        "timeDep" => $timeDep,
-        "timeArv" => $timeArv
-    );
-    if ($set) {
-        $departureData['cnum'][0] = $departureData['cnum'][0] + 1;
+        if ($set) {
+            $departureData['cnum'][0] = $departureData['cnum'][0] + 1;
+        }
     }
 
     //Depart or arrive the user

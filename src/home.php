@@ -52,6 +52,10 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 
     <div class="content-container">
         <div class="main">
+            <h1 style="font-family: Arial, Helvetica, sans-serif" id='viewportTitle'> Overview </h1>
+            <div id="mainEmbed" class='main'>
+
+            </div>
             <!---
 
 
@@ -62,8 +66,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 
             </div>
             -->
-            <h1 style="font-family: Arial, Helvetica, sans-serif" id='viewportTitle'> Overview </h1>
-            <iframe id='mainEmbed' src='/admin/'> </iframe>
+            <!---<iframe id='mainEmbed' src='/admin/'> </iframe>-->
 
         </div>
     </div>
@@ -229,22 +232,22 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             <div class="bottom-nav">
 
                 <button>
-                        <span class="material-symbols-outlined">
-                            settings
-                        </span>
+                    <span class="material-symbols-outlined">
+                        settings
+                    </span>
                 </button>
 
                 <button id="dark-toggler" class="dark-toggler">
-                        <span class="material-symbols-outlined dark-mode-input">
-                            dark_mode
-                        </span>
+                    <span class="material-symbols-outlined dark-mode-input">
+                        dark_mode
+                    </span>
                 </button>
 
 
                 <button class="dropdown-button">
-                        <span class="material-symbols-outlined ">
-                            contact_support
-                        </span>
+                    <span class="material-symbols-outlined ">
+                        contact_support
+                    </span>
                 </button>
 
 

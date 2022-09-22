@@ -104,9 +104,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             $departedTimes[] = array($misc['activity'][$date][$misc['cnum'][0]]['timeDep'], $row['depTime']);
         }
         $border = (int) $row['activ'] === 0 ? 'style="border:orange; border-width:5px; border-style:solid;"' : 'style="border:green; border-width:5px; border-style:solid;"';
-        $students[] = "<tr><td onclick=\"location='/viewer/studentView.php?user=" . $row['sysID'] . "'\" >" . $row['firstName'] . " </td><td>" . $row['lastName'] . "</td><td> " . $row['ID'] . "</td><td>" . activ2eng($row['activ']) . "</td><td " . $border . " id='" . $row['sysID'] . "'></td></tr><br>";
-        // TODO create a table with the users and their status
-        // PHP isn't inserting the elements into the table correctly
+        $students[] = "<tr onclick=\"AJAX('/viewer/studentView.php?user=" . $row['sysID'] . "', 'mainEmbed')\" ><td>" . $row['firstName'] . " </td><td>" . $row['lastName'] . "</td><td> " . $row['ID'] . "</td><td>" . activ2eng($row['activ']) . "</td><td " . $border . " id='" . $row['sysID'] . "'></td></tr><br>";
 
     }
 } else {
