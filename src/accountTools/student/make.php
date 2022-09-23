@@ -16,17 +16,6 @@ require "../../include/modules.php";
 
 
 $config = parse_ini_file("../../../config/config.ini");
-echo '<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>Make a student</title>
-    <meta name="color-scheme" content="dark light">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/public/style.css" type="text/css" />
-    <link rel="icon" href="/public/favicon.ico" />
-</head>';
 //Auth
 if (!isset($_COOKIE['adminCookie']) or !adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
     header("Location: /admin");
@@ -43,7 +32,7 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
         echo "Something has gone wrong making the user!";
         exit();
     } else {
-        echo "User installed succesfully";
+        echo "User installed successfully";
         exit();
     }
 }
@@ -55,22 +44,23 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
         <a>Enter user info </a>
         <hr />
 
-        <form method="post">
-            <label>
-                First Name:
-                <input type="text" pattern="[a-zA-Z]+" name="firstname" id="firstname" required />
-                Last Name:
-                <input type="text" name="lastname" id="lastname" required />
-                Student ID:
-                <input type="number" name="stid" id="stid" required />
-                Student Email:
-                <input type="email" name="stem" id="stem" required>
-            </label>
-            <button type="submit" name="Submit" value="Submit"> Login </button>
+        <div id="form">
+            <form method="post">
+                <label>
+                    First Name:
+                    <input type="text" pattern="[a-zA-Z]+" name="firstname" id="firstname" required />
+                    Last Name:
+                    <input type="text" name="lastname" id="lastname" required />
+                    Student ID:
+                    <input type="number" name="stid" id="stid" required />
+                    Student Email:
+                    <input type="email" name="stem" id="stem" required>
+                </label>
+                <button type="submit" name="Submit" value="Submit"> Submit </button>
 
-        </form>
+            </form>
+        </div>
+
     </div>
 
 </body>
-
-</html>

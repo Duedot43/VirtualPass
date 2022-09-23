@@ -16,17 +16,6 @@ require "../include/modules.php";
 
 
 $config = parse_ini_file("../../config/config.ini");
-echo '<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>View students in room</title>
-    <meta name="color-scheme" content="dark light">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/public/style.css" type="text/css" />
-    <link rel="icon" href="/public/favicon.ico" />
-</head>';
 //Auth
 if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie'])) or isset($_COOKIE['teacherCookie']) and teacherCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['teacherCookie']))) {
     //see if we have a room to request and if that room exists

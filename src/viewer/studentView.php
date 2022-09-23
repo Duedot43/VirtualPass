@@ -16,17 +16,7 @@ require "../include/modules.php";
 
 
 $config = parse_ini_file("../../config/config.ini");
-echo '<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <title>View students</title>
-    <meta name="color-scheme" content="dark light">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/public/style.css" type="text/css" />
-    <link rel="icon" href="/public/favicon.ico" />
-</head>';
 //Auth
 if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie'])) or isset($_COOKIE['teacherCookie']) and teacherCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['teacherCookie']))) {
     if (isset($_GET['user']) and isset($_GET['date']) and isset($_GET['room'])) {
@@ -116,12 +106,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     exit();
 }
 ?>
-
-
 <body>
-
-
-
     <div class="list-nav">
         <label for="search-by">Search By:
             <br/>
@@ -137,7 +122,6 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         <button onclick="sortTable()">Sort names</button>
     </div>
 
-
     <table id="index" class="student-list">
         <tr class="header">
             <th>First Name</th>
@@ -152,64 +136,6 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         }
         ?>
         <script>
-
-            function searchIndex() {
-                let input, filter, table, tr, td, i, txtValue, searchBy;
-                searchBy = document.getElementById("search-by");
-                input = document.getElementById("search-list");
-                filter = input.value.toUpperCase();
-                table = document.getElementById("index");
-                tr = table.getElementsByTagName("tr");
-
-                for (i = 0; i < tr.length; i++) {
-                    if (searchBy.value === "name") {
-                        td = tr[i].getElementsByTagName("td")[0];
-                        input.placeholder = "Search for names..";
-                    } else if (searchBy.value === "id") {
-                        td = tr[i].getElementsByTagName("td")[2];
-                        input.placeholder = "Search for ID..";
-                    } else if (searchBy.value === "status") {
-                        td = tr[i].getElementsByTagName("td")[3];
-                        input.placeholder = "Search for status..";
-                    }
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            tr[i].style.display = "";
-                        }else {
-                            tr[i].style.display = "none";
-                        }
-                    }
-                }
-            }
-
-            function sortTable() {
-                let table, rows, switching, i, x, y, shouldSwitch;
-                table = document.getElementById("index");
-                switching = true;
-
-                while (switching) {
-                    switching = false;
-                    rows = table.rows;
-
-                    for (i = 1; i < (rows.length - 1); i++) {
-                        shouldSwitch = false;
-                        x = rows[i].getElementsByTagName("TD")[0];
-                        y = rows[i + 1].getElementsByTagName("TD")[0];
-
-                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                            shouldSwitch = true;
-                            break;
-                        }
-                    }
-                    if (shouldSwitch) {
-                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                        switching = true;
-                    }
-                }
-            }
-
             let departedIds = <?php echo phpArr2str($departedIds); ?>;
             let departedTimes = <?php echo phpArr2str($departedTimes); ?>;
 
@@ -228,10 +154,5 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             }
         </script>
     </table>
-
-
 </body>
-
-
-
 </html>
