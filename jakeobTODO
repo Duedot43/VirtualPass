@@ -1,9 +1,14 @@
-
-set timer to let embed load (JavaScript)
-Oh and you also cant click off off the menus you have to click the button
-The overview window still scrools but the iframe does not
-Light mode button and broser default are diffrent
-Apple Webkit compatability (CSS)
-Firefox 56 and earlier compatability
-Make it so that site breaks when someone uses the Brave browser and display #h1 UNSAFE BROWSER DETECTED.
-Add a searching system for users using "SELECT * FROM users WHERE firstName LIKE "%joh%";"
+# Important
+  Oh and you also cant click off off the menus you have to click the button
+  Apple Webkit compatability (CSS)
+  Fix Design Mistakes (Mobile && Desktop Page parity, Dark mode still looks a bit off, )
+  Integrate add user function into Manage Members : Students page
+  Add room ranges?
+  Student usage data (length of time out, 
+  loading bar underlay (home.php)
+  
+# Other
+  Add themes
+  Animation 
+  Firefox 56 and earlier compatability
+  Make it so that site breaks when someone uses the Brave browser and display #h1 UNSAFE BROWSER DETECTED.
