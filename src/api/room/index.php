@@ -107,7 +107,101 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
     }
 }
-if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH") {
+//TODO PUT api/room
+if ($_SERVER['REQUEST_METHOD'] == "PUT") {
+    if ((int) $level[1] == 0) {
+        userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
+    } elseif ((int) $level[1] == 1) {
+        userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        authFail();
+        exit();
+    } elseif ((int) $level[1] == 2) {
+        echo json_encode(
+            array(
+                "success" => 0,
+                "reason" => "no_access",
+                "human_reason" => "You do not have access to this method"
+            ),
+            true
+        );
+        err();
+        exit();
+    } elseif ((int) $level[1] == 3) {
+        if (isset($request[0])) {
+            $postJson = json_decode(file_get_contents("php://input"), true);
+            if ($postJson == false or !isset($postJson['num']) and !isset($postJson['rnum'])) {
+                echo json_encode(
+                    array(
+                        "success" => 0,
+                        "reason" => "invalid_json",
+                        "human_reason" => "The JSON you sent is invalid"
+                    ),
+                    true
+                );
+                err();
+                exit();
+            }
+            // $request[0] is the room ID
+            // $postJson['num'] is the room number
+            // MY GOD GITHUB COPILOT IS GOOD
+            $result = sendSqlCommand("INSERT rooms VALUES('" . preg_replace("/[^0-9.]+/i", "", $request[0]) . "', '" . preg_replace("/[^0-9.]+/i", "", $postJson['rnum']) . "');", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
+            if ($result[0] == 0) {
+                echo json_encode(
+                    array(
+                        "success" => 1,
+                        "reason" => "",
+                        "human_reason" => "Room number added"
+                    ),
+                    true
+                );
+                err();
+                exit();
+            } else {
+                echo json_encode(
+                    array(
+                        "success" => 0,
+                        "reason" => "sql_error",
+                        "human_reason" => "An SQL error occurred"
+                    ),
+                    true
+                );
+                err();
+                exit();
+            }
+        } else {
+            echo json_encode(
+                array(
+                    "success" => 0,
+                    "reason" => "id_required",
+                    "human_reason" => "You must specify a room ID"
+                ),
+                true
+            );
+            err();
+            exit();
+        }
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] == "PATCH") {
     if ((int) $level[1] == 0) {
         userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
         echo json_encode(
@@ -227,6 +321,8 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH"
         }
     }
 }
+
+
 if ($_SERVER['REQUEST_METHOD'] == "DELETE") {
     if ((int) $level[1] == 0) {
         userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);
