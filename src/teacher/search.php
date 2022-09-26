@@ -26,6 +26,7 @@ if (isset($_POST['rnum'])) {
     while ($row = mysqli_fetch_assoc($result[1])) {
         if ($row['num'] == $_POST['rnum']) {
             header("Location: /viewer/stuRoomView.php?room=" . $row['ID']);
+            // TODO FIX ALL THE POST REQUESTS
             exit();
         }
     }
@@ -54,7 +55,7 @@ if (isset($_POST['rnum'])) {
                 <input name="rnum" placeholder="100" type="number" id="rnum" required />
             </label>
             <!-- Legacy classes are still included, I have no clue if it conflicts -->
-            <button type="submit" name="Submit" value="Submit">Search</button>
+            <button name="Submit" value="Submit" onclick='AJAXPOST("/accountTools/student/make.php", "mainEmbed", encodeData(["firstname", "lastname", "stid", "stem"]))'>Search</button>
         </form>
     </div>
 </body>

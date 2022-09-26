@@ -59,26 +59,26 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <title>Change Room Number</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" href="/public/style.css"  type="text/css"/>
-    <link rel="icon" href="/public/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/style.css" type="text/css" />
+    <link rel="icon" href="/public/favicon.ico" />
 </head>
 
 <body>
-<div class="l-card-container">
-    <a>Change the room number</a>
-    <hr/>
-    <form method="post">
+    <div class="l-card-container">
+        <a>Change the room number</a>
+        <hr />
         <label>
             Room Number:
-            <input name="rnum" placeholder="100" type="number" id="rnum" required/>
+            <input name="rnum" placeholder="100" type="number" id="rnum" required />
         </label>
         <!-- Legacy classes are still included, I have no clue if it conflicts -->
-        <button type="submit" name="Submit" value="Submit">Register</button>
-    </form>
-</div>
+        <button name="Submit" value="Submit" onclick='AJAXPOST("/accountTools/rooms/change.php", "mainEmbed", encodeData(["rnum"]))'>Register</button>
+    </div>
 </body>
+
 </html>

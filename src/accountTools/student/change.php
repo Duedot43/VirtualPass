@@ -139,36 +139,34 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         <a>Change the user </a>
         <hr />
 
-        <form method="post">
-            <label>
-                First Name:
-                <!-- deepcode ignore XSS: Its an SQL database please shut up -->
-                <input type="text" pattern="[a-zA-Z]+" name="firstname" id="firstname" value="<?php echo $user['firstName']; ?>" required />
-                Last Name:
-                <!-- deepcode ignore XSS: Its an SQL database please shut up -->
-                <input type="text" name="lastname" id="lastname" value="<?php echo $user['lastName']; ?>" required />
-                Student ID:
-                <!-- deepcode ignore XSS: Its an SQL database please shut up -->
-                <input type="number" name="stid" id="stid" value="<?php echo $user['ID']; ?>" required />
-                Student Email:
-                <!-- deepcode ignore XSS: Its an SQL database please shut up -->
-                <input type="email" name="stem" id="stem" value="<?php echo $user['email']; ?>" required>
+        <label>
+            First Name:
+            <!-- deepcode ignore XSS: Its an SQL database please shut up -->
+            <input type="text" pattern="[a-zA-Z]+" name="firstname" id="firstname" value="<?php echo $user['firstName']; ?>" required />
+            Last Name:
+            <!-- deepcode ignore XSS: Its an SQL database please shut up -->
+            <input type="text" name="lastname" id="lastname" value="<?php echo $user['lastName']; ?>" required />
+            Student ID:
+            <!-- deepcode ignore XSS: Its an SQL database please shut up -->
+            <input type="number" name="stid" id="stid" value="<?php echo $user['ID']; ?>" required />
+            Student Email:
+            <!-- deepcode ignore XSS: Its an SQL database please shut up -->
+            <input type="email" name="stem" id="stem" value="<?php echo $user['email']; ?>" required>
 
-                Allowed time out:
-                <!-- deepcode ignore XSS: Its an SQL database please shut up -->
-                <input type="number" name="out" id="out" value="<?php echo gmdate("i", $user['depTime']); ?>" required>
+            Allowed time out:
+            <!-- deepcode ignore XSS: Its an SQL database please shut up -->
+            <input type="number" name="out" id="out" value="<?php echo gmdate("i", $user['depTime']); ?>" required>
 
-                <label for="level">API Key level</label>
-                <select name="level" id="level">
-                    <option value="0" <?php echo (int) $apiKeyLevel === 0 ? "selected" : "" ?>>0</option>
-                    <option value="1" <?php echo (int) $apiKeyLevel === 1 ? "selected" : "" ?>>1</option>
-                    <option value="2" <?php echo (int) $apiKeyLevel === 2 ? "selected" : "" ?>>2</option>
-                    <option value="3" <?php echo (int) $apiKeyLevel === 3 ? "selected" : "" ?>>3</option>
-                </select>
-            </label>
-            <button type="submit" name="Submit" value="Submit"> Submit </button>
+            <label for="level">API Key level</label>
+            <select name="level" id="level">
+                <option value="0" <?php echo (int) $apiKeyLevel === 0 ? "selected" : "" ?>>0</option>
+                <option value="1" <?php echo (int) $apiKeyLevel === 1 ? "selected" : "" ?>>1</option>
+                <option value="2" <?php echo (int) $apiKeyLevel === 2 ? "selected" : "" ?>>2</option>
+                <option value="3" <?php echo (int) $apiKeyLevel === 3 ? "selected" : "" ?>>3</option>
+            </select>
+        </label>
+        <button name="Submit" value="Submit" onclick='AJAXPOST("/accountTools/student/make.php", "mainEmbed", encodeData(["firstname", "lastname", "stid", "stem", "out", "level"]))'> Submit </button>
 
-        </form>
     </div>
 
 </body>

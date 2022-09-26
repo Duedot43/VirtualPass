@@ -37,7 +37,6 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
     }
 }
 ?>
-
 <body>
     <div class="l-card-container">
 
@@ -45,20 +44,18 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
         <hr />
 
         <div id="form">
-            <form method="post">
-                <label>
-                    First Name:
-                    <input type="text" pattern="[a-zA-Z]+" name="firstname" id="firstname" required />
-                    Last Name:
-                    <input type="text" name="lastname" id="lastname" required />
-                    Student ID:
-                    <input type="number" name="stid" id="stid" required />
-                    Student Email:
-                    <input type="email" name="stem" id="stem" required>
-                </label>
-                <button type="submit" name="Submit" value="Submit"> Submit </button>
+            <label>
+                First Name:
+                <input type="text" pattern="[a-zA-Z]+" name="firstname" id="firstname" required />
+                Last Name:
+                <input type="text" name="lastname" id="lastname" required />
+                Student ID:
+                <input type="number" name="stid" id="stid" required />
+                Student Email:
+                <input type="email" name="stem" id="stem" required>
+            </label>
+            <button name="Submit" onclick='AJAXPOST("/accountTools/student/make.php", "mainEmbed", encodeData(["firstname", "lastname", "stid", "stem"]))' value="Submit"> Submit </button>
 
-            </form>
         </div>
 
     </div>

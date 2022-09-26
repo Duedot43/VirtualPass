@@ -58,7 +58,7 @@ function searchIndex() {
 
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 tr[i].style.display = "";
-            }else {
+            } else {
                 tr[i].style.display = "none";
             }
         }
@@ -194,15 +194,33 @@ function AJAX(target, element, rewnd = true, button = null, highlight = null) {
 
 //get post data from form and send to server
 
-function postData(int) {
-    const xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function () {
+function AJAXPOST(target, element, data, rewnd = true, button = null) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
-            document.getElementById("form").innerHTML = this.responseText;
+            if (rewnd) {
+                var url = this.responseURL;
+                var parser = document.createElement("a");
+                parser.href = url;
+                var rewind = [];
+                if (sessionStorage.getItem('rewind') === null && sessionStorage.getItem('current') === null) {
+                    rewind.push([parser.pathname, button]);
+                    sessionStorage.setItem('rewind', JSON.stringify(rewind));
+                    sessionStorage.setItem('current', 0);
+                } else {
+                    var rewind = JSON.parse(sessionStorage.getItem('rewind'));
+                    var current = rewind.length;
+                    rewind.push([parser.pathname, button])
+                    sessionStorage.setItem('rewind', JSON.stringify(rewind));
+                    sessionStorage.setItem('current', (current));
+                }
+            }
+            document.getElementById(element).innerHTML = this.response;
         }
-    }
-    xmlhttp.open("GET", "/accountTools/student/make.php?userData=" + int, true);
-    xmlhttp.send();
+    };
+    xhttp.open("POST", target, true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(data);
 }
 
 //closes the dropdown menu when the user clicks outside of it
@@ -217,4 +235,17 @@ window.onclick = function (event) {
             }
         }
     }
+}
+
+function encodeData(ids) {
+    var data = "";
+    data += ids[0] + "=" + document.getElementById(ids[0]).value;
+    if (ids.length > 1) {
+        for(i = 1; i < ids.length; i++) {
+            var id = ids[i];
+            var value = document.getElementById(id).value;
+            data += "&" + id + "=" + value;
+        }
+    }
+    return data;
 }
