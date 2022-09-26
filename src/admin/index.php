@@ -51,7 +51,6 @@ if (!isset($_COOKIE['adminCookie'])
         <button onclick="AJAX('/makeRoom/', 'mainEmbed')"> Generate room QR code </button>
     </div>
 
-    <script src="/include/mainScript.js"></script>
 
 
 </body>

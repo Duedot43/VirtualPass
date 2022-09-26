@@ -107,7 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] == "GET") {
 
     }
 }
-//TODO PUT api/room
 if ($_SERVER['REQUEST_METHOD'] == "PUT") {
     if ((int) $level[1] == 0) {
         userExistsErr($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $level[2]);

@@ -188,6 +188,13 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                         Add User
                     </button>
 
+                    <button value='/teacher/search.php' name="Search For Room">
+                        <span class="material-symbols-outlined">
+                            search
+                        </span>
+                        Search For Room
+                    </button>
+
                     <button class="dropdown-button" name='null'>
                         <i></i>
                         <span class="material-symbols-outlined">

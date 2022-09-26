@@ -49,14 +49,12 @@ if (isset($_POST['rnum'])) {
     <div class="l-card-container">
         <a>What is your room number?</a>
         <hr />
-        <form method="post">
-            <label>
-                Room Number:
-                <input name="rnum" placeholder="100" type="number" id="rnum" required />
-            </label>
-            <!-- Legacy classes are still included, I have no clue if it conflicts -->
-            <button name="Submit" value="Submit" onclick='AJAXPOST("/accountTools/student/make.php", "mainEmbed", encodeData(["firstname", "lastname", "stid", "stem"]))'>Search</button>
-        </form>
+        <label>
+            Room Number:
+            <input name="rnum" placeholder="100" type="number" id="rnum" required />
+        </label>
+        <!-- Legacy classes are still included, I have no clue if it conflicts -->
+        <button name="Submit" value="Submit" onclick='AJAXPOST("/teacher/search.php", "mainEmbed", encodeData(["rnum"]))'>Search</button>
     </div>
 </body>
 

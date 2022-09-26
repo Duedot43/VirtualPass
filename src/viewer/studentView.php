@@ -138,8 +138,13 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 
     </table>
     <script>
-        let departedIds = <?php echo phpArr2str($departedIds); ?>;
-        let departedTimes = <?php echo phpArr2str($departedTimes); ?>;
+        if (typeof departedIds === 'undefined') {
+            let departedIds = [];
+            let departedTimes = [];
+        }
+        departedIds = <?php echo phpArr2str($departedIds); ?>;
+        departedTimes = <?php echo phpArr2str($departedTimes); ?>;
+
 
         function timer(ellimentId, userArr) {
             setInterval(function() {

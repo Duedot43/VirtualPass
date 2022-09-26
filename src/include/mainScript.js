@@ -130,7 +130,6 @@ dark_toggler.addEventListener("click", function () {
 
 //enables various buttons to display information
 const dropdown = document.getElementsByClassName("dropdown-button");
-let i;
 
 for (i = 0; i < dropdown.length; i++) {
     dropdown[i].addEventListener("click", function () {
