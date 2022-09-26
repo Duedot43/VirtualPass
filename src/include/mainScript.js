@@ -1,3 +1,15 @@
+var setInnerHTML = function (elm, html) {
+    elm.innerHTML = html;
+    Array.from(elm.querySelectorAll("script")).forEach(oldScript => {
+        const newScript = document.createElement("script");
+        Array.from(oldScript.attributes)
+            .forEach(attr => newScript.setAttribute(attr.name, attr.value));
+        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+        oldScript.parentNode.replaceChild(newScript, oldScript);
+    });
+}
+
+
 function back() {
     var current = parseInt(sessionStorage.getItem('current'), 10);
     var rewind = JSON.parse(sessionStorage.getItem('rewind'));
@@ -185,7 +197,7 @@ function AJAX(target, element, rewnd = true, button = null, highlight = null) {
                     sessionStorage.setItem('current', (current));
                 }
             }
-            document.getElementById(element).innerHTML = this.response;
+            setInnerHTML(document.getElementById(element), this.response);
         }
     };
     xhttp.open("GET", target, true);
@@ -215,7 +227,7 @@ function AJAXPOST(target, element, data, rewnd = true, button = null) {
                     sessionStorage.setItem('current', (current));
                 }
             }
-            document.getElementById(element).innerHTML = this.response;
+            setInnerHTML(document.getElementById(element), this.response);
         }
     };
     xhttp.open("POST", target, true);
@@ -241,7 +253,7 @@ function encodeData(ids) {
     var data = "";
     data += ids[0] + "=" + document.getElementById(ids[0]).value;
     if (ids.length > 1) {
-        for(i = 1; i < ids.length; i++) {
+        for (i = 1; i < ids.length; i++) {
             var id = ids[i];
             var value = document.getElementById(id).value;
             data += "&" + id + "=" + value;

@@ -95,7 +95,6 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         }
         $border = (int) $row['activ'] === 0 ? 'style="border:orange; border-width:5px; border-style:solid;"' : 'style="border:green; border-width:5px; border-style:solid;"';
         $students[] = "<tr onclick=\"AJAX('/viewer/studentView.php?user=" . $row['sysID'] . "', 'mainEmbed')\" ><td>" . $row['firstName'] . " </td><td>" . $row['lastName'] . "</td><td> " . $row['ID'] . "</td><td>" . activ2eng($row['activ']) . "</td><td " . $border . " id='" . $row['sysID'] . "'></td></tr><br>";
-
     }
 } else {
     if (isset($_COOKIE['adminCookie'])) {
@@ -106,10 +105,11 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     exit();
 }
 ?>
+
 <body>
     <div class="list-nav">
         <label for="search-by">Search By:
-            <br/>
+            <br />
             <select id="search-by">
                 <option value="name"> First Name </option>
                 <option value="id"> ID </option>
@@ -135,24 +135,26 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             echo $student;
         }
         ?>
-        <script>
-            let departedIds = <?php echo phpArr2str($departedIds); ?>;
-            let departedTimes = <?php echo phpArr2str($departedTimes); ?>;
 
-            function timer(ellimentId, userArr) {
-                setInterval(function() {
-                    let timeUsed = Date.now() - (userArr[0] * 1000);
-                    if (timeUsed > userArr[1] * 1000) {
-                        document.getElementById(ellimentId).style.border = "red 5px solid";
-                    }
-                    document.getElementById(ellimentId).innerHTML = " " + Math.floor(timeUsed / 1000 / 60) + "m " + Math.floor(timeUsed / 1000 % 60) + "s";
-                }, 1000);
-            }
-
-            for (i = 0; i < departedIds.length; i++) {
-                timer(departedIds[i], departedTimes[i]);
-            }
-        </script>
     </table>
+    <script>
+        let departedIds = <?php echo phpArr2str($departedIds); ?>;
+        let departedTimes = <?php echo phpArr2str($departedTimes); ?>;
+
+        function timer(ellimentId, userArr) {
+            setInterval(function() {
+
+                let timeUsed = Date.now() - (userArr[0] * 1000);
+                if (timeUsed > userArr[1] * 1000) {
+                    document.getElementById(ellimentId).style.border = "red 5px solid";
+                }
+                document.getElementById(ellimentId).innerHTML = " " + Math.floor(timeUsed / 1000 / 60) + "m " + Math.floor(timeUsed / 1000 % 60) + "s";
+            }, 1000);
+        }
+        for (i = 0; i < departedIds.length; i++) {
+            timer(departedIds[i], departedTimes[i]);
+        }
+    </script>
 </body>
+
 </html>
