@@ -37,8 +37,8 @@ if (!roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], pre
 }
 //Auth
 if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
-    if (isset($_POST['rnum'])) {
-        $output = installRoom(array("id" => preg_replace("/[^0-9.]+/i", "", $_GET['room']), "num" => preg_replace("/[^0-9.]+/i", "", $_POST['rnum'])), $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
+    if (isset($_POST['rnum']) and isset($_GET['room'])) {
+        $output = sendSqlCommand("UPDATE rooms SET num=" . preg_replace("/[^0-9.]+/i", "", $_POST['rnum']) . " WHERE ID=" . preg_replace("/[^0-9.]+/i", "", $_GET['room']) . ";", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
         if ($output[0] == 1) {
             echo "Something has gone wrong please try again.";
             exit();
@@ -46,6 +46,8 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             echo "Success! room number changed!";
             exit();
         }
+    } elseif (isset($_GET['room'])) {
+        $room = getRoomData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['room']));
     }
 } else {
     if (isset($_COOKIE['adminCookie'])) {
@@ -74,10 +76,12 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         <hr />
         <label>
             Room Number:
-            <input name="rnum" placeholder="100" type="number" id="rnum" required />
+            <!-- deepcode ignore XSS: SQL DB -->
+            <input name="rnum" value="<?php echo $room['num']; ?>" type="number" id="rnum" required />
         </label>
         <!-- Legacy classes are still included, I have no clue if it conflicts -->
-        <button name="Submit" value="Submit" onclick='AJAXPOST("/accountTools/rooms/change.php", "mainEmbed", encodeData(["rnum"]))'>Register</button>
+        <!-- deepcode ignore XSS: Shush -->
+        <button name="Submit" value="Submit" onclick='AJAXPOST("/accountTools/rooms/change.php?room=<?php echo $_GET["room"]; ?>", "mainEmbed", encodeData(["rnum"]))'>Register</button>
     </div>
 </body>
 

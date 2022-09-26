@@ -36,9 +36,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         }
         $dateArr = $miscData['activity'][$_GET['date']];
         foreach ($dateArr as $occorance) {
-            if ($occorance['room'] == $_GET['room']) {
-                echo htmlspecialchars($user['firstName'],  ENT_QUOTES, 'UTF-8') . " " . htmlspecialchars($user['lastName'],  ENT_QUOTES, 'UTF-8') . " departed from room " . htmlspecialchars(getRoomData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $occorance['room'])[1],  ENT_QUOTES, 'UTF-8') . " they were gone for " . gmdate("H:i:s", $occorance['timeArv'] - $occorance['timeDep']) . "<br>";
-            }
+            echo htmlspecialchars($user['firstName'],  ENT_QUOTES, 'UTF-8') . " " . htmlspecialchars($user['lastName'],  ENT_QUOTES, 'UTF-8') . " departed from room " . htmlspecialchars(getRoomData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $occorance['room'])[1],  ENT_QUOTES, 'UTF-8') . " they were gone for " . gmdate("H:i:s", $occorance['timeArv'] - $occorance['timeDep']) . "<br>";
         }
         exit();
     }
@@ -56,10 +54,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         $dateArr = $miscData['activity'][$_GET['date']];
         $rooms = array();
         foreach ($dateArr as $occorance) {
-            if (!in_array($occorance['room'], $rooms)) {
-                $rooms[] = $occorance['room'];
-                echo "<button onclick=\"AJAX('/viewer/studentView.php?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "&date=" . htmlspecialchars($_GET['date'],  ENT_QUOTES, 'UTF-8') . "&room=" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "', 'mainEmbed')\" >" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "</button><br/>";
-            }
+            echo "<button onclick=\"AJAX('/viewer/studentView.php?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "&date=" . htmlspecialchars($_GET['date'],  ENT_QUOTES, 'UTF-8') . "&room=" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "', 'mainEmbed')\" >" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "</button><br/>";
         }
         exit();
     }

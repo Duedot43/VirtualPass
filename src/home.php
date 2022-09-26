@@ -218,6 +218,9 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                         <button value='/viewer/studentView.php' name="Manage Members: Students">
                             Students
                         </button>
+                        <button value='/viewer/roomView.php' name="Manage Members: Students">
+                            Rooms
+                        </button>
                     </div>
 
                     <script>
