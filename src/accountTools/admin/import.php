@@ -33,7 +33,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         echo "You do not have the tools to import your database";
         exit();
     }
-    if (isset($_FILES["csv"])) {
+    if (isset($_FILES["cs"])) {
         $file = $_FILES["csv"]["tmp_name"];
         move_uploaded_file($file, "./csv");
         $admins = decompileAdmin(file_get_contents("./csv"));
@@ -64,9 +64,9 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Import admins</title>
 <tr>
-    <form method="post" name="form" enctype="multipart/form-data" action="/accountTools/admin/import.php">
-        <td>
-            <table width="100%" border="0" cellpadding="3" cellspacing="1">
+    <td>
+        <table width="100%" border="0" cellpadding="3" cellspacing="1">
+            <div id="main">
                 <tr>
                     <td colspan="3"><strong>Upload CSV file
                             <hr />
@@ -75,14 +75,37 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                 <tr>
                     <td><input type="file" name="csv" id="csv">Upload the CSV file</td>
                 </tr>
+            </div>
 </tr>
 <tr>
     <td>&nbsp;</td>
     <td>&nbsp;</td>
-    <td><input class="reg" type="submit" name="Submit" value="Login"></td>
+    <td><button onclick="readFileAsText()">Upload!</button></td>
 </tr>
 </table>
 </td>
-</form>
 </tr>
 </table>
+<script>
+    function parseCsv(data) {
+        let csvData = [];
+        let lbreak = data.split("\n");
+        lbreak.forEach(res => {
+            csvData.push(res.split(","));
+        });
+        return csvData;
+    }
+    const readFileAsText = function() {
+        const fileToRead = document.getElementById('csv').files[0]
+        const fileReader = new FileReader()
+
+        fileReader.addEventListener('load', function(fileLoadedEvent) {
+            const content = fileLoadedEvent.target.result
+            const csvData = parseCsv(content);
+            console.log(csvData);
+
+        })
+
+        fileReader.readAsText(fileToRead, 'UTF-8')
+    }
+</script>

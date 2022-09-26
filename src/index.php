@@ -43,7 +43,7 @@ sendSqlCommand(
     "CREATE TABLE IF NOT EXISTS rooms (
     ID varchar(255) NOT NULL,
     num varchar(255),
-    PRIMARY KEY (ID)
+    PRIMARY KEY (ID) //TODO Do somethin with this
 
 );",
     $config['sqlUname'],
@@ -128,15 +128,8 @@ if (!isset($_COOKIE['id'])) {
 
 
 if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']))) {
-    // TODO MORE THAN 10 MINUTES
-    // DONE Show pass on phone
-    // MAYBE? Choose look by student by room class 
-    // TODO Meet with councler
-    // DONE Show pass says pass is expired
     // TODO If a kid goes to the CRC we need to log that for mass emails
-    // TODO change avalable departure time PER STUDENT
     // TODO Op parents out of emails With admin APPROVIAL
-    // TODO Email Moly robins at the CRC
     // TODO Add a parent portal
     $user = getUserData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']));
     $dpt = activ2eng((int) $user['activ']);

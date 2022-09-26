@@ -12,6 +12,7 @@
  * @license  https://mit-license.org/ MIT
  * @link     https://github.com/Duedot43/VirtualPass
  */
+// TODO make auto detect with this
 /**
  * Parse a CSV file
  *
