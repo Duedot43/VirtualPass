@@ -64,7 +64,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Import admins</title>
 <tr>
-    <form method="post" name="form" enctype="multipart/form-data" action="/Users/sign-up.php">
+    <form method="post" name="form" enctype="multipart/form-data" action="/accountTools/student/import.php">
         <td>
             <table width="100%" border="0" cellpadding="3" cellspacing="1">
                 <tr>

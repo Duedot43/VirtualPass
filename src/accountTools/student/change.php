@@ -165,7 +165,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                 <option value="3" <?php echo (int) $apiKeyLevel === 3 ? "selected" : "" ?>>3</option>
             </select>
         </label>
-        <button name="Submit" value="Submit" onclick='AJAXPOST("/accountTools/student/make.php", "mainEmbed", encodeData(["firstname", "lastname", "stid", "stem", "out", "level"]))'> Submit </button>
+        <button name="Submit" value="Submit" onclick='AJAXPOST("/accountTools/student/change.php?user=<?php echo $user["sysID"]; ?>", "mainEmbed", encodeData(["firstname", "lastname", "stid", "stem", "out", "level"]))'> Submit </button>
 
     </div>
 
