@@ -1,4 +1,18 @@
-var setInnerHTML = function (elm, html) {
+function encodeData(ids) {
+    var data = "";
+    data += ids[0] + "=" + document.getElementById(ids[0]).value;
+    if (ids.length > 1) {
+        for (i = 1; i < ids.length; i++) {
+            var id = ids[i];
+            var value = document.getElementById(id).value;
+            data += "&" + id + "=" + value;
+        }
+    }
+    return data;
+}
+
+// ARGS oldScript Unknown
+const setInnerHTML = function (elm, html) {
     elm.innerHTML = html;
     Array.from(elm.querySelectorAll("script")).forEach(oldScript => {
         const newScript = document.createElement("script");
@@ -7,16 +21,16 @@ var setInnerHTML = function (elm, html) {
         newScript.appendChild(document.createTextNode(oldScript.innerHTML));
         oldScript.parentNode.replaceChild(newScript, oldScript);
     });
-}
+};
 
 
 function back() {
-    var current = parseInt(sessionStorage.getItem('current'), 10);
-    var rewind = JSON.parse(sessionStorage.getItem('rewind'));
+    const current = parseInt(sessionStorage.getItem('current'), 10);
+    const rewind = JSON.parse(sessionStorage.getItem('rewind'));
     if (current > 0) {
-        var target = rewind[current - 1];
+        const target = rewind[current - 1];
         if (target[1] != null) {
-            for (i = 0; i < switchEmbed.length; i++) {
+            for (let i = 0; i < switchEmbed.length; i++) {
                 if (switchEmbed[i].classList.contains('highlighted')) {
                     switchEmbed[i].classList.remove('highlighted');
                 }
@@ -29,12 +43,12 @@ function back() {
 }
 
 function forward() {
-    var current = parseInt(sessionStorage.getItem('current'), 10);
-    var rewind = JSON.parse(sessionStorage.getItem('rewind'));
+    const current = parseInt(sessionStorage.getItem('current'), 10);
+    const rewind = JSON.parse(sessionStorage.getItem('rewind'));
     if (current < rewind.length - 1) {
-        var target = rewind[current + 1];
+        let target = rewind[current + 1];
         if (target[1] != null) {
-            for (i = 0; i < switchEmbed.length; i++) {
+            for (let i = 0; i < switchEmbed.length; i++) {
                 if (switchEmbed[i].classList.contains('highlighted')) {
                     switchEmbed[i].classList.remove('highlighted');
                 }
@@ -168,8 +182,8 @@ for (i = 0; i < switchEmbed.length; i++) {
 }
 
 function AJAX(target, element, rewnd = true, button = null, highlight = null) {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
+    const xHTTP = new XMLHttpRequest();
+    xHTTP.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             if (rewnd) {
                 if (highlight != null) {
@@ -180,17 +194,17 @@ function AJAX(target, element, rewnd = true, button = null, highlight = null) {
                     }
                     document.getElementsByName(highlight)[0].classList.add("highlighted");
                 }
-                var url = this.responseURL;
-                var parser = document.createElement("a");
+                const url = this.responseURL;
+                const parser = document.createElement("a");
                 parser.href = url;
-                var rewind = [];
+                let rewind = [];
                 if (sessionStorage.getItem('rewind') === null && sessionStorage.getItem('current') === null) {
                     rewind.push([parser.pathname, button]);
                     sessionStorage.setItem('rewind', JSON.stringify(rewind));
                     sessionStorage.setItem('current', 0);
                 } else {
-                    var rewind = JSON.parse(sessionStorage.getItem('rewind'));
-                    var current = rewind.length;
+                    rewind = JSON.parse(sessionStorage.getItem('rewind'));
+                    const current = rewind.length;
                     rewind.push([parser.pathname, button])
                     sessionStorage.setItem('rewind', JSON.stringify(rewind));
                     sessionStorage.setItem('current', (current));
@@ -199,28 +213,29 @@ function AJAX(target, element, rewnd = true, button = null, highlight = null) {
             setInnerHTML(document.getElementById(element), this.response);
         }
     };
-    xhttp.open("GET", target, true);
-    xhttp.send();
+    xHTTP.open("GET", target, true);
+    xHTTP.send();
 }
 
 //get post data from form and send to server
 
+
 function AJAXPOST(target, element, data, rewnd = true, button = null) {
-    var xhttp = new XMLHttpRequest();
+    const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             if (rewnd) {
-                var url = this.responseURL;
-                var parser = document.createElement("a");
+                const url = this.responseURL;
+                const parser = document.createElement("a");
                 parser.href = url;
-                var rewind = [];
+                let rewind = [];
                 if (sessionStorage.getItem('rewind') === null && sessionStorage.getItem('current') === null) {
                     rewind.push([parser.pathname, button]);
                     sessionStorage.setItem('rewind', JSON.stringify(rewind));
                     sessionStorage.setItem('current', 0);
                 } else {
-                    var rewind = JSON.parse(sessionStorage.getItem('rewind'));
-                    var current = rewind.length;
+                    rewind = JSON.parse(sessionStorage.getItem('rewind'));
+                    const current = rewind.length;
                     rewind.push([parser.pathname, button])
                     sessionStorage.setItem('rewind', JSON.stringify(rewind));
                     sessionStorage.setItem('current', (current));
@@ -248,15 +263,3 @@ window.onclick = function (event) {
     }
 }
 
-function encodeData(ids) {
-    var data = "";
-    data += ids[0] + "=" + document.getElementById(ids[0]).value;
-    if (ids.length > 1) {
-        for (i = 1; i < ids.length; i++) {
-            var id = ids[i];
-            var value = document.getElementById(id).value;
-            data += "&" + id + "=" + value;
-        }
-    }
-    return data;
-}

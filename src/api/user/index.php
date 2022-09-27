@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH"
         }
 
         // Sanatize the data
-        $sanUser = sanatizeUser(array($postJson['firstName'], $postJson['lastName'], $postJson['ID'], $postJson['email']));
+        $sanUser = sanitizeUser(array($postJson['firstName'], $postJson['lastName'], $postJson['ID'], $postJson['email']));
         if ($sanUser[3] == false) {
             echo json_encode(
                 array(
@@ -195,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH"
                 }
 
                 // Sanatize the data
-                $sanUser = sanatizeUser(array($postJson['firstName'], $postJson['lastName'], $postJson['ID'], $postJson['email']));
+                $sanUser = sanitizeUser(array($postJson['firstName'], $postJson['lastName'], $postJson['ID'], $postJson['email']));
                 if ($sanUser[3] == false) {
                     echo json_encode(
                         array(
@@ -259,7 +259,7 @@ if ($_SERVER['REQUEST_METHOD'] == "PUT" or $_SERVER['REQUEST_METHOD'] == "PATCH"
             }
 
             // Sanatize the data
-            $sanUser = sanatizeUser(array($postJson['firstName'], $postJson['lastName'], $postJson['ID'], $postJson['email']));
+            $sanUser = sanitizeUser(array($postJson['firstName'], $postJson['lastName'], $postJson['ID'], $postJson['email']));
             if ($sanUser[3] == false) {
                 echo json_encode(
                     array(

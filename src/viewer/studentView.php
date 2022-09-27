@@ -88,8 +88,8 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             $departedIds[] = $row['sysID'];
             $departedTimes[] = array($misc['activity'][$date][$misc['cnum'][0]]['timeDep'], $row['depTime']);
         }
-        $border = (int) $row['activ'] === 0 ? 'style="border:orange; border-width:5px; border-style:solid;"' : 'style="border:green; border-width:5px; border-style:solid;"';
-        $students[] = "<tr onclick=\"AJAX('/viewer/studentView.php?user=" . $row['sysID'] . "', 'mainEmbed')\" ><td>" . $row['firstName'] . " </td><td>" . $row['lastName'] . "</td><td> " . $row['ID'] . "</td><td>" . activ2eng($row['activ']) . "</td><td " . $border . " id='" . $row['sysID'] . "'></td></tr><br>";
+        $border = (int) $row['activ'] === 0 ? 'style="max-width: 25px; border:orange; border-width:5px; border-style:solid;"' : 'style="max-width: 25px; border:green; border-width:5px; border-style:solid;"';
+        $students[] = "<tr onclick=\"AJAX('/viewer/studentView.php?user=" . $row['sysID'] . "', 'mainEmbed')\" ><td>" . $row['firstName'] . " </td><td>" . $row['lastName'] . "</td><td> " . $row['ID'] . "</td><td>" . activ2eng($row['activ']) . "</td><td " . $border . " id='" . $row['sysID'] . "'></td></tr>";
     }
 } else {
     if (isset($_COOKIE['adminCookie'])) {
@@ -101,60 +101,56 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 }
 ?>
 
-<body>
-    <div class="list-nav">
-        <label for="search-by">Search By:
-            <br />
-            <select id="search-by">
-                <option value="name"> First Name </option>
-                <option value="id"> ID </option>
-                <option value="status"> Status </option>
+<div class="list-nav">
+    <label for="search-by">Search By:
+        <br />
+        <select id="search-by">
+            <option value="name"> First Name </option>
+            <option value="id"> ID </option>
+            <option value="status"> Status </option>
 
-                <input style="border-radius: 0 5px 5px 0; width: 170px; padding-left: 5px;" type="text" id="search-list" onkeyup="searchIndex()" placeholder="Search for names..">
-            </select>
-        </label>
+            <input style="border-radius: 0 5px 5px 0; width: 170px; padding-left: 5px;" type="text" id="search-list" onkeyup="searchIndex()" placeholder="Search for names..">
+        </select>
+    </label>
 
-        <button onclick="sortTable()">Sort names</button>
-    </div>
+    <button onclick="sortTable()">Sort names</button>
+</div>
 
-    <table id="index" class="student-list">
-        <tr class="header">
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Student ID</th>
-            <th>Status</th>
-            <th style="max-width: 25px;">Time Out</th>
-        </tr>
-        <?php
-        foreach ($students as $student) {
-            echo $student;
-        }
-        ?>
+<table id="index" class="student-list">
+    <tr class="header">
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Student ID</th>
+        <th>Status</th>
+        <th style="max-width: 25px;">Time Out</th>
+    </tr>
+    <?php
+    foreach ($students as $student) {
+        echo $student;
+    }
+    ?>
 
-    </table>
-    <script>
-        if (typeof departedIds === 'undefined') {
-            let departedIds = [];
-            let departedTimes = [];
-        }
-        departedIds = <?php echo phpArr2str($departedIds); ?>;
-        departedTimes = <?php echo phpArr2str($departedTimes); ?>;
+</table>
+<script>
+    if (typeof departedIds === 'undefined') {
+        let departedIds = [];
+        let departedTimes = [];
+    }
+    departedIds = <?php echo phpArr2str($departedIds); ?>;
+    departedTimes = <?php echo phpArr2str($departedTimes); ?>;
 
 
-        function timer(ellimentId, userArr) {
-            setInterval(function() {
+    function timer(elementId, userArr) {
+        setInterval(function() {
 
-                let timeUsed = Date.now() - (userArr[0] * 1000);
-                if (timeUsed > userArr[1] * 1000) {
-                    document.getElementById(ellimentId).style.border = "red 5px solid";
-                }
-                document.getElementById(ellimentId).innerHTML = " " + Math.floor(timeUsed / 1000 / 60) + "m " + Math.floor(timeUsed / 1000 % 60) + "s";
-            }, 1000);
-        }
-        for (i = 0; i < departedIds.length; i++) {
-            timer(departedIds[i], departedTimes[i]);
-        }
-    </script>
-</body>
-
-</html>
+            let timeUsed = Date.now() - (userArr[0] * 1000);
+            if (timeUsed > userArr[1] * 1000) {
+                document.getElementById(elementId).style.border = "red 5px solid";
+            }
+            document.getElementById(elementId).innerHTML = " " + Math.floor(timeUsed / 1000 / 60) + "m " + Math.floor(timeUsed / 1000 % 60) + "s";
+        }, 1000);
+    }
+    for (let i = 0; i < departedIds.length; i++) {
+        timer(departedIds[i], departedTimes[i]);
+    }
+</script>

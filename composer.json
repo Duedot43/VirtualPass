@@ -2,6 +2,8 @@
     "require": {
         "squizlabs/php_codesniffer": "^3.7",
         "phpmailer/phpmailer": "^6.6",
-        "league/oauth2-client": "^2.6"
+        "league/oauth2-client": "^2.6",
+        "ext-mysqli": "*",
+        "ext-json": "*"
     }
 }

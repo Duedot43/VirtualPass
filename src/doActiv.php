@@ -27,13 +27,13 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
 
     //register their room
     if (!in_array($_GET['room'], $departureData['rooms'])) {
-        array_push($departureData['rooms'], $_GET['room']);
+        $departureData['rooms'][] = $_GET['room'];
     }
 
     $date = date("d") . "." . date("m") . "." . date("y");
     $skip = false;
     if (!isset($departureData['activity'][$date])) {
-        array_push($departureData['dates'], $date);
+        $departureData['dates'][] = $date;
         $departureData['activity'][$date] = array();
         // Wow that is some DEEPLY nested stuff right there
         if ((int) $userData['activ'] == 0 and count($departureData['dates']) > 1 and $departureData['activity'][$departureData['dates'][count($departureData['dates']) - 2]][$departureData['cnum'][0]]['timeArv'] == "") {

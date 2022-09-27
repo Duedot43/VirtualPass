@@ -35,8 +35,8 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         $misc = json_decode($row['misc'], true);
         if (in_array($_GET['room'], $misc['rooms'])) {
             if ((int) $row['activ'] === 0) {
-                array_push($departedIds, $row['sysID']);
-                array_push($departedTimes, array($misc['activity'][$date][$misc['cnum'][0]]['timeDep'], $row['depTime']));
+                $departedIds[] = $row['sysID'];
+                $departedTimes[] = array($misc['activity'][$date][$misc['cnum'][0]]['timeDep'], $row['depTime']);
             }
             $border = (int) $row['activ'] === 0 ? 'style="border:orange; border-width:5px; border-style:solid;"' : 'style="border:green; border-width:5px; border-style:solid;"';
             echo "<button id='" . $row['sysID'] . "' onclick=\"AJAX('/viewer/studentView.php?user=" . $row['sysID'] . "', 'mainEmbed')\" " . $border . " >" . $row['firstName'] . " " . $row['lastName'] . " " . activ2eng($row['activ']) . "</button><br>";
@@ -53,21 +53,21 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 }
 ?>
 <script>
-    var departedIds = <?php echo phpArr2str($departedIds); ?>;
-    var departedTimes = <?php echo phpArr2str($departedTimes); ?>;
+    let departedIds = <?php echo phpArr2str($departedIds); ?>;
+    let departedTimes = <?php echo phpArr2str($departedTimes); ?>;
 
-    function timer(ellimentId, userArr) {
-        var ogInner = document.getElementById(ellimentId).innerHTML;
+    function timer(elementId, userArr) {
+        var ogInner = document.getElementById(elementId).innerHTML;
         setInterval(function() {
             timeUsed = new Date().getTime() - (userArr[0] * 1000);
             if (timeUsed > userArr[1] * 1000) {
-                document.getElementById(ellimentId).style.border = "red 5px solid";
+                document.getElementById(elementId).style.border = "red 5px solid";
             }
-            document.getElementById(ellimentId).innerHTML = ogInner + " " + Math.floor(timeUsed / 1000 / 60) + "m " + Math.floor(timeUsed / 1000 % 60) + "s";
+            document.getElementById(elementId).innerHTML = ogInner + " " + Math.floor(timeUsed / 1000 / 60) + "m " + Math.floor(timeUsed / 1000 % 60) + "s";
         }, 1000);
     }
 
-    for (i = 0; i < departedIds.length; i++) {
+    for (let i = 0; i < departedIds.length; i++) {
         timer(departedIds[i], departedTimes[i]);
     }
 </script>

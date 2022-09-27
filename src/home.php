@@ -17,7 +17,7 @@ $config = parse_ini_file("../config/config.ini");
 
 
 
-// See if the admin user exists and as so set ther account info
+// See if the admin user exists and as so set their account info
 if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
     $account = getAdminByUuid($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']));
     $name = $account['uname'];

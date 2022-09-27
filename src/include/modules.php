@@ -13,26 +13,25 @@
  * @link     https://github.com/Duedot43/VirtualPass
  */
 
-// HELP ME THIS CODE SNIFFER EXTENTION IS MAKING ME SUFFER
+// HELP ME THIS CODE SNIFFER EXTENSION IS MAKING ME SUFFER
 
 /**
  * Get the domain name
  *
  * @return string
  */
-function getDomain()
+function getDomain(): string
 {
-    $host = explode(":", $_SERVER['HTTP_HOST'])[0];
-    return $host;
+    return explode(":", $_SERVER['HTTP_HOST'])[0];
 }
 /**
- * Sanatize user info
+ * Sanitize user info
  *
- * @param array $userInfo User info to be sanatized
+ * @param array $userInfo User info to be sanitized
  * 
  * @return array
  */
-function sanatizeUser(array $userInfo)
+function sanitizeUser(array $userInfo): array
 {
     $userInfo[0] = preg_replace("/[^a-z.]+/i", "", $userInfo[0]);
     $userInfo[1] = preg_replace("/[^a-z.]+/i", "", $userInfo[1]);
@@ -44,13 +43,13 @@ function sanatizeUser(array $userInfo)
  * User Exists
  *
  * @param string $uname   The MySQL username
- * @param string $passwd  The MySQL pasword
+ * @param string $passwd  The MySQL password
  * @param string $db      The MySQL database name
  * @param string $userKey The user unique ID
  * 
  * @return bool
  */
-function userExists(string $uname, string $passwd, string $db, string $userKey)
+function userExists(string $uname, string $passwd, string $db, string $userKey): bool
 {
     $output = sendSqlCommand(
         "SELECT * FROM users WHERE sysID=" . $userKey,
@@ -71,13 +70,13 @@ function userExists(string $uname, string $passwd, string $db, string $userKey)
  * Get User Data
  *
  * @param string $uname  The MySQL username
- * @param string $passwd The MySQL pasword
+ * @param string $passwd The MySQL password
  * @param string $db     The MySQL database name
  * @param string $key    The user unique ID
  * 
  * @return array
  */
-function getUserData(string $uname, string $passwd, string $db, string $key)
+function getUserData(string $uname, string $passwd, string $db, string $key): array
 {
     $response = sendSqlCommand(
         "SELECT * FROM users WHERE sysID=" . $key . ";",
@@ -85,20 +84,19 @@ function getUserData(string $uname, string $passwd, string $db, string $key)
         $passwd,
         $db
     )[1];
-    $data = mysqli_fetch_array($response);
-    return $data;
+    return mysqli_fetch_array($response);
 }
 /**
  * Room Exists
  *
  * @param string $uname   The MySQL username
- * @param string $passwd  The MySQL pasword
+ * @param string $passwd  The MySQL password
  * @param string $db      The MySQL database name
  * @param string $roomKey The room ID 
  * 
  * @return bool
  */
-function roomExists(string $uname, string $passwd, string $db, string $roomKey)
+function roomExists(string $uname, string $passwd, string $db, string $roomKey): bool
 {
     $output = sendSqlCommand(
         "SELECT * FROM rooms WHERE ID=" . $roomKey,
@@ -120,13 +118,13 @@ function roomExists(string $uname, string $passwd, string $db, string $roomKey)
  * Admin Cookie Exists
  *
  * @param string $uname  The MySQL username
- * @param string $passwd The MySQL pasword
+ * @param string $passwd The MySQL password
  * @param string $db     The MySQL database name
  * @param string $cookie The admin cookie
  * 
  * @return bool
  */
-function adminCookieExists(string $uname, string $passwd, string $db, string $cookie)
+function adminCookieExists(string $uname, string $passwd, string $db, string $cookie): bool
 {
     $output = sendSqlCommand(
         "SELECT * FROM admins",
@@ -149,7 +147,7 @@ function adminCookieExists(string $uname, string $passwd, string $db, string $co
  * Teacher Cookie Exists
  *
  * @param string $uname  The MySQL username
- * @param string $passwd The MySQL pasword
+ * @param string $passwd The MySQL password
  * @param string $db     The MySQL database name
  * @param string $cookie The teacher cookie
  * 
@@ -160,7 +158,8 @@ function teacherCookieExists(
     string $passwd,
     string $db,
     string $cookie
-) {
+): bool
+{
     $output = sendSqlCommand(
         "SELECT * FROM teachers",
         $uname,
@@ -182,13 +181,13 @@ function teacherCookieExists(
  * Get Room Data
  *
  * @param string $uname  The MySQL username
- * @param string $passwd The MySQL pasword
+ * @param string $passwd The MySQL password
  * @param string $db     The MySQL database name
  * @param string $key    The room ID
  * 
  * @return array
  */
-function getRoomData(string $uname, string $passwd, string $db, string $key)
+function getRoomData(string $uname, string $passwd, string $db, string $key): array
 {
     $response = sendSqlCommand(
         "SELECT * FROM rooms WHERE ID=" . $key,
@@ -196,20 +195,19 @@ function getRoomData(string $uname, string $passwd, string $db, string $key)
         $passwd,
         $db
     )[1];
-    $data = mysqli_fetch_array($response);
-    return $data;
+    return mysqli_fetch_array($response);
 }
 /**
  * Send an SQL command
  *
  * @param string $command The SQL command to be executed
  * @param string $uname   The MySQL username
- * @param string $passwd  The MySQL pasword
+ * @param string $passwd  The MySQL password
  * @param string $db      The MySQL database name
  * 
  * @return array
  */
-function sendSqlCommand(string $command, string $uname, string $passwd, string $db)
+function sendSqlCommand(string $command, string $uname, string $passwd, string $db): array
 {
     $srvName = "localhost";
     try {
@@ -224,13 +222,13 @@ function sendSqlCommand(string $command, string $uname, string $passwd, string $
 /**
  * Send SQL Command Raw
  *
- * @param string $command The command to be issueds
+ * @param string $command The command to be issued
  * @param string $uname   The MySQL username
- * @param string $passwd  The MySQL pasword
+ * @param string $passwd  The MySQL password
  * 
  * @return array
  */
-function sendSqlCommandRaw(string $command, string $uname, string $passwd)
+function sendSqlCommandRaw(string $command, string $uname, string $passwd): array
 {
     $srvName = "localhost";
 
@@ -249,12 +247,12 @@ function sendSqlCommandRaw(string $command, string $uname, string $passwd)
  * @param array  $info   User info with 0 being firstName 1 being lastName
  *                       2 being ID 3 being email
  * @param string $uname  The MySQL username
- * @param string $passwd The MySQL pasword
+ * @param string $passwd The MySQL password
  * @param string $db     The MySQL database name
  * 
  * @return array
  */
-function installUser(array $info, string $uname, string $passwd, string $db)
+function installUser(array $info, string $uname, string $passwd, string $db): array
 {
     $id = rand() . rand();
     $out = sendSqlCommand(
@@ -292,12 +290,12 @@ function installUser(array $info, string $uname, string $passwd, string $db)
  * @param array  $info   The room info with 'id' being the ID of the room 
  *                       and 'num' being the room number
  * @param string $uname  The MySQL username
- * @param string $passwd The MySQL pasword
+ * @param string $passwd The MySQL password
  * @param string $db     The MySQL database name
  * 
  * @return array
  */
-function installRoom(array $info, string $uname, string $passwd, string $db)
+function installRoom(array $info, string $uname, string $passwd, string $db): array
 {
     $id = $info['id'];
     $out = sendSqlCommand(
@@ -313,10 +311,10 @@ function installRoom(array $info, string $uname, string $passwd, string $db)
  * Admin Authentication
  *
  * @param string $uname     The MySQL username
- * @param string $passwd    The MySQL pasword
+ * @param string $passwd    The MySQL password
  * @param string $db        The MySQL database name
- * @param string $admUname  The user inputed admin username
- * @param string $admPasswd The user inputed admin password
+ * @param string $admUname  The user inputted admin username
+ * @param string $admPasswd The user inputted admin password
  * 
  * @return array
  */
@@ -326,13 +324,26 @@ function authAdmin(
     string $db,
     string $admUname,
     string $admPasswd
-) {
+): array
+{
     $out = sendSqlCommand(
         "SELECT * FROM admins WHERE uname='" . $admUname . "';",
         $uname,
         $passwd,
         $db
     );
+    return checkVal($out, $admPasswd);
+}
+
+/**
+ * @param array $out
+ * @param string $admPasswd
+ * @return array|false[]
+ */
+
+// TODO change the function name to fit the purpose
+function checkVal(array $out, string $admPasswd): array
+{
     if ($out[0] == 1) {
         return array(false);
     }
@@ -346,14 +357,15 @@ function authAdmin(
         return array(false);
     }
 }
+
 /**
  * Teacher Authentication
  *
  * @param string $uname       The MySQL username
- * @param string $passwd      The MySQL pasword
+ * @param string $passwd      The MySQL password
  * @param string $db          The MySQL database name
- * @param string $teachUname  The user inputed teacher username
- * @param string $teachPasswd The user inputed teacher password
+ * @param string $teachUname  The user inputted teacher username
+ * @param string $teachPasswd The user inputted teacher password
  * 
  * @return array
  */
@@ -363,31 +375,21 @@ function authTeach(
     string $db,
     string $teachUname,
     string $teachPasswd
-) {
+): array
+{
     $out = sendSqlCommand(
         "SELECT * FROM teachers WHERE uname='" . $teachUname . "';",
         $uname,
         $passwd,
         $db
     );
-    if ($out[0] == 1) {
-        return array(false);
-    }
-    $info = mysqli_fetch_array($out[1]);
-    if (!isset($info['passwd'])) {
-        return array(false);
-    }
-    if ($info['passwd'] == $teachPasswd) {
-        return array(true, $info['uuid']);
-    } else {
-        return array(false);
-    }
+    return checkVal($out, $teachPasswd);
 }
 /**
  * API Auth
  *
  * @param string $uname  The MySQL username
- * @param string $passwd The MySQL pasword
+ * @param string $passwd The MySQL password
  * @param string $db     The MySQL database name
  * @param string $key    The API key
  * 
@@ -397,8 +399,8 @@ function authApi(
     string $uname,
     string $passwd,
     string $db,
-    string $key,
-) {
+    string $key
+):array {
     $out = sendSqlCommand(
         "SELECT * FROM apiKeys WHERE apiKey='" . $key . "';",
         $uname,
@@ -422,7 +424,7 @@ function authApi(
  * 
  * @return string
  */
-function activ2eng(int $status)
+function activ2eng(int $status): string
 {
     if ($status == 1) {
         return "arrived";
@@ -439,7 +441,7 @@ function activ2eng(int $status)
  * 
  * @return array
  */
-function unsetValue(array $array, array $value, $strict = true)
+function unsetValue(array $array, array $value, bool $strict = true): array
 {
     foreach ($value as $val) {
         if (($key = array_search($val, $array, $strict)) !== false) {
@@ -481,7 +483,7 @@ function err()
  * Errors if the user does not exist for the API
  *
  * @param string $uname  The MySQL username
- * @param string $passwd The MySQL pasword
+ * @param string $passwd The MySQL password
  * @param string $db     The MySQL database name
  * @param string $user   The user ID
  * 
@@ -506,7 +508,7 @@ function userExistsErr(string $uname, string $passwd, string $db, string $user)
  * Errors if the room does not exist for the API
  *
  * @param string $uname  The MySQL username
- * @param string $passwd The MySQL pasword
+ * @param string $passwd The MySQL password
  * @param string $db     The MySQL database name
  * @param string $room   The user ID
  * 
@@ -531,13 +533,13 @@ function roomExistsErr(string $uname, string $passwd, string $db, string $room)
  * Get admin by uuid
  *
  * @param string $uname  The MySQL username
- * @param string $passwd The MySQL pasword
+ * @param string $passwd The MySQL password
  * @param string $db     The MySQL database name
  * @param string $uuid   The admins uuid
  * 
  * @return array
  */
-function getAdminByUuid(string $uname, string $passwd, string $db, string $uuid)
+function getAdminByUuid(string $uname, string $passwd, string $db, string $uuid): array
 {
     $output = sendSqlCommand(
         "SELECT * FROM admins",
@@ -558,13 +560,13 @@ function getAdminByUuid(string $uname, string $passwd, string $db, string $uuid)
  * Get teacher by uuid
  *
  * @param string $uname  The MySQL username
- * @param string $passwd The MySQL pasword
+ * @param string $passwd The MySQL password
  * @param string $db     The MySQL database name
  * @param string $uuid   The teacher uuid
  * 
  * @return array
  */
-function getTeacherByUuid(string $uname, string $passwd, string $db, string $uuid)
+function getTeacherByUuid(string $uname, string $passwd, string $db, string $uuid): array
 {
     $output = sendSqlCommand(
         "SELECT * FROM teachers",
@@ -584,7 +586,7 @@ function getTeacherByUuid(string $uname, string $passwd, string $db, string $uui
  * History snapshot
  *
  * @param string $uname  The MySQL username
- * @param string $passwd The MySQL pasword
+ * @param string $passwd The MySQL password
  * @param string $db     The MySQL database name
  * @param string $snTime The time between snapshots
  * 
@@ -613,13 +615,13 @@ function snapshot(string $uname, string $passwd, string $db, string $snTime)
  * Get API key by user ID
  *
  * @param string $uname  The MySQL username
- * @param string $passwd The MySQL pasword
+ * @param string $passwd The MySQL password
  * @param string $db     The MySQL database name
  * @param string $userId The user ID
  * 
  * @return array
  */
-function getApiKeyByUser(string $uname, string $passwd, string $db, string $userId)
+function getApiKeyByUser(string $uname, string $passwd, string $db, string $userId): array
 {
     $userIn = sendSqlCommand("SELECT * FROM apiKeys", $uname, $passwd, $db);
     while ($row = mysqli_fetch_array($userIn[1])) {
@@ -633,7 +635,7 @@ function getApiKeyByUser(string $uname, string $passwd, string $db, string $user
  * Ck last time
  *
  * @param string $uname  The MySQL username
- * @param string $passwd The MySQL pasword
+ * @param string $passwd The MySQL password
  * @param string $db     The MySQL database name
  * @param string $apiKey The user api key
  * 
@@ -656,6 +658,7 @@ function tooMuchReqErr(string $uname, string $passwd, string $db, string $apiKey
     } else {
         sendSqlCommand("UPDATE apiKeys SET lastTime='" . time() . "' WHERE apiKey='" . $apiKey . "';", $uname, $passwd, $db);
     }
+    // TODO missing return statement
 }
 /**
  * PHP array to string
@@ -664,7 +667,7 @@ function tooMuchReqErr(string $uname, string $passwd, string $db, string $apiKey
  * 
  * @return string
  */
-function phpArr2str(array $array)
+function phpArr2str(array $array): string
 {
     $output = '[';
     $count = -1;
@@ -698,9 +701,8 @@ function phpArr2str(array $array)
  * 
  * @return array
  */
-function search(string $table, string $keywords, string $section, array $config)
+function search(string $table, string $keywords, string $section, array $config): array
 {
     $output = sendSqlCommand('SELECT * FROM ' . $table . ' WHERE ' . $section . ' LIKE "' . $keywords . '";', $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
-    $output = mysqli_fetch_array($output[1]);
-    return $output;
+    return mysqli_fetch_array($output[1]);
 }
