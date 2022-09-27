@@ -81,7 +81,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         </label>
         <!-- Legacy classes are still included, I have no clue if it conflicts -->
         <!-- deepcode ignore XSS: Shush -->
-        <button name="Submit" value="Submit" onclick='AJAXPOST("/accountTools/rooms/change.php?room=<?php echo $_GET["room"]; ?>", "mainEmbed", encodeData(["rnum"]))'>Register</button>
+        <button name="Submit" value="Submit" onclick='AJAXPost("/accountTools/rooms/change.php?room=<?php echo $_GET["room"]; ?>", "mainEmbed", encodeData(["rnum"]))'>Register</button>
     </div>
 </body>
 

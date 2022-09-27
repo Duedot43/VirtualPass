@@ -1,10 +1,64 @@
+function AJAXGet(target, element, rewind = true, button = null, highlight = null) {
+    const xHTTP = new XMLHttpRequest();
+    xHTTP.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            if (rewind) {
+                if (highlight != null) {
+                    for (let i = 0; i < switchEmbed.length; i++) {
+                        if (switchEmbed[i].classList.contains('highlighted')) {
+                            switchEmbed[i].classList.remove('highlighted');
+                        }
+                    }
+                    document.getElementsByName(highlight)[0].classList.add("highlighted");
+                }
+                sessionParser(rewind, button);
+            }
+            setInnerHTML(document.getElementById(element), this.response);
+        }
+    };
+    xHTTP.open("GET", target, true);
+    xHTTP.send();
+}
+
+function AJAXPost(target, element, data, rewind = true, button = null) {
+    const xHTTP = new XMLHttpRequest();
+    xHTTP.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            if (rewind) {
+                sessionParser(rewind, button);
+            }
+            setInnerHTML(document.getElementById(element), this.response);
+        }
+    };
+    xHTTP.open("POST", target, true);
+    xHTTP.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xHTTP.send(data);
+}
+
+function sessionParser(rewind, button) {
+    const url = this.responseURL;
+    const parser = document.createElement("a");
+    parser.href = url;
+    if (sessionStorage.getItem('rewind') === null && sessionStorage.getItem('current') === null) {
+        rewind.push([parser.pathname, button]);
+        sessionStorage.setItem('rewind', JSON.stringify(rewind));
+        sessionStorage.setItem('current', "0");
+    } else {
+        rewind = JSON.parse(sessionStorage.getItem('rewind'));
+        const current = rewind.length;
+        rewind.push([parser.pathname, button])
+        sessionStorage.setItem('rewind', JSON.stringify(rewind));
+        sessionStorage.setItem('current', (current));
+    }
+}
+
 function encodeData(ids) {
-    var data = "";
+    let data = "";
     data += ids[0] + "=" + document.getElementById(ids[0]).value;
     if (ids.length > 1) {
-        for (i = 1; i < ids.length; i++) {
-            var id = ids[i];
-            var value = document.getElementById(id).value;
+        for (let i = 1; i < ids.length; i++) {
+            let id = ids[i];
+            const value = document.getElementById(id).value;
             data += "&" + id + "=" + value;
         }
     }
@@ -23,7 +77,6 @@ const setInnerHTML = function (elm, html) {
     });
 };
 
-
 function back() {
     const current = parseInt(sessionStorage.getItem('current'), 10);
     const rewind = JSON.parse(sessionStorage.getItem('rewind'));
@@ -37,8 +90,8 @@ function back() {
             }
             document.getElementsByName(target[1])[0].classList.add("highlighted");
         }
-        AJAX(target[0], "mainEmbed", false);
-        sessionStorage.setItem('current', (current - 1));
+        AJAXGet(target[0], "mainEmbed", false);
+        sessionStorage.setItem('current', "1");
     }
 }
 
@@ -55,8 +108,8 @@ function forward() {
             }
             document.getElementsByName(target[1])[0].classList.add("highlighted");
         }
-        AJAX(target[0], "mainEmbed", false);
-        sessionStorage.setItem('current', (current + 1));
+        AJAXGet(target[0], "mainEmbed", false);
+        sessionStorage.setItem('current', "2");
     }
 }
 
@@ -145,7 +198,7 @@ dark_toggler.addEventListener("click", function () {
 //enables various buttons to display information
 const dropdown = document.getElementsByClassName("dropdown-button");
 
-for (i = 0; i < dropdown.length; i++) {
+for (let i = 0; i < dropdown.length; i++) {
     dropdown[i].addEventListener("click", function () {
         this.classList.toggle("active");
         const dropdownContent = this.nextElementSibling;
@@ -156,14 +209,15 @@ for (i = 0; i < dropdown.length; i++) {
         }
     });
 }
+
 //async function to change embed data && selected button highlight
 const switchEmbed = document.querySelectorAll('.sidenav button');
 
-for (i = 0; i < switchEmbed.length; i++) {
+for (let i = 0; i < switchEmbed.length; i++) {
     switchEmbed[i].addEventListener('click', function (e) {
         if (this.name !== "null") {
             //Reluctantly using a nestled for loop to check for highlights, and remove them.
-            for (i = 0; i < switchEmbed.length; i++) {
+            for (let i = 0; i < switchEmbed.length; i++) {
                 if (switchEmbed[i].classList.contains('highlighted')) {
                     switchEmbed[i].classList.remove('highlighted');
                 }
@@ -174,82 +228,14 @@ for (i = 0; i < switchEmbed.length; i++) {
             viewportTitle.innerHTML = buttonName;
 
             if (e.target.value) {
-                AJAX(e.target.value, "mainEmbed", true, this.name);
+                AJAXGet(e.target.value, "mainEmbed", true, this.name);
 
             }
         }
     })
 }
 
-function AJAX(target, element, rewnd = true, button = null, highlight = null) {
-    const xHTTP = new XMLHttpRequest();
-    xHTTP.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            if (rewnd) {
-                if (highlight != null) {
-                    for (i = 0; i < switchEmbed.length; i++) {
-                        if (switchEmbed[i].classList.contains('highlighted')) {
-                            switchEmbed[i].classList.remove('highlighted');
-                        }
-                    }
-                    document.getElementsByName(highlight)[0].classList.add("highlighted");
-                }
-                const url = this.responseURL;
-                const parser = document.createElement("a");
-                parser.href = url;
-                let rewind = [];
-                if (sessionStorage.getItem('rewind') === null && sessionStorage.getItem('current') === null) {
-                    rewind.push([parser.pathname, button]);
-                    sessionStorage.setItem('rewind', JSON.stringify(rewind));
-                    sessionStorage.setItem('current', 0);
-                } else {
-                    rewind = JSON.parse(sessionStorage.getItem('rewind'));
-                    const current = rewind.length;
-                    rewind.push([parser.pathname, button])
-                    sessionStorage.setItem('rewind', JSON.stringify(rewind));
-                    sessionStorage.setItem('current', (current));
-                }
-            }
-            setInnerHTML(document.getElementById(element), this.response);
-        }
-    };
-    xHTTP.open("GET", target, true);
-    xHTTP.send();
-}
-
-//get post data from form and send to server
-
-
-function AJAXPOST(target, element, data, rewnd = true, button = null) {
-    const xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState === 4 && this.status === 200) {
-            if (rewnd) {
-                const url = this.responseURL;
-                const parser = document.createElement("a");
-                parser.href = url;
-                let rewind = [];
-                if (sessionStorage.getItem('rewind') === null && sessionStorage.getItem('current') === null) {
-                    rewind.push([parser.pathname, button]);
-                    sessionStorage.setItem('rewind', JSON.stringify(rewind));
-                    sessionStorage.setItem('current', 0);
-                } else {
-                    rewind = JSON.parse(sessionStorage.getItem('rewind'));
-                    const current = rewind.length;
-                    rewind.push([parser.pathname, button])
-                    sessionStorage.setItem('rewind', JSON.stringify(rewind));
-                    sessionStorage.setItem('current', (current));
-                }
-            }
-            setInnerHTML(document.getElementById(element), this.response);
-        }
-    };
-    xhttp.open("POST", target, true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(data);
-}
-
-//closes the dropdown menu when the user clicks outside of it
+//closes the dropdown menu when the user clicks outside it
 window.onclick = function (event) {
     if (!event.target.matches('.dropdown-button')) {
         const dropdowns = document.getElementsByClassName("dropdown-content");
@@ -262,4 +248,3 @@ window.onclick = function (event) {
         }
     }
 }
-

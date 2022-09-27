@@ -55,7 +55,7 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
                 Student Email:
                 <input type="email" name="stem" id="stem" required>
             </label>
-            <button name="Submit" onclick='AJAXPOST("/accountTools/student/make.php", "mainEmbed", encodeData(["firstname", "lastname", "stid", "stem"]))' value="Submit"> Submit </button>
+            <button name="Submit" onclick='AJAXPost("/accountTools/student/make.php", "mainEmbed", encodeData(["firstname", "lastname", "stid", "stem"]))' value="Submit"> Submit </button>
 
         </div>
 

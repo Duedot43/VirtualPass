@@ -47,7 +47,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     }
 }
 ?>
-<button onclick="AJAX('/accountTools/student/change.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>', 'mainEmbed')">Change Info</button>
-<button onclick="AJAX('/accountTools/student/arrive.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>', 'mainEmbed')">Force Arrive</button>
-<button onclick="AJAX('/accountTools/student/delete.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>', 'mainEmbed')">Delete User</button>
-<button onclick="AJAX('/accountTools/student/import.php', 'mainEmbed')">Import Users</button>
+<button onclick="AJAXGet('/accountTools/student/change.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>', 'mainEmbed')">Change Info</button>
+<button onclick="AJAXGet('/accountTools/student/arrive.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>', 'mainEmbed')">Force Arrive</button>
+<button onclick="AJAXGet('/accountTools/student/delete.php?user=<?php echo htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8'); ?>', 'mainEmbed')">Delete User</button>
+<button onclick="AJAXGet('/accountTools/student/import.php', 'mainEmbed')">Import Users</button>

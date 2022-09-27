@@ -54,7 +54,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             <input name="rnum" placeholder="100" type="number" id="rnum" required />
         </label>
         <!-- Legacy classes are still included, I have no clue if it conflicts -->
-        <button type="submit" onclick='AJAXPOST("/makeRoom/", "mainEmbed", encodeData(["rnum"]))' name="Submit" value="Submit">Register</button>
+        <button type="submit" onclick='AJAXPost("/makeRoom/", "mainEmbed", encodeData(["rnum"]))' name="Submit" value="Submit">Register</button>
     </div>
 </body>
 

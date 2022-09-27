@@ -37,8 +37,8 @@ if (!isset($_COOKIE['teacherCookie']) or !teacherCookieExists($config['sqlUname'
 <body>
 
     <div class="b-card-container">
-        <input class="reg" type="button" value="Make a room QR Code" onclick="AJAX('/makeRoom/', 'mainEmbed')" />
-        <input class="reg" type="button" value="Search for your room" onclick="AJAX('/teacher/search.php', 'mainEmbed')" />
+        <input class="reg" type="button" value="Make a room QR Code" onclick="AJAXGet('/makeRoom/', 'mainEmbed')" />
+        <input class="reg" type="button" value="Search for your room" onclick="AJAXGet('/teacher/search.php', 'mainEmbed')" />
     </div>
 
 

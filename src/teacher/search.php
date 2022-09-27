@@ -54,7 +54,7 @@ if (isset($_POST['rnum'])) {
             <input name="rnum" placeholder="100" type="number" id="rnum" required />
         </label>
         <!-- Legacy classes are still included, I have no clue if it conflicts -->
-        <button name="Submit" value="Submit" onclick='AJAXPOST("/teacher/search.php", "mainEmbed", encodeData(["rnum"]))'>Search</button>
+        <button name="Submit" value="Submit" onclick='AJAXPost("/teacher/search.php", "mainEmbed", encodeData(["rnum"]))'>Search</button>
     </div>
 </body>
 

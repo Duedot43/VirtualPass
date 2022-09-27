@@ -166,7 +166,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             </select>
         </label>
         <!-- deepcode ignore XSS: Its not unsanatized -->
-        <button name="Submit" value="Submit" onclick='AJAXPOST("/accountTools/student/change.php?user=<?php echo $user["sysID"]; ?>", "mainEmbed", encodeData(["firstname", "lastname", "stid", "stem", "out", "level"]))'> Submit </button>
+        <button name="Submit" value="Submit" onclick='AJAXPost("/accountTools/student/change.php?user=<?php echo $user["sysID"]; ?>", "mainEmbed", encodeData(["firstname", "lastname", "stid", "stem", "out", "level"]))'> Submit </button>
 
     </div>
 

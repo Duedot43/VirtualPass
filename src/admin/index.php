@@ -44,11 +44,11 @@ if (!isset($_COOKIE['adminCookie'])
 <body>
 
     <div class="b-card-container">
-        <button onclick="AJAX('/accountTools/teacher', 'mainEmbed')"> Manage Teacher Accounts </button>
-        <button onclick="AJAX('/accountTools/admin', 'mainEmbed')"> Manage Admin Accounts </button>
-        <button onclick="AJAX('/viewer/roomView.php', 'mainEmbed')"> View all rooms </button>
-        <button onclick="AJAX('/viewer/studentView.php', 'mainEmbed')"> View all user info </button>
-        <button onclick="AJAX('/makeRoom/', 'mainEmbed')"> Generate room QR code </button>
+        <button onclick="AJAXGet('/accountTools/teacher', 'mainEmbed')"> Manage Teacher Accounts </button>
+        <button onclick="AJAXGet('/accountTools/admin', 'mainEmbed')"> Manage Admin Accounts </button>
+        <button onclick="AJAXGet('/viewer/roomView.php', 'mainEmbed')"> View all rooms </button>
+        <button onclick="AJAXGet('/viewer/studentView.php', 'mainEmbed')"> View all user info </button>
+        <button onclick="AJAXGet('/makeRoom/', 'mainEmbed')"> Generate room QR code </button>
     </div>
 
 
