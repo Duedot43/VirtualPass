@@ -158,8 +158,7 @@ function teacherCookieExists(
     string $passwd,
     string $db,
     string $cookie
-): bool
-{
+): bool {
     $output = sendSqlCommand(
         "SELECT * FROM teachers",
         $uname,
@@ -328,8 +327,7 @@ function authAdmin(
     string $db,
     string $admUname,
     string $admPasswd
-): array
-{
+): array {
     $out = sendSqlCommand(
         "SELECT * FROM admins WHERE uname='" . $admUname . "';",
         $uname,
@@ -340,12 +338,13 @@ function authAdmin(
 }
 
 /**
- * @param array $out
- * @param string $admPasswd
+ * Check Value
+ * 
+ * @param array  $out       Out
+ * @param string $admPasswd Admin Password
+ * 
  * @return array|false[]
- */
-
-// TODO change the function name to fit the purpose
+ */ // TODO change the function name to fit the purpose
 function checkVal(array $out, string $admPasswd): array
 {
     if ($out[0] == 1) {
@@ -379,8 +378,7 @@ function authTeach(
     string $db,
     string $teachUname,
     string $teachPasswd
-): array
-{
+): array {
     $out = sendSqlCommand(
         "SELECT * FROM teachers WHERE uname='" . $teachUname . "';",
         $uname,

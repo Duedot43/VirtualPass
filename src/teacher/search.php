@@ -17,7 +17,7 @@ require "../include/modules.php";
 $config = parse_ini_file("../../config/config.ini");
 
 
-if (!isset($_COOKIE['teacherCookie']) and !teacherCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['teacherCookie']))) {
+if (!isset($_COOKIE['teacherCookie']) or !teacherCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['teacherCookie']))) {
     header("Location: /teacher");
     exit();
 }
