@@ -54,7 +54,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         $dateArr = $miscData['activity'][$_GET['date']];
         $rooms = array();
         foreach ($dateArr as $occorance) {
-            echo "<button onclick=\"AJAX('/viewer/studentView.php?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "&date=" . htmlspecialchars($_GET['date'],  ENT_QUOTES, 'UTF-8') . "&room=" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "', 'mainEmbed')\" >" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "</button><br/>";
+            echo "<button onclick=\"AJAXGet('/viewer/studentView.php?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "&date=" . htmlspecialchars($_GET['date'],  ENT_QUOTES, 'UTF-8') . "&room=" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "', 'mainEmbed')\" >" . htmlspecialchars($occorance['room'],  ENT_QUOTES, 'UTF-8') . "</button><br/>";
         }
         exit();
     }
@@ -65,12 +65,12 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         }
         $user = getUserData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8')));
         if (isset($_COOKIE['adminCookie'])) {
-            echo "<button onclick=\"AJAX('/accountTools/student/?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "', 'mainEmbed')\" >Manage this user</button>";
+            echo "<button onclick=\"AJAXGet('/accountTools/student/?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "', 'mainEmbed')\" >Manage this user</button>";
         }
         $miscData = json_decode($user['misc'], true);
         $array_keys = array_keys($miscData['activity']);
         foreach ($array_keys as $array_key) {
-            echo "<button onclick=\"AJAX('/viewer/studentView.php?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "&date=" . $array_key . "', 'mainEmbed')\" >" . $array_key . "</button>";
+            echo "<button onclick=\"AJAXGet('/viewer/studentView.php?user=" . htmlspecialchars($_GET['user'],  ENT_QUOTES, 'UTF-8') . "&date=" . $array_key . "', 'mainEmbed')\" >" . $array_key . "</button>";
         }
         exit();
     }
@@ -89,7 +89,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             $departedTimes[] = array($misc['activity'][$date][$misc['cnum'][0]]['timeDep'], $row['depTime']);
         }
         $border = (int) $row['activ'] === 0 ? 'style="max-width: 25px; border:orange; border-width:5px; border-style:solid;"' : 'style="max-width: 25px; border:green; border-width:5px; border-style:solid;"';
-        $students[] = "<tr onclick=\"AJAX('/viewer/studentView.php?user=" . $row['sysID'] . "', 'mainEmbed')\" ><td>" . $row['firstName'] . " </td><td>" . $row['lastName'] . "</td><td> " . $row['ID'] . "</td><td>" . activ2eng($row['activ']) . "</td><td " . $border . " id='" . $row['sysID'] . "'></td></tr>";
+        $students[] = "<tr onclick=\"AJAXGet('/viewer/studentView.php?user=" . $row['sysID'] . "', 'mainEmbed')\" ><td>" . $row['firstName'] . " </td><td>" . $row['lastName'] . "</td><td> " . $row['ID'] . "</td><td>" . activ2eng($row['activ']) . "</td><td " . $border . " id='" . $row['sysID'] . "'></td></tr>";
     }
 } else {
     if (isset($_COOKIE['adminCookie'])) {

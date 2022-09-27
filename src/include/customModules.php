@@ -22,18 +22,17 @@
  */
 function parseCsv(string $file)
 {
-    $csvAsArray = array_map(
+    return array_map(
         'str_getcsv',
         explode("\n", $file)
     );
-    return $csvAsArray;
 }
 /**
  * Can import?
  *
  * @return boolean
  */
-function canImport()
+function canImport(): bool
 {
     return false;
 }
@@ -44,12 +43,12 @@ function canImport()
  * 
  * @return array
  */
-function decompileAdmin(string $csv)
+function decompileAdmin(string $csv): array
 {
     $csv = parseCsv($csv);
     $output = array();
     foreach ($csv as $section) {
-        array_push($output, array("uname"=>$csv[0], "passwd"=>$csv[1], "uuid"));
+        $output[] = array("uname" => $csv[0], "passwd" => $csv[1], "uuid");
     }
     return $output;
 }
@@ -60,7 +59,7 @@ function decompileAdmin(string $csv)
  * 
  * @return array
  */
-function decompileTeacher(string $csv)
+function decompileTeacher(string $csv): array
 {
     return array();
 }
@@ -71,7 +70,7 @@ function decompileTeacher(string $csv)
  * 
  * @return array
  */
-function decompileUser(string $csv)
+function decompileUser(string $csv): array
 {
     return array();
 }
@@ -82,7 +81,7 @@ function decompileUser(string $csv)
  * 
  * @return array
  */
-function decompileRoom(string $csv)
+function decompileRoom(string $csv): array
 {
     return array();
 }

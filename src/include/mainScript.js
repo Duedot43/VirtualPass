@@ -52,6 +52,7 @@ function sessionParser(rewind, button) {
     }
 }
 
+
 function encodeData(ids) {
     let data = "";
     data += ids[0] + "=" + document.getElementById(ids[0]).value;

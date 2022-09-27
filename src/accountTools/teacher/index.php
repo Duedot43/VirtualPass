@@ -40,7 +40,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     if (isset($_GET['account']) and teacherCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']))) {
         $teacher = getTeacherByUuid($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']));
         // deepcode ignore XSS: Is not relevent 
-        echo "<button onclick=\"AJAX('/accountTools/teacher/?account=" . $teacher['uuid'] . "&action=delete', 'mainEmbed')\" >Delete account</button><br>";
+        echo "<button onclick=\"AJAXGet('/accountTools/teacher/?account=" . $teacher['uuid'] . "&action=delete', 'mainEmbed')\" >Delete account</button><br>";
         // deepcode ignore XSS: Is not relevent thats from valid data in the database
         //echo "<button onclick=\"location='/accountTools/admin/?account=" . $admin['uuid'] . "&action=changePasswd'\" >Change password</button><br>";
         exit();
@@ -48,9 +48,9 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 
     // showing all the admins
     $result = sendSqlCommand("SELECT * FROM teachers;", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
-    echo "<button onclick=\"AJAX('/accountTools/teacher/import.php', 'mainEmbed')\" >Import teachers</button><br>";
+    echo "<button onclick=\"AJAXGet('/accountTools/teacher/import.php', 'mainEmbed')\" >Import teachers</button><br>";
     while ($row = mysqli_fetch_assoc($result[1])) {
-        echo "<button onclick=\"AJAX('/accountTools/teacher/?account=" . $row['uuid'] . "', 'mainEmbed')\" >" . $row['uname'] . "</button><br>";
+        echo "<button onclick=\"AJAXGet('/accountTools/teacher/?account=" . $row['uuid'] . "', 'mainEmbed')\" >" . $row['uname'] . "</button><br>";
     }
 } else {
     if (isset($_COOKIE['adminCookie'])) {

@@ -69,9 +69,9 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 
     //print the main stuff
     $room = getRoomData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['room']));
-    echo "<button onclick=\"AJAX('/accountTools/rooms/change.php?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8') . "', 'mainEmbed')\" >Change room number</button>";
-    echo "<button onclick=\"AJAX('/accountTools/rooms/?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8') . "&action=delete', 'mainEmbed)\" >Delete the room</button>";
-    echo "<button onclick=\"AJAX('/accountTools/rooms/import.php', 'mainEmbed')\" >Import room DB</button>";
+    echo "<button onclick=\"AJAXGet('/accountTools/rooms/change.php?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8') . "', 'mainEmbed')\" >Change room number</button>";
+    echo "<button onclick=\"AJAXGet('/accountTools/rooms/?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8') . "&action=delete', 'mainEmbed)\" >Delete the room</button>";
+    echo "<button onclick=\"AJAXGet('/accountTools/rooms/import.php', 'mainEmbed')\" >Import room DB</button>";
 } else {
     if (isset($_COOKIE['adminCookie'])) {
         header("Location: /admin/");

@@ -255,6 +255,8 @@ function sendSqlCommandRaw(string $command, string $uname, string $passwd): arra
 function installUser(array $info, string $uname, string $passwd, string $db): array
 {
     $id = rand() . rand();
+
+    // Where is this $info coming from? this isn't functional code.
     $out = sendSqlCommand(
         "INSERT users VALUES(
             '" . $id . "', 
@@ -270,6 +272,8 @@ function installUser(array $info, string $uname, string $passwd, string $db): ar
         $passwd,
         $db
     );
+    // ----
+
     $out = sendSqlCommand(
         "INSERT apiKeys VALUES(
             '" . rand() . rand() . "',
