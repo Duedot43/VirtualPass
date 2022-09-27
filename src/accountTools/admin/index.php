@@ -16,17 +16,6 @@ require "../../include/modules.php";
 
 
 $config = parse_ini_file("../../../config/config.ini");
-echo '<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <title>Manage admins</title>
-    <meta name="color-scheme" content="dark light">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/public/style.css" type="text/css" />
-    <link rel="icon" href="/public/favicon.ico" />
-</head>';
 //Auth
 if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
     // view admin accounts
@@ -51,7 +40,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     if (isset($_GET['account']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']))) {
         $admin = getAdminByUuid($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['account']));
         // deepcode ignore XSS: Is not relevent 
-        echo "<button onclick=\"AJAX('/accountTools/admin/?account=" . $admin['uuid'] . "&action=delete', 'mainEmbed')\" >Delete account</button><br>";
+        echo "<button onclick=\"AJAXGet('/accountTools/admin/?account=" . $admin['uuid'] . "&action=delete', 'mainEmbed')\" >Delete account</button><br>";
         // deepcode ignore XSS: Is not relevent thats from valid data in the database
         //echo "<button onclick=\"location='/accountTools/admin/?account=" . $admin['uuid'] . "&action=changePasswd'\" >Change password</button><br>";
         exit();
@@ -59,16 +48,45 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 
     // showing all the admins
     $result = sendSqlCommand("SELECT * FROM admins;", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
-    echo "<button onclick=\"AJAX('/accountTools/admin/import.php', 'mainEmbed')\" >Import admins</button><br>";
+    $importAdmin = "<button onclick=\"AJAXGet('/accountTools/admin/import.php', 'mainEmbed')\" >Import admins</button><br>";
     while ($row = mysqli_fetch_assoc($result[1])) {
-        echo "<button onclick=\"AJAX('/accountTools/admin/?account=" . $row['uuid'] . "', 'mainEmbed')\" >" . $row['uname'] . "</button><br>";
+        $admins[] = "<tr onclick=\"AJAXGet('/accountTools/admin/?account=" . $row['uuid'] . "', 'mainEmbed')\" ><td>" . $row['uname'] . "</td><tr>";
     }
 } else {
     if (isset($_COOKIE['adminCookie'])) {
         header("Location: /admin/");
-        exit();
     } else {
         header("Location: /teacher/");
-        exit();
     }
+    exit();
 }
+?>
+
+<div class="list-nav">
+    <label for="search-by">Search By:
+        <br />
+        <select id="search-by" style="margin: 0;">
+            <option value="name"> First Name </option>
+            <option value="id"> ID </option>
+
+            <input style="border-radius: 0 5px 5px 0; width: 170px; padding-left: 5px; margin: 0;" type="text" id="search-list" onkeyup="searchIndex()" placeholder="Search for names..">
+        </select>
+    </label>
+
+    <button onclick="sortTable()">Sort names</button>
+
+    <?php echo $importAdmin; ?>
+</div>
+
+<table id="index" class="student-list">
+    <tr class="header">
+        <th>First Name</th>
+        <th>Last Name</th>
+    </tr>
+    <?php
+    foreach ($admins as $admin) {
+        echo $admin;
+    }
+    ?>
+
+</table>

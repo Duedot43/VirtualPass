@@ -448,7 +448,7 @@ body.dark-mode {
 
 .list-nav button, .list-nav select, .list-nav input {
     display: inline-block;
-    margin: 0;
+    margin: 5px;
     width: 100px;
     height: 25px;
     border-radius: 5px 0 0 5px;

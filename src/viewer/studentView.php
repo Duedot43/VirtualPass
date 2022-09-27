@@ -104,12 +104,12 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 <div class="list-nav">
     <label for="search-by">Search By:
         <br />
-        <select id="search-by">
+        <select id="search-by" style="margin: 0;">
             <option value="name"> First Name </option>
             <option value="id"> ID </option>
             <option value="status"> Status </option>
 
-            <input style="border-radius: 0 5px 5px 0; width: 170px; padding-left: 5px;" type="text" id="search-list" onkeyup="searchIndex()" placeholder="Search for names..">
+            <input style="border-radius: 0 5px 5px 0; width: 170px; padding-left: 5px; margin: 0;" type="text" id="search-list" onkeyup="searchIndex()" placeholder="Search for names..">
         </select>
     </label>
 

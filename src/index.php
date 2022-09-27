@@ -37,18 +37,18 @@ sendSqlCommand(
 );",
     $config['sqlUname'],
     $config['sqlPasswd'],
-    $config['sqlDB'],
+    $config['sqlDB']
 );
 sendSqlCommand(
     "CREATE TABLE IF NOT EXISTS rooms (
     ID varchar(255) NOT NULL,
     num varchar(255),
-    PRIMARY KEY (ID) //TODO Do somethin with this
+    PRIMARY KEY (ID) 
 
-);",
+);", //TODO Do something with primary key.
     $config['sqlUname'],
     $config['sqlPasswd'],
-    $config['sqlDB'],
+    $config['sqlDB']
 );
 sendSqlCommand(
     "CREATE TABLE IF NOT EXISTS history (
@@ -60,7 +60,7 @@ sendSqlCommand(
 );",
     $config['sqlUname'],
     $config['sqlPasswd'],
-    $config['sqlDB'],
+    $config['sqlDB']
 );
 sendSqlCommand(
     "CREATE TABLE IF NOT EXISTS admins (
@@ -72,7 +72,7 @@ sendSqlCommand(
 );",
     $config['sqlUname'],
     $config['sqlPasswd'],
-    $config['sqlDB'],
+    $config['sqlDB']
 );
 sendSqlCommand(
     "CREATE TABLE IF NOT EXISTS teachers (
@@ -84,7 +84,7 @@ sendSqlCommand(
 );",
     $config['sqlUname'],
     $config['sqlPasswd'],
-    $config['sqlDB'],
+    $config['sqlDB']
 );
 // perm 0 is regular user they can access their info and either depart or arrive and can view only their real room numbers
 // perm 1 is regular user they can edit their basic info and do all level 0 can
@@ -101,7 +101,7 @@ sendSqlCommand(
 );",
     $config['sqlUname'],
     $config['sqlPasswd'],
-    $config['sqlDB'],
+    $config['sqlDB']
 );
 // redirect to the main page
 if (!isset($_GET['room'])) {
@@ -137,9 +137,9 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
     $misc = json_decode($user['misc'], true);
     $date = date("d") . "." . date("m") . "." . date("y");
     if (!isset($misc['activity'][$date]) or (int) $user['activ'] === 1) {
-        $currentOccorance = array("all" => "e", "room" => $_GET['room'], "timeDep" => '0');
+        $currentOccurrence = array("all" => "e", "room" => $_GET['room'], "timeDep" => '0');
     } else {
-        $currentOccorance = $misc['activity'][$date][$misc['cnum'][0]];
+        $currentOccurrence = $misc['activity'][$date][$misc['cnum'][0]];
     } 
 }
 ?>
@@ -169,19 +169,19 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
             <!-- deepcode ignore XSS: ITS AN SQL DATABASE SHUT IT -->
             <?php echo $user['firstName'] . " " . $user['lastName'] ?><br>
             <!-- deepcode ignore XSS: SHUT -->
-            Room #: <?php echo $currentOccorance['room'] ?><br>
+            Room #: <?php echo $currentOccurrence['room'] ?><br>
             <!-- deepcode ignore XSS: Please stop it -->
-            <text id='departed'>Time Departed: <?php echo gmdate("h:i:s", (int) $currentOccorance['timeDep']) ?></text>
+            <text id='departed'>Time Departed: <?php echo gmdate("h:i:s", (int) $currentOccurrence['timeDep']) ?></text>
             <h1 id="timer" style="color: #cbffcb;"></h1>
             <br>
             <script>
                 // deepcode ignore XSS: STOP ITTTTTTT
                 let timeAllowed = <?php echo (string) ($user['depTime'] * 1000) ?>;
-                if (<?php echo (isset($currentOccorance['all'])) ? "false": "true"  ?>) {
+                if (<?php echo (isset($currentOccurrence['all'])) ? "false": "true"  ?>) {
                     const x = setInterval(function() {
-                        if (<?php echo (isset($currentOccorance['arr']) ? "false" : "true"); ?>) {
+                        if (<?php echo (isset($currentOccurrence['arr']) ? "false" : "true"); ?>) {
                             // deepcode ignore XSS: Stupid dummy
-                            let timeOut = Date.now() - (<?php echo $currentOccorance['timeDep']; ?> * 1000);
+                            let timeOut = Date.now() - (<?php echo $currentOccurrence['timeDep']; ?> * 1000);
                             var timeRem = timeAllowed - timeOut;
 
                             var add_zero = ((timeRem / 1000 % 60) < 10) ? "0" : "";

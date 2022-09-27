@@ -48,16 +48,45 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 
     // showing all the admins
     $result = sendSqlCommand("SELECT * FROM teachers;", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
-    echo "<button onclick=\"AJAXGet('/accountTools/teacher/import.php', 'mainEmbed')\" >Import teachers</button><br>";
+    $teachers = array();
     while ($row = mysqli_fetch_assoc($result[1])) {
-        echo "<button onclick=\"AJAXGet('/accountTools/teacher/?account=" . $row['uuid'] . "', 'mainEmbed')\" >" . $row['uname'] . "</button><br>";
+        $teachers[] = "<tr onclick=\"AJAXGet('/viewer/studentView.php?user=" . $row['uuid'] . "', 'mainEmbed')\"> <td>" . $row['uname'] . " </td></tr>";
     }
+
 } else {
     if (isset($_COOKIE['adminCookie'])) {
         header("Location: /admin/");
-        exit();
     } else {
         header("Location: /teacher/");
-        exit();
     }
+    exit();
 }
+?>
+<div class="list-nav">
+    <label for="search-by">Search By:
+        <br />
+        <select id="search-by" style="margin: 0;">
+            <option value="name"> First Name </option>
+            <option value="id"> ID </option>
+
+            <input style="border-radius: 0 5px 5px 0; width: 170px; padding-left: 5px; margin: 0;" type="text" id="search-list" onkeyup="searchIndex()" placeholder="Search for names..">
+        </select>
+    </label>
+
+    <button onclick="sortTable()">Sort names</button>
+</div>
+
+<table id="index" class="student-list">
+    <tr class="header">
+        <th>First Name</th>
+        <th>Last Name</th>
+        <!-- Do teachers not have IDs? -->
+        <th>ID</th>
+    </tr>
+    <?php
+    foreach ($teachers as $teacher) {
+        echo $teacher;
+    }
+    ?>
+
+</table>
