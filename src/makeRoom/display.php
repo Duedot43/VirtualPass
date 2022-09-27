@@ -13,7 +13,8 @@
  * @link     https://github.com/Duedot43/VirtualPass
  */
 require "../include/modules.php";
-$domain = getDomain();$config = parse_ini_file("../../config/config.ini");
+$domain = getDomain();
+$config = parse_ini_file("../../config/config.ini");
 $config = parse_ini_file("../../config/config.ini");
 echo '<!DOCTYPE html>
 <html lang="en">
@@ -52,14 +53,12 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 
 <!-- (B) GENERATE QR CODE HERE -->
 <div id="qrcode"></div>
-<a href="" id="dbth" download="<?php echo "room_" . $page_val?>" >Download QR code</a>
+<a href="" id="dbth" download="<?php echo "room_" . $page_val ?>">Download QR code</a>
 <!-- (C) CREATE QR CODE ON PAGE LOAD -->
 <script>
-window.addEventListener("load", () => {
-  var qrc = new QRCode(document.getElementById("qrcode"), "<?php echo $url; ?>");
-  const div = document.createElement('div');
-  new QRCode(div, "<?php echo $url;?>");
-  var thing = div.children[0].toDataURL("image/png");
-  document.querySelector('#dbth').href = thing;
-});
+    var qrc = new QRCode(document.getElementById("qrcode"), "<?php echo $url; ?>");
+    const div = document.createElement('div');
+    new QRCode(div, "<?php echo $url; ?>");
+    var thing = div.children[0].toDataURL("image/png");
+    document.querySelector('#dbth').href = thing;
 </script>

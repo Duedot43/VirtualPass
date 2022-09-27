@@ -11,7 +11,7 @@ function AJAXGet(target, element, rewind = true, button = null, highlight = null
                     }
                     document.getElementsByName(highlight)[0].classList.add("highlighted");
                 }
-                sessionParser(rewind, button);
+                sessionParser(button);
             }
             setInnerHTML(document.getElementById(element), this.response);
         }
@@ -25,7 +25,7 @@ function AJAXPost(target, element, data, rewind = true, button = null) {
     xHTTP.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             if (rewind) {
-                sessionParser(rewind, button);
+                sessionParser(button);
             }
             setInnerHTML(document.getElementById(element), this.response);
         }
@@ -35,9 +35,10 @@ function AJAXPost(target, element, data, rewind = true, button = null) {
     xHTTP.send(data);
 }
 
-function sessionParser(rewind, button) {
+function sessionParser(button) {
     const url = this.responseURL;
     const parser = document.createElement("a");
+    var rewind = [];
     parser.href = url;
     if (sessionStorage.getItem('rewind') === null && sessionStorage.getItem('current') === null) {
         rewind.push([parser.pathname, button]);
