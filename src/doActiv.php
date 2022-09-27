@@ -103,5 +103,5 @@ if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd
     snapshot($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], $config['snapshotTime']);
     header("Location: /?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
 } else {
-    header("Location: /login.php");
+    header("Location: /login.php?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
 }

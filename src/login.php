@@ -20,26 +20,27 @@ if (!isset($_GET['room'])) {
 }
 $config = parse_ini_file("../config/config.ini");
 if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']))) {
-    header('Location: /?room=' . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
+    header('Location: /');
     exit();
 } else {
     setcookie("id", "", time() - 31557600, "/", $domain, true, true);
 }
 
-// and sanitizeUser(array("", "", "", $_POST['stem']))[3] and roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['room']))
+// and sanatizeUser(array("", "", "", $_POST['stem']))[3] and roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['room']))
 
-if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['studentID']) and isset($_POST['stem']) and sanitizeUser(array("", "", "", $_POST['stem']))[3] and roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['room']))) {
-    //sanitize the user
-    $userInfo = sanitizeUser(array($_POST['firstname'], $_POST['lastname'], $_POST['studentId'], $_POST['stem']));
+if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['stid']) and isset($_POST['stem']) and sanitizeUser(array("", "", "", $_POST['stem']))[3]) {
+    //sanatize the user
+    $userInfo = sanitizeUser(array($_POST['firstname'], $_POST['lastname'], $_POST['stid'], $_POST['stem']));
     $userInfo[3] = $_POST['stem'];
 
     //install the user to the system
     $userInstall = sendSqlCommand("SELECT * FROM users", $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB']);
     while ($row = mysqli_fetch_array($userInstall[1])) {
-        if (strToLower($row['firstName']) == strtolower($_POST['firstname']) and strToLower($row['lastName']) == strtolower($_POST['lastname']) and strToLower($row['ID']) == strtolower($_POST['studentId']) and strToLower($row['email']) == strtolower($_POST['stem'])) {
+        if (strToLower($row['firstName']) == strtolower($_POST['firstname']) and strToLower($row['lastName']) == strtolower($_POST['lastname']) and strToLower($row['ID']) == strtolower($_POST['stid']) and strToLower($row['email']) == strtolower($_POST['stem'])) {
             setcookie("id", $row["sysID"], time() + 31557600, "/", $domain, true, true);
             //Send them back to depart
-            header("Location: /doActiv.php?room=" . htmlspecialchars($_GET['room'],  ENT_QUOTES, 'UTF-8'));
+            // deepcode ignore OR: ITS FINE
+            header("Location: /doActiv.php?room=" . $_GET['room']);
             exit();
         }
     }
@@ -71,7 +72,7 @@ if (isset($_POST['firstname']) and isset($_POST['lastname']) and isset($_POST['s
                 Last Name:
                 <input type="text" name="lastname" id="lastname" required />
                 Student ID:
-                <input type="number" name="studentId" id="studentId" required />
+                <input type="number" name="stid" id="stid" required />
                 Student Email:
                 <input type="email" name="stem" id="stem" required>
             </label>

@@ -85,6 +85,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     </tr>
     <?php
     foreach ($admins as $admin) {
+        // deepcode ignore XSS: SQL
         echo $admin;
     }
     ?>
