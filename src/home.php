@@ -15,8 +15,6 @@
 require "include/modules.php";
 $config = parse_ini_file("../config/config.ini");
 
-
-
 // See if the admin user exists and as so set their account info
 if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']))) {
     $account = getAdminByUuid($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie']));
@@ -45,7 +43,6 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     <link rel="icon" href="/public/favicon.ico" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 </head>
 
 <body>
@@ -63,7 +60,6 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         </div>
     </div>
 
-
     <div class="nav-parent">
         <div class="top-nav" style="top: 0;">
 
@@ -71,8 +67,8 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                 <a href="/" class="">
                     <img src="/public/favicon.ico" alt="" width="30px" />
                     VirtualPass
-
                 </a>
+
                 <a style="font-size: 14px;">ATS</a>
             </div>
 
@@ -110,7 +106,6 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                 <div class="sidenav-head">
                     <h2>Dashboard</h2>
                 </div>
-
 
                 <br />
                 <hr style="opacity: 25%; margin: 5px 10px 15px 5px;" />
@@ -167,7 +162,6 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
 
                 </div>
 
-
                 <br />
                 <hr style="opacity: 25%; margin: 5px 10px 15px 5px;" />
                 <a>Other</a>
@@ -222,15 +216,9 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                             Rooms
                         </button>
                     </div>
-
-                    <script>
-
-                    </script>
                 </div>
-
-
-
             </div>
+
             <div class="bottom-nav">
 
                 <button>
@@ -252,17 +240,11 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                     </span>
                 </button>
 
-
-                <div class="issue-tab dropdown-container" style="display:none;">
-                    <div>
-                        <p>Issues?</p>
-                        <p>Please visit the</p>
-                        <a href="https://github.com/Duedot43/VirtualPass/issues">Issue Tracker.</a>
-                    </div>
-
-                    <div>
-                        <p>Feedback.</p>
-                    </div>
+                <div style="background: var(--bg);" class="issue-tab dropdown-container">
+                    <p>Issues?</p>
+                    <a>Please report on the</a>
+                    <a href="https://github.com/Duedot43/VirtualPass/issues">Issue Tracker.</a>
+                    <br/>
                 </div>
 
                 <p id="version-id" style="font-size:10px; margin: 0;"></p>

@@ -125,11 +125,9 @@ if (!isset($_COOKIE['id'])) {
     exit();
 }
 
-
-
 if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']))) {
     // TODO If a kid goes to the CRC we need to log that for mass emails
-    // TODO Op parents out of emails With admin APPROVIAL
+    // TODO Op parents out of emails With admin APPROVAL
     // TODO Add a parent portal
     $user = getUserData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']));
     $dpt = activ2eng((int) $user['activ']);

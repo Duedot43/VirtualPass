@@ -12,24 +12,40 @@
  * @license  https://mit-license.org/ MIT
  * @link     https://github.com/Duedot43/VirtualPass
  */
+
 require "../include/modules.php";
-
-
 $config = parse_ini_file("../../config/config.ini");
 
 //Auth
+/**
+ * @param $config
+ * @return array|void
+ */
+
+function UsrExpress()
+{
+    preg_replace("/[^0-9.]+/i", "", $_GET['user']);
+}
+
+function checkUsr($config)
+{
+    if (!userExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], UsrExpress())) {
+        echo "That user does not exist.";
+        exit();
+    }
+    $user = getUserData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], UsrExpress());
+    $miscData = json_decode($user['misc'], true);
+    if (!isset($miscData['activity'][$_GET['date']])) {
+        echo "That date does not exist";
+        exit();
+    }
+    return array($user, $miscData);
+}
+
 if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['adminCookie'])) or isset($_COOKIE['teacherCookie']) and teacherCookieExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['teacherCookie']))) {
+
     if (isset($_GET['user']) and isset($_GET['date']) and isset($_GET['room'])) {
-        if (!userExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['user']))) {
-            echo "That user does not exist.";
-            exit();
-        }
-        $user = getUserData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['user']));
-        $miscData = json_decode($user['misc'], true);
-        if (!isset($miscData['activity'][$_GET['date']])) {
-            echo "That date does not exist";
-            exit();
-        }
+        list($user, $miscData) = checkUsr($config);
         if (!in_array($_GET['room'], $miscData['rooms'])) {
             echo "That room does not exist";
             exit();
@@ -41,16 +57,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         exit();
     }
     if (isset($_GET['user']) and isset($_GET['date'])) {
-        if (!userExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['user']))) {
-            echo "That user does not exist.";
-            exit();
-        }
-        $user = getUserData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['user']));
-        $miscData = json_decode($user['misc'], true);
-        if (!isset($miscData['activity'][$_GET['date']])) {
-            echo "That date does not exist";
-            exit();
-        }
+        list($user, $miscData) = checkUsr($config);
         $dateArr = $miscData['activity'][$_GET['date']];
         $rooms = array();
         foreach ($dateArr as $occorance) {
@@ -59,7 +66,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
         exit();
     }
     if (isset($_GET['user'])) {
-        if (!userExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['user']))) {
+        if (!userExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], UsrExpress())) {
             echo "That user does not exist.";
             exit();
         }
@@ -89,7 +96,8 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
             $departedTimes[] = array($misc['activity'][$date][$misc['cnum'][0]]['timeDep'], $row['depTime']);
         }
         $border = (int) $row['activ'] === 0 ? 'style="max-width: 25px; border:orange; border-width:5px; border-style:solid;"' : 'style="max-width: 25px; border:green; border-width:5px; border-style:solid;"';
-        $students[] = "<tr onclick=\"AJAXGet('/viewer/studentView.php?user=" . $row['sysID'] . "', 'mainEmbed')\" ><td>" . $row['firstName'] . " </td><td>" . $row['lastName'] . "</td><td> " . $row['ID'] . "</td><td>" . activ2eng($row['activ']) . "</td><td " . $border . " id='" . $row['sysID'] . "'></td></tr>";
+        $students[] =
+            "<tr onclick=\"AJAXGet('/viewer/studentView.php?user=" . $row['sysID'] . "', 'mainEmbed')\" ><td>" . $row['firstName'] . " </td><td>" . $row['lastName'] . "</td><td> " . $row['ID'] . "</td><td>" . activ2eng($row['activ']) . "</td><td " . $border . " id='" . $row['sysID'] . "'></td></tr>";
     }
 } else {
     if (isset($_COOKIE['adminCookie'])) {
@@ -114,6 +122,10 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
     </label>
 
     <button onclick="sortTable()">Sort names</button>
+</div>
+
+<div style="float: right;" class="list-nav button-container">
+    <button value='/accountTools/student/make.php' name="Add User"> Add Student </button>
 </div>
 
 <table id="index" class="student-list">

@@ -229,14 +229,16 @@ body.dark-mode {
     }
 
     .issue-tab {
+        position: fixed;
+        list-style: none;
         display: inline-block;
-        position: absolute;
-        bottom: 50px;
+        bottom: 70px;
         width: 270px;
         padding: 3px;
-        z-index: 8;
+        z-index: 9;
         background: var(--bg);
         box-shadow: 0 0 2px 0 var(--line);
+        color: var(--text);
     }
 
     .issue-tab label {
@@ -258,7 +260,6 @@ body.dark-mode {
     .issue-tab button:hover {
         background-color: #dadada;
     }
-
 
     .material-symbols-outlined:hover {
         cursor: pointer;
@@ -330,12 +331,10 @@ body.dark-mode {
         cursor: pointer;
     }
 
-
     #mainEmbed {
         width: 100%;
         height: 100%;
     }
-
 
     .clear { clear: both; }
 }
@@ -398,10 +397,12 @@ body.dark-mode {
 
 .student-list tr:nth-child(even) {
     background-color: var(--tcolumm);
+    cursor: pointer;
 }
 
 .student-list tr.header, .student-list tr:hover {
     opacity: 70%;
+    cursor: pointer;
 }
 
 .b-card-container {
@@ -457,6 +458,12 @@ body.dark-mode {
     background: none;
     box-shadow: 0 0 2px 0 var(--line);
 }
+
+.list-nav button:hover, list-nav select:hover {
+    background-color: var(--highlight);
+    cursor: pointer;
+}
+
 #search-by option {
     background-color: var(--tcolumm);
     color: var(--text);

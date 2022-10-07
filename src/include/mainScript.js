@@ -238,15 +238,11 @@ for (let i = 0; i < switchEmbed.length; i++) {
 }
 
 //closes the dropdown menu when the user clicks outside it
-window.onclick = function (event) {
-    if (!event.target.matches('.dropdown-button')) {
-        const dropdowns = document.getElementsByClassName("dropdown-content");
-        let i;
-        for (i = 0; i < dropdowns.length; i++) {
-            const openDropdown = dropdowns[i];
-            if (openDropdown.style.display === "block") {
-                openDropdown.style.display = "none";
-            }
+window.onload = function(){
+    const focus = document.getElementsByClassName('dropdown-content');
+    document.onclick = function(e){
+        if(e.target.id !== 'dropdown-content'){
+            focus.style.display = 'none';
         }
-    }
-}
+    };
+};
