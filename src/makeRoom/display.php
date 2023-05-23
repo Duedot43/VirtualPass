@@ -13,9 +13,9 @@
  * @link     https://github.com/Duedot43/VirtualPass
  */
 require "../include/modules.php";
-$domain = getDomain();
 $config = parse_ini_file("../../config/config.ini");
-$config = parse_ini_file("../../config/config.ini");
+$domain = getDomain($config);
+
 echo '<!DOCTYPE html>
 <html lang="en">
 

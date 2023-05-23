@@ -13,12 +13,12 @@
  * @link     https://github.com/Duedot43/VirtualPass
  */
 require "include/modules.php";
-$domain = getDomain();
 if (!isset($_GET['room'])) {
     header('Location: /');
     exit();
 }
 $config = parse_ini_file("../config/config.ini");
+$domain = getDomain($config);
 if (isset($_COOKIE['id']) and userExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^a-zA-Z0-9]/", "", $_COOKIE['id'])) and roomExists($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_GET['room']))) {
 
     $userData = getUserData($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^0-9.]+/i", "", $_COOKIE['id']));

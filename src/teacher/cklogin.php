@@ -13,7 +13,7 @@
  */
 require "../include/modules.php";
 $config = parse_ini_file("../../config/config.ini");
-$domain = getDomain();
+$domain = getDomain($config);
 $teacher = authTeach($config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'], preg_replace("/[^a-z.]+/i", "", $_POST['uname']), trim(trim($_POST['passwd'], '"'), "'"));
 if (isset($_POST['uname']) and isset($_POST['passwd']) and $teacher[0]) {
     setcookie("teacherCookie", $teacher[1], time()+3600, "/", $domain, true, true);

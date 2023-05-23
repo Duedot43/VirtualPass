@@ -14,7 +14,7 @@
  */
 require "../../../include/modules.php";
 $config = parse_ini_file("../../../../config/config.ini");
-$domain = getDomain();
+$domain = getDomain($config);
 
 if (!isset($_GET['key'])) {
     echo json_encode(

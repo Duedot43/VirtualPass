@@ -15,10 +15,10 @@
 
 declare(strict_types=1);
 require "include/modules.php";
-$domain = getDomain();
 
 
 $config = parse_ini_file("../config/config.ini");
+$domain = getDomain($config);
 
 //create everything if it does not exist
 sendSqlCommandRaw("CREATE DATABASE IF NOT EXISTS VirtualPass;", $config['sqlUname'], $config['sqlPasswd']);

@@ -15,7 +15,7 @@
 //TODO rotate admin keys every day
 require "../include/modules.php";
 $config = parse_ini_file("../../config/config.ini");
-$domain = getDomain();
+$domain = getDomain($config);
 $admin = authAdmin(
     $config['sqlUname'], $config['sqlPasswd'], $config['sqlDB'],
     preg_replace("/[^a-z.]+/i", "", $_POST['uname']),
