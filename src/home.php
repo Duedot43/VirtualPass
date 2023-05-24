@@ -175,7 +175,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                         Add Room
                     </button>
 
-                    <button value='/accountTools/student/make.php' name="Add User">
+                    <button value='/accountTools/student/make.php' name="Add Student">
                         <span class="material-symbols-outlined">
                             person_add
                         </span>
@@ -212,7 +212,7 @@ if (isset($_COOKIE['adminCookie']) and adminCookieExists($config['sqlUname'], $c
                         <button value='/viewer/studentView.php' name="Manage Members: Students">
                             Students
                         </button>
-                        <button value='/viewer/roomView.php' name="Manage Members: Students">
+                        <button value='/viewer/roomView.php' name="Manage Rooms">
                             Rooms
                         </button>
                     </div>

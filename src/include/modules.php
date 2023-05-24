@@ -22,7 +22,7 @@
  */
 function getDomain(array $config): string
 {
-    return ($config["domain"] == "") ? $config["domain"] : explode(":", $_SERVER['HTTP_HOST'])[0];
+    return ($config["domain"] != "") ? $config["domain"] : explode(":", $_SERVER['HTTP_HOST'])[0];
 }
 /**
  * Sanitize user info

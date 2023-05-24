@@ -36,6 +36,12 @@
     FINISH THE API
     manage users must have delete user and manage api key for user
     user managment pannel
+    Oh my lord this is a mess
 
 
 and more to come...
+
+# Bugs
+    
+    Admins dont have access to teacher resource
+    UI bug with * Panel AJAX scaling
