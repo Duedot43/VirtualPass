@@ -43,7 +43,7 @@ if (!isset($_COOKIE['adminCookie'])
 
 <body>
 
-    <div class="b-card-container">
+    <div class="l-card-container">
         <button onclick="AJAXGet('/accountTools/teacher', 'mainEmbed')"> Manage Teacher Accounts </button>
         <button onclick="AJAXGet('/accountTools/admin', 'mainEmbed')"> Manage Admin Accounts </button>
         <button onclick="AJAXGet('/viewer/roomView.php', 'mainEmbed')"> View all rooms </button>
